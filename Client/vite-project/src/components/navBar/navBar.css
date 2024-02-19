@@ -1,0 +1,15 @@
+.navContainer {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left {
+  display: flex;
+}
+
+.right {
+  display: flex;
+  gap: 20px;
+}
