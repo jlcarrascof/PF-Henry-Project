@@ -15,7 +15,7 @@ const getHotelById = async (id) => {
 
 
 const getHotelByName = async (name) => {
-  const db = getDB();
+  const db = getDb();
   try {
     const hotels = await db.collection("hotels").find({ name: name }).toArray();
 
@@ -26,7 +26,7 @@ const getHotelByName = async (name) => {
 };
 
 const getAllHotels = async () => {
-  const db = getDB();
+  const db = getDb();
   try {
     const hotels = await db.collection("hotels").find().toArray();
 
@@ -37,10 +37,10 @@ const getAllHotels = async () => {
 };
 
 const createHotel = async (hotelData) => {
-  const db = getDB();
+  const db = getDb();
 
   try {
-    const result = await db.collection("hotels").insertOne(hotelData);
+    const result = await db.collection("hotels").insertMany(hotelData);  /// TENEMOS QUE CAMBIAR A INSTERT ONE
 
     return result.ops[0];
   } catch (error) {
@@ -49,7 +49,7 @@ const createHotel = async (hotelData) => {
 };
 
 const updateHotel = async (id, updateData) => {
-  const db = getDB();
+  const db = getDb();
 
   try {
     const result = await db
@@ -63,7 +63,7 @@ const updateHotel = async (id, updateData) => {
 };
 
 const deleteHotelById = async (id) => {
-  const db = getDB();
+  const db = getDb();
 
   try {
     const result = await db
