@@ -23,10 +23,6 @@ const reservationSchema = new Schema({
   module.exports = Reservation
 
 
-
-
-  // demo:
-
   // Ejemplo de creación de una reservación con enlace a propiedad y usuario
 const nuevaReservacion = new Reservacion({
     user: {

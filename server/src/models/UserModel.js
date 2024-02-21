@@ -33,6 +33,14 @@ const nuevoUsuario = new User({
       lastName: 'Doe',
       birthdate: new Date('1990-01-01T00:00:00Z'),
     },
+    reservation:{
+      reservationDate: { type: Date, default: Date.now },
+      startDate: { type: Date, required: true },
+      endDate: { type: Date, required: true },
+      state: { type: String, enum: ['pending', 'confirmed', 'cancelled'], default: 'pending' }, // Enumera los estados permitidos
+      property: {type: Schema.Types.ObjectId, ref: 'Property', required: true}
+    }
+
   });
 
 // Demo guardado en base de datos
@@ -47,3 +55,18 @@ nuevoUsuario.save((error, resultado) => {
 
 
 module.exports = User
+
+
+/* 
+  const ownerSchema = new Schema({
+    name: String,
+    dni: String,
+    mail: {type: String, unique: true},
+    phone: Number,
+    properties: [{ type: Schema.Types.ObjectId, ref: 'Property' }],
+  });
+  
+  const Owner = model('Owner', ownerSchema);
+
+  module.exports = Owner  
+*/
