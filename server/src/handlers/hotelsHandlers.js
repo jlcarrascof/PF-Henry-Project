@@ -1,6 +1,7 @@
 const { getHotelById, getHotelByName, getAllHotels, createHotel, updateHotel, deleteHotelById } = require("../controllers/hotelsController");
 
 const getHotelID = async (req, res) => {
+    if(ObjectId.isValid(req.params.id))
     try {
         const { id } = req.params;
 
