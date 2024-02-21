@@ -3,19 +3,19 @@ const { getUserID, deleteUserByID, getUser, postUser, patchUser } = require('../
 
 const usersRouter = Router();
 
-// Ruta para traer user por ObjectID
-usersRouter.get('/:id', getUserID); // --> '/users/?id'
-
-// Ruta para eliminar user por ObjectID (Para el admin dsp)
-usersRouter.delete('/:id', deleteUserByID); // --> '/users/?id'
-
-// Ruta para traer todos los users
+// Ruta para traer todos los users -->> GET ALL
 usersRouter.get('/', getUser); // --> '/users'
 
-// Ruta para crear user
+// Ruta para traer user por ObjectID ---> GET BY ID
+usersRouter.get('/:id', getUserID); // --> '/users/?id'
+
+// Ruta para crear user             -----> POST USER
 usersRouter.post('/', postUser); // --> '/users'
 
-// Ruta para actualizar user
+// Ruta para actualizar user           ---> UPDATE USER
 usersRouter.patch('/:id', patchUser);  // --> '/users/?id'
+
+// Ruta para eliminar user por ObjectID (Para el admin dsp) --> DELETE USER 
+usersRouter.delete('/:id', deleteUserByID); // --> '/users/?id'
 
 module.exports = usersRouter;
