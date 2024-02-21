@@ -2,6 +2,13 @@ const { ObjectId } = require('bson');
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
+const reviewSchema = new Schema({
+  description: String,
+  score: Number,
+  client: { type: Schema.Types.ObjectId, ref: 'User' },
+  date: Date
+});
+
 const hotelSchema = new Schema({
     name: {type: String, required: true},
     owner: { type: Schema.Types.ObjectId, ref: 'User', required: true},
@@ -19,12 +26,7 @@ const hotelSchema = new Schema({
         phone: Number,
         mail: String
     },
-    reviews: [{
-    description: String,
-    score: {type: Number, required: true},
-    client: { type: Schema.Types.ObjectId, ref: 'User' },
-    date: {type: Date, required: true}
-    }]
+    reviews: [reviewSchema],
   });
   
   const Hotel = model('Hotel', hotelSchema);
