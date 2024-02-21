@@ -5,8 +5,8 @@ const hotelsRouter = require('./hotelsRouter');
 
 const mainRouter = Router();
 
-mainRouter.use('/users', usersRouter);
-mainRouter.use('/hotels', hotelsRouter);
+mainRouter.use('/users', usersRouter);  // Naza rules
+mainRouter.use('/hotels', hotelsRouter); // que maravilla
 
 module.exports = mainRouter;
 
