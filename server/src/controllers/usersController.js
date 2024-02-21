@@ -1,13 +1,12 @@
 const { ObjectId } = require('mongodb');
-const { getDB } = require('../db');
+const { getDb } = require('../db');
 
 const getUserById = async (id) => {
-    const db = getDB();
+    const db = getDb();
     try {
         const user = await db.collection('users')
-        .findOne(
-          { _id: new ObjectId(id) }
-        );
+// con el uso de new se rompe el ObjectId aqui, se realizaran pruebas sin el new
+        .findOne({ _id: ObjectId(id) });  
         return user;
 
     } catch (error) {
@@ -16,14 +15,10 @@ const getUserById = async (id) => {
 };
 
 const getUserByName = async (name) => {
-    const db = getDB();
-
+    const db = getDb();
     try {
         const users = await db.collection('users')
-        .find(
-          { name: name }
-          ).toArray();
-
+        .find({ name: name }).toArray();
         return users;
 
     } catch (error) {
@@ -32,8 +27,7 @@ const getUserByName = async (name) => {
 };
 
 const getAllUsers = async () => {
-    const db = getDB();
-
+    const db = getDb();
     try {
         const users = await db.collection('users')
         .find()
@@ -48,12 +42,10 @@ const getAllUsers = async () => {
 
 
 const createUser = async (userData) => {
-    const db = getDB();
-
+    const db = getDb();
     try {
         const result = await db.collection('users')
         .insertOne(userData);
-
         return result.ops[0];
 
     } catch (error) {
@@ -63,14 +55,10 @@ const createUser = async (userData) => {
 
 
 const updateUser = async (id, updateData) => {
-    const db = getDB();
-
+    const db = getDb();
     try {
         const result = await db.collection('users')
-        .updateOne(
-          { _id: new ObjectId(id) }, { $set: updateData }
-        );
-        
+        .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
         return result.modifiedCount > 0 ? true : false;
 
     } catch (error) {
@@ -80,15 +68,11 @@ const updateUser = async (id, updateData) => {
 
 
 const deleteUserById = async (id) => {
-    const db = getDB();
-
+    const db = getDb();
     try {
 
         const result = await db.collection('users')
-        .deleteOne(
-          { _id: new ObjectId(id) }
-        );
-        
+        .deleteOne({ _id: new ObjectId(id) });
         return result.deletedCount > 0 ? 'User removed' : 'User not found';
     
       } catch (error) {
