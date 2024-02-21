@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Login: React.FC = () => {
   const [data, setData] = useState({
@@ -7,23 +7,24 @@ const Login: React.FC = () => {
     password: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = e.target;
     setData({
       ...data,
       [name]: value,
     });
   };
+
   return (
     <>
-      <h1>Holi soy el Login</h1>
       <form>
         <label>Email:</label>
         <input
           type="email"
           name="email"
           value={data.email}
-          onChange={handleChange}
+          onChange={onChange}
+          placeholder="myexample@gmail.com"
         ></input>
 
         <label>Password:</label>
@@ -31,10 +32,11 @@ const Login: React.FC = () => {
           type="password"
           name="password"
           value={data.password}
-          onChange={handleChange}
+          onChange={onChange}
+          placeholder="enter yout password"
         ></input>
 
-        <button>Log in</button>
+        <button type="submit">Log in</button>
 
         <button>Continue with Google</button>
         <button>Continue with Instagram</button>
