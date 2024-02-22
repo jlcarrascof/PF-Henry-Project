@@ -51,7 +51,7 @@ const createHotel = async (hotelData) => {
 };
 
 
-
+//
 const updateHotel = async (id, updateData) => {
   const db = getDb();
 

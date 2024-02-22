@@ -73,6 +73,7 @@ const patchHotel = async (req, res) => {
           json({ error: 'Invalid ID' });
       }
 
+      //
       const updateData = req.body;
 
       const success = await updateHotel(id, updateData); 
