@@ -1,6 +1,6 @@
 
 
-
+//Lista de hoteles que tienen al menos una habitación con un precio entre $precioMnimo y $PrecioMaximo
 const rangePrice = async (db, minPrice, maxPrice) => { //la base de datos y el rango por el cual filtrar
     return await db.collection("hotels").find({
         'rooms.price': { $gte: minPrice, $lte: maxPrice } //Donde buscar

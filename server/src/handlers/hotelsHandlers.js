@@ -14,7 +14,9 @@ const {
   filterDate,
   filterScore,
   sortNameHotel
-} = require("../filtersHotel");
+} = require("../filters/filtersHotel");
+
+
 
 const getHotelID = async (req, res) => {
   try {
@@ -123,11 +125,48 @@ const patchHotel = async (req, res) => {
   }
 }; */
 
+
+const getHotelsFiltered = async (req, res) => {
+  try {
+    const { minPrice, maxPrice, address, desiredCheckInDate, desiredCheckOutDate, minScore } = req.query;
+    const db = getDb();
+
+    let hotels = [];
+
+    if (minPrice && maxPrice) {
+      const priceFiltered = await rangePrice(db, parseInt(minPrice), parseInt(maxPrice));
+      hotels = priceFiltered;
+    }
+
+    if (address) {
+      const addressFiltered = await filterAddress(db, address);
+      hotels = hotels.concat(addressFiltered);
+    }
+
+    if (desiredCheckInDate && desiredCheckOutDate) {
+      const dateFiltered = await filterDate(db, new Date(desiredCheckInDate), new Date(desiredCheckOutDate));
+      hotels = hotels.concat(dateFiltered);
+    }
+
+    if (minScore) {
+      const scoreFiltered = await filterScore(db, parseInt(minScore));
+      hotels = hotels.concat(scoreFiltered);
+    }
+
+    hotels = hotels.filter((hotel, index) => hotels.indexOf(hotel) === index);
+
+    res.status(200).json(hotels);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getHotelID,
   getHotels,
   postHotel,
   patchHotel,
+  getHotelsFiltered
  // deleteHotelByID,
 };
 
