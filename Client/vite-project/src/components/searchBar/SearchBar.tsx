@@ -45,6 +45,22 @@ const SearchBar: React.FC = () => {
 
   const [options, setOptions] = useState<Options[]>([initialOptions]);
 
+  // const handleOption = (name: 'people' | 'rooms', operation: 'i' | 'd') => {
+  //  setOptions((prev) => {
+  //    if (operation === 'i') {
+  //      return {
+  //        ...prev,
+  //        [name]: (prev as { people: number; rooms: number })[name] + 1
+  //      };
+  //    } else {
+  //      return {
+  //        ...prev,
+  //        [name]: (prev as { people: number; rooms: number })[name] - 1
+  //      };
+  //    }
+  //  });
+  //};
+
   return (
     <div className={styles.headerSearch}>
     <div className={styles.headerSearchItem}>     
@@ -58,6 +74,24 @@ const SearchBar: React.FC = () => {
     <div className={styles.headerSearchItem}>     
       <FontAwesomeIcon icon={faPerson} className={styles.headerIcon}/>
       <span className={styles.headerSearchText}> {`${options.people} people - ${options.rooms}`} </span>
+      <div className={styles.options}>
+        <div className={styles.optionItem}>
+          <span className={styles.optionText}> people </span>
+          <div className={styles.optionCounter}>
+          <button className={styles.optionCounterButton} onClick={()=>handleOption("people","d")}>-</button>
+          <span className={styles.optionCounterNumber}>1</span>
+          <button className={styles.optionCounterButton} onClick={()=>handleOption("people","i")}>+</button>
+          </div>
+        </div>
+        <div className={styles.optionItem}>
+        <span className={styles.optionText}> rooms </span>
+          <div className={styles.optionCounter}>
+          <button className={styles.optionCounterButton} onClick={()=>handleOption("rooms","d")}>-</button>
+          <span className={styles.optionCounterNumber}>1</span>
+          <button className={styles.optionCounterButton} onClick={()=>handleOption("rooms","i")}>+</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div className={styles.headerSearchItem}>     
       <button className={styles.headerBtn}> Search </button>
