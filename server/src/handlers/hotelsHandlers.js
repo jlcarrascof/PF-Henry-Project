@@ -52,7 +52,7 @@ const getHotels = async (req, res) => {
 const postHotel = async (req, res) => {
   try {
     const hotelData = req.body;
-   
+
     const newHotel = await createHotel(hotelData);
 
     res.status(201).json(newHotel);
@@ -65,9 +65,7 @@ const postHotel = async (req, res) => {
 const patchHotel = async (req, res) => {
   try {
     if (!ObjectId.isValid(req.params.id)) {
-      return res
-        .status(400)
-        .json({ error: "ID not valid" });
+      return res.status(400).json({ error: "ID not valid" });
     }
 
     const { id } = req.params;
@@ -79,9 +77,9 @@ const patchHotel = async (req, res) => {
     //console.error("Error updating hotel:", error);
     return res.status(500).json({ error: error.message });
   }
-}; 
+};
 
-/* const deleteHotelByID = async (req, res) => {
+const deleteHotelByID = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -102,12 +100,12 @@ const patchHotel = async (req, res) => {
     //console.error("Error deleting hotel:", error);
     return res.status(500).json({ error: error.message });
   }
-}; */
+};
 
 module.exports = {
   getHotelID,
   getHotels,
   postHotel,
   patchHotel,
- // deleteHotelByID,
+  deleteHotelByID,
 };
