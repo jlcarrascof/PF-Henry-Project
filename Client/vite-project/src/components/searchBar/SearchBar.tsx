@@ -30,6 +30,8 @@ const SearchBar: React.FC = () => {
 
   const [state, setState] = useState<State>(initialState);
 
+  const [openState, setOpenState] = useState<boolean>(false);
+
   // useState for people and rooms
   interface Options {
     people: number;
@@ -84,14 +86,14 @@ const SearchBar: React.FC = () => {
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faCalendar} className={styles.headerIcon} />
-        <span className={styles.headerSearchText}> {`${format(state.startDate, "MM/dd/yyyy")} to ${state.endDate ? format(state.endDate, "MM/dd/yyyy") : '--/--/----' }`} </span>
-        <DateRange
+        <span className={styles.headerSearchText} onClick={()=> setOpenState(!openState)}> {`${format(state.startDate, "MM/dd/yyyy")} to ${state.endDate ? format(state.endDate, "MM/dd/yyyy") : '--/--/----' }`} </span>
+        {openState && <DateRange
           editableDateInputs={true} 
           onChange={(item) => handleChange(item.selection)}
           moveRangeOnFirstSelection={false}
           ranges={[state]}
           className={styles.date}
-        />
+        />}
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faPerson} className={styles.headerIcon} />
