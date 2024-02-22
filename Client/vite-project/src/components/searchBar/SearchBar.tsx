@@ -5,9 +5,10 @@ import {
   faLocationDot,
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
-import { Range, DateRange, DateRangePicker } from "react-date-range";
+import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import { format } from "date-fns";
 // dependencies
 import { useState } from "react";
 // Styles
@@ -16,18 +17,20 @@ import styles from "../searchBar/SearchBar.module.css";
 const SearchBar: React.FC = () => {
   // calendar framework
   interface State {
-    startDate: Date | undefined;
+    startDate: Date ;
     endDate: Date | undefined;
     key: string;
   }
 
   const initialState: State = {
     startDate: new Date(),
-    endDate: undefined,
+    endDate: new Date(),
     key: "selection",
   };
 
   const [state, setState] = useState<State>(initialState);
+
+  const [openState, setOpenState] = useState<boolean>(false);
 
   // useState for people and rooms
   interface Options {
@@ -42,6 +45,9 @@ const SearchBar: React.FC = () => {
 
   const [options, setOptions] = useState<Options>(initialOptions);
 
+  const [openOptions, setOpenOptions] = useState<boolean>(false);
+  
+  //handler for people and rooms 
   const handleOption = (name: "people" | "rooms", operation: "i" | "d") => {
     setOptions((prev) => {
       if (operation === "i") {
@@ -59,82 +65,48 @@ const SearchBar: React.FC = () => {
   };
 
   //handle change for calendar => change the code of JS
-  const handleChange = (item: { selection: State }) => {
-    setState(item.selection);
+  const handleChange = (selection: any) => {
+      setState(selection);
   };
-
-  //hable options for people and rooms
-  // const handleOption = (name: keyof Options, operation: "i" | "d") => {
-  //   setOptions((prev) => ({
-  //     ...prev,
-  //     [name]: operation === "i" ? prev[name] + 1 : prev[name] - 1,
-  //   }));
-  // };
 
   return (
     <div className={styles.headerSearch}>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faLocationDot} className={styles.headerIcon} />
-        <input
-          type="text"
-          placeholder="Where we going?"
-          className={styles.headerSearchInput}
-        />
+        <input type="text" placeholder="Where we going?" className={styles.headerSearchInput}/>
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faCalendar} className={styles.headerIcon} />
-        <span className={styles.headerSearchText}> date to date </span>
+        <span className={styles.headerSearchText} onClick={()=> setOpenState(!openState)}> {`${format(state.startDate, "MM/dd/yyyy")} to ${state.endDate ? format(state.endDate, "MM/dd/yyyy") : '--/--/----' }`} </span>
+        {openState && <DateRange
+          editableDateInputs={true} 
+          onChange={(item) => handleChange(item.selection)}
+          moveRangeOnFirstSelection={false}
+          ranges={[state]}
+          className={styles.date}
+        />}
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faPerson} className={styles.headerIcon} />
-        <span className={styles.headerSearchText}>
-          {" "}
-          {`${options.people} people - ${options.rooms}`}{" "}
-        </span>
-        <DateRangePicker
-          editableDateInputs={true}
-          onChange={() => handleChange}
-          moveRangeOnFirstSelection={false}
-          ranges={[state]}
-        />
-        <div className={styles.options}>
+        <span onClick={()=>setOpenOptions(!openOptions)} className={styles.headerSearchText}> {`${options.people} people - ${options.rooms} rooms`}</span>
+        {openOptions && <div className={styles.options}>
           <div className={styles.optionItem}>
             <span className={styles.optionText}> people </span>
             <div className={styles.optionCounter}>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("people", "d")}
-              >
-                -
-              </button>
-              <span className={styles.optionCounterNumber}>1</span>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("people", "i")}
-              >
-                +
-              </button>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("people", "d")} disabled={options.people <2}>-</button>
+              <span className={styles.optionCounterNumber}>{options.people}</span>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("people", "i")}>+</button>
             </div>
           </div>
           <div className={styles.optionItem}>
             <span className={styles.optionText}> rooms </span>
             <div className={styles.optionCounter}>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("rooms", "d")}
-              >
-                -
-              </button>
-              <span className={styles.optionCounterNumber}>1</span>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("rooms", "i")}
-              >
-                +
-              </button>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("rooms", "d")} disabled={options.rooms <2}>-</button>
+              <span className={styles.optionCounterNumber}>{options.rooms}</span>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("rooms", "i")}>+</button>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
       <div className={styles.headerSearchItem}>
         <button className={styles.headerBtn}> Search </button>
