@@ -8,6 +8,14 @@ const {
 } = require("../controllers/hotelsController");
 const { ObjectId } = require("mongodb");
 
+const {
+  rangePrice,
+  filterAddress,
+  filterDate,
+  filterScore,
+  sortNameHotel
+} = require("../filtersHotel");
+
 const getHotelID = async (req, res) => {
   try {
     if (ObjectId.isValid(req.params.id)) {
@@ -27,9 +35,10 @@ const getHotelID = async (req, res) => {
   }
 };
 
-//Para Hotel por nombre y para todos los hoteles
+
+//Para Hotel por nombre y para todos los hoteles, también los filtros
 const getHotels = async (req, res) => {
-  try {
+  try {    
     const { name } = req.query;
 
     let hotels;
@@ -42,12 +51,14 @@ const getHotels = async (req, res) => {
       hotels = await getAllHotels();
     }
 
+    
     res.status(200).json(hotels);
   } catch (error) {
     //console.error("Error fetching hotels:", error);
     res.status(400).json({ error: error.message });
   }
 };
+
 
 const postHotel = async (req, res) => {
   try {
@@ -119,3 +130,13 @@ module.exports = {
   patchHotel,
  // deleteHotelByID,
 };
+
+
+
+
+
+
+
+
+
+

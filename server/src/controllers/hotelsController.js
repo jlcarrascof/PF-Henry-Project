@@ -14,6 +14,8 @@ const getHotelById = async (id) => {
 };
 
 
+
+
 const getHotelByName = async (name) => {
   const db = getDb();
   try {
@@ -51,7 +53,7 @@ const createHotel = async (hotelData) => {
 };
 
 
-//
+
 const updateHotel = async (id, updateData) => {
   const db = getDb();
 
