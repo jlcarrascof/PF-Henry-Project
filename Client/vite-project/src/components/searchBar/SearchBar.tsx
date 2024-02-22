@@ -8,6 +8,7 @@ import {
 import { Range, DateRange, DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import { format } from "date-fns";
 // dependencies
 import { useState } from "react";
 // Styles
@@ -16,14 +17,14 @@ import styles from "../searchBar/SearchBar.module.css";
 const SearchBar: React.FC = () => {
   // calendar framework
   interface State {
-    startDate: Date | undefined;
+    startDate: Date ;
     endDate: Date | undefined;
     key: string;
   }
 
   const initialState: State = {
     startDate: new Date(),
-    endDate: undefined,
+    endDate: new Date(),
     key: "selection",
   };
 
@@ -83,7 +84,15 @@ const SearchBar: React.FC = () => {
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faCalendar} className={styles.headerIcon} />
-        <span className={styles.headerSearchText}> date to date </span>
+        <span className={styles.headerSearchText}> {`${state[0] && format(state[0].startDate, "MM/DD/YYYY")} to ${state[0] && format(state[0].endDate, "MM/DD/YYYY")}`} </span>
+        <DateRange
+          editableDateInputs={true} 
+          onChange={(item) => {//@ts-ignore
+            handleChange(item)
+          }}
+          moveRangeOnFirstSelection={false}
+          ranges={[state]}
+        />
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faPerson} className={styles.headerIcon} />
@@ -91,12 +100,6 @@ const SearchBar: React.FC = () => {
           {" "}
           {`${options.people} people - ${options.rooms}`}{" "}
         </span>
-        <DateRangePicker
-          editableDateInputs={true}
-          onChange={() => handleChange}
-          moveRangeOnFirstSelection={false}
-          ranges={[state]}
-        />
         <div className={styles.options}>
           <div className={styles.optionItem}>
             <span className={styles.optionText}> people </span>
