@@ -6,7 +6,7 @@ const getUserById = async (id) => {
     try {
         const user = await db.collection('users')
 // con el uso de new se rompe el ObjectId aqui, se realizaran pruebas sin el new
-        .findOne({ _id: ObjectId(id) });  
+        .findOne({ _id: new ObjectId(id) });  
         return user;
 
     } catch (error) {
@@ -18,7 +18,7 @@ const getUserByName = async (name) => {
     const db = getDb();
     try {
         const users = await db.collection('users')
-        .find({ name: name }).toArray();
+        .findOne({ username: name })
         return users;
 
     } catch (error) {
@@ -46,21 +46,23 @@ const createUser = async (userData) => {
     try {
         const result = await db.collection('users')
         .insertOne(userData);
-        return result.ops[0];
+        return result;
 
     } catch (error) {
         throw error;
     }
 };
 
+//
 
 const updateUser = async (id, updateData) => {
     const db = getDb();
+
     try {
         const result = await db.collection('users')
-        .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
-        return result.modifiedCount > 0 ? true : false;
+            .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
 
+        return result.matchedCount > 0 && result.modifiedCount > 0;
     } catch (error) {
         throw error;
     }
