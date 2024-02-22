@@ -8,7 +8,6 @@ import NavBar from "./components/navBar/NavBar";
 import Favorites from "./components/favorites/Favorites";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
-import AboutUs from "./components/aboutUs/aboutUs";
 
 function App() {
   const location = useLocation();
@@ -20,7 +19,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
-        <Route path="/aboutUs" element={<AboutUs />} />
       </Routes>
     </>
   );
