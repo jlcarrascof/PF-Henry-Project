@@ -52,7 +52,7 @@ const getHotels = async (req, res) => {
 const postHotel = async (req, res) => {
   try {
     const hotelData = req.body;
-   
+
     const newHotel = await createHotel(hotelData);
 
     res.status(201).json(newHotel);
@@ -89,7 +89,7 @@ const patchHotel = async (req, res) => {
   }
 };
 
-/* const deleteHotelByID = async (req, res) => {
+const deleteHotelByID = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -110,12 +110,12 @@ const patchHotel = async (req, res) => {
     //console.error("Error deleting hotel:", error);
     return res.status(500).json({ error: error.message });
   }
-}; */
+};
 
 module.exports = {
   getHotelID,
   getHotels,
   postHotel,
   patchHotel,
- // deleteHotelByID,
+  deleteHotelByID,
 };
