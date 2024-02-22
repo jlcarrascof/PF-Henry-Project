@@ -20,6 +20,10 @@ const NavBar: React.FC = () => {
         <Link to="/login">
           <p>Login</p>
         </Link>
+
+        <Link to="/aboutUs">
+          <p>About Us</p>
+        </Link>
       </div>
     </section>
   );
