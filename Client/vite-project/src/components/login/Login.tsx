@@ -1,17 +1,31 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { validation } from "./LogValidation";
 
 const Login: React.FC = () => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
+  interface Data {
+    email: string;
+    password: string;
+  }
+
+  const [data, setData] = useState<Data>({ email: "", password: "" });
+
+  interface Errors {
+    email?: string;
+    password?: string;
+  }
+
+  const [errors, setErrors] = useState<Errors>({ email: "", password: "" });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = e.target;
     setData({
       ...data,
       [name]: value,
+    });
+    setErrors({
+      ...errors,
+      ...validation({ [name]: value }),
     });
   };
 
@@ -26,6 +40,7 @@ const Login: React.FC = () => {
           onChange={onChange}
           placeholder="myexample@gmail.com"
         ></input>
+        {errors.email && <p>{errors.email}</p>}
 
         <label>Password:</label>
         <input
@@ -35,6 +50,7 @@ const Login: React.FC = () => {
           onChange={onChange}
           placeholder="enter yout password"
         ></input>
+        {errors.password && <p>{errors.password}</p>}
 
         <button type="submit">Log in</button>
 
