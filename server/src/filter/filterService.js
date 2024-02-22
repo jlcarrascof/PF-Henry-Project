@@ -1,10 +1,10 @@
 const { getDb } = require("../db");
 
-const filterHotelsByPrice = async (minPrice, maxPrice) => {
+const filterHotelsByService = async (service) => {
     const db = getDb();
     try {
         const hotels = await db.collection("hotels")
-            .find({ "rooms.price": { $gte: minPrice, $lte: maxPrice } })
+            .find({ services: { $in: [service] } })
             .toArray();
         return hotels;
     } catch (error) {
@@ -13,5 +13,5 @@ const filterHotelsByPrice = async (minPrice, maxPrice) => {
 };
 
 module.exports = {
-    filterHotelsByPrice
+    filterHotelsByService
 };
