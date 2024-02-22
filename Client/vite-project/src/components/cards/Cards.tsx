@@ -16,18 +16,18 @@ const Cards: React.FC<CardsProps> = (props: CardsProps) => {
   //const {name, address, price, images} = props;
   return (
     <>
-      {props.map(({ id, name, address, price, images }) => (
-        <Card
-          id={id}
-          name={name}
-          address={address}
-          price={price}
-          images={images}
-        />
-      ))}
       <h1>Holi soy Cards </h1>
     </>
   );
 };
 
+//{props.map(({ id, name, address, price, images }) => (
+//  <Card
+//    id={id}
+//    name={name}
+//    address={address}
+//    price={price}
+//    images={images}
+//  />
+//))}
 export default Cards;
