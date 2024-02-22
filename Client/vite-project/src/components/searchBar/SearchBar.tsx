@@ -84,12 +84,13 @@ const SearchBar: React.FC = () => {
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faCalendar} className={styles.headerIcon} />
-        <span className={styles.headerSearchText}> {`${state[0] && format(state[0].startDate, "MM/DD/YYYY")} to ${state[0] && format(state[0].endDate, "MM/DD/YYYY")}`} </span>
+        <span className={styles.headerSearchText}> {`${format(state.startDate, "MM/dd/yyyy")} to ${state.endDate ? format(state.endDate, "MM/dd/yyyy") : '--/--/----' }`} </span>
         <DateRange
           editableDateInputs={true} 
           onChange={(item) => handleChange(item.selection)}
           moveRangeOnFirstSelection={false}
           ranges={[state]}
+          className={styles.date}
         />
       </div>
       <div className={styles.headerSearchItem}>

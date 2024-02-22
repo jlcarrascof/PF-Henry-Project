@@ -63,3 +63,8 @@
     cursor: pointer;
     background-color: white;
 }
+
+.date{
+    position: absolute;
+    top: 50px;
+}
