@@ -7,6 +7,7 @@ const {
   deleteHotelById,
 } = require("../controllers/hotelsController");
 const { ObjectId } = require("mongodb");
+const { getDb } = require("../db");
 
 const {
   rangePrice,
@@ -133,7 +134,7 @@ const getHotelsFiltered = async (req, res) => {
 
     let hotels = [];
 
-    if (minPrice && maxPrice) {
+    if (minPrice !== undefined && maxPrice !== undefined) {
       const priceFiltered = await rangePrice(db, parseInt(minPrice), parseInt(maxPrice));
       hotels = priceFiltered;
     }
@@ -148,15 +149,18 @@ const getHotelsFiltered = async (req, res) => {
       hotels = hotels.concat(dateFiltered);
     }
 
-    if (minScore) {
+    if (minScore !== undefined) {
       const scoreFiltered = await filterScore(db, parseInt(minScore));
       hotels = hotels.concat(scoreFiltered);
     }
 
+    // Eliminar duplicados
     hotels = hotels.filter((hotel, index) => hotels.indexOf(hotel) === index);
+    
 
     res.status(200).json(hotels);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
