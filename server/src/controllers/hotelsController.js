@@ -28,7 +28,9 @@ const getHotelByName = async (name) => {
 const getAllHotels = async () => {
   const db = getDb();
   try {
-    const hotels = await db.collection("hotels").find().toArray();
+    const hotels = await db.collection("hotels")
+    .find()
+    .toArray();
 
     return hotels;
   } catch (error) {
@@ -40,14 +42,16 @@ const createHotel = async (hotelData) => {
   const db = getDb();
 
   try {
-    const result = await db.collection("hotels").insertMany(hotelData);  /// TENEMOS QUE CAMBIAR A INSTERT ONE
+    const result = await db.collection("hotels").insertOne(hotelData);  /// TENEMOS QUE CAMBIAR A INSTERT ONE
 
-    return result.ops[0];
+    return result;
   } catch (error) {
     throw error;
   }
 };
 
+
+//
 const updateHotel = async (id, updateData) => {
   const db = getDb();
 
@@ -56,7 +60,8 @@ const updateHotel = async (id, updateData) => {
       .collection("hotels")
       .updateOne({ _id: new ObjectId(id) }, { $set: updateData });
 
-    return result.modifiedCount > 0 ? true : false;
+    //return result.matchedCount > 0 ? true : false;
+    return result.matchedCount > 0 && result.modifiedCount > 0;
   } catch (error) {
     throw error;
   }

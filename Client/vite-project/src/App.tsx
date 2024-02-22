@@ -6,8 +6,7 @@ import Register from "./components/register/Register";
 import LandingPage from "./components/landingPage/LandingPage";
 import NavBar from "./components/navBar/NavBar";
 import Favorites from "./components/favorites/Favorites";
-import Detail from "./components/detail/Detail";
-// ? -----------------------------------------------------STYLES
+
 import "./App.css";
 
 function App() {
