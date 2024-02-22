@@ -6,20 +6,23 @@ import styles from "../searchBar/SearchBar.module.css";
 
 const SearchBar: React.FC = () => {
   return (
-    <>
-    <div className={styles.headerSearch}>     
-      <FontAwesomeIcon icon={faLocationDot} className="" />
-      <input type="text" placeholder="Where we going?" className=""/>
+    <div className={styles.headerSearch}>
+    <div className={styles.headerSearchItem}>     
+      <FontAwesomeIcon icon={faLocationDot} className={styles.headerIcon} />
+      <input type="text" placeholder="Where we going?" className={styles.headerSearchInput}/>
     </div>
-    <div className={styles.headerSearch}>     
-      <FontAwesomeIcon icon={faCalendar} className=""/>
-      <span className=""> date to date </span>
+    <div className={styles.headerSearchItem}>     
+      <FontAwesomeIcon icon={faCalendar} className={styles.headerIcon}/>
+      <span className={styles.headerSearchText}> date to date </span>
     </div>
-    <div className={styles.headerSearch}>     
-      <FontAwesomeIcon icon={faPerson} className=""/>
-      <span className=""> 1 room </span>
+    <div className={styles.headerSearchItem}>     
+      <FontAwesomeIcon icon={faPerson} className={styles.headerIcon}/>
+      <span className={styles.headerSearchText}> # people # room </span>
     </div>
-    </>
+    <div className={styles.headerSearchItem}>     
+      <button className={styles.headerBtn}> Search </button>
+    </div>
+    </div>
   );
 };
 
