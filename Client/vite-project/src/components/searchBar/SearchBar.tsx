@@ -5,7 +5,7 @@ import {
   faLocationDot,
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
-import { Range, DateRange, DateRangePicker } from "react-date-range";
+import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
@@ -60,8 +60,8 @@ const SearchBar: React.FC = () => {
   };
 
   //handle change for calendar => change the code of JS
-  const handleChange = (item: { selection: State }) => {
-    setState(item.selection);
+  const handleChange = (selection: any) => {
+      setState(selection);
   };
 
   //hable options for people and rooms
@@ -87,9 +87,7 @@ const SearchBar: React.FC = () => {
         <span className={styles.headerSearchText}> {`${state[0] && format(state[0].startDate, "MM/DD/YYYY")} to ${state[0] && format(state[0].endDate, "MM/DD/YYYY")}`} </span>
         <DateRange
           editableDateInputs={true} 
-          onChange={(item) => {//@ts-ignore
-            handleChange(item)
-          }}
+          onChange={(item) => handleChange(item.selection)}
           moveRangeOnFirstSelection={false}
           ranges={[state]}
         />
