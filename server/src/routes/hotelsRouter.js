@@ -16,7 +16,7 @@ hotelsRouter.post('/', postHotel); // --> '/hotels'
 hotelsRouter.patch('/:id', patchHotel); // --> '/hotels/?id'
 
 // Ruta para eliminar hotel por ObjectID (Para el admin dsp) --> DELETE HOTELS
-hotelsRouter.delete('/:id', deleteHotelByID); // --> '/hotels/?id'
+//hotelsRouter.delete('/:id', deleteHotelByID); // --> '/hotels/?id'
 
 module.exports = hotelsRouter;
 
