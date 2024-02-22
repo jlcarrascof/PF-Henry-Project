@@ -45,6 +45,9 @@ const SearchBar: React.FC = () => {
 
   const [options, setOptions] = useState<Options>(initialOptions);
 
+  const [openOptions, setOpenOptions] = useState<boolean>(false);
+  
+  //handler for people and rooms 
   const handleOption = (name: "people" | "rooms", operation: "i" | "d") => {
     setOptions((prev) => {
       if (operation === "i") {
@@ -66,23 +69,11 @@ const SearchBar: React.FC = () => {
       setState(selection);
   };
 
-  //hable options for people and rooms
-  // const handleOption = (name: keyof Options, operation: "i" | "d") => {
-  //   setOptions((prev) => ({
-  //     ...prev,
-  //     [name]: operation === "i" ? prev[name] + 1 : prev[name] - 1,
-  //   }));
-  // };
-
   return (
     <div className={styles.headerSearch}>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faLocationDot} className={styles.headerIcon} />
-        <input
-          type="text"
-          placeholder="Where we going?"
-          className={styles.headerSearchInput}
-        />
+        <input type="text" placeholder="Where we going?" className={styles.headerSearchInput}/>
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faCalendar} className={styles.headerIcon} />
@@ -97,48 +88,25 @@ const SearchBar: React.FC = () => {
       </div>
       <div className={styles.headerSearchItem}>
         <FontAwesomeIcon icon={faPerson} className={styles.headerIcon} />
-        <span className={styles.headerSearchText}>
-          {" "}
-          {`${options.people} people - ${options.rooms}`}{" "}
-        </span>
-        <div className={styles.options}>
+        <span onClick={()=>setOpenOptions(!openOptions)} className={styles.headerSearchText}> {`${options.people} people - ${options.rooms} rooms`}</span>
+        {openOptions && <div className={styles.options}>
           <div className={styles.optionItem}>
             <span className={styles.optionText}> people </span>
             <div className={styles.optionCounter}>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("people", "d")}
-              >
-                -
-              </button>
-              <span className={styles.optionCounterNumber}>1</span>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("people", "i")}
-              >
-                +
-              </button>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("people", "d")} disabled={options.people <2}>-</button>
+              <span className={styles.optionCounterNumber}>{options.people}</span>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("people", "i")}>+</button>
             </div>
           </div>
           <div className={styles.optionItem}>
             <span className={styles.optionText}> rooms </span>
             <div className={styles.optionCounter}>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("rooms", "d")}
-              >
-                -
-              </button>
-              <span className={styles.optionCounterNumber}>1</span>
-              <button
-                className={styles.optionCounterButton}
-                onClick={() => handleOption("rooms", "i")}
-              >
-                +
-              </button>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("rooms", "d")} disabled={options.rooms <2}>-</button>
+              <span className={styles.optionCounterNumber}>{options.rooms}</span>
+              <button className={styles.optionCounterButton} onClick={() => handleOption("rooms", "i")}>+</button>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
       <div className={styles.headerSearchItem}>
         <button className={styles.headerBtn}> Search </button>
