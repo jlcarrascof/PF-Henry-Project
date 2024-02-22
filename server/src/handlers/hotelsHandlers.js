@@ -66,7 +66,7 @@ const getHotels = async (req, res) => {
 const postHotel = async (req, res) => {
   try {
     const hotelData = req.body;
-   
+
     const newHotel = await createHotel(hotelData);
 
     res.status(201).json(newHotel);
@@ -103,28 +103,28 @@ const patchHotel = async (req, res) => {
   }
 };
 
-/* const deleteHotelByID = async (req, res) => {
-  try {
-    const { id } = req.params;
+//const deleteHotelByID = async (req, res) => {
+ // try {
+   // const { id } = req.params;
 
-    if (!id) {
-      return res
-        .status(400)
-        .json({ error: "ID not provided in route parameters" });
-    }
+    //if (!id) {
+    //  return res
+    //    .status(400)
+    //    .json({ error: "ID not provided in route parameters" });
+   // }
 
-    const result = await deleteHotelById(id);
+   // const result = await deleteHotelById(id);
 
-    if (result === "Hotel removed") {
-      return res.status(200).json({ message: "Hotel deleted successfully" });
-    } else {
-      return res.status(404).json({ error: "Hotel not found" });
-    }
-  } catch (error) {
+   // if (result === "Hotel removed") {
+   //   return res.status(200).json({ message: "Hotel deleted successfully" });
+   // } else {
+  //    return res.status(404).json({ error: "Hotel not found" });
+  //  }
+  //} catch (error) {
     //console.error("Error deleting hotel:", error);
-    return res.status(500).json({ error: error.message });
-  }
-}; */
+ //   return res.status(500).json({ error: error.message });
+ // }
+//};
 
 
 const getHotelsFiltered = async (req, res) => {
@@ -170,8 +170,8 @@ module.exports = {
   getHotels,
   postHotel,
   patchHotel,
-  getHotelsFiltered
- // deleteHotelByID,
+//delete
+
 };
 
 
