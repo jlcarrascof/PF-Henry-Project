@@ -15,19 +15,19 @@ import styles from "../searchBar/SearchBar.module.css";
 
 const SearchBar: React.FC = () => {
   // calendar framework
-  interface State {
-    startDate: Date | undefined;
-    endDate: Date | undefined;
-    key: string;
-  }
+  // interface State {
+  //   startDate: Date | undefined;
+  //   endDate: Date | undefined;
+  //   key: string;
+  // }
 
-  const InitialState: State = {
-    startDate: new Date(),
-    endDate: undefined,
-    key: "selection",
-  };
+  // const initialState: State = {
+  //   startDate: new Date(),
+  //   endDate: undefined,
+  //   key: 'selection'
+  // };
 
-  const [state, setState] = useState<State>(InitialState);
+  // const [state, setState] = useState<State[]>([initialState]);
 
   // <DateRange
   //     editableDateInputs={true}
@@ -45,23 +45,31 @@ const SearchBar: React.FC = () => {
     rooms: 0,
   };
 
-  const [options, setOptions] = useState<Options[]>([initialOptions]);
+  const [options, setOptions] = useState<Options>(initialOptions);
 
-  // const handleOption = (name: 'people' | 'rooms', operation: 'i' | 'd') => {
-  //  setOptions((prev) => {
-  //    if (operation === 'i') {
-  //      return {
-  //        ...prev,
-  //        [name]: (prev as { people: number; rooms: number })[name] + 1
-  //      };
-  //    } else {
-  //      return {
-  //        ...prev,
-  //        [name]: (prev as { people: number; rooms: number })[name] - 1
-  //      };
-  //    }
-  //  });
-  //};
+  const [openOptions, setOpenOptions] = useState<boolean>(false);
+
+  //handler for people and rooms
+  const handleOption = (name: "people" | "rooms", operation: "i" | "d") => {
+    setOptions((prev) => {
+      if (operation === "i") {
+        return {
+          ...prev,
+          [name]: (prev as { people: number; rooms: number })[name] + 1,
+        };
+      } else {
+        return {
+          ...prev,
+          [name]: (prev as { people: number; rooms: number })[name] - 1,
+        };
+      }
+    });
+  };
+
+  //handle change for calendar => change the code of JS
+  const handleChange = (selection: any) => {
+    setState(selection);
+  };
 
   return (
     <div className={styles.headerSearch}>
@@ -81,7 +89,7 @@ const SearchBar: React.FC = () => {
         <FontAwesomeIcon icon={faPerson} className={styles.headerIcon} />
         <span className={styles.headerSearchText}>
           {" "}
-          {`${options.people} people - ${options.rooms} rooms`}{" "}
+          {`${options.people} people - ${options.rooms}`}{" "}
         </span>
         <div className={styles.options}>
           <div className={styles.optionItem}>
