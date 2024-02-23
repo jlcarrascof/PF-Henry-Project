@@ -21,8 +21,7 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    
-    <div className="landing-page">
+  <div className="landing-page">
       <div>
         {/* <Header /> */}
       </div>
