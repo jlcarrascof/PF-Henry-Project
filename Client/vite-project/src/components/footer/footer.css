@@ -1,0 +1,18 @@
+.footerContainer {
+  display: flex;
+  justify-content: left;
+  text-align: center;
+  gap: 50px;
+  margin-top: 800px;
+  padding: 20px;
+  min-width: 100%;
+  background-color: #1d1a39;
+  color: #fff;
+}
+
+.marca {
+  display: flex;
+  justify-content: left;
+  text-align: center;
+  flex-direction: column;
+}
