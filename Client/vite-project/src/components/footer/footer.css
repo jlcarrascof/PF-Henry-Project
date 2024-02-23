@@ -1,11 +1,10 @@
 .footerContainer {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   text-align: center;
-  gap: 50px;
+  gap: 100px;
   margin-top: 800px;
-  padding: 20px;
-  min-width: 100%;
+  padding: 70px;
   background-color: #1d1a39;
   color: #fff;
 }
@@ -13,6 +12,23 @@
 .marca {
   display: flex;
   justify-content: left;
-  text-align: center;
+  text-align: left;
   flex-direction: column;
+  align-items: left;
+  line-height: 2.5;
+}
+
+.comp {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  flex-direction: column;
+  line-height: 2.5;
+}
+.pay {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  flex-direction: column;
+  line-height: 2.5;
 }
