@@ -1,79 +1,83 @@
-.headerSearch{
-    height: 30px;
-    background-color: white;
-    border: 3px solid #522B5B;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px 0px;
-    border-radius: 18px;
-    position: absolute;
-    width: 100%;
-    max-width: 1024px;
+.headerSearch {
+  height: 30px;
+  background-color: white;
+  border: 3px solid #522b5b;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  border-radius: 18px;
+  position: absolute;
+  width: 100%;
+  max-width: 1024px;
+  margin: 50px;
 }
 
-.headerIcon{
-    color: lightgray;
+.headerIcon {
+  color: lightgray;
 }
 
-.headerSearchItem{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.headerSearchItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.headerSearchInput{
-    border: none;
-    outline: none;
+.headerSearchInput {
+  border: none;
+  outline: none;
+  background: #fff;
+  color: #2b124c;
+  padding: 0.5em;
 }
 
-.headerSearchText{
-    cursor: pointer;
-    color: lightgrey;
+.headerSearchText {
+  cursor: pointer;
+  color: lightgrey;
 }
 
-.headerBtn{
-    background-color: #2B124C;
-    color: white;
-    font-weight: 500;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+.headerBtn {
+  background-color: #2b124c;
+  color: white;
+  font-weight: 500;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.options{
-    position: absolute;
-    top: 50px;
-    background-color: white;
-    color: gray;
-    border-radius: 5px;
+.options {
+  position: absolute;
+  top: 50px;
+  background-color: white;
+  color: gray;
+  border-radius: 5px;
 }
 
-.optionItem{
-    width: 200px;
-    display: flex;
-    justify-content: space-between;
-    margin: 10px;
+.optionItem {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
 }
 
-.optionCounter{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    color: black;
+.optionCounter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: black;
 }
 
-.optionCounterButton{
-    width: 30px;
-    height: 30px;
-    border: 1px solid #2B124C;
-    color: #2B124C;
-    cursor: pointer;
-    background-color: white;
+.optionCounterButton {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #2b124c;
+  color: #2b124c;
+  cursor: pointer;
+  background-color: white;
 }
 
-.date{
-    position: absolute;
-    top: 50px;
+.date {
+  position: absolute;
+  top: 50px;
 }
