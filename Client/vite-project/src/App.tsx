@@ -8,6 +8,7 @@ import NavBar from "./components/navBar/NavBar";
 import Favorites from "./components/favorites/Favorites";
 import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
+import Home from "./components/home/Home";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}
     </>
