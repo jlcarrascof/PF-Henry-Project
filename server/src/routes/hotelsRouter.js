@@ -1,7 +1,10 @@
 const { Router } = require('express');
-const { getHotelID, deleteHotelByID, getHotels, postHotel, patchHotel } = require('../handlers/hotelsHandlers');
+const { getHotelID, deleteHotelByID, getHotels, postHotel, patchHotel, getHotelsFiltered } = require('../handlers/hotelsHandlers');
 
 const hotelsRouter = Router();
+
+// Ruta para obtener hoteles filtrados
+hotelsRouter.get('/filtered', getHotelsFiltered); // --> '/hotels/filtered'
 
 // Ruta para traer todos los hoteles -- > GET ALL HOTELS    
 hotelsRouter.get('/', getHotels); //--> '/hotels'
@@ -17,6 +20,9 @@ hotelsRouter.patch('/:id', patchHotel); // --> '/hotels/?id'
 
 // Ruta para eliminar hotel por ObjectID (Para el admin dsp) --> DELETE HOTELS
 //hotelsRouter.delete('/:id', deleteHotelByID); // --> '/hotels/?id'
+
+
+
 
 module.exports = hotelsRouter;
 

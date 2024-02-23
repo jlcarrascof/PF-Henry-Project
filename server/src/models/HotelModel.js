@@ -35,3 +35,4 @@ const hotelSchema = new Schema({
 module.exports = {
     Hotel,
 }
+ 

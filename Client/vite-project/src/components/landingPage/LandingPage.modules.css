@@ -1,0 +1,26 @@
+.landing-page {
+    display: flex;
+    position: relative;
+    background-color: lavender;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100vw;
+    height: 200vh;
+    overflow: hidden;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.carousel-container {
+    padding-top: 10vh;
+    width: 70vw;
+    height: 30vh;
+}
+
+.searchBar-container {
+    width: 70vw;
+    padding: 5vh;
+    color: rgb(17, 16, 18);
+}
