@@ -1,6 +1,5 @@
 
 //import Cards from "../cards/Cards";
-import SearchBar from "../searchBar/SearchBar";
 
 import React from 'react';
 import Slider from 'react-slick';
@@ -26,12 +25,6 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-
-    <>
-      <h1></h1>
-      <SearchBar/>
-    </>
-
   <div className="landing-page">
       <div>
         {/* <Header /> */}

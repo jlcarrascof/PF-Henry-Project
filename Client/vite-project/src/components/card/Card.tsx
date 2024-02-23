@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+const Card: React.FC = () => {
+  return (
+    <>
+      <h1>Holi soy Card</h1>
+    </>
+=======
 //import { Link } from "react-router-dom";
 import './Card.css'
 
@@ -47,6 +54,7 @@ const Card: React.FC<CardC> = (props: CardC) => {
       </div>
       <p className="card-price">${price}</p>
     </div>
+>>>>>>> 7eb32921404e002f8c295a5e9e61f1721d38aeef
   );
 };
 

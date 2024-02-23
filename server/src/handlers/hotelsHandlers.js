@@ -76,30 +76,27 @@ const postHotel = async (req, res) => {
   }
 };
 
-
 const patchHotel = async (req, res) => {
   try {
-      const { id } = req.params;
+    if (!ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: "ID not valid" });
+    }
 
-      if (!ObjectId.isValid(id)) {
-          return res.
-          status(400).
-          json({ error: 'Invalid ID' });
-      }
+    //
+    const updateData = req.body;
 
-      //
-      const updateData = req.body;
+    const success = await updateHotel(id, updateData);
 
-      const success = await updateHotel(id, updateData); 
-
-      if (success) {
-          return res.status(200).json({ message: 'Hotel updated successfully' });
-      } else {
-          return res.status(404).json({ error: 'Hotel not found or no changes applied' });
-      }
+    if (success) {
+      return res.status(200).json({ message: "Hotel updated successfully" });
+    } else {
+      return res
+        .status(404)
+        .json({ error: "Hotel not found or no changes applied" });
+    }
   } catch (error) {
-    console.log(error)
-      return res.status(500).json({ error: error.message });
+    console.log(error);
+    return res.status(500).json({ error: error.message });
   }
 };
 
