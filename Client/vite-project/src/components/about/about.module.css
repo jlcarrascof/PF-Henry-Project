@@ -1,0 +1,104 @@
+.aboutContainer {
+    background-color: #DFB6B2;
+  }
+  
+  .flexContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .animatedBox {
+    transition: transform 0.3s ease-out;
+    cursor: pointer;
+  }
+  
+  .animatedBox:hover {
+    transform: scale(1.1);
+  }
+  
+  .image {
+    width: 100px;
+    max-width: 300px; /* Ajustado el tamaño máximo de la imagen del desarrollador */
+    height: 100px;
+  }
+  
+  .heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    color: #190019;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .paragraph {
+    font-size: 1rem;
+    color: #DFB6B2;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .subHeading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    color: #2B124C;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .iconContainer {
+    cursor: pointer;
+  }
+  
+  .icon {
+    font-size: 60px; /* Ajustado el tamaño del icono de LinkedIn */
+    color: #2B124C;
+  }
+  
+  .cardContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4rem;
+  }
+  
+  .card {
+    cursor: pointer;
+  }
+  
+  .card:hover {
+    opacity: 0.8;
+    background-color: #854F6C;
+  }
+  
+  .card div {
+    background-color: #854F6C;
+    color: #FBE4D8;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+  
+  .button {
+    margin-top: 1rem;
+    display: block;
+    margin: auto;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 8px;
+    font-weight: bold;
+    background-color: #FBE4D8;
+    color: #190019;
+    font-size: 14px;
+  }
+  
+  .button:hover {
+    background-color: #854F6C;
+    color: #2B124C;
+  }
+  
+  .button:active {
+    background-color: #522B5B;
+  }
+  
+  .buttonText {
+    margin-right: 1rem;
+  }
+    
+   

@@ -6,6 +6,8 @@ import Register from "./components/register/Register";
 import LandingPage from "./components/landingPage/LandingPage";
 import NavBar from "./components/navBar/NavBar";
 import Favorites from "./components/favorites/Favorites";
+
+import About from "./components/about/About";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
@@ -19,6 +21,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
+
+        <Route path="/about" element={<About />} />
       </Routes>
     </>
   );

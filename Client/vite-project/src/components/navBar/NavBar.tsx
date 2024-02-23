@@ -13,6 +13,11 @@ const NavBar: React.FC = () => {
           <p>Home</p>
         </Link>
 
+        <Link to="/about">
+          <p>About</p>
+        </Link>
+
+
         <Link to="/favorites">
           <p>Favorites</p>
         </Link>
