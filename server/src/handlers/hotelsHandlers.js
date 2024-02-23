@@ -14,10 +14,8 @@ const {
   filterAddress,
   filterDate,
   filterScore,
-  sortNameHotel
+  sortNameHotel,
 } = require("../filters/filtersHotel");
-
-
 
 const getHotelID = async (req, res) => {
   try {
@@ -38,10 +36,9 @@ const getHotelID = async (req, res) => {
   }
 };
 
-
 //Para Hotel por nombre y para todos los hoteles, también los filtros
 const getHotels = async (req, res) => {
-  try {    
+  try {
     const { name } = req.query;
 
     let hotels;
@@ -54,14 +51,12 @@ const getHotels = async (req, res) => {
       hotels = await getAllHotels();
     }
 
-    
     res.status(200).json(hotels);
   } catch (error) {
     //console.error("Error fetching hotels:", error);
     res.status(400).json({ error: error.message });
   }
 };
-
 
 const postHotel = async (req, res) => {
   try {
@@ -100,39 +95,49 @@ const patchHotel = async (req, res) => {
   }
 };
 
-//const deleteHotelByID = async (req, res) => {
- // try {
-   // const { id } = req.params;
+const deleteHotelByID = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-    //if (!id) {
-    //  return res
-    //    .status(400)
-    //    .json({ error: "ID not provided in route parameters" });
-   // }
+    if (!id) {
+      return res
+        .status(400)
+        .json({ error: "ID not provided in route parameters" });
+    }
 
-   // const result = await deleteHotelById(id);
+    const result = await deleteHotelById(id);
 
-   // if (result === "Hotel removed") {
-   //   return res.status(200).json({ message: "Hotel deleted successfully" });
-   // } else {
-  //    return res.status(404).json({ error: "Hotel not found" });
-  //  }
-  //} catch (error) {
-    //console.error("Error deleting hotel:", error);
- //   return res.status(500).json({ error: error.message });
- // }
-//};
-
+    if (result === "Hotel removed") {
+      return res.status(200).json({ message: "Hotel deleted successfully" });
+    } else {
+      return res.status(404).json({ error: "Hotel not found" });
+    }
+  } catch (error) {
+    console.error("Error deleting hotel:", error);
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 const getHotelsFiltered = async (req, res) => {
   try {
-    const { minPrice, maxPrice, address, desiredCheckInDate, desiredCheckOutDate, minScore } = req.query;
+    const {
+      minPrice,
+      maxPrice,
+      address,
+      desiredCheckInDate,
+      desiredCheckOutDate,
+      minScore,
+    } = req.query;
     const db = getDb();
 
     let hotels = [];
 
     if (minPrice !== undefined && maxPrice !== undefined) {
-      const priceFiltered = await rangePrice(db, parseInt(minPrice), parseInt(maxPrice));
+      const priceFiltered = await rangePrice(
+        db,
+        parseInt(minPrice),
+        parseInt(maxPrice)
+      );
       hotels = priceFiltered;
     }
 
@@ -142,7 +147,11 @@ const getHotelsFiltered = async (req, res) => {
     }
 
     if (desiredCheckInDate && desiredCheckOutDate) {
-      const dateFiltered = await filterDate(db, new Date(desiredCheckInDate), new Date(desiredCheckOutDate));
+      const dateFiltered = await filterDate(
+        db,
+        new Date(desiredCheckInDate),
+        new Date(desiredCheckOutDate)
+      );
       hotels = hotels.concat(dateFiltered);
     }
 
@@ -153,7 +162,6 @@ const getHotelsFiltered = async (req, res) => {
 
     // Eliminar duplicados
     hotels = hotels.filter((hotel, index) => hotels.indexOf(hotel) === index);
-    
 
     res.status(200).json(hotels);
   } catch (error) {
@@ -167,16 +175,5 @@ module.exports = {
   getHotels,
   postHotel,
   patchHotel,
-//delete
-
+  deleteHotelByID,
 };
-
-
-
-
-
-
-
-
-
-

@@ -1,39 +1,35 @@
-import Cards from "../cards/Cards";
 import NavBar from "../navBar/NavBar";
 import SearchBar from "../searchBar/SearchBar";
 import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css"; 
-import "./Home.modules.css"
+import "react-date-range/dist/theme/default.css";
+import "./Home.modules.css";
+import RealCards from "../cards/RealCards";
 
 const Home: React.FC = () => {
-
-return (
+  return (
     <div className="home-container">
-        <div>
+      <div>
         <NavBar />
-        </div>
+      </div>
 
-        <div className="searchBar-container">
+      <div className="searchBar-container">
         <SearchBar />
-        </div>
+      </div>
 
-        <div>
+      <div>
         <h1>Some of our best hotels</h1>
+      </div>
+
+      <div className="card-filter-container">
+        <div className="filter-container">{/* Filtros */}</div>
+
+        <div className="allCards">
+          <RealCards />
         </div>
-
-        <div className="card-filter-container">
-            <div className="filter-container">
-            {/* Filtros */}
-            </div>
-
-            <div className="allCards">
-            <Cards />
-            </div>
-        </div>
-
+      </div>
     </div>
-    );
-}
+  );
+};
 
 // <Route path="/home" element={<Home />} />
 export default Home;
