@@ -1,29 +1,51 @@
 //import { Link } from "react-router-dom";
+import './Card.css'
 
 interface CardC {
-  id?: string;
-  name: string;
+  id_hotel: number;
+  id_room: number;
+  hotel_name: string;
+  hotel_detail: string;
+  room_type: string;
+  room_description: string;
   address: string;
-  price: string;
-  images: ImageC[];
+  price: number;
+  images: string;
 }
 
-interface ImageC {
-  url: string;
-  alt: string;
-}
+
 
 const Card: React.FC<CardC> = (props: CardC) => {
+  const {
+    id_room,
+    id_hotel,
+    hotel_name,
+    hotel_detail,
+    room_type,
+    room_description,
+    address,
+    price,
+    images,
+  } = props
+
+  // const redirect = () => {
+  //   useNavigate(`/${id_hotel}/${id_room}`)
+  // }
+
   return (
-    <div>
+    <div className="card-container" /*onClick={() => redirect()}*/ >
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Hotel-room-renaissance-columbus-ohio.jpg/1280px-Hotel-room-renaissance-columbus-ohio.jpg"
-        alt=""
+      className='card-image'
+        src={images}
+        alt={`Photo of ${hotel_name}`}
       />
-      <h1>{props.name}Hotel name</h1>
-      <span> {props.address}address </span>
-      <span> breve descripcion solo es para ver</span>
-      <span> {props.price}price </span>
+      <div className="card-text-container">
+      <h3 className='card-title'>{hotel_name}</h3>
+      <p className='card-adress'>Adress: {address} </p>
+      <p className='card-hotel-detail'>{hotel_detail}</p>
+      <p className='card-room-detail'>{`${room_type} - ${room_description}`}</p>
+      </div>
+      <p className="card-price">${price}</p>
     </div>
   );
 };
