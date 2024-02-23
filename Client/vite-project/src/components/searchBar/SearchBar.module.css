@@ -25,6 +25,11 @@
 .headerSearchInput{
     border: none;
     outline: none;
+    background: #FFF;
+    color: #2B124C;
+    padding: 0.5em;
+}
+.headerSearchInput:focus {
 }
 
 .headerSearchText{
