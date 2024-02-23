@@ -1,15 +1,64 @@
-.navContainer {
+.navBar{
+  height: 75px;
+  background-color: #1D1A39;
   display: flex;
-  text-align: center;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  z-index: 100;
 }
 
-.left {
+.navContainer {
+  width: 100%;
+  margin: 0 1em;
+  padding: 8px;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  max-width: 1024px;
+  background-color: #1D1A39;
+  color: white;
+  display: flex;
+  flex: 0 0 auto;
+}
+.navItems > * {
+  padding: 0.75rem;
+  margin: 0 0.5em;
+  color: #FFF;
+}
+.navItems {
+  display: flex;
+  justify-items: center;
+  align-items: center;
 }
 
-.right {
-  display: flex;
-  gap: 20px;
+.navSeparator {
+  width: 1%;
+  flex: 1 1 auto;
+}
+
+.navContainer .logo{
+  /* font-weight: 500;*/
+  flex: 0 0 auto;
+  padding: 0 !important;
+  height: auto  !important;
+  margin: 0;
+}
+
+.btnLogin{
+  background-color: #FFFFFF ;
+  color: #2B124C;
+  flex: 0 0 auto;
+  height: max-content;
+  margin: 0 1.2em;
+  border-radius: 0.9em;
+  padding: 0;
+}
+.btnLogin > p {
+  margin: 0;
+  padding: 0.2em 0.5em;
 }

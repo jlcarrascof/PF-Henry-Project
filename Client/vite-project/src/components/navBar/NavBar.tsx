@@ -3,25 +3,24 @@ import "./navBar.css";
 
 const NavBar: React.FC = () => {
   return (
-    <section className="navContainer">
-      <div className="left">
-        <h2> Rentify </h2>
-      </div>
-
-      <div className="right">
+    <div className="navBar"> 
+      <div className="navContainer">
+        <h2 className="logo"> Rentify </h2>
+        <div className="navSeparator"></div>
+      <div className="navItems">
         <Link to="/">
           <p>Home</p>
         </Link>
-
         <Link to="/favorites">
           <p>Favorites</p>
         </Link>
-
-        <Link to="/login">
+        <Link className="btnLogin "to="/login">
           <p>Login</p>
         </Link>
       </div>
-    </section>
+    </div>
+      </div>
+
   );
 };
 

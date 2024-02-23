@@ -1,9 +1,14 @@
+
+//import Cards from "../cards/Cards";
+import SearchBar from "../searchBar/SearchBar";
+
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SearchBar from '../searchBar/SearchBar';
 import "./LandingPage.modules.css"
+
 
 const LandingPage: React.FC = () => {
   const carouselImages = [
@@ -21,6 +26,12 @@ const LandingPage: React.FC = () => {
   };
 
   return (
+
+    <>
+      <h1></h1>
+      <SearchBar/>
+    </>
+
   <div className="landing-page">
       <div>
         {/* <Header /> */}
@@ -45,6 +56,7 @@ const LandingPage: React.FC = () => {
         {/* <Footer /> */}
       </div>
     </div>
+
   );
 };
 
