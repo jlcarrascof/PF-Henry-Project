@@ -6,7 +6,9 @@ import Register from "./components/register/Register";
 import LandingPage from "./components/landingPage/LandingPage";
 import NavBar from "./components/navBar/NavBar";
 import Favorites from "./components/favorites/Favorites";
-
+import Detail from "./components/detail/Detail";
+import Footer from "./components/footer/Footer";
+// ? -----------------------------------------------------STYLES
 import "./App.css";
 
 function App() {
@@ -19,8 +21,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
-        {/* <Route path="/detail" element={<Detail />} /> */}
+        <Route path="/detail" element={<Detail />} />
       </Routes>
+      {location.pathname !== "/login" ? <Footer /> : ""}
     </>
   );
 }

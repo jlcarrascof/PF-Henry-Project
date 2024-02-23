@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SearchBar from "../searchBar/SearchBar";
-import Footer from "../footer/Footer";
 
 import "./LandingPage.modules.css";
 
@@ -53,32 +52,29 @@ const LandingPage: React.FC = () => {
                   alt={`Slide ${index + 1}`}
                 />
               </a>
+              {/* <h2>Our best hotels</h2> */}
             </div>
           ))}
         </Slider>
       </div>
       <div className="imagSlay">
         <div className="archivo">
-          <img src="./Images/archivo.png" />
+          <img src="../../../images/archivo.png" />
           <span>Discover hotels from all the world</span>
         </div>
-        <div className="billetera">
-          <img src="./Images/billetera.png" />
+        <div className="archivo">
+          <img src="../../../images/billetera.png" />
           <span>Get the best sales</span>
         </div>
-        <div className="hotel">
-          <img src="./Images/hotel.png" />
+        <div className="archivo">
+          <img src="../../../images/hotel.png" />
           <span>Compare hotels according to your needs</span>
         </div>
 
-        <div className="payment">
-          <img src="./Images/metodo-de-pago.png" />
+        <div className="archivo">
+          <img src="../../../images/metodo-de-pago.png" />
           <span>With the most secure payment method</span>
         </div>
-      </div>
-
-      <div className="footer">
-        <Footer />
       </div>
     </div>
   );

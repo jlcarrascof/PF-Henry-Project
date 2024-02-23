@@ -16,18 +16,22 @@
 } */
 
 .carousel-container {
-  /*display: flex;
-  */
   padding: 60px;
   margin-top: 100px;
   width: 80%;
   height: 300px;
   object-fit: cover;
+  position: relative;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+}
+
+.carousel-container h2 {
+  position: absolute;
+  z-index: 999;
 }
 
 .searchBar-container {
@@ -56,44 +60,31 @@
   text-align: center;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: #1d1a39;
   gap: 40px;
   padding: 100px;
-  min-width: 100%;
-  margin: 40px;
-  color: #fff;
+  width: 80%;
+  font-weight: 600;
 }
 
 .archivo {
   display: flex;
   text-align: center;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
+  flex: 1;
+  user-select: none;
 }
 
-.billetera {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
+.archivo img {
+  width: 128px;
+  height: 128px;
+  padding-bottom: 20px;
 }
 
-.hotel {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.payment {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
+.archivo span {
+  max-width: 150px;
 }
 
 .footer {
