@@ -36,7 +36,7 @@ function App() {
 }
 
 export default App;
-
+//HOLAAAA
 // import { Routes, Route } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
 // import NavBar from "./components/navBar/NavBar";
