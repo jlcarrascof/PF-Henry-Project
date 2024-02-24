@@ -14,8 +14,6 @@ const getHotelById = async (id) => {
 };
 
 
-
-
 const getHotelByName = async (name) => {
   const db = getDb();
   try {

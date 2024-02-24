@@ -8,21 +8,23 @@ const {
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
 
+
 const getHotelID = async (req, res) => {
   try {
+    console.log('Id antes del handler', req.params.id)
     if (ObjectId.isValid(req.params.id)) {
       const { id } = req.params;
-
+      console.log('id recibido: ', id)
       const hotel = await getHotelById(id);
 
       res.status(200).json(hotel);
     } else {
+      console.log(id)
       return res
         .status(400)
         .json({ error: "ID not provided in route parameters" });
     }
   } catch (error) {
-    // console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -175,7 +177,9 @@ module.exports = {
   getHotels,
   postHotel,
   patchHotel,
+//delete
   getHotelsFiltered,
+
 };
 
 

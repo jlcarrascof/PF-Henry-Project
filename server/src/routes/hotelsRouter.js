@@ -26,3 +26,8 @@ hotelsRouter.patch('/:id', patchHotel); // --> '/hotels/?id'
 module.exports = hotelsRouter;
 
 
+
+
+
+
+
