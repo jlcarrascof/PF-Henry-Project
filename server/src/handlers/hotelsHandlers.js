@@ -14,7 +14,8 @@ const {
   filterAddress,
   filterDate,
   filterScore,
-  sortNameHotel
+  sortNameHotel,
+  filterService
 } = require("../filters/filtersHotel");
 
 
@@ -62,6 +63,31 @@ const getHotels = async (req, res) => {
   }
 };
 
+const getPaginatedHotels = async (req, res) => {
+  const page = parseInt(req.query.p) || 1; 
+  const limit = parseInt(req.query.limit) || 5; 
+  try {
+    db = getDb()
+    const hotels = await db.collection("hotels")
+      .find()
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .toArray() 
+      const totalHotels = await db.collection("hotels").countDocuments(); 
+
+      const totalPages = Math.ceil(totalHotels / limit);
+  
+      res.status(200).json({
+        currentPage: page,
+        totalPages: totalPages,
+        totalResults: totalHotels,
+        hotels: hotels
+      })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 const postHotel = async (req, res) => {
   try {
@@ -82,7 +108,7 @@ const patchHotel = async (req, res) => {
       return res.status(400).json({ error: "ID not valid" });
     }
 
-    //
+    const {id} = req.params;
     const updateData = req.body;
 
     const success = await updateHotel(id, updateData);
@@ -99,6 +125,49 @@ const patchHotel = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+const getHotelsFiltered = async (req, res) => {
+  try {
+    const { minPrice, maxPrice, address, desiredCheckInDate, desiredCheckOutDate, minScore, services } = req.query;
+    const db = getDb();
+
+    hotels = []
+
+    if (minPrice !== undefined && maxPrice !== undefined) {
+      const priceFiltered = await rangePrice(db, parseInt(minPrice), parseInt(maxPrice));
+      hotels = priceFiltered;
+    }
+
+    if (address) {
+      const addressFiltered = await filterAddress(db, address);
+      hotels = hotels.concat(addressFiltered);
+    }
+
+    if (services) {
+      const servicesFiltered = await filterService(db, services)
+      hotels = servicesFiltered
+    }
+
+    if (desiredCheckInDate && desiredCheckOutDate) {
+      const dateFiltered = await filterDate(db, new Date(desiredCheckInDate), new Date(desiredCheckOutDate));
+      hotels = hotels.concat(dateFiltered);
+    }
+
+    if (minScore !== undefined) {
+      const scoreFiltered = await filterScore(db, parseInt(minScore));
+      hotels = hotels.concat(scoreFiltered);
+    }
+
+    // Eliminar duplicados
+    hotels = hotels.filter((hotel, index) => hotels.indexOf(hotel) === index);
+    
+
+    res.status(200).json(hotels);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 
 //const deleteHotelByID = async (req, res) => {
  // try {
@@ -123,52 +192,13 @@ const patchHotel = async (req, res) => {
  // }
 //};
 
-
-const getHotelsFiltered = async (req, res) => {
-  try {
-    const { minPrice, maxPrice, address, desiredCheckInDate, desiredCheckOutDate, minScore } = req.query;
-    const db = getDb();
-
-    let hotels = [];
-
-    if (minPrice !== undefined && maxPrice !== undefined) {
-      const priceFiltered = await rangePrice(db, parseInt(minPrice), parseInt(maxPrice));
-      hotels = priceFiltered;
-    }
-
-    if (address) {
-      const addressFiltered = await filterAddress(db, address);
-      hotels = hotels.concat(addressFiltered);
-    }
-
-    if (desiredCheckInDate && desiredCheckOutDate) {
-      const dateFiltered = await filterDate(db, new Date(desiredCheckInDate), new Date(desiredCheckOutDate));
-      hotels = hotels.concat(dateFiltered);
-    }
-
-    if (minScore !== undefined) {
-      const scoreFiltered = await filterScore(db, parseInt(minScore));
-      hotels = hotels.concat(scoreFiltered);
-    }
-
-    // Eliminar duplicados
-    hotels = hotels.filter((hotel, index) => hotels.indexOf(hotel) === index);
-    
-
-    res.status(200).json(hotels);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ error: error.message });
-  }
-};
-
 module.exports = {
   getHotelID,
   getHotels,
   postHotel,
   patchHotel,
-//delete
-
+  getHotelsFiltered,
+  getPaginatedHotels
 };
 
 

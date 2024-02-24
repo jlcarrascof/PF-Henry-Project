@@ -1,10 +1,10 @@
 
 
 //Lista de hoteles que tienen al menos una habitación con un precio entre $precioMnimo y $PrecioMaximo
-const rangePrice = async (db, minPrice, maxPrice) => { //la base de datos y el rango por el cual filtrar
+const rangePrice = async (db, minPrice, maxPrice) => {
     return await db.collection("hotels").find({
-        'rooms.price': { $gte: minPrice, $lte: maxPrice } //Donde buscar
-    }).toArray(); //Va a devolver un array de objetos con los hoteles filtrados
+        'rooms.price': { $gte: minPrice, $lte: maxPrice } 
+    }).toArray(); 
 };
     
 
@@ -13,10 +13,16 @@ const rangePrice = async (db, minPrice, maxPrice) => { //la base de datos y el r
 //Por ubicación (podemos en el modelo agregar "location" para filtrar por location en vez de filtrar por address)
 const filterAddress = async (db, address) => {
     return await db.collection("hotels").find({ 
-        address: { $regex: address, $options: 'i' } //$options: 'i' sin importar mayusculas o minusculas
-    }).toArray();//Va a devolver un array de objetos con los hoteles filtrados
+        address: { $regex: address, $options: 'i' } 
+    }).toArray();
 };
 
+
+const filterService = async (db, service) => {
+    return await db.collection("hotels")
+            .find({ services: { $in: [service] } })
+            .toArray();
+}
 
 
 //busca hoteles cuyas habitaciones tengan disponibilidad para un rango de fechas especificas 
@@ -28,7 +34,7 @@ const filterDate = async (db, desiredCheckInDate, desiredCheckOutDate) => {
                 endDate: { $gte: desiredCheckInDate }
             }
         }
-    }).toArray();//Devuelve los hoteles que tienen disponibilidad en esas fechas especificas
+    }).toArray();
 };
 
 
@@ -55,7 +61,8 @@ rangePrice,
 filterAddress,
 filterDate,
 filterScore,
-sortNameHotel
+sortNameHotel,
+filterService
 }
 
 
