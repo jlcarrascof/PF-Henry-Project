@@ -12,8 +12,6 @@ import Detail from "./components/detail/Detail2";
 import Footer from "./components/footer/Footer";
 
 
-import Login3google from "./components/login3google/Login3google";
-
 import About from "./components/about/About";
 
 import Home from "./components/home/Home";
@@ -44,8 +42,6 @@ function App() {
 
         <Route path="/detail" element={<Detail />} />
         <Route path="/home" element={<Home />} />
-
-        <Route path="/login/login3google" element={<Login3google />} />
 
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}

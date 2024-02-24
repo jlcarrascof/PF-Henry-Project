@@ -1,0 +1,15 @@
+.padre {
+    display: flex;
+    align-items: center;
+    height: 100%;   
+}
+
+.estilo-profile {
+border-radius: 58%;
+height: 120px;
+width: 128px;
+margin: 0 auto;
+margin-top: 20px;
+margin-bottom: 20px;
+
+}

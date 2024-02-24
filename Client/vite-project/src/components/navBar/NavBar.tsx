@@ -20,9 +20,6 @@ const NavBar: React.FC = () => {
           <Link className="btnLogin" to="/login">
             <p>Login</p>
           </Link>
-          {/*<Link to="/login/login3google">
-            <p>LoginGoogle</p>
-  </Link>*/}
         </div>
       </div>
     </div>
