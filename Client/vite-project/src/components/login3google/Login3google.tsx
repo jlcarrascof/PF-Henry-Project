@@ -1,32 +1,41 @@
-import React, { useState } from "react";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import configFirebase from "./ConfigFirebase";
+import React, { useState } from 'react';
+import { getAuth, signInWithPopup, GoogleAuthProvider, AuthError } from 'firebase/auth';
+import configFirebase from './ConfigFirebase';
 
-const auth = getAuth(configFirebase);
+const auth = getAuth();
+
 const provider = new GoogleAuthProvider();
 
-const LoginFirebase: React.FC = () => {
-  const [user, setUser] = useState(null);
+const Login3Google: React.FC = () => {
+  const [user, setUser] = useState<firebase.User | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       setUser(user);
-    } catch (error) {
-      console.error(error.message);
+    } catch (error: any) {
+      if (error instanceof AuthError) {
+        setError(error.message);
+      } else {
+        setError("An error occurred");
+      }
     }
   };
 
   return (
     <div>
       {user ? (
-        <p>¡Bienvenido, {user.displayName}!</p>
+        <p>Welcome, {user.displayName}!</p>
       ) : (
-        <button onClick={handleGoogleLogin}>Iniciar sesión con Google</button>
+        <>
+          {error && <p>{error}</p>}
+          <button onClick={handleGoogleLogin}>Sign in with Google</button>
+        </>
       )}
     </div>
   );
 };
 
-export default LoginFirebase;
+export default Login3Google;
