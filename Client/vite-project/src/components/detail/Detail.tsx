@@ -5,13 +5,13 @@ import { State } from '../../Redux/Reducer/reducer';
 import { getHotelById } from '../../Redux/Actions/actions';
 
 const Detail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>(); 
   const dispatch = useDispatch();
   const currentHotel = useSelector((state: State) => state.currentHotel);
 
+
   useEffect(() => {
-    // Verificar si el ID no está vacío y es una cadena de caracteres válida
-    if (id.trim() !== '') {
+    if (id) { // Verifica si id es válido
       dispatch(getHotelById(id));
     }
   }, [dispatch, id]);

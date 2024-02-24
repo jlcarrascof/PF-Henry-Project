@@ -6,7 +6,7 @@ import React from 'react';
 import "./Card.css";
 
 interface CardProps {
-  id_hotel: number;
+  id_hotel: string;
   id_room: number;
   hotel_name: string;
   hotel_detail: string;
@@ -48,8 +48,8 @@ const Card: React.FC<CardProps> = (props: CardProps) => {
       {/* <Link to={`/Detail/${id_hotel}`} className="card-link">
         <button className="card-button">Ver Detalles</button>
       </Link> */}
-      <Link to={`/Detail/${id_hotel.toString()}`} className="card-link">
-        <button className="card-button">Ver Detalles</button>
+      <Link to={`/detail/${id_hotel}`} className="card-link">
+      <button className="card-button">Ver Detalles</button>
       </Link>
     </div>
   );
