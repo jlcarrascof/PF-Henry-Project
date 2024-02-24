@@ -1,32 +1,45 @@
 import React from 'react';
+import Card from "../card/Card";
 
-interface Hotel {
-    _id: string;
-    name: string;
-    owner: string;
-    details: string;
-    address: string;
-    // Agrega otras propiedades según la estructura de tus hoteles
+interface CardsProps {
+    allHotels: {
+        id: string;
+        name: string;
+        address: string;
+        details: string;
+        rooms: {
+            id: string;
+            typeOfRoom: string;
+            description: string;
+            price: string;
+        }[];
+        images: {
+            url: string;
+            alt: string;
+        }[];
+    }[];
 }
 
-interface Props {
-    allHotels: Hotel[] | undefined;
-}
-
-const Cards: React.FC<Props> = ({ allHotels }) => {
-    if (!allHotels) {
-        return <div>No hay hoteles disponibles.</div>;
-    }
+const Cards: React.FC<CardsProps> = ({ allHotels }) => {
+    console.log('En cards la lista que recibe cómo props:', allHotels);
 
     return (
         <div>
-            {allHotels.map((hotel) => (
-                <div key={hotel._id}>
-                    {/* Renderiza la información del hotel */}
-                    <h2>{hotel.name}</h2>
-                    <p>{hotel.details}</p>
-                    {/* Agrega otras propiedades del hotel que desees mostrar */}
-                </div>
+            {allHotels.map((hotel, id_hotel) => (
+                hotel.rooms.map((room, id_room) => (
+                    <Card
+                        key={`${id_hotel}-${id_room}`}
+                        id_hotel={Number(hotel.id)} // Convertir a número
+                        id_room={Number(room.id)} // Convertir a número
+                        hotel_name={hotel.name}
+                        hotel_detail={hotel.details}
+                        room_type={room.typeOfRoom}
+                        room_description={room.description}
+                        address={hotel.address}
+                        price={Number(room.price)} // Convertir a número
+                        images={hotel.images[id_room].url} // Tomar solo la URL de la imagen
+                    />
+                ))
             ))}
         </div>
     );

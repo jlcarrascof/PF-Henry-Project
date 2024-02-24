@@ -17,8 +17,8 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       console.log('Datos de hoteles recibidos en reducer:', action.payload);
       return {
         ...state,      
-        allHotels: action.payload,
-        allHotelsBackUp: action.payload
+        allHotels: action.payload.hotels,
+        allHotelsBackUp: action.payload.hotels
       };
     default:
       return state;

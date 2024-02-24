@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-//import { Link } from "react-router-dom";
-=======
+
+import { Link } from "react-router-dom";
+
 import React from 'react';
-import { Link } from 'react-router-dom';
->>>>>>> 6e178dcf32decc3156f4c468adde90fd71643523
+
 import "./Card.css";
 
 interface CardProps {
