@@ -175,13 +175,9 @@ module.exports = {
   getHotels,
   postHotel,
   patchHotel,
-<<<<<<< HEAD
-  getHotelsFiltered
 //delete
-
-=======
   getHotelsFiltered,
->>>>>>> 6e178dcf32decc3156f4c468adde90fd71643523
+
 };
 
 

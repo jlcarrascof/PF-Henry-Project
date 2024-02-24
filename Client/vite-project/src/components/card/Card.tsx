@@ -45,7 +45,7 @@ const Card: React.FC<CardProps> = (props: CardProps) => {
       </div>
       <p className="card-price">${price}</p>
 
-      <Link to={`/Detail2/`} className="card-link">
+      <Link to={`/Detail/`} className="card-link"> {/*Cambie al Detail normal que antes renderizaba el Detail2*/}
         <button className="card-button">Ver Detalles</button>
       </Link>
     </div>

@@ -1,72 +1,42 @@
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
-import { GET_HOTELS } from '../Actions/actions-types';
+import { GET_HOTELS, GET_HOTEL_BY_ID, GET_HOTEL_BY_NAME } from '../Actions/actions-types';
 
 export interface State {
   allHotels: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
-  allHotelsBackUp: any[]; // Define una propiedad allHotelsBackUp que será un arreglo de cualquier tipo
+  allHotelsBackUp: any[]; 
+  currentHotel: any;
 }
 
 const initialState: State = {
   allHotels: [],
   allHotelsBackUp: [],
+  currentHotel: null,
 };
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch(action.type) {
-    case GET_HOTELS:
-      console.log('Datos de hoteles recibidos en reducer:', action.payload);
-      return {
-        ...state,      
-        allHotels: action.payload.hotels,
-        allHotelsBackUp: action.payload.hotels
-      };
-    default:
-      return state;
+      case GET_HOTELS:
+          return {
+              ...state,
+              allHotels: action.payload,
+              allHotelsBackUp: action.payload
+          };
+      case GET_HOTEL_BY_ID:
+          return {
+              ...state,
+              currentHotel: action.payload
+          };
+      case GET_HOTEL_BY_NAME:
+          return {
+              ...state,
+              currentHotel: action.payload
+          };
+      default:
+          return state;
   }
 }
 
 export default rootReducer;
-
-
-
-
-
-
-// import { Hotel, User, Action } from '../../types';
-
-// // Definición de estado inicial
-// interface InitialState {
-//   hotels: Hotel[];
-//   users: User[];
-// }
-
-// const initialState: InitialState = {
-//   hotels: [],
-//   users: [],
-// };
-
-// // Reducer
-// const rootReducer = (state: InitialState = initialState, action: Action): InitialState => {
-//   switch(action.type) {
-//     case 'GET_HOTELS':
-//       return {
-//         ...state,
-//         hotels: action.payload,
-//       };
-//     case 'GET_USERS':
-//       return {
-//         ...state,
-//         users: action.payload,
-//       };
-//     // Otros casos
-//     default:
-//       return state;
-//   }
-// };
-
-// export default rootReducer;
-
-
 
 
 
