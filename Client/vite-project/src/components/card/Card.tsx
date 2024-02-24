@@ -14,6 +14,7 @@ interface CardC {
 }
 
 const Card: React.FC<CardC> = (props: CardC) => {
+  console.log('En Card: ' )
   const {
     id_room,
     id_hotel,

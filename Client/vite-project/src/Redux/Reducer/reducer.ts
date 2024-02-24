@@ -1,4 +1,4 @@
-import { Action } from '../../types'; //  tipo Action  archivo Types.ts
+import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
 import { GET_HOTELS } from '../Actions/actions-types';
 
 export interface State {
@@ -14,8 +14,9 @@ const initialState: State = {
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch(action.type) {
     case GET_HOTELS:
+      console.log('Datos de hoteles recibidos en reducer:', action.payload);
       return {
-        ...state,
+        ...state,      
         allHotels: action.payload,
         allHotelsBackUp: action.payload
       };
