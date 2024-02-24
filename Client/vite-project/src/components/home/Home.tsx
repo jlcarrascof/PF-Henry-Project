@@ -25,6 +25,7 @@ const Home: React.FC = () => {
                     {/* Filtros */}
                 </div>
                 <div className="allCards">
+                    
                     <Cards allHotels={allHotels} />
                 </div>
             </div>

@@ -2,8 +2,8 @@ import { Action } from '../../types'; //  tipo Action  archivo Types.ts
 import { GET_HOTELS } from '../Actions/actions-types';
 
 export interface State {
-  allHotels: any[]; // Ajusta el tipo de acuerdo a la estructura de tus datos
-  allHotelsBackUp: any[]; // Ajusta el tipo de acuerdo a la estructura de tus datos
+  allHotels: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
+  allHotelsBackUp: any[]; // Define una propiedad allHotelsBackUp que será un arreglo de cualquier tipo
 }
 
 const initialState: State = {
