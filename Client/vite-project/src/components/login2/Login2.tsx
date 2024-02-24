@@ -6,7 +6,7 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWith
 
 //import "./Login2.css";
 
-import configFirebase from "./ConfigFirebase";
+//import configFirebase from "./ConfigFirebase";
 
 //
 
