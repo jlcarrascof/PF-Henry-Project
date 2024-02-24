@@ -1,8 +1,9 @@
+// Login3google.tsx
 import React, { useState } from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider, AuthError } from 'firebase/auth';
-import configFirebase from './ConfigFirebase';
+import { getAuth, signInWithPopup, GoogleAuthProvider, UserCredential } from 'firebase/auth';
+import firebaseApp from './firebaseConfig';
 
-const auth = getAuth();
+const auth = getAuth(firebaseApp);
 
 const provider = new GoogleAuthProvider();
 
@@ -10,28 +11,26 @@ const Login3Google: React.FC = () => {
   const [user, setUser] = useState<firebase.User | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (): Promise<void> => {
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
       setUser(user);
-    } catch (error: any) {
-      if (error instanceof AuthError) {
-        setError(error.message);
-      } else {
-        setError("An error occurred");
-      }
+      setError(null); // Limpiar cualquier error anterior
+    } catch (error) {
+      setError('Se produjo un error durante el inicio de sesión');
+      console.error('Error durante el inicio de sesión:', error);
     }
   };
 
   return (
     <div>
       {user ? (
-        <p>Welcome, {user.displayName}!</p>
+        <p>¡Bienvenido, {user.displayName}!</p>
       ) : (
         <>
           {error && <p>{error}</p>}
-          <button onClick={handleGoogleLogin}>Sign in with Google</button>
+          <button onClick={handleGoogleLogin}>Iniciar sesión con Google</button>
         </>
       )}
     </div>

@@ -45,7 +45,7 @@ function App() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/home" element={<Home />} />
 
-        <Route path="/login3google" element={<Login3google />} />
+        <Route path="/login/login3google" element={<Login3google />} />
 
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}
