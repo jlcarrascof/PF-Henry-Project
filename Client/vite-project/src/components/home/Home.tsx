@@ -1,9 +1,11 @@
+import Cards from "../cards/Cards";
 import NavBar from "../navBar/NavBar";
 import SearchBar from "../searchBar/SearchBar";
+import { State } from "../../Redux/Reducer/reducer";
+import { getHotels } from "../../Redux/Actions/actions"; // Importa la acción para obtener hoteles
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./Home.modules.css";
-import RealCards from "../cards/RealCards";
 
 const Home: React.FC = () => {
   return (
@@ -24,12 +26,11 @@ const Home: React.FC = () => {
         <div className="filter-container">{/* Filtros */}</div>
 
         <div className="allCards">
-          <RealCards />
+          <Cards />
         </div>
       </div>
     </div>
   );
 };
 
-// <Route path="/home" element={<Home />} />
 export default Home;
