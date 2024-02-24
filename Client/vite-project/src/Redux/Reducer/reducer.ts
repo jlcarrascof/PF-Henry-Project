@@ -18,8 +18,8 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       case GET_HOTELS:
           return {
               ...state,
-              allHotels: action.payload,
-              allHotelsBackUp: action.payload
+              allHotels: action.payload.hotels,
+              allHotelsBackUp: action.payload.hotels
           };
       case GET_HOTEL_BY_ID:
           return {
@@ -37,7 +37,4 @@ const rootReducer = (state: State = initialState, action: Action): State => {
 }
 
 export default rootReducer;
-
-
-
 

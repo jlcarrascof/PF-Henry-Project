@@ -45,7 +45,10 @@ const Card: React.FC<CardProps> = (props: CardProps) => {
       </div>
       <p className="card-price">${price}</p>
 
-      <Link to={`/Detail/`} className="card-link"> {/*Cambie al Detail normal que antes renderizaba el Detail2*/}
+      {/* <Link to={`/Detail/${id_hotel}`} className="card-link">
+        <button className="card-button">Ver Detalles</button>
+      </Link> */}
+      <Link to={`/Detail/${id_hotel.toString()}`} className="card-link">
         <button className="card-button">Ver Detalles</button>
       </Link>
     </div>

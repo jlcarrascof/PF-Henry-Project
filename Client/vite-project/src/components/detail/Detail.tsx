@@ -10,7 +10,10 @@ const Detail: React.FC = () => {
   const currentHotel = useSelector((state: State) => state.currentHotel);
 
   useEffect(() => {
-    dispatch(getHotelById(id));
+    // Verificar si el ID no está vacío y es una cadena de caracteres válida
+    if (id.trim() !== '') {
+      dispatch(getHotelById(id));
+    }
   }, [dispatch, id]);
 
   return (
@@ -21,7 +24,7 @@ const Detail: React.FC = () => {
           <h2>{currentHotel.name}</h2>
           <p>Address: {currentHotel.address}</p>
           <p>Details: {currentHotel.details}</p>
-          {/* Agreguen la info que quieran renderizar */}
+          {/* Agrega la información adicional que desees renderizar */}
         </div>
       )}
     </>
@@ -29,3 +32,9 @@ const Detail: React.FC = () => {
 };
 
 export default Detail;
+
+
+
+
+
+
