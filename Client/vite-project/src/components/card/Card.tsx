@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import "./Card.css";
 
-interface CardC {
+interface CardProps {
   id_hotel: number;
   id_room: number;
   hotel_name: string;
@@ -13,7 +14,7 @@ interface CardC {
   images: string;
 }
 
-const Card: React.FC<CardC> = (props: CardC) => {
+const Card: React.FC<CardProps> = (props: CardProps) => {
   const {
     id_room,
     id_hotel,
@@ -36,8 +37,13 @@ const Card: React.FC<CardC> = (props: CardC) => {
         <p className="card-room-detail">{`${room_type} - ${room_description}`}</p>
       </div>
       <p className="card-price">${price}</p>
+
+      <Link to={`/Detail2/`} className="card-link">
+        <button className="card-button">Ver Detalles</button>
+      </Link>
     </div>
   );
 };
 
 export default Card;
+

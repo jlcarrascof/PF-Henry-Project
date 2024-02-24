@@ -1,7 +1,6 @@
 const {
   getHotelById,
   getHotelByName,
-  getAllHotels,
   createHotel,
   updateHotel,
   deleteHotelById,
@@ -14,8 +13,10 @@ const {
   filterAddress,
   filterDate,
   filterScore,
-  sortNameHotel,
+  sortNameHotel
 } = require("../filters/filtersHotel");
+
+
 
 const getHotelID = async (req, res) => {
   try {
@@ -77,7 +78,7 @@ const patchHotel = async (req, res) => {
       return res.status(400).json({ error: "ID not valid" });
     }
 
-    //
+    const {id} = req.params;
     const updateData = req.body;
 
     const success = await updateHotel(id, updateData);
@@ -95,6 +96,65 @@ const patchHotel = async (req, res) => {
   }
 };
 
+const getHotelsFiltered = async (req, res) => {
+  try {
+    const { minPrice, maxPrice, address, desiredCheckInDate, desiredCheckOutDate, minScore, services } = req.query;
+    const db = getDb();
+    const page = parseInt(req.query.p) || 1; 
+    const limit = parseInt(req.query.limit) || 2; 
+
+    let filters = [];
+
+    if (minPrice !== undefined && maxPrice !== undefined) {
+      filters.push({ 'rooms.price': { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) } });
+    }
+
+    if (address) {
+      filters.push({ address: { $regex: new RegExp(address, 'i') } });
+    }
+
+    if (services) {
+      filters.push({ services: { $in: services.split(',') } });
+    }
+
+    if (desiredCheckInDate && desiredCheckOutDate) {
+      filters.push({ $or: [
+        { 'rooms.availability': true },
+        {
+          'rooms.reservations.startDate': { $gte: new Date(desiredCheckInDate) },
+          'rooms.reservations.endDate': { $lte: new Date(desiredCheckOutDate) }
+        }
+      ]});
+    }
+
+    if (minScore !== undefined) {
+      filters.push({ 'reviews.score': { $gte: parseInt(minScore) } });
+    }
+
+    const query = filters.length > 0 ? { $and: filters } : {};
+
+    const hotels = await db.collection("hotels")
+      .find(query)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .toArray();
+
+    const totalHotels = await db.collection("hotels").countDocuments(query);
+    const totalPages = Math.ceil(totalHotels / limit);
+
+    res.status(200).json({
+      currentPage: page,
+      totalPages: totalPages,
+      totalResults: hotels.length,
+      hotels: hotels
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+
 const deleteHotelByID = async (req, res) => {
   try {
     const { id } = req.params;
@@ -107,37 +167,27 @@ const deleteHotelByID = async (req, res) => {
 
     const result = await deleteHotelById(id);
 
-    if (result === "Hotel removed") {
-      return res.status(200).json({ message: "Hotel deleted successfully" });
-    } else {
-      return res.status(404).json({ error: "Hotel not found" });
-    }
-  } catch (error) {
-    console.error("Error deleting hotel:", error);
-    return res.status(500).json({ error: error.message });
-  }
-};
+   // if (result === "Hotel removed") {
+   //   return res.status(200).json({ message: "Hotel deleted successfully" });
+   // } else {
+  //    return res.status(404).json({ error: "Hotel not found" });
+  //  }
+  //} catch (error) {
+    //console.error("Error deleting hotel:", error);
+ //   return res.status(500).json({ error: error.message });
+ // }
+//};
+
 
 const getHotelsFiltered = async (req, res) => {
   try {
-    const {
-      minPrice,
-      maxPrice,
-      address,
-      desiredCheckInDate,
-      desiredCheckOutDate,
-      minScore,
-    } = req.query;
+    const { minPrice, maxPrice, address, desiredCheckInDate, desiredCheckOutDate, minScore } = req.query;
     const db = getDb();
 
     let hotels = [];
 
     if (minPrice !== undefined && maxPrice !== undefined) {
-      const priceFiltered = await rangePrice(
-        db,
-        parseInt(minPrice),
-        parseInt(maxPrice)
-      );
+      const priceFiltered = await rangePrice(db, parseInt(minPrice), parseInt(maxPrice));
       hotels = priceFiltered;
     }
 
@@ -147,11 +197,7 @@ const getHotelsFiltered = async (req, res) => {
     }
 
     if (desiredCheckInDate && desiredCheckOutDate) {
-      const dateFiltered = await filterDate(
-        db,
-        new Date(desiredCheckInDate),
-        new Date(desiredCheckOutDate)
-      );
+      const dateFiltered = await filterDate(db, new Date(desiredCheckInDate), new Date(desiredCheckOutDate));
       hotels = hotels.concat(dateFiltered);
     }
 
@@ -162,6 +208,7 @@ const getHotelsFiltered = async (req, res) => {
 
     // Eliminar duplicados
     hotels = hotels.filter((hotel, index) => hotels.indexOf(hotel) === index);
+    
 
     res.status(200).json(hotels);
   } catch (error) {
@@ -175,5 +222,6 @@ module.exports = {
   getHotels,
   postHotel,
   patchHotel,
-  deleteHotelByID,
+//delete
+
 };

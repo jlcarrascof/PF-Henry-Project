@@ -5,7 +5,6 @@ const getUserById = async (id) => {
     const db = getDb();
     try {
         const user = await db.collection('users')
-// con el uso de new se rompe el ObjectId aqui, se realizaran pruebas sin el new
         .findOne({ _id: new ObjectId(id) });  
         return user;
 
