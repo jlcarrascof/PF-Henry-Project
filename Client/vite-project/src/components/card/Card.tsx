@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import "./Card.css";
 
 interface CardC {
@@ -34,6 +34,8 @@ const Card: React.FC<CardC> = (props: CardC) => {
         <p className="card-adress">Adress: {address} </p>
         <p className="card-hotel-detail">{hotel_detail}</p>
         <p className="card-room-detail">{`${room_type} - ${room_description}`}</p>
+        <p>{id_hotel}</p>
+        <p>{id_room}</p>
       </div>
       <p className="card-price">${price}</p>
     </div>
