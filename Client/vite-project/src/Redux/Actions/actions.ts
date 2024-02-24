@@ -1,48 +1,51 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { GET_HOTELS, GET_HOTEL_BY_ID, GET_HOTEL_BY_NAME } from './actions-types';
+import {
+  GET_HOTELS,
+  GET_HOTEL_BY_ID,
+  GET_HOTEL_BY_NAME,
+} from "./actions-types";
 
 export interface Action {
-    type: string;
-    payload: any;
+  type: string;
+  payload: any;
 }
 
 export const getHotels = () => {
-    return async (dispatch: Dispatch<Action>) => {
-        try {
-            const { data } = await axios.get('http://localhost:3001/hotels/');
-            dispatch({
-                type: GET_HOTELS,
-                payload: data
-            });
-        } catch (error) {
-            console.error("Error al obtener hoteles:", error);
-        }
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get("http://localhost:3002/hotels/");
+      dispatch({
+        type: GET_HOTELS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener hoteles:", error);
     }
-}
+  };
+};
 
 export const getHotelById = (id: string) => {
-    return async (dispatch: Dispatch<Action>) => {
-        try {
-            const { data } = await axios.get(`http://localhost:3001/hotels/${id}`);
-            dispatch({
-                type: GET_HOTEL_BY_ID,
-                payload: data
-            });
-        } catch (error) {
-            console.error("Error al obtener hotel por ID:", error);
-        }
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
+      dispatch({
+        type: GET_HOTEL_BY_ID,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener hotel por ID:", error);
     }
-}
-
+  };
+};
 
 // export const getHotelById = (id: string) => {
 //     return async (dispatch: Dispatch<Action>) => {
 //       try {
 //         if (id.trim() !== '') { // Verifica si el ID no está vacío
-//            const { data } = await axios.get(`http://localhost:3001/hotels/${id}`);
-//         //   const { data } = await axios.get(` http://localhost:3001/hotels/?id=${id}`);
-         
+//            const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
+//         //   const { data } = await axios.get(` http://localhost:3002/hotels/?id=${id}`);
+
 //           dispatch({
 //             type: GET_HOTEL_BY_ID,
 //             payload: data
@@ -56,21 +59,18 @@ export const getHotelById = (id: string) => {
 //     }
 //   }
 
-
-
-
 export const getHotelByName = (name: string) => {
-    return async (dispatch: Dispatch<Action>) => {
-        try {
-            const { data } = await axios.get(`http://localhost:3001/hotels/?name=${name}`);
-            dispatch({
-                type: GET_HOTEL_BY_NAME,
-                payload: data
-            });
-        } catch (error) {
-            console.error("Error al obtener hotel por nombre:", error);
-        }
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3002/hotels/?name=${name}`
+      );
+      dispatch({
+        type: GET_HOTEL_BY_NAME,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener hotel por nombre:", error);
     }
-}
-
-
+  };
+};
