@@ -90,6 +90,8 @@ const patchHotel = async (req, res) => {
   }
 };
 
+
+
 const getHotelsFiltered = async (req, res) => {
   try {
     const { minPrice, maxPrice, address, desiredCheckInDate, desiredCheckOutDate, minScore, services } = req.query;
