@@ -27,24 +27,11 @@ const getHotelByName = async (name) => {
   }
 };
 
-const getAllHotels = async () => {
-  const db = getDb();
-  try {
-    const hotels = await db.collection("hotels")
-    .find()
-    .toArray();
-
-    return hotels;
-  } catch (error) {
-    throw error;
-  }
-};
-
 const createHotel = async (hotelData) => {
   const db = getDb();
 
   try {
-    const result = await db.collection("hotels").insertOne(hotelData);  /// TENEMOS QUE CAMBIAR A INSTERT ONE
+    const result = await db.collection("hotels").insertOne(hotelData);
 
     return result;
   } catch (error) {
@@ -86,7 +73,6 @@ const deleteHotelById = async (id) => {
 module.exports = {
   getHotelById,
   getHotelByName,
-  getAllHotels,
   createHotel,
   updateHotel,
   deleteHotelById,
