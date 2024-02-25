@@ -5,6 +5,7 @@ import { getFilteredHotels } from "../../Redux/Actions/actions";
 import "./filters.css";
 //import { Select, MenuItem } from '@material-ui/core';
 
+
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
   const [filters, setFilters] = useState<any>({
@@ -15,29 +16,53 @@ const Filters: React.FC = () => {
     desiredCheckOutDate: "",
     minScore: "",
     services: "",
+
+    SrvSpa: false,
+    SrvWifi: false,
+    SrvBar: false,
+    SrvRoomService: false,
+    SrvConcierge: false,
+    SrvFineDiningRestaurant: false
   });
-// :( xd
-  type Services = {
-    services: "all";
-    Spa: "Spa";
-    Wifi: "Wifi";
-    Bar: "Bar";
-    RoomService: "Room service";
-    Concierge: "Concierge";
-    MeetingFacilities: "Meeting facilities";
-  }
-  const x: Services = { "" };
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked}  = e.target;
+
     setFilters((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: type.toLowerCase() == 'checkbox' ? checked : value,
     }));
   };
 
+
+  /* const services = [
+    "a", "b"
+  ] */
+
   const handleFilterSubmit = () => {
-    dispatch(getFilteredHotels(filters));
+    filters.services = "";
+    filters.services += filters.SrvSpa                  ? ",Spa"                    : "";
+    filters.services += filters.SrvWifi                 ? ",Wifi"                   : "";
+    filters.services += filters.SrvBar                  ? ",Bar"                    : "";
+    filters.services += filters.SrvRoomService          ? ",Room Service"           : "";
+    filters.services += filters.SrvConcierge            ? ",Concierge"              : "";
+    filters.services += filters.SrvFineDiningRestaurant ? ",Fine dining restaurant" : "";
+
+    filters.services = filters.services.startsWith(',') ? filters.services.slice(1) : filters.services;
+    
+    let ToSend = {
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+        address: filters.address,
+        desiredCheckInDate: filters.desiredCheckInDate,
+        desiredCheckOutDate: filters.desiredCheckOutDate,
+        minScore: filters.minScore,
+        services: filters.services
+    }
+
+    console.log("Filters:", ToSend);
+
+    dispatch(getFilteredHotels(ToSend));
   };
 
   return (
@@ -84,30 +109,29 @@ const Filters: React.FC = () => {
         onChange={handleFilterChange}
         placeholder="Min Score"
       />
-      <input
+      {/* <input
         type="text"
         name="services"
         value={filters.services}
         onChange={handleFilterChange}
         placeholder="Services"
-      />
+      /> */}
 
-      <select onChange = {handleFilterChange} value={filters.service}>
-                <option value="all">Services</option>
-                <option value="Spa">Spa</option>
-                <option value="Wifi">Wifi</option>
-                <option value="Bar">Bar</option>
-                <option value="Room Service">Room Service</option>
-                <option value="Concierge">Concierge</option>
-                <option value="Meeting">Meeting</option>
-      </select>
-
-      <select onChange={handleFilterChange} >
-                <option value="all">All Services</option>
-                {services.map(services => (
-                    <option key={services} value={services}>{services}</option>
-                ))}
-            </select>
+      <div>
+        <h2>Services</h2>
+        <input onChange={handleFilterChange} type="checkbox" id="srvwifi" name="SrvWifi" checked={filters.SrvWifi} />
+        <label for="srvwifi">Wifi</label>
+        <input onChange={handleFilterChange} type="checkbox" id="srvbar" name="SrvBar" checked={filters.SrvBar} />
+        <label for="srvbar">Bar</label>
+        <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />
+        <label for="srvspa">Spa</label>
+        <input onChange={handleFilterChange} type="checkbox" id="srvroomservice" name="SrvRoomService" checked={filters.SrvRoomService} />
+        <label for="srvroomservice">Room Service</label>
+        <input onChange={handleFilterChange} type="checkbox" id="srvfinediningrestaurant" name="SrvFineDiningRestaurant" checked={filters.SrvFineDiningRestaurant} />
+        <label for="srvfinediningrestaurant">Fine dining restaurant</label>
+        
+        
+      </div>
 
       <button onClick={handleFilterSubmit}>Apply Filters</button>
     </div>
