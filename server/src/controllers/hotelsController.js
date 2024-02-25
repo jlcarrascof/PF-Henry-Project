@@ -13,18 +13,6 @@ const getHotelById = async (id) => {
   }
 };
 
-
-const getHotelByName = async (name) => {
-  const db = getDb();
-  try {
-    const hotels = await db.collection("hotels").find({ name: name }).toArray();
-
-    return hotels;
-  } catch (error) {
-    throw error;
-  }
-};
-
 const createHotel = async (hotelData) => {
   const db = getDb();
 
@@ -36,8 +24,6 @@ const createHotel = async (hotelData) => {
     throw error;
   }
 };
-
-
 
 const updateHotel = async (id, updateData) => {
   const db = getDb();
@@ -70,12 +56,7 @@ const deleteHotelById = async (id) => {
 
 module.exports = {
   getHotelById,
-  getHotelByName,
   createHotel,
   updateHotel,
   deleteHotelById,
 };
-
-
-
-
