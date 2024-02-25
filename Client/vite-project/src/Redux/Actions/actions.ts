@@ -4,6 +4,7 @@ import {
   GET_HOTELS,
   GET_HOTEL_BY_ID,
   GET_HOTEL_BY_NAME,
+  GET_FILTERED_HOTELS
 } from "./actions-types";
 
 export interface Action {
@@ -74,3 +75,21 @@ export const getHotelByName = (name: string) => {
     }
   };
 };
+
+
+export const getFilteredHotels = (filters: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get("http://localhost:3002/hotels/", { params: filters });
+      dispatch({
+        type: GET_FILTERED_HOTELS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener hoteles filtrados:", error);
+    }
+  };
+};
+
+
+

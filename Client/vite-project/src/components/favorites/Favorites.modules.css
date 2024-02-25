@@ -1,0 +1,33 @@
+.favorites-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 800px;
+  max-height: fit-content;
+  padding: 20px;
+}
+
+.favorites-grid {
+  padding-top: 200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.hotel-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.hotel-card h3 {
+  padding: 10px;
+  text-align: center;
+  margin: 0;
+}
