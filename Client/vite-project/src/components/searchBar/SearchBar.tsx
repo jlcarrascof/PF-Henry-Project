@@ -51,6 +51,10 @@ const SearchBar: React.FC = () => {
   );
 };
 
+
+export default SearchBar;
+
+
 // const SearchBar: React.FC = () => {
 //   const filteredHotels = useSelector((state: State) => state.filteredHotels);
 //   // calendar framework
@@ -215,4 +219,12 @@ const SearchBar: React.FC = () => {
 //   );
 // };
 
-export default SearchBar;
+// export default SearchBar;
+
+
+
+
+
+
+
+

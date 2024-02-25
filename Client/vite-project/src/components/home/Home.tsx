@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react"; // Importa useState
 import { useDispatch, useSelector } from "react-redux";
-import NavBar from "../navBar/NavBar";
+//import NavBar from "../navBar/NavBar";
 import SearchBar from "../searchBar/SearchBar";
 import Cards from "../cards/Cards";
 import Filters from "../filters/Filters";
@@ -13,8 +13,10 @@ import "./Home.modules.css";
 const Home: React.FC = () => {
   const dispatch = useDispatch(); // Obtener la función dispatch
 
+  const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
+
   // Obtener el estado del paginado y hoteles filtrados
-  const { filteredHotels, currentPage, totalPages, allHotels } = useSelector((state: State) => state);
+  const { totalPages, allHotels } = useSelector((state: State) => state);
 
   // Llamar a la acción getFilteredHotels al cargar la página o al cambiar de página
   useEffect(() => {
@@ -24,23 +26,35 @@ const Home: React.FC = () => {
   // Función para manejar la página siguiente
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      dispatch(getFilteredHotels({ p: currentPage + 1 }));
+      setCurrentPage(currentPage + 1); // Actualiza la página actual
     }
   };
 
   // Función para manejar la página anterior
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      dispatch(getFilteredHotels({ p: currentPage - 1 }));
+      setCurrentPage(currentPage - 1); // Actualiza la página actual
     }
   };
 
-  console.log("En home después de definir el select de allHotels:", allHotels);
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page); // Establece la página actual
+    }
+  };
 
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button key={i} onClick={() => handlePageChange(i)} disabled={i === currentPage}>
+          {i}
+        </button>
+      );
+    }
+    return pageNumbers;
+  };
 
-
-
-  
   return (
     <div className="home-container">
       <div className="searchBar-container">
@@ -49,22 +63,20 @@ const Home: React.FC = () => {
       <div>
         <h1>Some of our best hotels</h1>
         <div className="pagination">
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              Prev
-            </button>
-            <span>{currentPage}</span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-              Next
-            </button>
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Prev
+          </button>
+          {renderPageNumbers()}
+       
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            Next
+          </button>
         </div>
-
-
       </div>
       <div className="card-filter-container">
         <div className="filter-container">
           <Filters />
         </div>
-
         <div className="allCards">
           <Cards allHotels={allHotels} />
         </div>
@@ -74,8 +86,6 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-
 
 
 
