@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../navBar/NavBar";
@@ -14,9 +13,9 @@ import "./Home.modules.css";
 const Home: React.FC = () => {
   const allHotels = useSelector((state: State) => state.allHotels);
 
-  const filteredHotels = useSelector((state: State) => state.filteredHotels);
+  // const filteredHotels = useSelector((state: State) => state.filteredHotels);
 
-  const filteredHotels = useSelector((state: State) => state.filteredHotels); 
+  const filteredHotels = useSelector((state: State) => state.filteredHotels);
 
   const dispatch = useDispatch();
   // Efecto secundario para cargar hoteles al montar el componente
@@ -36,14 +35,15 @@ const Home: React.FC = () => {
         <SearchBar />
       </div>
 
-
       <div>
         {" "}
         <Filters />{" "}
       </div>
 
-
-      <div> <Filters /> </div>
+      <div>
+        {" "}
+        <Filters />{" "}
+      </div>
 
       <div>
         <h1>Some of our best hotels</h1>
@@ -53,14 +53,14 @@ const Home: React.FC = () => {
         <div className="filter-container">{/* Filtros */}</div>
 
         <div className="allCards">
-
           <Cards
             allHotels={filteredHotels.length > 0 ? filteredHotels : allHotels}
           />{" "}
           {/* Renderiza hoteles filtrados si hay, de lo contrario todos los hoteles */}
-
-          <Cards allHotels={filteredHotels.length > 0 ? filteredHotels : allHotels} /> {/* Renderiza hoteles filtrados si hay, de lo contrario todos los hoteles */}
-
+          <Cards
+            allHotels={filteredHotels.length > 0 ? filteredHotels : allHotels}
+          />{" "}
+          {/* Renderiza hoteles filtrados si hay, de lo contrario todos los hoteles */}
         </div>
       </div>
     </div>
@@ -68,8 +68,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-
-
-
-
