@@ -87,6 +87,8 @@ const patchHotel = async (req, res) => {
   }
 };
 
+
+
 const getHotelsFiltered = async (req, res) => {
   try {
     const {
