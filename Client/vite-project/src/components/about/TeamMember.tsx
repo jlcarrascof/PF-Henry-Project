@@ -4,7 +4,6 @@ interface TeamMemberProps {
   linkedin: string;
   image: string;
 }
-import "./about.module.css";
 
 const TeamMember: React.FC<TeamMemberProps> = ({ name, linkedin, image }) => {
   return (

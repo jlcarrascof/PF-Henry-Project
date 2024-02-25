@@ -26,6 +26,10 @@
   display: flex;
   flex: 0 0 auto;
 }
+.navContainer .logo {
+  color: white;
+  text-decoration: none;
+}
 .navItems > * {
   padding: 0.75rem;
   margin: 0 0.5em;

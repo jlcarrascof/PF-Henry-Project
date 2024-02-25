@@ -1,6 +1,6 @@
 import React from "react";
 import TeamMember from "./TeamMember";
-import "./About.module.css";
+import "./about.module.css";
 
 interface TeamMemberProps {
   name: string;

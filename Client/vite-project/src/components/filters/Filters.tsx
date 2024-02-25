@@ -51,7 +51,7 @@ const Filters: React.FC = () => {
         onChange={handleFilterChange}
         placeholder="Address"
       />
-      <input
+      {/* <input
         type="text"
         name="desiredCheckInDate"
         value={filters.desiredCheckInDate}
@@ -64,7 +64,7 @@ const Filters: React.FC = () => {
         value={filters.desiredCheckOutDate}
         onChange={handleFilterChange}
         placeholder="Check Out Date"
-      />
+      /> */}
       <input
         type="text"
         name="minScore"

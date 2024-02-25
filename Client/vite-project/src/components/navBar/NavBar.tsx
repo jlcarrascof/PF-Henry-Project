@@ -3,15 +3,17 @@ import "./navBar.css";
 
 const NavBar: React.FC = () => {
   return (
-    <div className="navBar"> 
+    <div className="navBar">
       <div className="navContainer">
-        <h2 className="logo"> Rentify </h2>
+        <Link to="/">
+          <h2 className="logo"> Rentify </h2>
+        </Link>
         <div className="navSeparator"></div>
         <div className="navItems">
-          <Link to="/">
+          <Link to="/hotels">
             <p>Home</p>
           </Link>
-         
+
           <Link to="/favorites">
             <p>Favorites</p>
           </Link>
@@ -23,6 +25,5 @@ const NavBar: React.FC = () => {
     </div>
   );
 };
-
 
 export default NavBar;
