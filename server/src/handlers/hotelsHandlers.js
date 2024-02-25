@@ -36,7 +36,6 @@ const postHotel = async (req, res) => {
 
     res.status(201).json(newHotel);
   } catch (error) {
-    //console.error("Error creating hotel:", error);
     res.status(500).json({ error: error.message });
   }
 };
