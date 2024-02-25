@@ -4,7 +4,7 @@ import {
   GET_HOTELS,
   GET_HOTEL_BY_ID,
   GET_HOTEL_BY_NAME,
-  GET_FILTERED_HOTELS
+  GET_FILTERED_HOTELS,
 } from "./actions-types";
 
 export interface Action {
@@ -60,11 +60,11 @@ export const getHotelById = (id: string) => {
 //     }
 //   }
 
-export const getHotelByName = (name: string) => {
+export const getHotelByName = (address: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3002/hotels/?name=${name}`
+        `http://localhost:3002/hotels/?address=${address}`
       );
       dispatch({
         type: GET_HOTEL_BY_NAME,
@@ -76,11 +76,12 @@ export const getHotelByName = (name: string) => {
   };
 };
 
-
 export const getFilteredHotels = (filters: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/hotels/", { params: filters });
+      const { data } = await axios.get("http://localhost:3002/hotels/", {
+        params: filters,
+      });
       dispatch({
         type: GET_FILTERED_HOTELS,
         payload: data,
@@ -90,6 +91,3 @@ export const getFilteredHotels = (filters: any) => {
     }
   };
 };
-
-
-

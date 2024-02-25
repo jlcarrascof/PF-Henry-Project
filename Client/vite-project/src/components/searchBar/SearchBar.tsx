@@ -1,4 +1,4 @@
-// framework Styles
+//? ----------------------------------------------------------FRAMEWORKS
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
@@ -9,25 +9,44 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-// dependencies
-import { useState } from "react";
+//? ----------------------------------------------------------DEPENDENCIES
+import { useState, useEffect, ReactEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 import { State } from "../../Redux/Reducer/reducer";
-// Styles
-import styles from "../searchBar/SearchBar.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getHotelByName } from "../../Redux/Actions/actions";
+//? ----------------------------------------------------------STYLES
+// import styles from "../searchBar/SearchBar.module.css";
+import "./searchbar.css";
 
 const SearchBar: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [input, setInput] = useState<string>("");
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setInput(value);
+  };
 
   const onClick = () => {
     navigate("/hotels");
   };
 
+  useEffect(() => {
+    dispatch(getHotelByName(input));
+    console.log(input);
+  }, [input]);
+
   return (
-    <div>
-      <input placeholder="Where are we going?"></input>
-      <button onClick={onClick}></button>
+    <div className="searchContainer">
+      <input
+        placeholder="Where are we going?"
+        onChange={onChange}
+        value={input}
+      ></input>
+      <button onClick={onClick}> Search</button>
     </div>
   );
 };
