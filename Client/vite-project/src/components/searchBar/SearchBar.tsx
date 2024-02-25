@@ -31,7 +31,7 @@ const SearchBar: React.FC = () => {
   };
 
   const onClick = () => {
-    navigate("/hotels");
+    if (input) navigate("/hotels");
   };
 
   useEffect(() => {

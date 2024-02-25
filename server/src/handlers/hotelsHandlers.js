@@ -28,24 +28,6 @@ const getHotelID = async (req, res) => {
   }
 };
 
-//Para Hotel por nombre y para todos los hoteles, también los filtros
-const getHotels = async (req, res) => {
-  try {
-    const { name } = req.query;
-
-    let hotels;
-
-    if (name) {
-      hotels = await getHotelByName(name);
-    } else {
-      hotels = await getAllHotels();
-    }
-    res.status(200).json(hotels);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 const postHotel = async (req, res) => {
   try {
     const hotelData = req.body;
@@ -93,7 +75,6 @@ const getHotelsFiltered = async (req, res) => {
       desiredCheckOutDate,
       minScore,
       services,
-      city,
     } = req.query;
     const db = getDb();
     const page = parseInt(req.query.p) || 1;
@@ -175,19 +156,33 @@ const deleteHotelByID = async (req, res) => {
   }
 };
 
-const getFav = async (req, res) => {
+const updateFav = async (req, res) => {
+  const { id } = req.params;
+  const db = getDb();
+
   try {
-    const { id } = req.params;
+    const result = await db
+      .collection("hotels")
+      .updateOne(
+        { "rooms.id": new ObjectId(id) },
+        { $set: { "rooms.$.isFav": true } }
+      );
+
+    if (result.modifiedCount === 1) {
+      res.status(200).json({ message: "Room marked as favorite" });
+    } else {
+      res.status(404).json({ message: "Room not found" });
+    }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).json({ error: error.message });
   }
 };
 
 module.exports = {
   getHotelID,
-  getHotels,
   postHotel,
   patchHotel,
   getHotelsFiltered,
   deleteHotelByID,
+  updateFav,
 };

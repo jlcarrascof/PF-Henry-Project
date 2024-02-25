@@ -56,7 +56,6 @@ const deleteHotelById = async (id) => {
 
 module.exports = {
   getHotelById,
-  getHotelByName,
   createHotel,
   updateHotel,
   deleteHotelById,
