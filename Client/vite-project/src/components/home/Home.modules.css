@@ -1,38 +1,39 @@
 .home-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 20px
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  background-color: lavender;
 }
 
-.homeWrapped{
-    width: 100%;
-    max-width: 1024px;
-    display: flex;
-    gap: 20px;
+.homeWrapped {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  gap: 20px;
 }
 
 .searchBar-container {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    padding-top: 30vh;
-    padding: 30px;
-    color: rgb(17, 16, 18);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 30vh;
+  padding: 30px;
+  color: rgb(17, 16, 18);
 }
 
-.allCards{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 800;
+.allCards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 800;
 }
 
 .card-filter-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 10vw;
+  display: flex;
 }
 
-
+.filter-container {
+  display: flex;
+  text-align: center;
+}

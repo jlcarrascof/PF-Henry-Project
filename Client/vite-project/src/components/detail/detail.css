@@ -1,0 +1,82 @@
+.detailContainer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: lavender;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  flex-direction: column;
+}
+
+.detail h1 {
+  padding: 20px;
+}
+
+.leftColumn {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  gap: 15px;
+  padding: 10px;
+}
+
+.leftColumn li {
+  flex: 1;
+  list-style-type: none;
+}
+.eachRoom {
+  background-color: #b8b7c0;
+  padding: 15px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  margin: 10px;
+}
+
+.aColumn {
+  line-height: 1.5;
+}
+.reviews {
+  background-color: #b8b7c0;
+  padding: 15px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.rightColumn {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row;
+}
+
+.rightColumn img {
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.imageCarousel {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+  padding: 15px;
+  flex-wrap: wrap;
+}

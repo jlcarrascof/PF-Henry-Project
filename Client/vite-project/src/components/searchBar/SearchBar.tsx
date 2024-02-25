@@ -14,7 +14,7 @@ import { useState, useEffect, ReactEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 import { State } from "../../Redux/Reducer/reducer";
 import { useSelector, useDispatch } from "react-redux";
-import { getHotelByName } from "../../Redux/Actions/actions";
+import { getFilteredHotels } from "../../Redux/Actions/actions";
 //? ----------------------------------------------------------STYLES
 // import styles from "../searchBar/SearchBar.module.css";
 import "./searchbar.css";
@@ -35,7 +35,7 @@ const SearchBar: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getHotelByName(input));
+    dispatch(getFilteredHotels(input));
     console.log(input);
   }, [input]);
 
