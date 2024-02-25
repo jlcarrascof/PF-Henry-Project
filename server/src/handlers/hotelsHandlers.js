@@ -36,16 +36,12 @@ const getHotels = async (req, res) => {
     let hotels;
 
     if (name) {
-      //Mostrar Hotel por Nombre
       hotels = await getHotelByName(name);
     } else {
-      //Mostrar todos los hoteles
       hotels = await getAllHotels();
     }
-
     res.status(200).json(hotels);
   } catch (error) {
-    //console.error("Error fetching hotels:", error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -97,6 +93,7 @@ const getHotelsFiltered = async (req, res) => {
       desiredCheckOutDate,
       minScore,
       services,
+      city,
     } = req.query;
     const db = getDb();
     const page = parseInt(req.query.p) || 1;
@@ -172,73 +169,19 @@ const deleteHotelByID = async (req, res) => {
     }
 
     const result = await deleteHotelById(id);
+    res.status(201).send(result);
   } catch (err) {
     res.status(500).send(err);
   }
 };
 
-// if (result === "Hotel removed") {
-//   return res.status(200).json({ message: "Hotel deleted successfully" });
-// } else {
-//    return res.status(404).json({ error: "Hotel not found" });
-//  }
-//} catch (error) {
-//console.error("Error deleting hotel:", error);
-//   return res.status(500).json({ error: error.message });
-// }
-//};
-
-// const getHotelsFiltered = async (req, res) => {
-//   try {
-//     const {
-//       minPrice,
-//       maxPrice,
-//       address,
-//       desiredCheckInDate,
-//       desiredCheckOutDate,
-//       minScore,
-//     } = req.query;
-//     const db = getDb();
-
-//     let hotels = [];
-
-//     if (minPrice !== undefined && maxPrice !== undefined) {
-//       const priceFiltered = await rangePrice(
-//         db,
-//         parseInt(minPrice),
-//         parseInt(maxPrice)
-//       );
-//       hotels = priceFiltered;
-//     }
-
-//     if (address) {
-//       const addressFiltered = await filterAddress(db, address);
-//       hotels = hotels.concat(addressFiltered);
-//     }
-
-//     if (desiredCheckInDate && desiredCheckOutDate) {
-//       const dateFiltered = await filterDate(
-//         db,
-//         new Date(desiredCheckInDate),
-//         new Date(desiredCheckOutDate)
-//       );
-//       hotels = hotels.concat(dateFiltered);
-//     }
-
-//     if (minScore !== undefined) {
-//       const scoreFiltered = await filterScore(db, parseInt(minScore));
-//       hotels = hotels.concat(scoreFiltered);
-//     }
-
-//     // Eliminar duplicados
-//     hotels = hotels.filter((hotel, index) => hotels.indexOf(hotel) === index);
-
-//     res.status(200).json(hotels);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(400).json({ error: error.message });
-//   }
-// };
+const getFav = async (req, res) => {
+  try {
+    const { id } = req.params;
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 module.exports = {
   getHotelID,
@@ -246,4 +189,5 @@ module.exports = {
   postHotel,
   patchHotel,
   getHotelsFiltered,
+  deleteHotelByID,
 };

@@ -9,7 +9,7 @@ import Favorites from "./components/favorites/Favorites";
 import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 
-import About from "./components/about/About";
+// import About from "./components/about/About";
 
 import Home from "./components/home/Home";
 
