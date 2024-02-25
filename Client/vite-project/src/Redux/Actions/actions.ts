@@ -71,3 +71,11 @@ export const getFilteredHotels = (filters: any) => {
     }
   };
 };
+
+
+
+
+
+
+
+

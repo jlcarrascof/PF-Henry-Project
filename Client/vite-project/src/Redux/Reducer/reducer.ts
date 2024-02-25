@@ -6,6 +6,9 @@ export interface State {
   allHotelsBackUp: any[]; 
   currentHotel: any;
   filteredHotels: any[];
+  currentPage: number; 
+  totalPages: number; 
+  totalResults: number;
 }
 
 const initialState: State = {
@@ -13,6 +16,9 @@ const initialState: State = {
   allHotelsBackUp: [],
   currentHotel: null,
   filteredHotels: [],
+  currentPage: 1, 
+  totalPages: 1, 
+  totalResults: 0,
 };
 
 const rootReducer = (state: State = initialState, action: Action): State => {
@@ -38,7 +44,10 @@ const rootReducer = (state: State = initialState, action: Action): State => {
                 return {
                     ...state,
                     allHotels: action.payload.hotels,
-                    allHotelsBackUp: action.payload.hotels
+                    allHotelsBackUp: action.payload.hotels,
+                    currentPage: action.payload.currentPage, // Actualizar la página actual
+                    totalPages: action.payload.totalPages, // Actualiza el total de páginas
+                    totalResults: action.payload.totalResults,
                 };
       default:
           return state;

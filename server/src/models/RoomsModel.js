@@ -10,18 +10,20 @@ const reviewSchema = new Schema({
 });
 
 const hotelSchema = new Schema({
-    name: { type: String, required: true },
-    owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    details: { String, required: true },
-    address: { String, required: true },
-    contact: {
-      phone: Number,
-      mail: String,
-    }
-  });
+  name: { type: String, required: true },
+  owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  details: { type: String, required: true },
+  address: { type: String, required: true },
+  contact: {
+    phone: Number,
+    mail: String,
+  }
+});
+
+const Hotel = model("Hotel", hotelSchema);
 
 const roomSchema = new Schema({
-  hotel_id: {hotelSchema},
+  hotel_id: { type: Schema.Types.ObjectId, ref: "Hotel", required: true },
   description: { type: String, required: true },
   typeOfRoom: { type: String, required: true },
   services: [String],
@@ -33,9 +35,9 @@ const roomSchema = new Schema({
     mail: String,
   },
   num_rooms: { type: Number, required: true },
-  isFav: { type: Boolean, defaultValue: false },
-  review: [reviewSchema],
-  totalScore: {type: Number}
+  isFav: { type: Boolean, default: false },
+  reviews: [reviewSchema],
+  totalScore: { type: Number, default: 0 }
 });
 
 const Room = model("Room", roomSchema);
