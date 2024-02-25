@@ -111,7 +111,13 @@ const getHotelsFiltered = async (req, res) => {
       maxPrice !== ""
     ) {
       filters.push({
-        "rooms.price": { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) },
+        rooms: {
+          $elemMatch: {
+            $and: [
+              { price: { $gte: parseFloat(minPrice) } },
+              { price: { $lte: parseFloat(maxPrice) } }
+          ]
+        } },
       });
     }
 
@@ -120,7 +126,11 @@ const getHotelsFiltered = async (req, res) => {
     }
 
     if (services) {
-      filters.push({ services: { $in: services.split(",") } });
+      filters.push({ services: {
+        $elemMatch: {
+          $in: services.split(",")
+        }
+      } });
     }
 
     if (desiredCheckInDate && desiredCheckOutDate) {
@@ -140,8 +150,14 @@ const getHotelsFiltered = async (req, res) => {
     }
 
     if (minScore !== undefined && minScore !== "") {
-      filters.push({ "reviews.score": { $gte: parseInt(minScore) } });
-    }
+      filters.push({
+        reviews: {
+          $elemMatch: {
+            score: { $gte: parseFloat(minScore) }
+          }
+        }
+     });
+   }
 
     const query = filters.length > 0 ? { $and: filters } : {};
 

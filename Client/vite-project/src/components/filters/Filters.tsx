@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Action } from "../../Redux/Actions/actions";
+//import { Action } from "../../Redux/Actions/actions";
 import { getFilteredHotels } from "../../Redux/Actions/actions";
 import "./filters.css";
+//import { Select, MenuItem } from '@material-ui/core';
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,8 +16,19 @@ const Filters: React.FC = () => {
     minScore: "",
     services: "",
   });
+// :( xd
+  type Services = {
+    services: "all";
+    Spa: "Spa";
+    Wifi: "Wifi";
+    Bar: "Bar";
+    RoomService: "Room service";
+    Concierge: "Concierge";
+    MeetingFacilities: "Meeting facilities";
+  }
+  const x: Services = { "" };
 
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     setFilters((prevState) => ({
       ...prevState,
@@ -79,9 +91,34 @@ const Filters: React.FC = () => {
         onChange={handleFilterChange}
         placeholder="Services"
       />
+
+      <select onChange = {handleFilterChange} value={filters.service}>
+                <option value="all">Services</option>
+                <option value="Spa">Spa</option>
+                <option value="Wifi">Wifi</option>
+                <option value="Bar">Bar</option>
+                <option value="Room Service">Room Service</option>
+                <option value="Concierge">Concierge</option>
+                <option value="Meeting">Meeting</option>
+      </select>
+
+      <select onChange={handleFilterChange} >
+                <option value="all">All Services</option>
+                {services.map(services => (
+                    <option key={services} value={services}>{services}</option>
+                ))}
+            </select>
+
       <button onClick={handleFilterSubmit}>Apply Filters</button>
     </div>
   );
 };
 
+{/* <input
+        type="text"
+        name="services"
+        value={filters.services}
+        onChange={handleFilterChange}
+        placeholder="Services"
+      /> */}
 export default Filters;
