@@ -1,0 +1,40 @@
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  background-color: #e0e0e0;
+  padding: 40px;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  height: 660px;
+  margin-left: 30px;
+}
+
+.filtros input {
+  padding: 30px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border: 1px solid #b8b7c0;
+}
+
+.filtros button {
+  padding: 20px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(45deg, #190019, #2b124c);
+  background-color: #1d1a39;
+  border: 1px solid #1d1a39;
+}

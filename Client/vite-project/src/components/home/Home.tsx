@@ -27,40 +27,21 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <div>
-        <NavBar />
-      </div>
-
       <div className="searchBar-container">
         <SearchBar />
       </div>
-
-      <div>
-        {" "}
-        <Filters />{" "}
-      </div>
-
-      <div>
-        {" "}
-        <Filters />{" "}
-      </div>
-
       <div>
         <h1>Some of our best hotels</h1>
       </div>
-
       <div className="card-filter-container">
-        <div className="filter-container">{/* Filtros */}</div>
+        <div className="filter-container">
+          <Filters />{" "}
+        </div>
 
         <div className="allCards">
           <Cards
             allHotels={filteredHotels.length > 0 ? filteredHotels : allHotels}
           />{" "}
-          {/* Renderiza hoteles filtrados si hay, de lo contrario todos los hoteles */}
-          <Cards
-            allHotels={filteredHotels.length > 0 ? filteredHotels : allHotels}
-          />{" "}
-          {/* Renderiza hoteles filtrados si hay, de lo contrario todos los hoteles */}
         </div>
       </div>
     </div>

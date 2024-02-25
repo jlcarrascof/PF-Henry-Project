@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getHotelById } from "../../Redux/Actions/actions";
-import "./Detail.modules.css"; 
+import "./detail.css";
 
 const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -18,50 +18,21 @@ const Detail: React.FC = () => {
   }, [dispatch, id]);
 
   return (
-    <div className="container">
-      <h1>Hotel Detail</h1>
+    <div className="detailContainer">
       {currentHotel && (
         <div className="detail">
-          <div className="leftColumn">
-            <h2>{currentHotel.name}</h2>
+          <h1>{currentHotel.name}</h1>
 
-            {/* Nueva estructura para Address */}
-            <div className="section">
+          <div className="leftColumn">
+            <div className="aColumn">
               <h3>Address:</h3>
               <p>{currentHotel.address}</p>
-            </div>
-
-            {/* Nueva estructura para Details */}
-            <div className="section">
               <h3>Details:</h3>
               <p>{currentHotel.details}</p>
-            </div>
-
-            {/* Nueva estructura para Services */}
-            <div className="section">
               <h3>Services:</h3>
               <p>{currentHotel.services}</p>
-            </div>
-
-            {/* Agregando secciones de la Card */}
-            <div className="section">
-              <h3>Reviews:</h3>
-              {currentHotel.reviews && (
-                <ul>
-                  {currentHotel.reviews.map((review, index) => (
-                    <li key={index}>
-                      <p>Description: {review.description}</p>
-                      <p>Score: {review.score}</p>
-                      <p>Client: {review.client}</p>
-                      <p>Date: {review.date}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div className="section">
               <h3>Contact:</h3>
+
               {currentHotel.contact && (
                 <div>
                   <p>Phone: {currentHotel.contact.phone}</p>
@@ -69,21 +40,25 @@ const Detail: React.FC = () => {
                 </div>
               )}
             </div>
-
-            <div className="section">
-              <h3>Rooms:</h3>
-              {currentHotel.rooms && (
-                <ul>
-                  {currentHotel.rooms.map((room, index) => (
-                    <li key={index}>
-                      <p>Description: {room.description}</p>
-                      <p>Type: {room.typeOfRoom}</p>
-                      <p>Price: ${room.price}</p>
-                      <p>Availability: {room.availability ? 'Available' : 'Not available'}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
+            <div className="bColumn">
+              <div className="rooms">
+                <h3>Rooms:</h3>
+                {currentHotel.rooms && (
+                  <ul>
+                    {currentHotel.rooms.map((room, index) => (
+                      <div className="eachRoom" key={index}>
+                        <p>Description: {room.description}</p>
+                        <p>Type: {room.typeOfRoom}</p>
+                        <p>Price: ${room.price}</p>
+                        <p>
+                          Availability:{" "}
+                          {room.availability ? "Available" : "Not available"}
+                        </p>
+                      </div>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
           </div>
 
@@ -97,6 +72,20 @@ const Detail: React.FC = () => {
               </div>
             )}
           </div>
+          <div className="reviews">
+            <h3>Reviews:</h3>
+            {currentHotel.reviews && (
+              <ul>
+                {currentHotel.reviews.map((review, index) => (
+                  <div key={index}>
+                    <p>Description: {review.description}</p>
+                    <p>Score: {review.score}</p>
+                    <p>Date: {review.date}</p>
+                  </div>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       )}
     </div>
@@ -104,6 +93,3 @@ const Detail: React.FC = () => {
 };
 
 export default Detail;
-
-
-

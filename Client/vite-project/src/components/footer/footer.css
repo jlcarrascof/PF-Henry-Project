@@ -17,3 +17,7 @@ footer {
   align-items: left;
   line-height: 2.5;
 }
+.footerContent h5 {
+  color: #fff;
+  text-decoration: none;
+}
