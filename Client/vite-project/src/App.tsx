@@ -8,7 +8,9 @@ import NavBar from "./components/navBar/NavBar";
 import Favorites from "./components/favorites/Favorites";
 import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
-//import About from "./components/";
+
+import About from "./components/about/About";
+
 import Home from "./components/home/Home";
 
 // ? -----------------------------------------------------STYLES
@@ -27,8 +29,8 @@ function App() {
 
         {/* <Route path="/about" element={<About />} /> */}
 
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/detail" element={<Detail />} />
+        <Route path="/hotels" element={<Home />} />
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}
     </>

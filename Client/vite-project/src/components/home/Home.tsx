@@ -11,13 +11,14 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./Home.modules.css";
 
-//import { Action } from '../../Redux/Actions/actions';
-
 const Home: React.FC = () => {
   const allHotels = useSelector((state: State) => state.allHotels);
-  const filteredHotels = useSelector((state: State) => state.filteredHotels); 
-  const dispatch = useDispatch();
 
+  const filteredHotels = useSelector((state: State) => state.filteredHotels);
+
+  const filteredHotels = useSelector((state: State) => state.filteredHotels); 
+
+  const dispatch = useDispatch();
   // Efecto secundario para cargar hoteles al montar el componente
   useEffect(() => {
     dispatch(getHotels());
@@ -27,18 +28,39 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <NavBar />
+      <div>
+        <NavBar />
+      </div>
+
       <div className="searchBar-container">
         <SearchBar />
       </div>
+
+
+      <div>
+        {" "}
+        <Filters />{" "}
+      </div>
+
+
       <div> <Filters /> </div>
+
       <div>
         <h1>Some of our best hotels</h1>
       </div>
+
       <div className="card-filter-container">
         <div className="filter-container">{/* Filtros */}</div>
+
         <div className="allCards">
+
+          <Cards
+            allHotels={filteredHotels.length > 0 ? filteredHotels : allHotels}
+          />{" "}
+          {/* Renderiza hoteles filtrados si hay, de lo contrario todos los hoteles */}
+
           <Cards allHotels={filteredHotels.length > 0 ? filteredHotels : allHotels} /> {/* Renderiza hoteles filtrados si hay, de lo contrario todos los hoteles */}
+
         </div>
       </div>
     </div>
