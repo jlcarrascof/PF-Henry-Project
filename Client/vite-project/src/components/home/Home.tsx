@@ -13,12 +13,9 @@ import "./Home.modules.css";
 const Home: React.FC = () => {
   const allHotels = useSelector((state: State) => state.allHotels);
 
-  // const filteredHotels = useSelector((state: State) => state.filteredHotels);
-
   const filteredHotels = useSelector((state: State) => state.filteredHotels);
 
   const dispatch = useDispatch();
-  // Efecto secundario para cargar hoteles al montar el componente
   useEffect(() => {
     dispatch(getFilteredHotels());
   }, [dispatch]);
