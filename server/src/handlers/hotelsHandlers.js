@@ -64,12 +64,13 @@ const patchHotel = async (req, res) => {
   }
 };
 
+
 const getHotelsFiltered = async (req, res) => {
   try {
     const {
       minPrice,
       maxPrice,
-      address,
+      address, // Nueva variable para filtrar por dirección
       desiredCheckInDate,
       desiredCheckOutDate,
       minScore,
@@ -92,6 +93,7 @@ const getHotelsFiltered = async (req, res) => {
       });
     }
 
+    // Filtrar por dirección si se proporciona
     if (address) {
       filters.push({ address: { $regex: new RegExp(address, "i") } });
     }
@@ -143,6 +145,88 @@ const getHotelsFiltered = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+
+
+// const getHotelsFiltered = async (req, res) => {
+//   try {
+//     const {
+//       minPrice,
+//       maxPrice,
+//       address,
+//       desiredCheckInDate,
+//       desiredCheckOutDate,
+//       minScore,
+//       services,
+//     } = req.query;
+//     const db = getDb();
+//     const page = parseInt(req.query.p) || 1;
+//     const limit = parseInt(req.query.limit) || 2;
+
+//     let filters = [];
+
+//     if (
+//       minPrice !== undefined &&
+//       maxPrice !== undefined &&
+//       minPrice !== "" &&
+//       maxPrice !== ""
+//     ) {
+//       filters.push({
+//         "rooms.price": { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) },
+//       });
+//     }
+
+//     if (address) {
+//       filters.push({ address: { $regex: new RegExp(address, "i") } });
+//     }
+
+//     if (services) {
+//       filters.push({ services: { $in: services.split(",") } });
+//     }
+
+//     if (desiredCheckInDate && desiredCheckOutDate) {
+//       filters.push({
+//         $or: [
+//           { "rooms.availability": true },
+//           {
+//             "rooms.reservations.startDate": {
+//               $gte: new Date(desiredCheckInDate),
+//             },
+//             "rooms.reservations.endDate": {
+//               $lte: new Date(desiredCheckOutDate),
+//             },
+//           },
+//         ],
+//       });
+//     }
+
+//     if (minScore !== undefined && minScore !== "") {
+//       filters.push({ "reviews.score": { $gte: parseInt(minScore) } });
+//     }
+
+//     const query = filters.length > 0 ? { $and: filters } : {};
+
+//     const hotels = await db
+//       .collection("hotels")
+//       .find(query)
+//       .skip((page - 1) * limit)
+//       .limit(limit)
+//       .toArray();
+
+//     const totalHotels = await db.collection("hotels").countDocuments(query);
+//     const totalPages = Math.ceil(totalHotels / limit);
+
+//     res.status(200).json({
+//       currentPage: page,
+//       totalPages: totalPages,
+//       totalResults: hotels.length,
+//       hotels: hotels,
+//     });
+//   } catch (error) {
+//     console.log("el error es: ", error);
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 const deleteHotelByID = async (req, res) => {
   try {

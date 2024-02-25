@@ -31,7 +31,8 @@ const SearchBar: React.FC = () => {
   };
 
   const onClick = () => {
-    navigate("/hotels");
+    dispatch(getFilteredHotels({ address: input })); 
+    navigate("/hotels"); 
   };
 
   useEffect(() => {
@@ -53,6 +54,10 @@ const SearchBar: React.FC = () => {
 
 
 export default SearchBar;
+
+
+
+
 
 
 // const SearchBar: React.FC = () => {

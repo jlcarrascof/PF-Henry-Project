@@ -31,10 +31,11 @@ const About: React.FC = () => {
     <div className="About">
       <div className="container">
         <div className="mision-vision">
-          <h2>Welcome to Rentify - Your Temporary Rental Platform!</h2>
+          <h1>Welcome to Rentify - Your Temporary Rental Platform!</h1>
           <div className="img-mision">
             <p>
-              Discover and Rent: Explore a wide range of properties for
+              <h2> Discover and Rent: </h2> 
+              Explore a wide range of properties for
               temporary rental, from cozy homes to modern commercial spaces and
               offices.
             </p>
@@ -44,7 +45,8 @@ const About: React.FC = () => {
           <div className="img-vision">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEQUlEQVR4nO1XXWxURRS+JjaC0aiP6CtRMVGYe9GAETehc7cqtDyhRKU7s9V9ILSgYsvWKPiTGhCMCqJJJSZufXBbTSDS7EzdmZJAEW2ij5oQSQuWiIlEq5IyQ8bM7F1tt9y9d8td05D7Jedl58z5vnPOnJm7lhUjRowYMWLE+A8PtqRvtiHqtiEetSH+05iLvrVdlNVr1nyGk2x7wHbRz7aLlY+dXdaI7rfmI5Y3pe+yXXxBCwUQH7MharonsekmXXXQmHrEdtGIl8SF+xo33mnNNwCIi0a8i/OJxI7rK9f1b7aLBrwEqTWf4CRTd5vqQvybAzO3+Pndu+bJ28pd+l+6AFzUDFzMy8MIIGJ2Eq+t9LOTOOMdj08CY0LUp30diJ6ZK1848RD3+A8jemNGAi7KekejJ3xclJ0rX7B4FzV7R2IKuLgTwPTtJUNd+jezNq0yNkw9W/JHubl0ANTIFyIBzEsVRV2Vaw7E271qF680A0sTqVtrnQFQI18gbBdNmio1ZRbNCtiUWeSR/VGxZ8hr94DjZBpm7XMyDQCiL7y95Gr5qqIcULexcm3p6tY7vIr8Pv13XdF/3wEXn1jm4kf1G6DNgegxANHJcpdAsm3x1fJVhZl+c07x9sq1aQM7q6X6lbUhOuM3jADicQDTy6Pi84UemPJQ6aC6MqVKoGx5qByYXnOlvfr19c7tN6XKokldfX2+9VrUfL7QV5fvtQbx61bEsOvBpytT+kQoVxIXa67EPOa79lDgajFl8iXKJaFMjFMu/jLGxDjhskCZ7NY+dRfCuVpAudxImcxTJk4TJv72hJwmXHxGuHx6cFDdUPanw2oJ4fJLysRlyqWqakxcNr7Daslc+apCByJMnAshZEIHJlxmKRdTgf6zTEzpvUPDsjUsX4HJp3yFj46qBsrFwdACWK2Co4lFmOjVWmeIV0pdR5n4OGhz/tAvCq7vVNt2fh6deF6ybTsHlPt4l+o/dD5M9w7OSKBQlOkwJHjLB+Zefu3tryJP4NU9QyZ2euuHofyHirLViD98WN1ImPg1aEOuf1w5ybRa1dKhSPFS5AkU2JR6qKXdcPT1nwlx7MT5kRG10CJMtoUh2JztMxV66/0TkYunnu3ef9xwtHd/Gi7pokzrW6cY5EjYJbVqXYcJfoRerFsCR+hFw/Hwui2GM8SeolW6c6s79uZ+MIE3ZPbWTTz1THNort6+HwN9CROTFuHibJDjjt3EBH3znaN1T6Dn3aOGSw91YAJcjFmUyReCHF/eNWiC7jlwsu4J7D3wteF6ZVchRAfk8+YNIFw+p59tP8f3er8zQVHH/ronkGrfZ7j2ffS9vx8TP1Eut4b+NlqxYv1CANGEDpzLjxXqJT6XHyt4/38nEonUAitKADe1Abj43MrmzasJk52Ei1OhPt5CfdyJU4TLF1eu3dSoOUASPRGp+BgxYsSIcc3iHyzOUHC9wQKXAAAAAElFTkSuQmCC" />
             <p>
-              For Users: Find your perfect place with Rentify. Search, compare,
+              <h2>For Users:</h2>
+              Find your perfect place with Rentify. Search, compare,
               and securely book properties. Create your profile and share
               reviews to contribute to our community.
             </p>
@@ -52,7 +54,8 @@ const About: React.FC = () => {
 
           <div className="img-mision">
             <p>
-              For Property Owners: Optimize the management of your properties.
+            <h2>For Property Owners:</h2>
+               Optimize the management of your properties.
               Register, update availability, and monitor bookings efficiently.
               Access a complete history and maximize your earnings with Rentify.
             </p>
@@ -63,7 +66,7 @@ const About: React.FC = () => {
       </div>
 
       <div className="Linkedin-container">
-        <h2>Nuestro Equipo</h2>
+        <h1>Nuestro Equipo</h1>
         <div className="team-members">
           {teamMembers.map((member, index) => (
             <TeamMember key={index} {...member} />

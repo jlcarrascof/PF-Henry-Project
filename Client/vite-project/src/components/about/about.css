@@ -5,7 +5,6 @@
   padding: 100px;
   background-color: lavender;
   flex-direction: column;
-  width: 100%;
 }
 
 .container{
@@ -28,6 +27,8 @@
 
 .img-mision {
   display: flex;
+  margin-left: 300px;
+
 }
 
 .img-mision img {
@@ -47,6 +48,7 @@
   display: flex;
   text-align: center;
   justify-content: center;
+
 }
 
 .img-vision img {
