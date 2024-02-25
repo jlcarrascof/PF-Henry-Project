@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding-bottom: 3%; /* Reduje el espacio en la parte inferior */
+    padding-bottom: 3%; 
     background-color: #f4f4f4;
     min-height: 100vh;
   }
@@ -13,28 +13,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%; /* Ajusté el ancho para hacerlo más grande */
+    width: 45%; 
     margin: 0 auto;
     background-color: #190019;
     border: 1px solid #2B124C;
-    padding: 1.5%; /* Reduje el padding */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Reduje la sombra */
+    padding: 1.5%; 
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); 
     border-radius: 8px;
     color: #FBE4D8;
   }
   
   .section {
-    margin-bottom: 15px; /* Reduje el espacio entre secciones */
+    margin-bottom: 15px; 
   }
   
   .section h3 {
-    font-size: 18px; /* Reduje el tamaño de la fuente */
-    margin-bottom: 8px; /* Reduje el espacio inferior */
+    font-size: 18px; 
+    margin-bottom: 8px; 
     color: #DFB6B2;
   }
   
   .section p {
-    font-size: 14px; /* Reduje el tamaño de la fuente */
+    font-size: 14px; 
     color: #FBE4D8;
   }
   
@@ -42,16 +42,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px; /* Reduje el espacio superior */
+    margin-top: 15px; 
   }
   
   .imageCarousel img {
-    max-width: 300%; /* Ajusté el tamaño de las imágenes */
+    max-width: 300%; 
     height: auto;
-    border-radius: 10px; /* Reduje el radio del borde */
+    border-radius: 10px; 
     overflow: hidden;
     transition: transform 0.3s ease;
-    margin-right: 8px; /* Reduje el espacio derecho */
+    margin-right: 8px; 
   }
   
   .imageCarousel img:hover {
