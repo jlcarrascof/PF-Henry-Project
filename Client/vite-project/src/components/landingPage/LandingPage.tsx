@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import SearchBar from '../searchBar/SearchBar';
 import Cards from '../cards/Cards';
 import { State } from '../../Redux/Reducer/reducer';
-import { getHotels } from '../../Redux/Actions/actions';
+import { getFilteredHotels } from '../../Redux/Actions/actions';
 
 import './LandingPage.modules.css';
 
@@ -42,7 +42,7 @@ const LandingPage: React.FC = () => {
   const allHotels = useSelector((state: State) => state.allHotels);
 
   useEffect(() => {
-    dispatch(getHotels());
+    dispatch(getFilteredHotels());
   }, [dispatch]);
 
   return (

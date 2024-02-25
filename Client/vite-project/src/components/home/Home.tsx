@@ -5,7 +5,7 @@ import SearchBar from "../searchBar/SearchBar";
 import Cards from "../cards/Cards";
 import Filters from "../filters/Filters";
 import { State } from "../../Redux/Reducer/reducer";
-import { getHotels } from "../../Redux/Actions/actions"; // Importa la acción para obtener hoteles
+import { getFilteredHotels } from "../../Redux/Actions/actions"; // Importa la acción para obtener hoteles
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./Home.modules.css";
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   // Efecto secundario para cargar hoteles al montar el componente
   useEffect(() => {
-    dispatch(getHotels());
+    dispatch(getFilteredHotels());
   }, [dispatch]);
 
   console.log("En home después de definir el select de allHotels:", allHotels);

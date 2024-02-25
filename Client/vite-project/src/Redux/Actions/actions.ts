@@ -12,7 +12,7 @@ export interface Action {
   payload: any;
 }
 
-export const getHotels = () => {
+/* export const getHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
@@ -24,7 +24,7 @@ export const getHotels = () => {
       console.error("Error al obtener hoteles:", error);
     }
   };
-};
+}; */
 
 export const getHotelById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {

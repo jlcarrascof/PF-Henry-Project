@@ -17,12 +17,12 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch(action.type) {
-      case GET_HOTELS:
+      /* case GET_HOTELS:
           return {
               ...state,
               allHotels: action.payload.hotels,
               allHotelsBackUp: action.payload.hotels
-          };
+          }; */
       case GET_HOTEL_BY_ID:
           return {
               ...state,
@@ -37,7 +37,8 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         case GET_FILTERED_HOTELS:
                 return {
                     ...state,
-                    filteredHotels: action.payload.hotels
+                    allHotels: action.payload.hotels,
+                    allHotelsBackUp: action.payload.hotels
                 };
       default:
           return state;
