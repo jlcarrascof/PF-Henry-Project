@@ -1,10 +1,10 @@
 import React from "react";
-import "./About.module.css";
 interface TeamMemberProps {
   name: string;
   linkedin: string;
   image: string;
 }
+import "./about.module.css";
 
 const TeamMember: React.FC<TeamMemberProps> = ({ name, linkedin, image }) => {
   return (
