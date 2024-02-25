@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -37,19 +38,20 @@ const LandingPage: React.FC = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const allHotels = useSelector((state: State) => state.allHotels);
 
-  useEffect(() => {
-    dispatch(getFilteredHotels());
-  }, [dispatch]);
+  const onClickSearch = (filters: any) => {
+    dispatch(getFilteredHotels(filters)); 
+    navigate("/home");
+  };
 
   return (
     <div className="landing-page">
       <div>{/* <Header /> */}</div>
       <div className="searchBar-container">
-        <SearchBar />
+      <SearchBar onClickSearch={onClickSearch} />
       </div>
 
       {/* <h1>Some of our hotels...</h1> */}
@@ -97,9 +99,14 @@ const LandingPage: React.FC = () => {
       {/* Renderizar la lista de hoteles */}
       <div className="allCards">
         <Cards allHotels={allHotels} />
+        
       </div>
     </div>
   );
 };
 
 export default LandingPage;
+
+
+
+

@@ -1,0 +1,67 @@
+.revContainer{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.revContainer form{
+    /* display: flex; */
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 30px;
+    padding: 40px;
+    background-color: #b8b7c0;
+     border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  width: 850px
+}
+
+.revContainer h2{
+    padding: 20px;
+}
+
+.revContainer input{
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: none
+}
+
+.email {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap:10px;
+}
+
+.comments{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin-right: 40px;
+    padding: 20px;
+    gap: 10px;
+}
+
+.comments button{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: none
+}

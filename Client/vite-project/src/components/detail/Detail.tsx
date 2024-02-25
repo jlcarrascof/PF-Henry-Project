@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getHotelById } from "../../Redux/Actions/actions";
+import ReviewForm from "../reviewForm/reviewForm";
 import "./detail.css";
 
 const Detail: React.FC = () => {
@@ -86,8 +87,12 @@ const Detail: React.FC = () => {
               </ul>
             )}
           </div>
+          <div className="revs"> 
+            <ReviewForm/>
+          </div>
         </div>
       )}
+      
     </div>
   );
 };

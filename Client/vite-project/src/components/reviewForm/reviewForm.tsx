@@ -1,28 +1,33 @@
 import { useState } from "react";
+import StarRating from "./starRating"
+import ChangeRating from "./changeRating"
+import "./review.css"
 
-const reviewForm:React.FC = () => {
+const ReviewForm:React.FC = () => {
     interface Review {
         email: string
-        score: string
         comments: string
     }
 
     const [review, setReview] = useState<Review>({
         email: '',
-        score: '',
         comments: '',
     })
     interface Errors {
         email?: string;
-        score?: string;
         comments?: string;
       }
     
       const [errors, setErrors] = useState<Errors>({ 
         email: "", 
-        score: "",
         comments: ""
     });
+
+    const [avgRating, setAvgRating] = useState<number>(0);
+
+    const handleRating = (input: number) => {
+        setAvgRating(input);
+    };
     
       const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let { name, value } = e.target;
@@ -37,8 +42,11 @@ const reviewForm:React.FC = () => {
       };
      
     return(
-        <div>
+        <div className='revContainer'>
+            
             <form>
+            <h2> Leave a review! </h2>
+            <div className='email'>
             <label>Email:</label>
             <input
             type="email"
@@ -46,11 +54,16 @@ const reviewForm:React.FC = () => {
             value={review.email}
             onChange={onChange}
             placeholder="myexample@gmail.com"
-                ></input>
+            ></input>
         {/* {errors.email && <p>{errors.email}</p>} */}
-
+            <ChangeRating rating={avgRating} handleRating={handleRating}></ChangeRating>
+            <StarRating stars={avgRating} />
+            </div>
+            
+        <div className="comments"> 
         <label>Comments:</label>
         <input
+        
           type="text"
           name="comments"
           value={review.comments}
@@ -59,10 +72,12 @@ const reviewForm:React.FC = () => {
         ></input>
         {/* {errors.password && <p>{errors.password}</p>} */}
 
-        <button type="submit">Log in</button>
+        <button type="submit">Submit review</button>
+        </div>
+        
             </form>
         </div>
     )
 }
 
-export default reviewForm
+export default ReviewForm

@@ -11,19 +11,19 @@ import "react-date-range/dist/theme/default.css";
 import "./Home.modules.css";
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch(); // Obtener la función dispatch
+  const dispatch = useDispatch(); 
 
-  const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Obtener el estado del paginado y hoteles filtrados
   const { totalPages, allHotels } = useSelector((state: State) => state);
 
-  // Llamar a la acción getFilteredHotels al cargar la página o al cambiar de página
+
   useEffect(() => {
     dispatch(getFilteredHotels({ p: currentPage }));
   }, [dispatch, currentPage]);
 
-  // Función para manejar la página siguiente
+  
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1); // Actualiza la página actual
@@ -62,7 +62,18 @@ const Home: React.FC = () => {
       </div>
       <div>
         <h1>Some of our best hotels</h1>
-        <div className="pagination">
+        
+      </div>
+      <div className="card-filter-container">
+        <div className="filter-container">
+          <Filters />
+        </div>
+        <div className="allCards">
+          <Cards allHotels={allHotels} />
+          
+        </div>
+      </div>
+      <div className="pagination">
           <button onClick={handlePrevPage} disabled={currentPage === 1}>
             Prev
           </button>
@@ -72,15 +83,6 @@ const Home: React.FC = () => {
             Next
           </button>
         </div>
-      </div>
-      <div className="card-filter-container">
-        <div className="filter-container">
-          <Filters />
-        </div>
-        <div className="allCards">
-          <Cards allHotels={allHotels} />
-        </div>
-      </div>
     </div>
   );
 };
