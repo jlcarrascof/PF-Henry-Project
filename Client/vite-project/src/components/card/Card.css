@@ -1,66 +1,85 @@
 /* CARD STYLE */
 
-.card-container{
+.card-container {
     width: 100%;
     height: 35vh;
     display: flex;
     flex-direction: row;
     padding: 15px;
-    position: relative; 
+    position: relative;
     border-radius: 50px;
- background: #e0e0e0;
- box-shadow: 20px 20px 60px #bebebe,
-               -20px -20px 60px #ffffff;
-margin-block: 30px;
-align-items: center;
-padding: 30px;
-}
-
-.card-text-container{
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    margin-block: 30px;
+    align-items: center;
+    padding: 30px;
+  }
+  
+  .card-text-container {
     height: 100%;
     margin-left: 15px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-}
-
-.card-title{
+  }
+  
+  .card-title {
     font-size: 2.2vw;
     font-weight: bold;
     margin-bottom: 5px;
     margin-top: 0;
-}
-
-.card-price{
+  }
+  
+  .card-price {
     position: absolute;
     bottom: 0px;
     right: 40px;
     font-size: 1.6vw;
     color: #2b124c;
     font-weight: bolder;
-    
-}
-
-.card-adress{
+  }
+  
+  .card-adress {
     margin-bottom: 0px;
     margin-top: -5px;
     font-size: small;
-}
-
-.card-hotel-detail{
+  }
+  
+  .card-hotel-detail {
     margin-bottom: 0px;
     text-align: left;
-}
-
-.card-room-detail {
+  }
+  
+  .card-room-detail {
     margin-bottom: 0px;
-}
-
-.card-image{
-   width: 40%;
-  max-height: 35vh;
-  object-fit: cover;
-  border-radius: 25px;
-
-}
+  }
+  
+  .card-image {
+    width: 40%;
+    max-height: 35vh;
+    object-fit: cover;
+    border-radius: 25px;
+  }
+  
+  .card-link button {
+    margin-top: 150px;
+    padding: 8px 16px; 
+    background: linear-gradient(45deg, #190019, #2b124c);
+    color: #dfb6b2;
+    border: none;
+    border-radius: 30px; 
+    font-size: 1rem; 
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  .card-link button:hover {
+    background: linear-gradient(45deg, #2b124c, #190019);
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.3);
+    color: #fbe4d8;
+  }
+  
+  
+  

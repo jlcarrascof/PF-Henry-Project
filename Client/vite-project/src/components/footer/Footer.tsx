@@ -1,4 +1,5 @@
 import "./footer.css";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
@@ -12,13 +13,16 @@ const Footer: React.FC = () => {
       </div>
       <div className="footerContent">
         <h4>Company</h4>
-        <h5>About us</h5>
+        <Link to="/about">
+          <h5> About us</h5>
+        </Link>
         <h5>What is Rentify?</h5>
       </div>
       <div className="footerContent">
         <h4>Pay</h4>
         <h5>Cards</h5>
         <h5>Payment services</h5>
+      
       </div>
     </footer>
   );
