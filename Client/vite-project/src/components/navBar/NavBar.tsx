@@ -11,9 +11,7 @@ const NavBar: React.FC = () => {
           <Link to="/">
             <p>Home</p>
           </Link>
-          <Link to="/about">
-            <p>About</p>
-          </Link>
+         
           <Link to="/favorites">
             <p>Favorites</p>
           </Link>

@@ -51,7 +51,7 @@ const Card: React.FC<CardProps> = (props: CardProps) => {
       </Link> */}
       <Link to={`/detail/${id_hotel}`} className="card-link">
         <button onClick={onClick} className="card-button">
-          Ver Detalles
+        𝐒𝐞𝐞 𝐃𝐞𝐭𝐚𝐢𝐥𝐬
         </button>
       </Link>
     </div>

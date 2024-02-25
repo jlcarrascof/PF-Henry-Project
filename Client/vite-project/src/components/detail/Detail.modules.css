@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 3%; /* Reduje el espacio en la parte inferior */
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%; /* Ajusté el ancho para hacerlo más grande */
+    margin: 0 auto;
+    background-color: #190019;
+    border: 1px solid #2B124C;
+    padding: 1.5%; /* Reduje el padding */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Reduje la sombra */
+    border-radius: 8px;
+    color: #FBE4D8;
+  }
+  
+  .section {
+    margin-bottom: 15px; /* Reduje el espacio entre secciones */
+  }
+  
+  .section h3 {
+    font-size: 18px; /* Reduje el tamaño de la fuente */
+    margin-bottom: 8px; /* Reduje el espacio inferior */
+    color: #DFB6B2;
+  }
+  
+  .section p {
+    font-size: 14px; /* Reduje el tamaño de la fuente */
+    color: #FBE4D8;
+  }
+  
+  .imageCarousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; /* Reduje el espacio superior */
+  }
+  
+  .imageCarousel img {
+    max-width: 300%; /* Ajusté el tamaño de las imágenes */
+    height: auto;
+    border-radius: 10px; /* Reduje el radio del borde */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    margin-right: 8px; /* Reduje el espacio derecho */
+  }
+  
+  .imageCarousel img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  
+  
