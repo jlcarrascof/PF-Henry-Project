@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getHotelById } from "../../Redux/Actions/actions";
@@ -9,7 +9,7 @@ const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch();
   const currentHotel = useSelector((state: State) => state.currentHotel);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -19,7 +19,7 @@ const Detail: React.FC = () => {
   }, [dispatch, id]);
 
   const goToCard = () => {
-    history.push("/card"); // Cambia "/card" por la ruta de tu tarjeta si es diferente
+    navigate("/card"); // Cambia "/card" por la ruta de tu tarjeta si es diferente
   };
 
   return (
@@ -55,3 +55,6 @@ const Detail: React.FC = () => {
 };
 
 export default Detail;
+
+
+
