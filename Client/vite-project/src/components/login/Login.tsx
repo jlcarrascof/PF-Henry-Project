@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { validation } from "./LogValidation";
+import "./Login.modules.css"
 
 const Login: React.FC = () => {
   interface Data {
