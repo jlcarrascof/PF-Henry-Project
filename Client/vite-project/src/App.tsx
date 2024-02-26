@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-// ? -----------------------------------------------------COMPONENTS
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import LandingPage from "./components/landingPage/LandingPage";
@@ -17,23 +16,19 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {location.pathname !== "/login" ? <NavBar /> : ""}
+      <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
-
         <Route path="/about" element={<About />} />
-
         <Route path="/detail/:id" element={<Detail />} />
-
         <Route path="/home" element={<Home />} />
-
         <Route path="/detail" element={<Detail />} />
         <Route path="/hotels" element={<Home />} />
       </Routes>
-      {location.pathname !== "/login" ? <Footer /> : ""}
+      <Footer />
     </>
   );
 }
