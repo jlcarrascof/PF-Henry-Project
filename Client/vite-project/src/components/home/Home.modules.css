@@ -37,3 +37,21 @@
   display: flex;
   text-align: center;
 }
+
+.pagination{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 15px;
+  padding: 30px;
+}
+
+.pagination button{
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border: 1px solid #2B124C ;
+}

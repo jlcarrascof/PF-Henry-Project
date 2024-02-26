@@ -19,9 +19,20 @@ import { getFilteredHotels } from "../../Redux/Actions/actions";
 // import styles from "../searchBar/SearchBar.module.css";
 import "./searchbar.css";
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC = ({ onClickSearch }: any) => {
+  const [filters, setFilters] = useState<any>({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleSearch = () => {
+    onClickSearch(filters);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
+  };
+
 
   const [input, setInput] = useState<string>("");
 
@@ -35,19 +46,21 @@ const SearchBar: React.FC = () => {
     navigate("/hotels"); 
   };
 
-  useEffect(() => {
-    dispatch(getFilteredHotels(input));
-    console.log(input);
-  }, [input]);
+  // useEffect(() => {
+  //   dispatch(getFilteredHotels(input));
+  //   console.log(input);
+  // }, [input]);
 
   return (
     <div className="searchContainer">
       <input
         placeholder="Where are we going?"
-        onChange={onChange}
+        onChange={handleChange}
         value={input}
+        type="text" 
+        name="location"
       ></input>
-      <button onClick={onClick}> Search</button>
+       <button onClick={handleSearch}>Search</button>
     </div>
   );
 };

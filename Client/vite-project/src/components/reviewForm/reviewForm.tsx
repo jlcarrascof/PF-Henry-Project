@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StarRating from "./starRating"
 import ChangeRating from "./changeRating"
+import revValidation from "./revValidation"
 import "./review.css"
 
 const ReviewForm:React.FC = () => {
@@ -37,7 +38,7 @@ const ReviewForm:React.FC = () => {
         });
         setErrors({
           ...errors,
-        //   ...validation({ [name]: value }),
+          ...revValidation({ [name]: value })
         });
       };
      
@@ -55,7 +56,7 @@ const ReviewForm:React.FC = () => {
             onChange={onChange}
             placeholder="myexample@gmail.com"
             ></input>
-        {/* {errors.email && <p>{errors.email}</p>} */}
+        {errors.email && <p>{errors.email}</p>}
             <ChangeRating rating={avgRating} handleRating={handleRating}></ChangeRating>
             <StarRating stars={avgRating} />
             </div>
@@ -70,7 +71,7 @@ const ReviewForm:React.FC = () => {
           onChange={onChange}
           placeholder="enter your comment"
         ></input>
-        {/* {errors.password && <p>{errors.password}</p>} */}
+        {errors.comments && <p>{errors.comments}</p>}
 
         <button type="submit">Submit review</button>
         </div>

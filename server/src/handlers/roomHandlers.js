@@ -78,8 +78,8 @@ const {
   
       if (
         minPrice !== undefined &&
-        maxPrice !== undefined &&
-        minPrice !== "" &&
+        maxPrice !== undefined ||
+        minPrice !== "" ||
         maxPrice !== ""
       ) {
         filters.push({
