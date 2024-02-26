@@ -32,6 +32,13 @@ const Login: React.FC = () => {
 
   return (
     <>
+     <div className="home-link-container">
+        <Link to="/home" className="home-link">
+          <span>Home</span>
+        </Link>
+    </div>
+
+
     <div className="logContainer"> 
     <form className="formLogin">
       <h1> Welcome to Rentify! </h1>

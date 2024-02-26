@@ -5,6 +5,18 @@
   background-color: lavender;
 }
 
+.home-link-container {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px; 
+}
+
+.home-link {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+
 .formLogin {
     display: flex;
     flex-direction: column;
