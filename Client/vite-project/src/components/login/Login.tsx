@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { validation } from "./LogValidation";
 import { getAuth, signInWithPopup, GoogleAuthProvider, User, signOut, UserCredential } from 'firebase/auth';
 import firebaseApp from './firebaseConfig';
+import "./Login.modules.css"
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
