@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Action } from "../../Redux/Actions/actions";
+import PersistentFilters from '../../../PersistentFilters';
 import { getFilteredHotels, resetFilters } from "../../Redux/Actions/actions";
 import "./filters.css";
+
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,16 +17,9 @@ const Filters: React.FC = () => {
     minScore: "",
     services: "",
   });
-/*   type Services = {
-    services: "all";
-    Spa: "Spa";
-    Wifi: "Wifi";
-    Bar: "Bar";
-    RoomService: "Room service";
-    Concierge: "Concierge";
-    MeetingFacilities: "Meeting facilities";
-  } */
-  // const x: Services = { "" };
+
+
+
   
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,13 +27,16 @@ const Filters: React.FC = () => {
       ...prevState,
       [name]: value,
     }));
+    PersistentFilters.setValue(name, value);
   };
 
   const handleFilterSubmit = () => {
+    PersistentFilters.ApplyFilters = true;
     dispatch(getFilteredHotels(filters));
   };
 
   const handleClick = () => {
+    PersistentFilters.ApplyFilters = false;
     dispatch(resetFilters())
   }
 

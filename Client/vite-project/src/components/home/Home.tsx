@@ -7,6 +7,8 @@ import { State } from "../../Redux/Reducer/reducer";
 import { getFilteredHotels } from "../../Redux/Actions/actions";
 import "./Home.modules.css";
 
+import PersistentFilters from '../../../PersistentFilters';
+
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const filteredHotels = useSelector((state: State) => state.filteredHotels);
@@ -14,7 +16,17 @@ const Home: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getFilteredHotels({ p: currentPage }));
+    if (PersistentFilters.ApplyFilters) {
+        console.log(PersistentFilters.filters);
+        dispatch(getFilteredHotels({
+          p: currentPage,
+          ...PersistentFilters.filters
+        }));
+    } else {
+      dispatch(getFilteredHotels({
+        p: currentPage
+      }));
+    }
   }, [dispatch, currentPage]);
 
   const handleNextPage = () => {
