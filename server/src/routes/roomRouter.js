@@ -7,20 +7,15 @@ const {
 
 const roomsRouter = Router();
 
-// Ruta para obtener todo los hoteles filtrados y sin filtrar
-roomsRouter.get("/", getRoomFiltered); // --> '/hotels/filtered'
+roomsRouter.get("/", getRoomFiltered); 
 
-// Ruta para traer hotel por ObjectID ---> GET HOTEL BY ID
-roomsRouter.get("/:id", getRoomById); // --> '/hotels/?id'
+roomsRouter.get("/:id", getRoomById);
 
-// Ruta para crear hotel ----> POST HOTEL
-roomsRouter.post("/", postRoom); // --> '/hotels'
+roomsRouter.post("/", postRoom); 
 
-// Ruta para actualizar hotel  -----> UPDATE HOTEL
-roomsRouter.patch("/:id", patchRoom); // --> '/hotels/?id'
+roomsRouter.patch("/:id", patchRoom); 
 
-// Ruta para eliminar hotel por ObjectID (Para el admin dsp) --> DELETE HOTELS
-roomsRouter.delete("/:id", deleteRoomByID); // --> '/hotels/?id'
+roomsRouter.delete("/:id", deleteRoomByID);
 
 roomsRouter.patch("/fav/:id", updateFav);
 

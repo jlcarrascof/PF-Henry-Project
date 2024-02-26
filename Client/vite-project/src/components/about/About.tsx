@@ -44,6 +44,11 @@ const teamMembers: TeamMemberProps[] = [
     linkedin: "https://www.linkedin.com/in/agustin-racca-799414271/",
     image: "../../../images/Agus-photo.jpeg",
   },
+  {
+    name: "Miguel Angel Rodriguez",
+    linkedin: "https://www.linkedin.com/in/miguel-angel-rodríguez-pulgarin-00a386259/",
+    image: "../../../images/Miguel-photo.jpg",
+  }
 ];
 
 const About: React.FC = () => {
