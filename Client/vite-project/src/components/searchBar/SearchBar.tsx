@@ -58,8 +58,6 @@ export default SearchBar;
 
 
 
-
-
 // const SearchBar: React.FC = () => {
 //   const filteredHotels = useSelector((state: State) => state.filteredHotels);
 //   // calendar framework

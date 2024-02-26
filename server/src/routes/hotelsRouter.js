@@ -5,26 +5,21 @@ const {
   patchHotel,
   getHotelsFiltered,
   deleteHotelByID,
-  updateFav,
+  postReview
 } = require("../handlers/hotelsHandlers");
 
 const hotelsRouter = Router();
 
-// Ruta para obtener todo los hoteles filtrados y sin filtrar
-hotelsRouter.get("/", getHotelsFiltered); // --> '/hotels/filtered'
+hotelsRouter.get("/", getHotelsFiltered);
 
-// Ruta para traer hotel por ObjectID ---> GET HOTEL BY ID
-hotelsRouter.get("/:id", getHotelID); // --> '/hotels/?id'
+hotelsRouter.get("/:id", getHotelID); 
 
-// Ruta para crear hotel ----> POST HOTEL
-hotelsRouter.post("/", postHotel); // --> '/hotels'
+hotelsRouter.post("/", postHotel); 
 
-// Ruta para actualizar hotel  -----> UPDATE HOTEL
-hotelsRouter.patch("/:id", patchHotel); // --> '/hotels/?id'
+hotelsRouter.post("/:id", postReview)
 
-// Ruta para eliminar hotel por ObjectID (Para el admin dsp) --> DELETE HOTELS
-hotelsRouter.delete("/:id", deleteHotelByID); // --> '/hotels/?id'
+hotelsRouter.patch("/:id", patchHotel); 
 
-hotelsRouter.patch("/fav/:id", updateFav);
+hotelsRouter.delete("/:id", deleteHotelByID);
 
 module.exports = hotelsRouter;

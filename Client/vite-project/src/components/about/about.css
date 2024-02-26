@@ -3,6 +3,7 @@
   justify-content: center;
   text-align: center;
   padding: 100px;
+  
   background-color: lavender;
   flex-direction: column;
 }
@@ -22,13 +23,16 @@
 }
 
 .mision-vision h1 {
+  margin-top: 50px;
+  margin-bottom: 100px;
   padding: 30px;
+  font-size: 3rem;
 }
 
 
 .img-mision {
   display: flex;
-  margin-left: 300px;
+  margin-left: 200px;
 
 }
 
@@ -36,6 +40,8 @@
   display: flex;
   width: 250px;
   height: 250px;
+  margin-left: 80px;
+
 }
 
 .img-mision p{
@@ -43,7 +49,8 @@
   font-size: 1.5rem;
   text-align: left;
   justify-content: left;
-  margin-right: 50px;
+  margin-right: 100px;
+  padding: 50px;
 }
 
 .img-vision {
@@ -57,6 +64,7 @@
   display: flex;
   width: 250px;
   height: 250px;
+  margin-right: 30px;
 }
 
 .img-vision p {
@@ -64,6 +72,8 @@
   font-size: 1.5rem;
   text-align: right;
   justify-content: right;
+  margin-left: 80px;
+  padding: 50px;
 }
 
 .Linkedin-container {
@@ -72,6 +82,10 @@
   text-align: center;
   flex-direction: column;
   padding: 20px;
+}
+
+.Linkedin-container h1{
+  padding: 30px;
 }
 
 .team-members{

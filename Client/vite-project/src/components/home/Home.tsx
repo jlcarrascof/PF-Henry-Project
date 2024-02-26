@@ -1,53 +1,47 @@
-import React, { useEffect, useState } from "react"; // Importa useState
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import NavBar from "../navBar/NavBar";
 import SearchBar from "../searchBar/SearchBar";
 import Cards from "../cards/Cards";
 import Filters from "../filters/Filters";
 import { State } from "../../Redux/Reducer/reducer";
 import { getFilteredHotels } from "../../Redux/Actions/actions";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
 import "./Home.modules.css";
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch(); 
-
+  const dispatch = useDispatch();
+  const filteredHotels = useSelector((state: State) => state.filteredHotels);
+  const totalPages = useSelector((state: State) => state.totalPages);
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Obtener el estado del paginado y hoteles filtrados
-  const { totalPages, allHotels } = useSelector((state: State) => state);
-
 
   useEffect(() => {
     dispatch(getFilteredHotels({ p: currentPage }));
   }, [dispatch, currentPage]);
 
-  
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1); // Actualiza la página actual
+      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
-  // Función para manejar la página anterior
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1); // Actualiza la página actual
+      setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page); // Establece la página actual
-    }
+    setCurrentPage(page);
   };
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
-        <button key={i} onClick={() => handlePageChange(i)} disabled={i === currentPage}>
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={currentPage === i ? "active" : ""}
+        >
           {i}
         </button>
       );
@@ -61,13 +55,11 @@ const Home: React.FC = () => {
         <SearchBar />
       </div>
       <div>
-        <h1>Some of our best hotels</h1>
         <div className="pagination">
           <button onClick={handlePrevPage} disabled={currentPage === 1}>
             Prev
           </button>
           {renderPageNumbers()}
-       
           <button onClick={handleNextPage} disabled={currentPage === totalPages}>
             Next
           </button>
@@ -78,8 +70,7 @@ const Home: React.FC = () => {
           <Filters />
         </div>
         <div className="allCards">
-          <Cards allHotels={allHotels} />
-          
+          <Cards allHotels={filteredHotels} />
         </div>
       </div>
     </div>
@@ -87,6 +78,8 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+
 
 
 

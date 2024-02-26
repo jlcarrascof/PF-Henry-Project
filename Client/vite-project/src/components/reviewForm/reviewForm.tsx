@@ -1,27 +1,31 @@
 import { useState } from "react";
 import StarRating from "./starRating"
 import ChangeRating from "./changeRating"
-import revValidation from "./revValidation"
+import {revValidation} from "./revValidation"
+import { useDispatch } from "react-redux";
+import { postReview } from "../../Redux/Actions/actions";
 import "./review.css"
 
 const ReviewForm:React.FC = () => {
+  const dispatch = useDispatch() 
+
     interface Review {
         email: string
-        comments: string
+        description: string
     }
 
     const [review, setReview] = useState<Review>({
         email: '',
-        comments: '',
+        description: '',
     })
     interface Errors {
         email?: string;
-        comments?: string;
+        description?: string;
       }
     
       const [errors, setErrors] = useState<Errors>({ 
         email: "", 
-        comments: ""
+        description: ""
     });
 
     const [avgRating, setAvgRating] = useState<number>(0);
@@ -38,9 +42,14 @@ const ReviewForm:React.FC = () => {
         });
         setErrors({
           ...errors,
-        //   ...revValidation({ [name]: value })
+          ...revValidation({ [name]: value })
         });
       };
+
+      const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        dispatch(postReview(review))
+      }
      
     return(
         <div className='revContainer'>
@@ -56,24 +65,24 @@ const ReviewForm:React.FC = () => {
             onChange={onChange}
             placeholder="myexample@gmail.com"
             ></input>
-        {errors.email && <p>{errors.email}</p>}
+        {/* {errors.email && <p>{errors.email}</p>} */}
             <ChangeRating rating={avgRating} handleRating={handleRating}></ChangeRating>
             <StarRating stars={avgRating} />
             </div>
             
         <div className="comments"> 
-        <label>Comments:</label>
+        <label>Description:</label>
         <input
         
           type="text"
-          name="comments"
-          value={review.comments}
+          name="description"
+          value={review.description}
           onChange={onChange}
           placeholder="enter your comment"
         ></input>
-        {errors.comments && <p>{errors.comments}</p>}
+        {/* {errors.description && <p>{errors.description}</p>} */}
 
-        <button type="submit">Submit review</button>
+        <button type="submit" onSubmit={handleSubmit}>Submit review</button>
         </div>
         
             </form>

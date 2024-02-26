@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { validation } from "./LogValidation";
+import "./Login.css"
 
 const Login: React.FC = () => {
   interface Data {
@@ -31,14 +32,16 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <form>
+    <div className="logContainer"> 
+    <form className="formLogin">
+      <h1> Welcome to Rentify! </h1>
         <label>Email:</label>
         <input
           type="email"
           name="email"
           value={data.email}
           onChange={onChange}
-          placeholder="myexample@gmail.com"
+          placeholder="Myexample@gmail.com"
         ></input>
         {errors.email && <p>{errors.email}</p>}
 
@@ -48,7 +51,7 @@ const Login: React.FC = () => {
           name="password"
           value={data.password}
           onChange={onChange}
-          placeholder="enter yout password"
+          placeholder="Enter your password"
         ></input>
         {errors.password && <p>{errors.password}</p>}
 
@@ -62,6 +65,8 @@ const Login: React.FC = () => {
           <span>Do not have an account? Sign in!</span>
         </Link>
       </form>
+    </div>
+      
     </>
   );
 };

@@ -3,26 +3,24 @@ import axios from "axios";
 import Card from "../card/Card";
 import "./Favorites.modules.css";
 
-const Favorites: React.FC = () => {
- // const [favoriteHotels, setFavoriteHotels] = useState([]);
-  const img =
-    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/112204305.jpg?k=7e88d3bc242d63c2a29be821e163bfa5c13b05d89134ce080d0d0b041b07056a&o=&hp=1";
+interface Hotel {
+  _id: { $oid: string };
+  name: string;
+  price: number;
+  image: string;
+}
 
-  const favoriteHotels = [
-    { id: 1, name: "Hotel A", image: img, price: 350 },
-    { id: 2, name: "Hotel B", image: img, price: 380 },
-    { id: 3, name: "Hotel C", image: img, price: 150 },
-    { id: 4, name: "Hotel D", image: img, price: 200 },
-  ];
+const Favorites: React.FC = () => {
+  const [favoriteHotels, setFavoriteHotels] = useState<Hotel[]>([]);
 
   useEffect(() => {
-   axios.get("http://localhost:3001/hotels/favs")
-   .then((response) => {
-      setFavoriteHotels(response.data);
-     })
-   .catch((error) => {
-      console.error("Error fetching favorite hotels:", error);
-   });
+    axios.get("http://localhost:3002/fav")
+      .then((response) => {
+        setFavoriteHotels(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching favorite hotels:", error);
+      });
   }, []);
 
   return (
@@ -30,7 +28,7 @@ const Favorites: React.FC = () => {
       <h1>Mis Favoritos</h1>
       <div className="favorites-grid">
         {favoriteHotels.map((hotel) => (
-          <div key={hotel.id} className="hotel-card">
+          <div className="hotel-card" key={hotel._id.$oid}>
             <img src={hotel.image} alt={hotel.name} />
             <h3>{hotel.name}</h3>
             <h2>{hotel.price}€</h2>
