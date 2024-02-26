@@ -12,7 +12,7 @@ export interface Action {
   payload: any;
 }
 
-export const getHotels = () => {
+/* export const getHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
@@ -24,7 +24,7 @@ export const getHotels = () => {
       console.error("Error al obtener hoteles:", error);
     }
   };
-};
+}; */
 
 export const getHotelById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -39,26 +39,6 @@ export const getHotelById = (id: string) => {
     }
   };
 };
-
-// export const getHotelById = (id: string) => {
-//     return async (dispatch: Dispatch<Action>) => {
-//       try {
-//         if (id.trim() !== '') { // Verifica si el ID no está vacío
-//            const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
-//         //   const { data } = await axios.get(` http://localhost:3002/hotels/?id=${id}`);
-
-//           dispatch({
-//             type: GET_HOTEL_BY_ID,
-//             payload: data
-//           });
-//         } else {
-//           console.error("ID no válido:", id);
-//         }
-//       } catch (error) {
-//         console.error("Error al obtener hotel por ID:", error);
-//       }
-//     }
-//   }
 
 export const getHotelByName = (address: string) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -91,3 +71,11 @@ export const getFilteredHotels = (filters: any) => {
     }
   };
 };
+
+
+
+
+
+
+
+

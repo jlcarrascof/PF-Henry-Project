@@ -1,0 +1,85 @@
+.About {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 100px;
+  background-color: lavender;
+  flex-direction: column;
+}
+
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.mision-vision {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.mision-vision h1 {
+  padding: 30px;
+}
+
+
+.img-mision {
+  display: flex;
+  margin-left: 300px;
+
+}
+
+.img-mision img {
+  display: flex;
+  width: 250px;
+  height: 250px;
+}
+
+.img-mision p{
+  width: 40%;
+  font-size: 1.5rem;
+  text-align: left;
+  justify-content: left;
+  margin-right: 50px;
+}
+
+.img-vision {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+
+}
+
+.img-vision img {
+  display: flex;
+  width: 250px;
+  height: 250px;
+}
+
+.img-vision p {
+  width: 40%;
+  font-size: 1.5rem;
+  text-align: right;
+  justify-content: right;
+}
+
+.Linkedin-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.team-members{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 40px;
+} 
+
+
