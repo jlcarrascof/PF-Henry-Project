@@ -92,7 +92,7 @@ const Login: React.FC = () => {
       </form>
       */}
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
           type="email"
