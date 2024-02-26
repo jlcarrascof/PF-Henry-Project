@@ -38,7 +38,7 @@ const ReviewForm:React.FC = () => {
         });
         setErrors({
           ...errors,
-          ...revValidation({ [name]: value })
+        //   ...revValidation({ [name]: value })
         });
       };
      

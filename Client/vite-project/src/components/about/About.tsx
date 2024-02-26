@@ -22,27 +22,27 @@ const teamMembers: TeamMemberProps[] = [
   {
     name: "Nazareth Villar",
     linkedin: "https://www.linkedin.com/in/javier-jesus-martinez-fari%C3%B1as-b71b3968/",
-    image: "../../../images/dev.png",
+    image: "../../../images/Naza-photo.jpg",
   },
   {
     name: "Alejandra Foliaco",
     linkedin: "https://www.linkedin.com/in/alejandra-foliaco-ramos-a74137278/",
-    image: "../../../images/dev.png",
+    image: "../../../images/Aleja-photo.png",
   },
   {
     name: "Javier Jesus Martinez",
     linkedin: "https://www.linkedin.com/in/javier-jesus-martinez-fari%C3%B1as-b71b3968/",
-    image: "../../../images/dev.png",
+    image: "../../../images/Javi-photo.jpg",
   },
   {
     name: "Rigoberto Maximiliano",
-    linkedin: "https://github.com/rigobersio",
-    image: "../../../images/dev.png",
+    linkedin: "https://www.linkedin.com/in/rigoberto-martinez-quintana-a954787b/",
+    image: "../../../images/Rigo-photo.jpg",
   },
   {
     name: "Agustin Racca",
     linkedin: "https://www.linkedin.com/in/agustin-racca-799414271/",
-    image: "../../../images/Agus-photo.png",
+    image: "../../../images/Agus-photo.jpeg",
   },
 ];
 
