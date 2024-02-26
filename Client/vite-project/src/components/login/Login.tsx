@@ -28,7 +28,7 @@ const Login: React.FC = () => {
       ...errors,
       ...validation({ [name]: value }),
     });
-  };
+  };//
 
   return (
     <>
