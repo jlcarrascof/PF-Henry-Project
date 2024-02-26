@@ -91,7 +91,7 @@ const Login: React.FC = () => {
         </Link>
       </form>
       */}
-      
+
       <form>
         <label>Email:</label>
         <input
@@ -118,6 +118,12 @@ const Login: React.FC = () => {
         <button>Continue with Google</button>
         <button>Continue with Instagram</button>
         <button>Continue with Facebook</button>
+
+        <button type="submit">Log in</button>
+        <Link to="/register">
+          <span>Do not have an account? Sign in!</span>
+        </Link>
+
       </form>
 
       {/* Botón para iniciar sesión con Google */}
