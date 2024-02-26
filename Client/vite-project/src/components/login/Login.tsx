@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validation } from "./LogValidation";
-import "./Login.modules.css"
+import { getAuth, signInWithPopup, GoogleAuthProvider, User, signOut, UserCredential } from 'firebase/auth';
+import firebaseApp from './firebaseConfig';
+
+const auth = getAuth(firebaseApp);
+const provider = new GoogleAuthProvider();
 
 const Login: React.FC = () => {
   interface Data {
@@ -10,13 +14,16 @@ const Login: React.FC = () => {
   }
 
   const [data, setData] = useState<Data>({ email: "", password: "" });
+  const [errors, setErrors] = useState<Data>({ email: "", password: "" });
+  const [user, setUser] = useState<User | null>(null);
 
-  interface Errors {
-    email?: string;
-    password?: string;
-  }
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
 
-  const [errors, setErrors] = useState<Errors>({ email: "", password: "" });
+    return () => unsubscribe();
+  }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = e.target;
@@ -30,9 +37,32 @@ const Login: React.FC = () => {
     });
   };
 
+  const handleGoogleLogin = async (): Promise<void> => {
+    try {
+      const result: UserCredential = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log(user);
+    } catch (error) {
+      console.error('Error during Google sign-in:', error);
+    }
+  };
+
+  const handleSignOut = async (): Promise<void> => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Error during sign-out:', error);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Aquí puedes agregar la lógica para el inicio de sesión con correo y contraseña
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
           type="email"
@@ -40,7 +70,7 @@ const Login: React.FC = () => {
           value={data.email}
           onChange={onChange}
           placeholder="myexample@gmail.com"
-        ></input>
+        />
         {errors.email && <p>{errors.email}</p>}
 
         <label>Password:</label>
@@ -49,20 +79,29 @@ const Login: React.FC = () => {
           name="password"
           value={data.password}
           onChange={onChange}
-          placeholder="enter yout password"
-        ></input>
+          placeholder="enter your password"
+        />
         {errors.password && <p>{errors.password}</p>}
 
         <button type="submit">Log in</button>
-
-        <button>Continue with Google</button>
-        <button>Continue with Instagram</button>
-        <button>Continue with Facebook</button>
-
         <Link to="/register">
           <span>Do not have an account? Sign in!</span>
         </Link>
       </form>
+
+      {/* Botón para iniciar sesión con Google */}
+      <div className="google-button-container">
+        <button type="button" onClick={handleGoogleLogin}>Continue with Google</button>
+      </div>
+
+      {/* Contenedor separado para mostrar el estado de la autenticación */}
+      <div className="auth-status">
+        {user ? (
+          <button type="button" onClick={handleSignOut}>Log out</button>
+        ) : (
+          <p>You are not logged in</p>
+        )}
+      </div>
     </>
   );
 };
