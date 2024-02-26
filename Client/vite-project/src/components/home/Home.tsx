@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"; // Importa useState
 import { useDispatch, useSelector } from "react-redux";
-//import { useLocation } from 'react-router-dom';
 //import NavBar from "../navBar/NavBar";
 import SearchBar from "../searchBar/SearchBar";
 import Cards from "../cards/Cards";
@@ -48,7 +47,7 @@ const Home: React.FC = () => {
     const pageNumbers = [];
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
-        <button key={i} onClick={() => handlePageChange(i)} >
+        <button key={i} onClick={() => handlePageChange(i)} disabled={i === currentPage}>
           {i}
         </button>
       );
@@ -62,8 +61,17 @@ const Home: React.FC = () => {
         <SearchBar />
       </div>
       <div>
-        {/* <h1>Some of our best hotels</h1> */}
-        
+        <h1>Some of our best hotels</h1>
+        <div className="pagination">
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Prev
+          </button>
+          {renderPageNumbers()}
+       
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            Next
+          </button>
+        </div>
       </div>
       <div className="card-filter-container">
         <div className="filter-container">
@@ -74,23 +82,11 @@ const Home: React.FC = () => {
           
         </div>
       </div>
-      <div className="pagination">
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>
-            Prev
-          </button>
-          {renderPageNumbers()}
-       
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-            Next
-          </button>
-        </div>
     </div>
   );
 };
 
 export default Home;
-
-
 
 
 

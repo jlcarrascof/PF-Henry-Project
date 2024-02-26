@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../card/Card";
-// import "./Favorites.modules.css";
+import "./Favorites.modules.css";
 
 const Favorites: React.FC = () => {
-  // const [favoriteHotels, setFavoriteHotels] = useState([]);
+ // const [favoriteHotels, setFavoriteHotels] = useState([]);
   const img =
     "https://cf.bstatic.com/xdata/images/hotel/max1280x900/112204305.jpg?k=7e88d3bc242d63c2a29be821e163bfa5c13b05d89134ce080d0d0b041b07056a&o=&hp=1";
 
@@ -15,15 +15,15 @@ const Favorites: React.FC = () => {
     { id: 4, name: "Hotel D", image: img, price: 200 },
   ];
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:3001/hotels/favs")
-  //     .then((response) => {
-  //       setFavoriteHotels(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching favorite hotels:", error);
-  //     });
-  // }, []);
+  useEffect(() => {
+   axios.get("http://localhost:3001/hotels/favs")
+   .then((response) => {
+      setFavoriteHotels(response.data);
+     })
+   .catch((error) => {
+      console.error("Error fetching favorite hotels:", error);
+   });
+  }, []);
 
   return (
     <div className="favorites-container">

@@ -43,7 +43,8 @@ const LandingPage: React.FC = () => {
   const allHotels = useSelector((state: State) => state.allHotels);
 
   const onClickSearch = (filters: any) => {
-    navigate('/home', { state: { filters } });
+    dispatch(getFilteredHotels(filters)); 
+    navigate("/home");
   };
 
   return (
@@ -105,6 +106,7 @@ const LandingPage: React.FC = () => {
 };
 
 export default LandingPage;
+
 
 
 
