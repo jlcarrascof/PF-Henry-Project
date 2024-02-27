@@ -108,20 +108,27 @@ const Login: React.FC = () => {
           name="password"
           value={data.password}
           onChange={onChange}
-          placeholder="enter yout password"
+          placeholder="enter your password"
         ></input>
         {errors.password && <p>{errors.password}</p>}
-
+        {/*}
         <button type="submit">Log in</button>
-        
-        <button type="button" onClick={handleGoogleLogin}>Continue with Google</button>
+        */}        
         <div className="auth-status">
-        {user ? (
-          <button type="button" onClick={handleSignOut}>Log out</button>
-        ) : (
-          <p>You are not logged in</p>
-        )}
-      </div>
+          {!user ? (
+            <button type="button" onClick={handleGoogleLogin}>Continue with Google</button>
+
+          ) : (
+            <button type="button" onClick={handleSignOut}>Log out</button>
+          )}
+        </div>
+        <div className="auth-status">
+          {user ? (
+            <p>User connected: <b>{user.displayName}</b></p>
+          ) : (
+            <p>You're not logged in</p>
+          )}
+        </div>
 
       </form>
 
