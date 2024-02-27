@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { validation } from "./LogValidation";
-import { getAuth, signInWithPopup, GoogleAuthProvider, User, signOut, UserCredential } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, User, signOut } from 'firebase/auth';
 import firebaseApp from './firebaseConfig';
-import "./Login.modules.css"
+
+import "./Login.css";
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
@@ -70,7 +72,7 @@ const Login: React.FC = () => {
           value={data.email}
           onChange={onChange}
           placeholder="myexample@gmail.com"
-        ></input>
+        />
         {errors.email && <p>{errors.email}</p>}
 
         <label>Password:</label>
@@ -80,37 +82,38 @@ const Login: React.FC = () => {
           value={data.password}
           onChange={onChange}
           placeholder="enter your password"
-        ></input>
+        />
         {errors.password && <p>{errors.password}</p>}
-        {/*}
-        <button type="submit">Log with email</button>
-        */}        
-        <div className="auth-status">
-          <div className="padre">
-            <div className="card card-body">
-              <h4>Quick start</h4>
-              {!user ? (
-            <button type="button" onClick={handleGoogleLogin}><img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />Continue with Google</button>
 
-          ) : (
-            <button type="button" onClick={handleSignOut}><img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />Log out</button>
-          )}
-        </div>
-        <div className="auth-status">
-          {user ? (
-            <p>User connected: <b>{user.displayName}</b></p>
-          ) : (
-            <p>You're not logged in <strong>Google</strong></p>
-          )}
+        <button type="submit">Log in</button>
 
-            </div>
-            
-          </div>
-          
-        </div>
-
+        <Link to="/register">
+          {/*<span>Do not have an account? Sign up!</span>*/}
+        </Link>
       </form>
 
+      {/* Contenedor separado para el botón "Continue with Google" */}
+      <div className="google-button-container">
+        <div className="row">
+          <div className="col-md-4">
+            <div className="padre">
+              <div className="card card-body">
+                <img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />
+                <h4 className="text-center">Sign in with your Google account</h4>
+                {user ? (
+                  <button type="button" onClick={handleSignOut}>Log off</button>
+                ) : (
+                  <button type="button" onClick={handleGoogleLogin}>Continue with Google</button>
+                )}
+                {/* Agregar botones para continuar con otras redes sociales si lo deseas */}
+              </div>
+            </div>
+          </div>
+          <div className="col-md-8">
+            {/*acá una imagen para la columna de la derecha*/}
+          </div>
+        </div>
+      </div>
     </>
   );
 };
