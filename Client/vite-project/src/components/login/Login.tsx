@@ -63,16 +63,19 @@ const Login: React.FC = () => {
       <div className="userFirebase">
         <div className="padreFirebase">
           <form onSubmit={firebaseAuthentication}>
-            <input type="text" placeholder="Enter your email" className="cajatexto" id="email" />
-            <input type="password" placeholder="Enter your password" className="cajatexto" id="password" />
-            <button className="btnform">{registration ? "Sign up" : "Log in"}</button>
+            <input type="text" placeholder="Enter your email" className="cajaTexto" id="email" />
+            <input type="password" placeholder="Enter your password" className="cajaTexto" id="password" />
+            <button>{registration ? "Sign up" : "Log in"}</button>
           </form>
-          <p>{registration ? "Already have an account?" : "Don't have an account?"}<button onClick={() => setRegistration(!registration)}>{registration ? "Log in" : "Sign up"}</button></p>
+          <div className="estilos-google">
+            <p> {registration ? "Already have an account?" : "Don't have an account?"}
+            <button onClick={() => setRegistration(!registration)}>{registration ? "Log in" : "Sign up"}</button></p>
+          </div>
         </div>
       </div>
 
       <div className="auth-status">
-        <div className="padre">
+        <div className="button-google">
           <div className="card card-body">
             {isLoggedIn ? (
               <p>If you want to disconnect, click on <strong>Log out</strong></p>
@@ -82,7 +85,7 @@ const Login: React.FC = () => {
             {!user ? (
               <button type="button" onClick={handleGoogleLogin}><img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />Continue with Google</button>
             ) : (
-              <div>
+              <div className="">
                 {user.providerData[0].providerId === "password" && (
                   <button type="button" onClick={handleSignOut}>Log out</button>
                 )}
