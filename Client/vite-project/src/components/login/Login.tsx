@@ -62,35 +62,6 @@ const Login: React.FC = () => {
 
   return (
     <>
-      {/*
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={data.email}
-          onChange={onChange}
-          placeholder="myexample@gmail.com"
-        />
-        {errors.email && <p>{errors.email}</p>}
-
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={data.password}
-          onChange={onChange}
-          placeholder="enter your password"
-        />
-        {errors.password && <p>{errors.password}</p>}
-
-        <button type="submit">Log in</button>
-        <Link to="/register">
-          <span>Do not have an account? Sign in!</span>
-        </Link>
-      </form>
-      */}
-
       <form onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
@@ -112,7 +83,7 @@ const Login: React.FC = () => {
         ></input>
         {errors.password && <p>{errors.password}</p>}
         {/*}
-        <button type="submit">Log in</button>
+        <button type="submit">Log with email</button>
         */}        
         <div className="auth-status">
           {!user ? (
@@ -132,7 +103,6 @@ const Login: React.FC = () => {
 
       </form>
 
-      {/* Contenedor separado para mostrar el estado de la autenticación */}
     </>
   );
 };
