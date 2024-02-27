@@ -17,6 +17,7 @@
     "axios": "^1.6.7",
     "date-fns": "^3.3.1",
     "dotenv": "^16.4.4",
+    "firebase": "^10.8.0",
     "react": "^18.2.0",
     "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "^18.2.0",
@@ -31,6 +32,7 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@types/firebase": "^3.2.1",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
