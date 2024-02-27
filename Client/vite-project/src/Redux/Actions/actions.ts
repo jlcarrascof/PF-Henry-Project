@@ -16,7 +16,7 @@ export interface Action {
 }
 
  export const getHotels = () => {
-  return async (dispatch: Dispatch<Action>) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
       dispatch({
@@ -30,7 +30,7 @@ export interface Action {
 }; 
 
 export const getHotelById = (id: string) => {
-  return async (dispatch: Dispatch<Action>) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
       const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
       dispatch({
@@ -44,7 +44,7 @@ export const getHotelById = (id: string) => {
 };
 
 export const getHotelByName = (address: string) => {
-  return async (dispatch: Dispatch<Action>) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
       const { data } = await axios.get(
         `http://localhost:3002/hotels/?address=${address}`
@@ -60,7 +60,7 @@ export const getHotelByName = (address: string) => {
 };
 
 export const getFilteredHotels = (filters: any) => {
-  return async (dispatch: Dispatch<Action>) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/", {
         params: filters,
@@ -76,7 +76,7 @@ export const getFilteredHotels = (filters: any) => {
 };
 
 export const postReview = (review: any) => {
-  return async (dispatch: Dispatch<Action>) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
       const res = await axios.post('http://localhost:3002/hotels/', review)
       dispatch({

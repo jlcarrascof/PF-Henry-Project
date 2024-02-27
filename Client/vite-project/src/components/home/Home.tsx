@@ -7,7 +7,7 @@ import { State } from "../../Redux/Reducer/reducer";
 import { getFilteredHotels } from "../../Redux/Actions/actions";
 import "./Home.modules.css";
 
-import PersistentFilters from '../../../PersistentFilters';
+import FilterManager from '../filters/FilterManager';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -16,11 +16,10 @@ const Home: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (PersistentFilters.ApplyFilters) {
-        console.log(PersistentFilters.filters);
+    if (FilterManager.ApplyFilter()) {
         dispatch(getFilteredHotels({
           p: currentPage,
-          ...PersistentFilters.filters
+          ...FilterManager.GetFilterObject()
         }));
     } else {
       dispatch(getFilteredHotels({
@@ -46,7 +45,7 @@ const Home: React.FC = () => {
   };
 
   const renderPageNumbers = () => {
-    const pageNumbers = [];
+    const pageNumbers: any[] = [];
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
         <button

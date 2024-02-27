@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Action } from "../../Redux/Actions/actions";
-import PersistentFilters from '../../../PersistentFilters';
+import FilterManager from './FilterManager';
 import { getFilteredHotels, resetFilters } from "../../Redux/Actions/actions";
 import "./filters.css";
 
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
-  const [filters, setFilters] = useState<any>({
+  const [filters, setFilters]: [FilterManager.Filters, React.Dispatch<any>] = useState<any>({
     minPrice: "",
     maxPrice: "",
     address: "",
@@ -27,16 +26,16 @@ const Filters: React.FC = () => {
       ...prevState,
       [name]: value,
     }));
-    PersistentFilters.setValue(name, value);
+    FilterManager.SetFilter(name, value);
   };
 
   const handleFilterSubmit = () => {
-    PersistentFilters.ApplyFilters = true;
+    FilterManager.SetApplyFilter(true);
     dispatch(getFilteredHotels(filters));
   };
 
   const handleClick = () => {
-    PersistentFilters.ApplyFilters = false;
+    FilterManager.SetApplyFilter(false);
     dispatch(resetFilters())
   }
 
