@@ -9,13 +9,16 @@ const provider = new GoogleAuthProvider();
 const Login: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [registration, setRegistration] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
       if (userFirebase) {
         setUser(userFirebase);
+        setIsLoggedIn(true);
       } else {
         setUser(null);
+        setIsLoggedIn(false);
       }
     });
     return () => unsubscribe();
@@ -71,7 +74,11 @@ const Login: React.FC = () => {
       <div className="auth-status">
         <div className="padre">
           <div className="card card-body">
-            <p>You can also log in with your <strong>Google account</strong></p>
+            {isLoggedIn ? (
+              <p>If you want to disconnect, click on <strong>Log out</strong></p>
+            ) : (
+              <p>You can also log in with your <strong>Google account</strong></p>
+            )}
             {!user ? (
               <button type="button" onClick={handleGoogleLogin}><img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />Continue with Google</button>
             ) : (
