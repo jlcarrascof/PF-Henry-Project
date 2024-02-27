@@ -64,26 +64,31 @@ const Login: React.FC = () => {
             <input type="password" placeholder="Enter your password" className="cajatexto" id="password" />
             <button className="btnform">{registration ? "Sign up" : "Log in"}</button>
           </form>
-          <h4>{registration ? "Already have an account?" : "Don't have an account?"}<button onClick={() => setRegistration(!registration)}>{registration ? "Log in" : "Sign up"}</button></h4>
+          <p>{registration ? "Already have an account?" : "Don't have an account?"}<button onClick={() => setRegistration(!registration)}>{registration ? "Log in" : "Sign up"}</button></p>
         </div>
       </div>
 
       <div className="auth-status">
         <div className="padre">
           <div className="card card-body">
-            <h4>Quick start</h4>
+            <p>You can also log in with your <strong>Google account</strong></p>
             {!user ? (
               <button type="button" onClick={handleGoogleLogin}><img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />Continue with Google</button>
             ) : (
               <div>
-                <button type="button" onClick={handleSignOut}><img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />Log out</button>
                 {user.providerData[0].providerId === "password" && (
-                  <p>You have successfully connected with the email: <b>{user.email}</b></p>
+                  <button type="button" onClick={handleSignOut}>Log out</button>
                 )}
                 {user.providerData[0].providerId === "google.com" && (
-                  <p>User connected: <b>{user.displayName}</b></p>
+                  <button type="button" onClick={handleSignOut}><img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />Log out</button>
                 )}
               </div>
+            )}
+            {user && user.providerData[0].providerId === "password" && (
+              <p>You have successfully connected with the email: <b>{user.email}</b></p>
+            )}
+            {user && user.providerData[0].providerId === "google.com" && (
+              <p>User connected: <b>{user.displayName}</b></p>
             )}
           </div>
         </div>
