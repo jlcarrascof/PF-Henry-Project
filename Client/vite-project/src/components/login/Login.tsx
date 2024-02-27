@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { validation } from "./LogValidation";
 import { getAuth, signInWithPopup, GoogleAuthProvider, User, signOut, UserCredential } from 'firebase/auth';
@@ -114,31 +113,19 @@ const Login: React.FC = () => {
         {errors.password && <p>{errors.password}</p>}
 
         <button type="submit">Log in</button>
-
-        <button>Continue with Google</button>
-        <button>Continue with Instagram</button>
-        <button>Continue with Facebook</button>
-
-        <button type="submit">Log in</button>
-        <Link to="/register">
-          <span>Do not have an account? Sign in!</span>
-        </Link>
-
-      </form>
-
-      {/* Botón para iniciar sesión con Google */}
-      <div className="google-button-container">
+        
         <button type="button" onClick={handleGoogleLogin}>Continue with Google</button>
-      </div>
-
-      {/* Contenedor separado para mostrar el estado de la autenticación */}
-      <div className="auth-status">
+        <div className="auth-status">
         {user ? (
           <button type="button" onClick={handleSignOut}>Log out</button>
         ) : (
           <p>You are not logged in</p>
         )}
       </div>
+
+      </form>
+
+      {/* Contenedor separado para mostrar el estado de la autenticación */}
     </>
   );
 };
