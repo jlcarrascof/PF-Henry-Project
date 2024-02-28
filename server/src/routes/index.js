@@ -8,7 +8,7 @@ const mainRouter = Router();
 
 mainRouter.use('/users', usersRouter);  
 mainRouter.use('/hotels', hotelsRouter); 
-mainRouter.use('/fav', favRouter)
+mainRouter.use('/favs', favRouter)
 mainRouter.use('/rooms', roomsRouter); 
 
 module.exports = mainRouter;

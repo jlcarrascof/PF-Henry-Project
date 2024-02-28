@@ -35,7 +35,6 @@ const postHotel = async (req, res) => {
 
     res.status(201).json(newHotel);
   } catch (error) {
-    //console.error("Error creating hotel:", error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -70,7 +69,7 @@ const getHotelsFiltered = async (req, res) => {
     const {
       minPrice,
       maxPrice,
-      address, // Nueva variable para filtrar por dirección
+      address, 
       desiredCheckInDate,
       desiredCheckOutDate,
       minScore,
@@ -99,7 +98,6 @@ const getHotelsFiltered = async (req, res) => {
       });
     }
 
-    // Filtrar por dirección si se proporciona
     if (address) {
       filters.push({ address: { $regex: new RegExp(address, "i") } });
     }
@@ -162,88 +160,6 @@ const getHotelsFiltered = async (req, res) => {
   }
 };
 
-
-
-// const getHotelsFiltered = async (req, res) => {
-//   try {
-//     const {
-//       minPrice,
-//       maxPrice,
-//       address,
-//       desiredCheckInDate,
-//       desiredCheckOutDate,
-//       minScore,
-//       services,
-//     } = req.query;
-//     const db = getDb();
-//     const page = parseInt(req.query.p) || 1;
-//     const limit = parseInt(req.query.limit) || 2;
-
-//     let filters = [];
-
-//     if (
-//       minPrice !== undefined &&
-//       maxPrice !== undefined &&
-//       minPrice !== "" &&
-//       maxPrice !== ""
-//     ) {
-//       filters.push({
-//         "rooms.price": { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) },
-//       });
-//     }
-
-//     if (address) {
-//       filters.push({ address: { $regex: new RegExp(address, "i") } });
-//     }
-
-//     if (services) {
-//       filters.push({ services: { $in: services.split(",") } });
-//     }
-
-//     if (desiredCheckInDate && desiredCheckOutDate) {
-//       filters.push({
-//         $or: [
-//           { "rooms.availability": true },
-//           {
-//             "rooms.reservations.startDate": {
-//               $gte: new Date(desiredCheckInDate),
-//             },
-//             "rooms.reservations.endDate": {
-//               $lte: new Date(desiredCheckOutDate),
-//             },
-//           },
-//         ],
-//       });
-//     }
-
-//     if (minScore !== undefined && minScore !== "") {
-//       filters.push({ "reviews.score": { $gte: parseInt(minScore) } });
-//     }
-
-//     const query = filters.length > 0 ? { $and: filters } : {};
-
-//     const hotels = await db
-//       .collection("hotels")
-//       .find(query)
-//       .skip((page - 1) * limit)
-//       .limit(limit)
-//       .toArray();
-
-//     const totalHotels = await db.collection("hotels").countDocuments(query);
-//     const totalPages = Math.ceil(totalHotels / limit);
-
-//     res.status(200).json({
-//       currentPage: page,
-//       totalPages: totalPages,
-//       totalResults: hotels.length,
-//       hotels: hotels,
-//     });
-//   } catch (error) {
-//     console.log("el error es: ", error);
-//     res.status(400).json({ error: error.message });
-//   }
-// };
-
 const deleteHotelByID = async (req, res) => {
   try {
     const { id } = req.params;
@@ -283,11 +199,61 @@ const updateFav = async (req, res) => {
   }
 };
 
+const getFav = async (req, res) => {
+  const db = getDb();
+
+  try {
+    const result = await db.collection("hotels").aggregate([
+      {
+        $match: {
+          "rooms.isFav": true,
+        },
+      },
+      {
+        $project: {
+          images: 1,
+          rooms: {
+            $filter: {
+              input: "$rooms",
+              as: "room",
+              cond: { $eq: ["$$room.isFav", true] },
+            },
+          },
+        },
+      },
+    ]).toArray();
+
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+const postReview = async (req, res) => {
+  const db = getDb()
+  const updateData = req.body;
+  const {id} = req.params
+  try{
+    if (!ObjectId.isValid(req.params.id)){
+      return res.status(404).send({error: "No es un ObjectId valido"})
+    }
+    const result = await db
+      .collection("hotels")
+      .updateOne({ _id: new ObjectId(id) }, {$push: {review: updateData}})
+
+      res.status(200).send(result)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+}
+
 module.exports = {
   getHotelID,
   postHotel,
   patchHotel,
   getHotelsFiltered,
   deleteHotelByID,
-  updateFav
+  updateFav,
+  getFav, 
+  postReview
 };
