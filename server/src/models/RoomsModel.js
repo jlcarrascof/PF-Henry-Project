@@ -20,10 +20,10 @@ const hotelSchema = new Schema({
   }
 });
 
-// const Hotel = model("Hotel", hotelSchema);
+const Hotel = model("Hotel", hotelSchema);
 
 const roomSchema = new Schema({
-  hotel_id: { hotelSchema, required: true},
+  hotel_id: { type: Schema.Types.ObjectId, ref: "Hotel", required: true },
   description: { type: String, required: true },
   typeOfRoom: { type: String, required: true },
   services: [String],

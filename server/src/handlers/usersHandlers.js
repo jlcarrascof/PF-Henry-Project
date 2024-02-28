@@ -19,15 +19,14 @@ const getUserID = async (req, res) => {
 };
 
 
-//Para el User por name y para todos los Users
 const getUser = async (req, res) => {
     try {
         const { name } = req.query;
 
         let users;
-        if (name) {//Mostrar user por Nombre
+        if (name) {
             users = await getUserByName(name);
-        } else {//Mostrar todos los users
+        } else {
             users = await getAllUsers();
         }
         return res.status(200).json(users);
@@ -42,7 +41,6 @@ const postUser = async (req, res) => {
     try {
         const user = req.body;
         const newUser = await createUser(user); 
-    // Se realizaron cambios para traer el body completo sin destructurar propiedades
         return res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ error: error.message });

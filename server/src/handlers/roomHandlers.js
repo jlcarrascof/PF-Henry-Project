@@ -62,13 +62,8 @@ const {
   const getRoomFiltered = async (req, res) => {
     try {
       const {
-        minPrice,
-        maxPrice,
-        address,
-        desiredCheckInDate,
-        desiredCheckOutDate,
-        minScore,
-        services,
+        minPrice,maxPrice,address,desiredCheckInDate,
+        desiredCheckOutDate,minScore,services,
       } = req.query;
       const db = getDb();
       const page = parseInt(req.query.p) || 1;
@@ -76,23 +71,26 @@ const {
   
       let filters = [];
   
-      if (
-        minPrice !== undefined &&
-        maxPrice !== undefined ||
-        minPrice !== "" ||
-        maxPrice !== ""
-      ) {
-        filters.push({
-          "price": { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) },
-        });
-      }
+      const defaultMinPrice = 0;
+      const defaultMaxPrice = 1000;
+
+    const parsedMinPrice = minPrice !== undefined && minPrice !== "" ? parseInt(minPrice) : defaultMinPrice;
+    const parsedMaxPrice = maxPrice !== undefined && maxPrice !== "" ? parseInt(maxPrice) : defaultMaxPrice;
+
+    filters.push({
+        "price": { $gte: parsedMinPrice, $lte: parsedMaxPrice },
+    });
   
       if (address) {
         filters.push({ address: { $regex: new RegExp(address, "i") } });
       }
   
       if (services) {
-        filters.push({ services: { $in: services.split(",") } });
+        filters.push({ services: {
+          $elemMatch: {
+            $in: services.split(",")
+          }
+        } });
       }
   
       if (desiredCheckInDate && desiredCheckOutDate) {
@@ -111,27 +109,37 @@ const {
         });
       }
   
-      if (minScore !== undefined && minScore !== "") {
+      /* if (minScore !== undefined && minScore !== "") {
         filters.push({ "reviews.score": { $gte: parseInt(minScore) } });
-      }
+      } */
+
+      if (minScore !== undefined && minScore !== "") {
+        filters.push({
+          reviews: {
+            $elemMatch: {
+              score: { $gte: parseFloat(minScore) }
+            }
+          }
+       });
+     }
   
       const query = filters.length > 0 ? { $and: filters } : {};
   
-      const hotels = await db
+      const rooms = await db
         .collection("rooms")
         .find(query)
         .skip((page - 1) * limit)
         .limit(limit)
         .toArray();
   
-      const totalHotels = await db.collection("rooms").countDocuments(query);
-      const totalPages = Math.ceil(totalHotels / limit);
+      const totalRooms = await db.collection("rooms").countDocuments(query);
+      const totalPages = Math.ceil(totalRooms / limit);
   
       res.status(200).json({
         currentPage: page,
         totalPages: totalPages,
-        totalResults: hotels.length,
-        hotels: hotels,
+        totalResults: rooms.length,
+        rooms: rooms,
       });
     } catch (error) {
       console.log("el error es: ", error);
@@ -139,27 +147,24 @@ const {
     }
   };
   
-  const deleteRoomByID = async (req, res) => {
+const deleteRoomByID = async (req, res) => {
     try {
-      const { id } = req.params;
-  
+    const { id } = req.params;
       if (!id) {
         return res
           .status(400)
           .json({ error: "ID not provided in route parameters" });
       }
-  
       const result = await deleteRoomById(id);
       res.status(201).send(result)
     } catch (err) {
       res.status(500).send(err);
     }
-  };
+};
   
-  const updateFav = async (req, res) => {
+const updateFav = async (req, res) => {
     const { id } = req.params;
     const db = getDb();
-  
     try {
       const result = await db
         .collection("rooms")
@@ -167,7 +172,6 @@ const {
           { "_id": new ObjectId(id) },
           { $set: { "isFav": true } }
         );
-  
       if (result.modifiedCount === 1) {
         res.status(200).json({ message: "Room marked as favorite" });
       } else {
