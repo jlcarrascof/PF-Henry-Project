@@ -10,6 +10,7 @@ import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 import About from "./components/about/About";
 import Home from "./components/home/Home";
+import MercadoPago from "./components/mercadoPago/MercadoPago";
 
 import "./App.css";
 
@@ -23,7 +24,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
-
+        <Route path="/pay" element={<MercadoPago />} />
         <Route path="/about" element={<About />} />
 
         <Route path="/detail/:id" element={<Detail />} />
