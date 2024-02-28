@@ -84,10 +84,11 @@ export const postReview = (review: any) => {
         payload: res.data
       })
     } catch (error) {
-      alert('An error occured at posting your review', error)
+      alert('An error occured at posting your review'+ error)
     }
   }
 }
+///tipo alert solo recibe 1 parametro
 
 export const resetFilters = () => ({
   type: RESET
