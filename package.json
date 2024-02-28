@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/react-dom": "^18.2.19"
+  },
+  "dependencies": {
+    "firebase": "^10.8.0"
   }
 }
