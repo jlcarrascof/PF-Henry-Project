@@ -182,12 +182,62 @@ const updateFav = async (req, res) => {
     }
   };
   
+  const getFav = async (req, res) => {
+    const db = getDb();
+    try {
+      const result = await db.collection("rooms").aggregate([
+        { $match: { isFav: true } },
+      {
+        $lookup: {
+          from: "hotels", // Nombre de la colección de hoteles
+          localField: "hotel_id", // Campo local en la colección de habitaciones
+          foreignField: "_id", // Campo correspondiente en la colección de hoteles
+          as: "hotelInfo" // Nombre del nuevo campo que contendrá la información del hotel
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          images: 1,
+          typeOfRoom: 1,
+          price: 1,
+          "hotelInfo.address": 1,
+          totalScore: 1
+        }
+      }
+    ]).toArray();
+  
+      res.status(200).send(result);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  };
+  
+  const postReview = async (req, res) => {
+    const db = getDb()
+    const updateData = req.body;
+    const {id} = req.params
+    try{
+      if (!ObjectId.isValid(req.params.id)){
+        return res.status(404).send({error: "No es un ObjectId valido"})
+      }
+      const result = await db
+        .collection("hotels")
+        .updateOne({ _id: new ObjectId(id) }, {$push: {review: updateData}})
+  
+        res.status(200).send(result)
+    } catch (err) {
+      res.status(500).send(err)
+    }
+  }
   module.exports = {
     getRoomById,
     postRoom,
     patchRoom,
     getRoomFiltered,
     deleteRoomByID,
-    updateFav
+    updateFav,
+    getFav,
+    postReview
   };
   

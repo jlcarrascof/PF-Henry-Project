@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-//import { Action } from "../../Redux/Actions/actions";
+import { Action } from "../../Redux/Actions/actions";
 import { getFilteredHotels } from "../../Redux/Actions/actions";
 import "./filters.css";
-//import { Select, MenuItem } from '@material-ui/core';
+import { Select, MenuItem } from '@material-ui/core';
 
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
   const [filters, setFilters] = useState<any>({
+    p: 1,
     minPrice: "",
     maxPrice: "",
     address: "",
@@ -51,6 +52,7 @@ const Filters: React.FC = () => {
     filters.services = filters.services.startsWith(',') ? filters.services.slice(1) : filters.services;
     
     let ToSend = {
+        p: filters.p,
         minPrice: filters.minPrice,
         maxPrice: filters.maxPrice,
         address: filters.address,
