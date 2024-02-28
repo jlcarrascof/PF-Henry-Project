@@ -10,7 +10,8 @@ export const GET_USERS = 'GET_USERS'
 export const GET_USER_NAME = 'GET_USER_NAME'
 
 
-
+// Nueva constante para la acción de autenticación de usuario
+export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 
 
 //FILTROS

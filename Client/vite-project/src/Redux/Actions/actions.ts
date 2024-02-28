@@ -1,31 +1,19 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+import { User } from 'firebase/auth'; // Importa el tipo User de Firebase
 import {
-  GET_HOTELS,
   GET_HOTEL_BY_ID,
   GET_HOTEL_BY_NAME,
   GET_FILTERED_HOTELS,
 } from "./actions-types";
 
+// Definir una interfaz para las acciones
 export interface Action {
   type: string;
   payload: any;
 }
 
-/* export const getHotels = () => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      const { data } = await axios.get("http://localhost:3002/hotels/");
-      dispatch({
-        type: GET_HOTELS,
-        payload: data,
-      });
-    } catch (error) {
-      console.error("Error al obtener hoteles:", error);
-    }
-  };
-}; */
-
+// Acción para obtener un hotel por su ID
 export const getHotelById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -35,11 +23,12 @@ export const getHotelById = (id: string) => {
         payload: data,
       });
     } catch (error) {
-      console.error("Error al obtener hotel por ID:", error);
+      console.error("Error fetching hotel by ID:", error);
     }
   };
 };
 
+// Acción para obtener un hotel por su nombre
 export const getHotelByName = (address: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -51,11 +40,12 @@ export const getHotelByName = (address: string) => {
         payload: data,
       });
     } catch (error) {
-      console.error("Error al obtener hotel por nombre:", error);
+      console.error("Error fetching hotel by name:", error);
     }
   };
 };
 
+// Acción para obtener hoteles filtrados
 export const getFilteredHotels = (filters: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -67,15 +57,13 @@ export const getFilteredHotels = (filters: any) => {
         payload: data,
       });
     } catch (error) {
-      console.error("Error al obtener hoteles filtrados:", error);
+      console.error("Error fetching filtered hotels:", error);
     }
   };
 };
 
-
-
-
-
-
-
-
+// Nueva acción para autenticar al usuario
+export const authenticateUser = (user: User | null): Action => ({
+  type: 'AUTHENTICATE_USER',
+  payload: user,
+});
