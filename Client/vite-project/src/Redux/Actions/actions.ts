@@ -5,6 +5,8 @@ import {
   GET_HOTEL_BY_ID,
   GET_HOTEL_BY_NAME,
   GET_FILTERED_HOTELS,
+  POST_REVIEW,
+  RESET,
 } from "./actions-types";
 
 export interface Action {
@@ -12,7 +14,7 @@ export interface Action {
   payload: any;
 }
 
-/* export const getHotels = () => {
+export const getHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
@@ -24,7 +26,7 @@ export interface Action {
       console.error("Error al obtener hoteles:", error);
     }
   };
-}; */
+};
 
 export const getHotelById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -72,10 +74,20 @@ export const getFilteredHotels = (filters: any) => {
   };
 };
 
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.post("http://localhost:3002/hotels/", review);
+      dispatch({
+        type: POST_REVIEW,
+        payload: res.data,
+      });
+    } catch (error) {
+      alert("An error occured at posting your review", error);
+    }
+  };
+};
 
-
-
-
-
-
-
+export const resetFilters = () => ({
+  type: RESET,
+});
