@@ -51,15 +51,17 @@
 import React from "react";
 import Card from "../card/Card";
 
+interface Room {
+  _id: string;
+  name: string;
+  typeOfRoom: string;
+  description: string;
+  price: string;
+  images: string[];
+}
+
 interface CardsProps {
-  allRooms: {
-    _id: string;
-    name: string;
-    typeOfRoom: string;
-    description: string;
-    price: Number;
-    images: string[];
-  }[];
+  allRooms: Room[];
 }
 
 const Cards: React.FC<CardsProps> = ({ allRooms }) => {
@@ -67,21 +69,12 @@ const Cards: React.FC<CardsProps> = ({ allRooms }) => {
 
   return (
     <div>
-      {allRooms.map((room) =>(
-          <Card
-            key={`${id_room}-${id_room}`}
-            id_room={Number(_id)}
-            // id_room={Number(room.id)} // Convertir a número
-            room_name={room.name}
-            room_detail={room.details}
-            room_type={room.typeOfRoom}
-            room_description={room.description}
-            address={room.address}
-            price={Number(room.price)} // Convertir a número
-            images={room.images[0]} // Tomar solo la URL de la imagen
-          />
-        ))
-      )}
+      {allRooms.map((room) => (
+        <Card
+          key={room._id} 
+          room={room}
+        />
+      ))}
     </div>
   );
 };

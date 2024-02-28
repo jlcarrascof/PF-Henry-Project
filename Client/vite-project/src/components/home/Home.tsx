@@ -87,7 +87,7 @@ const Home: React.FC = () => {
           <Filters />
         </div>
         <div className="allCards">
-          <Cards allHotels={allRooms} />
+          <Cards allRooms={allRooms} />
           
         </div>
       </div>

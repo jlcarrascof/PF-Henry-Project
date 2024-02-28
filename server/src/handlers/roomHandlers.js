@@ -230,6 +230,34 @@ const updateFav = async (req, res) => {
       res.status(500).send(err)
     }
   }
+
+  const getAllRooms = async (req, res) => {
+    const db = getDb();
+    const page = parseInt(req.query.p) || 1;
+    const limit = parseInt(req.query.limit) || 2;
+  
+    try {
+      const totalHotels = await db.collection("rooms").countDocuments();
+      const totalPages = Math.ceil(totalHotels / limit);
+  
+      const hotels = await db
+        .collection("rooms")
+        .find()
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .toArray();
+  
+      res.status(200).json({
+        currentPage: page,
+        totalPages: totalPages,
+        totalResults: totalHotels,
+        rooms: rooms,
+      });
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+
   module.exports = {
     getRoomById,
     postRoom,
@@ -238,6 +266,7 @@ const updateFav = async (req, res) => {
     deleteRoomByID,
     updateFav,
     getFav,
-    postReview
+    postReview,
+    getAllRooms
   };
   

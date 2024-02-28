@@ -14,6 +14,7 @@ const hotelSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
   details: { type: String, required: true },
   address: { type: String, required: true },
+  services: [String],
   contact: {
     phone: Number,
     mail: String,
