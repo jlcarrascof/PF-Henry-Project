@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Action } from "../../Redux/Actions/actions";
-import { getFilteredHotels } from "../../Redux/Actions/actions";
+import { getFilteredRooms } from "../../Redux/Actions/actions";
 import "./filters.css";
 import { Select, MenuItem } from '@material-ui/core';
 
@@ -64,7 +64,7 @@ const Filters: React.FC = () => {
 
     console.log("Filters:", ToSend);
 
-    dispatch(getFilteredHotels(ToSend));
+    dispatch(getFilteredRooms(ToSend));
   };
 
   return (

@@ -52,39 +52,33 @@ import React from "react";
 import Card from "../card/Card";
 
 interface CardsProps {
-  allHotels: {
+  allRooms: {
     _id: string;
     name: string;
-    address: string;
-    details: string;
-    rooms: {
-      // id: string;
-      typeOfRoom: string;
-      description: string;
-      price: string;
-    }[];
+    typeOfRoom: string;
+    description: string;
+    price: Number;
     images: string[];
   }[];
 }
 
-const Cards: React.FC<CardsProps> = ({ allHotels }) => {
-  console.log("En cards la lista que recibe cómo props:", allHotels);
+const Cards: React.FC<CardsProps> = ({ allRooms }) => {
+  console.log("En cards la lista que recibe cómo props:", allRooms);
 
   return (
     <div>
-      {allHotels.map((hotel, id_hotel) =>
-        hotel.rooms.map((room, id_room) => (
+      {allRooms.map((room) =>(
           <Card
-            key={`${id_hotel}-${id_room}`}
-            id_hotel={hotel._id}
+            key={`${id_room}-${id_room}`}
+            id_room={Number(_id)}
             // id_room={Number(room.id)} // Convertir a número
-            hotel_name={hotel.name}
-            hotel_detail={hotel.details}
+            room_name={room.name}
+            room_detail={room.details}
             room_type={room.typeOfRoom}
             room_description={room.description}
-            address={hotel.address}
+            address={room.address}
             price={Number(room.price)} // Convertir a número
-            images={hotel.images[0]} // Tomar solo la URL de la imagen
+            images={room.images[0]} // Tomar solo la URL de la imagen
           />
         ))
       )}

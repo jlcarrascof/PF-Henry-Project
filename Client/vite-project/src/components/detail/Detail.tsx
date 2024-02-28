@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
-import { getHotelById } from "../../Redux/Actions/actions";
+import { getroomById } from "../../Redux/Actions/actions";
 import ReviewForm from "../reviewForm/reviewForm";
 import "./detail.css";
 
@@ -14,7 +14,7 @@ const Detail: React.FC = () => {
   useEffect(() => {
     if (id) {
       // Verifica si id es válido
-      dispatch(getHotelById(id));
+      dispatch(getroomById(id));
     }
   }, [dispatch, id]);
 

@@ -35,7 +35,6 @@ const roomSchema = new Schema({
     mail: String,
   },
   num_rooms: { type: Number, required: true },
-  isFav: { type: Boolean, default: false },
   reviews: [reviewSchema],
   totalScore: { type: Number, default: 0 }
 });
@@ -44,4 +43,5 @@ const Room = model("Room", roomSchema);
 
 module.exports = {
   Room,
+  Hotel
 };

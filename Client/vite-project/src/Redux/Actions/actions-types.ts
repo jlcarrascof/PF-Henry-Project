@@ -16,6 +16,12 @@ export type HotelAction =
   | { type: 'GET_HOTEL_BY_NAME'; payload: any }
   | { type: 'GET_FILTERED_HOTELS'; payload: any };
 
+  export type RoomAction =
+  | { type: 'GET_ROOMS'; payload: any }
+  | { type: 'GET_ROOMS_BY_ID'; payload: any }
+  | { type: 'GET_ROOMS_BY_NAME'; payload: any }
+  | { type: 'GET_FILTERED_ROOMS'; payload: any };
+
 
 //FILTROS
 

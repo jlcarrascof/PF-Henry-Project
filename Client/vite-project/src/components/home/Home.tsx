@@ -8,11 +8,11 @@ import { State } from "../../Redux/Reducer/reducer";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./Home.modules.css";
-import { getFilteredHotels, getHotels } from "../../Redux/Actions/actions";
+import { getFilteredRooms } from "../../Redux/Actions/actions";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const { totalPages, allHotels, filteredHotels } = useSelector((state: State) => state);
+  const { totalPages, allRooms, filteredRooms } = useSelector((state: State) => state);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
       setCurrentPage(currentPage + 1);
       // Solo actualiza los filtros si hay cambios
       if (currentPage + 1 !== currentPage) {
-        dispatch(getFilteredHotels({ p: currentPage + 1, ...filteredHotels }));
+        dispatch(getFilteredRooms({ p: currentPage + 1, ...filteredRooms }));
       }
     }
   };
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
       setCurrentPage(currentPage - 1);
       // Solo actualiza los filtros si hay cambios
       if (currentPage - 1 !== currentPage) {
-        dispatch(getFilteredHotels({ p: currentPage - 1, ...filteredHotels }));
+        dispatch(getFilteredRooms({ p: currentPage - 1, ...filteredRooms }));
       }
     }
   };
@@ -41,14 +41,14 @@ const Home: React.FC = () => {
       setCurrentPage(page);
       // Solo actualiza los filtros si hay cambios
       if (page !== currentPage) {
-        dispatch(getFilteredHotels({ p: page, ...filteredHotels }));
+        dispatch(getFilteredRooms({ p: page, ...filteredRooms }));
       }
     }
   };
 
   useEffect(() => {
-    dispatch(getFilteredHotels({ p: currentPage, ...filteredHotels }));
-  }, [dispatch, currentPage, filteredHotels]);
+    dispatch(getFilteredRooms({ p: currentPage, ...filteredRooms }));
+  }, [dispatch, currentPage, filteredRooms]);
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
@@ -87,7 +87,7 @@ const Home: React.FC = () => {
           <Filters />
         </div>
         <div className="allCards">
-          <Cards allHotels={allHotels} />
+          <Cards allHotels={allRooms} />
           
         </div>
       </div>

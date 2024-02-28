@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import SearchBar from '../searchBar/SearchBar';
 import Cards from '../cards/Cards';
 import { State } from '../../Redux/Reducer/reducer';
-import { getFilteredHotels } from '../../Redux/Actions/actions';
+import { getFilteredRooms } from '../../Redux/Actions/actions';
 
 import './LandingPage.modules.css';
 
@@ -43,7 +43,7 @@ const LandingPage: React.FC = () => {
   const allHotels = useSelector((state: State) => state.allHotels);
 
   const onClickSearch = (filters: any) => {
-    dispatch(getFilteredHotels(filters)); 
+    dispatch(getFilteredRooms(filters)); 
     navigate("/home");
   };
 
