@@ -1,13 +1,13 @@
 const { Router } = require("express");
-const {createOrder}= require("../handlers/mercadoPago.handler")
+const {createOrder}= require("../controllers/mercadoPago.controller")
 
 const mercadoRouter = Router()
 
 
-mercadoRouter.get('/create-order', createOrder)
+mercadoRouter.post('/create-order', createOrder)
 
-mercadoRouter.get('/success', (req, res) => res.send('success'))
+mercadoRouter.get('/success', (req, res) => send('success'))
 
-//mercadoRouter.get('/frailue', (req, res) => res.send('creating order'))
+//mercadoRouter.get('/frailue', (req, res) => res.send('failed order'))
 
 module.exports = mercadoRouter;
