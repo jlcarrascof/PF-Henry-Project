@@ -2,12 +2,14 @@ const { Router } = require("express");
 const {
   getRoomFiltered,updateFav,
   getRoomById,postRoom,
-  patchRoom,deleteRoomByID,
+  patchRoom,deleteRoomByID, getAllRooms,
 } = require("../handlers/roomHandlers");
 
 const roomsRouter = Router();
 
-roomsRouter.get("/", getRoomFiltered); 
+roomsRouter.get("/", getAllRooms); 
+
+roomsRouter.get("/filtered/", getRoomFiltered); 
 
 roomsRouter.get("/:id", getRoomById);
 
@@ -20,3 +22,4 @@ roomsRouter.delete("/:id", deleteRoomByID);
 roomsRouter.patch("/fav/:id", updateFav);
 
 module.exports = roomsRouter;
+

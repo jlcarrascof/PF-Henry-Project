@@ -1,37 +1,120 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import {
-  GET_HOTELS,
-  GET_HOTEL_BY_ID,
-  GET_HOTEL_BY_NAME,
-  GET_FILTERED_HOTELS,
-} from "./actions-types";
+import { ThunkAction } from 'redux-thunk';
+import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
+
+
+// VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
 
 export interface Action {
   type: string;
   payload: any;
 }
 
-/* export const getHotels = () => {
+export const getRooms = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get("http://localhost:3002/rooms/");
+      dispatch({
+        type: "GET_ROOMS",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener habitaciones:", error);
+    }
+  };
+};
+
+export const getRoomById = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3002/rooms/${id}`);
+      dispatch({
+        type: "GET_ROOMS_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener habitacion por ID:", error);
+    }
+  };
+};
+
+export const getRoomByName = (address: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3002/rooms/?address=${address}`
+      );
+      dispatch({
+        type: "GET_ROOMS_BY_NAME",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener habitacion por nombre:", error);
+    }
+  };
+};
+
+export const getFilteredRooms = (filters: any) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    try {
+      const { data } = await axios.get("http://localhost:3002/rooms/filtered/", {
+        params: filters,
+      });
+      dispatch({
+        type: "GET_FILTERED_ROOMS",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener habitaciones filtradas:", error);
+    }
+  };
+};
+
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    try {
+      const res = await axios.post('http://localhost:3002/hotels/', review)
+      dispatch({
+        type: POST_REVIEW,
+        payload: res.data
+      })
+    } catch (error) {
+      alert('An error occured at posting your review'+ error)
+    }
+  }
+}
+///tipo alert solo recibe 1 parametro
+
+export const resetFilters = () => ({
+  type: RESET
+})
+
+/* export interface Action {
+  type: string;
+  payload: any;
+}
+
+export const getHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
       dispatch({
-        type: GET_HOTELS,
+        type: "GET_HOTELS",
         payload: data,
       });
     } catch (error) {
       console.error("Error al obtener hoteles:", error);
     }
   };
-}; */
+};
 
 export const getHotelById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
       dispatch({
-        type: GET_HOTEL_BY_ID,
+        type: "GET_HOTEL_BY_ID",
         payload: data,
       });
     } catch (error) {
@@ -47,7 +130,7 @@ export const getHotelByName = (address: string) => {
         `http://localhost:3002/hotels/?address=${address}`
       );
       dispatch({
-        type: GET_HOTEL_BY_NAME,
+        type: "GET_HOTEL_BY_NAME",
         payload: data,
       });
     } catch (error) {
@@ -59,20 +142,18 @@ export const getHotelByName = (address: string) => {
 export const getFilteredHotels = (filters: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/hotels/", {
+      const { data } = await axios.get("http://localhost:3002/hotels/filtered/", {
         params: filters,
       });
       dispatch({
-        type: GET_FILTERED_HOTELS,
+        type: "GET_FILTERED_HOTELS",
         payload: data,
       });
     } catch (error) {
       console.error("Error al obtener hoteles filtrados:", error);
     }
   };
-};
-
-
+}; */
 
 
 

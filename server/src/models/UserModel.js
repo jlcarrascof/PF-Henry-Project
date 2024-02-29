@@ -11,7 +11,7 @@ const reservationSchema = new Schema({
     enum: ["pending", "confirmed", "cancelled"],
     default: "pending",
   },
-  hotel: { type: Schema.Types.ObjectId, ref: "Hotel", required: true },
+  room: { type: Schema.Types.ObjectId, ref: "Room", required: true },
   description: { type: String, required : true},
 });
 
@@ -27,46 +27,9 @@ const userSchema = new Schema({
     birthdate: Date,
   },
   reservation: [reservationSchema],
+  favorites: [{ type: Schema.Types.ObjectId, ref: "Room", required: true }]
 });
 
 const User = model("User", userSchema);
-
-// Ejemplo de creación de un documento de usuario
-const nuevoUsuario = new User({
-  username: "ejemplo",
-  email: "ejemplo@example.com",
-  role: "cliente",
-  permissions: ["read", "write"],
-  contactDetails: {
-    phone: "123-456-7890",
-    address: "123 Example St, City, Country",
-  },
-  profile: {
-    firstName: "John",
-    lastName: "Doe",
-    birthdate: new Date("1990-01-01T00:00:00Z"),
-  },
-  reservation: {
-    reservationDate: { type: Date, default: Date.now },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
-    state: {
-      type: String,
-      enum: ["pending", "confirmed", "cancelled"],
-      default: "pending",
-    }, // Enumera los estados permitidos
-    property: { type: Schema.Types.ObjectId, ref: "Property", required: true },
-  },
-});
-
-// Demo guardado en base de datos
-
-nuevoUsuario.save((error, resultado) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(resultado);
-  }
-});
 
 module.exports = User;
