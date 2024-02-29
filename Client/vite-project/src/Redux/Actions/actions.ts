@@ -5,10 +5,6 @@ import { ThunkAction } from 'redux-thunk';
 import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 
-
-import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
-
-
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
 
 export interface Action {

@@ -1,6 +1,4 @@
 import React, { useEffect, version } from "react";
-import { useParams } from "react-router-dom";
-import React, { useEffect, version } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";

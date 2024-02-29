@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 // ? -----------------------------------------------------COMPONENTS
-import Login2 from "./components/login/Login2";
+import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import LandingPage from "./components/landingPage/LandingPage";
 import NavBar from "./components/navBar/NavBar";
@@ -20,7 +20,7 @@ function App() {
     <>
       {location.pathname !== "/login" ? <NavBar /> : ""}
       <Routes>
-        <Route path="/login" element={<Login2 />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />

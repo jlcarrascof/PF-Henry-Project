@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
         </Link>
         <div className="navSeparator"></div>
         <div className="navItems">
-          <Link to="/hotels">
+          <Link to="/rooms">
             <p>Home</p>
           </Link>
 

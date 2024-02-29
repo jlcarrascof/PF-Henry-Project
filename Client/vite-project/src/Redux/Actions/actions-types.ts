@@ -28,6 +28,9 @@ export type HotelAction =
   
   export const GET_USERS = 'GET_USERS'
   export const GET_USER_NAME = 'GET_USER_NAME'
+
+  export const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
+  export const LOGOUT_USER = 'LOGOUT_USER'
 //FILTROS
 
 

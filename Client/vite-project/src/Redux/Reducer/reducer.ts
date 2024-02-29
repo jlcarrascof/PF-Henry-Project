@@ -10,6 +10,8 @@ export interface State {
     currentPage: number; 
     totalPages: number; 
     totalResults: number;
+    isAuthenticated: boolean;
+    user: any
   }
   
   const initialState: State = {
@@ -20,6 +22,8 @@ export interface State {
     currentPage: 1, 
     totalPages: 1, 
     totalResults: 0,
+    isAuthenticated: false,
+    user: null,
   };
   
   const rootReducer = (state: State = initialState, action: Action): State => {
@@ -54,24 +58,46 @@ export interface State {
                 totalResults: action.payload.totalResults,
               };
          // Agrega casos para manejar la autenticación del usuario
-    case 'AUTHENTICATE_USER':
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload,
-      };
+            case 'AUTHENTICATE_USER':
+              return {
+                ...state,
+                isAuthenticated: true,
+                user: action.payload,
+              };
 
-    case 'LOGOUT_USER':
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
-      };
-        default:
-            return state;
+            case 'LOGOUT_USER':
+              return {
+                ...state,
+                isAuthenticated: false,
+                user: null,
+              };
+            default:
+              return state;
     }
   }
 
 
 
 export default rootReducer;
+
+
+/* case GET_HOTEL_BY_ID:
+      return {
+        ...state,
+        currentHotel: action.payload
+      };
+    case GET_HOTEL_BY_NAME:
+      return {
+        ...state,
+        currentHotel: action.payload
+      };
+
+    case GET_FILTERED_HOTELS:
+      return {
+        ...state,
+        allHotels: action.payload.hotels,
+        allHotelsBackUp: action.payload.hotels,
+        currentPage: action.payload.currentPage, // Actualizar la página actual
+        totalPages: action.payload.totalPages, // Actualiza el total de páginas
+        totalResults: action.payload.totalResults,
+      }; */
