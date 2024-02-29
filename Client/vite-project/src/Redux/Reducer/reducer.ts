@@ -2,10 +2,10 @@ import { Action } from '../Actions/actions'; // Importa el tipo Action
 import { GET_HOTEL_BY_ID, GET_HOTEL_BY_NAME, GET_FILTERED_HOTELS } from '../Actions/actions-types';
 
 export interface State {
-  allHotels: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
-  allHotelsBackUp: any[]; 
-  currentHotel: any;
-  filteredHotels: any[];
+  allRooms: any[];
+  allRoomsBackUp: any[]; 
+  currentRoom: any;
+  filteredRooms: any[];
   currentPage: number; 
   totalPages: number; 
   totalResults: number;
@@ -14,10 +14,10 @@ export interface State {
 }
 
 const initialState: State = {
-  allHotels: [],
-  allHotelsBackUp: [],
-  currentHotel: null,
-  filteredHotels: [],
+  allRooms: [],
+  allRoomsBackUp: [],
+  currentRoom: null,
+  filteredRooms: [],
   currentPage: 1, 
   totalPages: 1, 
   totalResults: 0,
@@ -27,27 +27,35 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch(action.type) {
-    case GET_HOTEL_BY_ID:
-      return {
-        ...state,
-        currentHotel: action.payload
-      };
-    case GET_HOTEL_BY_NAME:
-      return {
-        ...state,
-        currentHotel: action.payload
-      };
-
-    case GET_FILTERED_HOTELS:
-      return {
-        ...state,
-        allHotels: action.payload.hotels,
-        allHotelsBackUp: action.payload.hotels,
-        currentPage: action.payload.currentPage, // Actualizar la página actual
-        totalPages: action.payload.totalPages, // Actualiza el total de páginas
-        totalResults: action.payload.totalResults,
-      };
-
+    case "GET_ROOMS":
+            return {
+                ...state,
+                allRooms: action.payload.rooms,
+                allRoomsBackUp: action.payload.rooms,
+                currentPage: action.payload.currentPage, 
+                totalPages: action.payload.totalPages,
+                totalResults: action.payload.totalResults,
+            };
+        case "GET_ROOMS_BY_ID":
+            return {
+                ...state,
+                currentRoom: action.payload
+            };
+        case "GET_ROOMS_BY_NAME":
+            return {
+                ...state,
+                currentRoom: action.payload
+            };
+  
+            case "GET_FILTERED_ROOMS":
+              return {
+                ...state,
+                filteredRooms: action.payload.filteredRooms,
+                allRooms: action.payload.rooms,
+                currentPage: action.payload.currentPage,
+                totalPages: action.payload.totalPages,
+                totalResults: action.payload.totalResults,
+              };
     // Agrega casos para manejar la autenticación del usuario
     case 'AUTHENTICATE_USER':
       return {
