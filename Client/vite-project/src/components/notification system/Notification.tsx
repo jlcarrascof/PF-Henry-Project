@@ -42,8 +42,6 @@ const Notification: React.FC = () => {
     });
   };
 
-  //   form.message = "Wohoo!! You have made a reservation! Enjoy your holidays!";
-
   return (
     <div className="notContainer">
       <form ref={form} onSubmit={sendEmail}>
