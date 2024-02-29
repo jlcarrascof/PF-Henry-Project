@@ -1,5 +1,7 @@
 import React, { useEffect, version } from "react";
 import { useParams } from "react-router-dom";
+import React, { useEffect, version } from "react";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getRoomById } from "../../Redux/Actions/actions";
@@ -13,7 +15,6 @@ const Detail: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      // Verifica si id es válido
       dispatch(getRoomById(id));
     }
   }, [dispatch, id]);
@@ -69,12 +70,16 @@ const Detail: React.FC = () => {
               </ul>
             )}
           </div>
-          <div className="revs"> 
-            <ReviewForm/>
+          <div className="revs">
+            <ReviewForm />
+          </div>
+          <div className="reservation">
+            <Link to="/reservation">
+              <button>Pay for your reservation!</button>
+            </Link>
           </div>
         </div>
       )}
-      
     </div>
   );
 };
