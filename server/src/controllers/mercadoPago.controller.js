@@ -23,16 +23,15 @@ const createOrder = async (req, res) => {
     if (req.body && req.body.length && req.body.length > 0) {
         req.body.forEach(Item => {
             Items.push({
-                id: Item.productid,
+                id: Item.id,
                 description: Item.description,
                 title: Item.title,                                     //nombre del Hotel
-                unit_price: Number(Item.price),                        //Precio de la unidad debe ser Number
-                currency_id: Item.currency ?? "COP",                   //moneda ej: EUR COP etc
-                quantity: Item.quantity,                               // cantidad - Fijada en 1 ya que se refiere siempre a una habitacion
+                unit_price: Number(Item.unit_price),                        //Precio de la unidad debe ser Number
+                currency_id: Item.currency_id ?? "COP",                   //moneda ej: EUR COP etc
+                quantity: Number(Item.quantity),                               // cantidad - Fijada en 1 ya que se refiere siempre a una habitacion
             });
         });
     }
-
     preference.create({
         body: {
             items: Items,
