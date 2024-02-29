@@ -37,7 +37,7 @@ const roomSchema = new Schema({
   },
   num_rooms: { type: Number, required: true },
   reviews: [reviewSchema],
-  totalScore: { type: Number, default: 0 }
+  totalScore: { type: Number, default: 0 },
 });
 
 const Room = model("Room", roomSchema);
@@ -46,3 +46,5 @@ module.exports = {
   Room,
   Hotel
 };
+
+

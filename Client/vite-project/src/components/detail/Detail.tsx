@@ -1,4 +1,4 @@
-import React, { useEffect, version } from "react";
+import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
@@ -19,66 +19,70 @@ const Detail: React.FC = () => {
 
   return (
     <div className="detailContainer">
-    {currentRoom && (
+      {currentRoom && (
         <div className="detail">
-            <h1>{currentRoom.name}</h1>
+          <h1>{currentRoom.name}</h1>
 
-            <div className="leftColumn">
-                <div className="aColumn">
-                    <h3>Address:</h3>
-                    <p>{currentRoom.address}</p>
-                    <h3>Details:</h3>
-                    <p>{currentRoom.details}</p>
-                    <h3>Services:</h3>
-                    <p>{currentRoom.services}</p>
-                    <h3>Contact:</h3>
-
-                    {currentRoom.contact && (
-                        <div>
-                            <p>Phone: {currentRoom.contact.phone}</p>
-                            <p>Email: {currentRoom.contact.mail}</p>
-                        </div>
-                    )}
+          <div className="leftColumn">
+            <div className="aColumn">
+              <h3>Description:</h3>
+              <p>{currentRoom.description}</p>
+              <h3>Type of Room:</h3>
+              <p>{currentRoom.typeOfRoom}</p>
+              <h3>Price:</h3>
+              <p>{currentRoom.price}</p>
+              <h3>Availability:</h3>
+              <p>{currentRoom.availability ? "Available" : "Not available"}</p>
+              <h3>Number of Rooms:</h3>
+              <p>{currentRoom.num_rooms}</p>
+              <h3>Services:</h3>
+              <p>{currentRoom.services}</p>
+              <h3>Contact:</h3>
+              {currentRoom.contact && (
+                <div>
+                  <p>Phone: {currentRoom.contact.phone}</p>
+                  <p>Email: {currentRoom.contact.mail}</p>
                 </div>
-                <div className="bColumn">
-                </div>
+              )}
             </div>
+            <div className="bColumn"></div>
+          </div>
 
-            <div className="rightColumn">
-                {/* Carrusel de imágenes (a futuro) */}
-                {currentRoom.images && (
-                    <div className="imageCarousel">
-                        {currentRoom.images.map((image, index) => (
-                            <img key={index} src={image} alt={`Image ${index}`} />
-                        ))}
-                    </div>
-                )}
-            </div>
-            <div className="reviews">
-                <h3>Reseñas:</h3>
-                {currentRoom.reviews && (
-                    <ul>
-                        {currentRoom.reviews.map((review: any, index: number) => (
-                            <li key={index}>
-                                <p>Descripción: {review.description}</p>
-                                <p>Puntuación: {review.score}</p>
-                                <p>Fecha: {review.date}</p>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
-            <div className="revs">
-                <ReviewForm roomId={id} /> 
-            </div>
-            <div className="reservation">
-                <Link to="/reservation">
-                    <button>Pay for your reservation!</button>
-                </Link>
-            </div>
+          <div className="rightColumn">
+            {/* Carrusel de imágenes (a futuro) */}
+            {currentRoom.images && (
+              <div className="imageCarousel">
+                {currentRoom.images.map((image, index) => (
+                  <img key={index} src={image} alt={`Image ${index}`} />
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="reviews">
+            <h3>Reseñas:</h3>
+            {currentRoom.reviews && (
+              <ul>
+                {currentRoom.reviews.map((review: any, index: number) => (
+                  <li key={index}>
+                    <p>Descripción: {review.description}</p>
+                    <p>Puntuación: {review.score}</p>
+                    <p>Fecha: {review.date}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className="revs">
+            <ReviewForm roomId={id} />
+          </div>
+          <div className="reservation">
+            <Link to="/reservation">
+              <button>Pay for your reservation!</button>
+            </Link>
+          </div>
         </div>
-    )}
-</div>
+      )}
+    </div>
   );
 };
 

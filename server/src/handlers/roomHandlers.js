@@ -223,7 +223,7 @@ const updateFav = async (req, res) => {
             date: date
         };
 
-        await db.collection("Room").updateOne({ _id: new ObjectId(id) }, { $push: { reviews: reviewData } }); 
+        await db.collection("rooms").updateOne({ _id: new ObjectId(id) }, { $push: { reviews: reviewData } }); 
         
         res.status(200).send(reviewData);
 
