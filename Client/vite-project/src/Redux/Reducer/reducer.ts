@@ -9,6 +9,7 @@ export interface State {
     currentPage: number; 
     totalPages: number; 
     totalResults: number;
+    reservations: any[];
 }
 
 const initialState: State = {
@@ -19,6 +20,7 @@ const initialState: State = {
     currentPage: 1, 
     totalPages: 1, 
     totalResults: 0,
+    reservations: []
 };
 
 const rootReducer = (state: State = initialState, action: Action): State => {
@@ -67,6 +69,18 @@ const rootReducer = (state: State = initialState, action: Action): State => {
               allRooms: state.allRoomsBackUp 
           };
 
+
+          case "POST_RESERVATION":
+            return {
+                ...state,
+                reservations: [...state.reservations, action.payload.reservation]
+            };
+            
+          case "DELETE_RESERVATION":
+            return {
+                ...state,
+                reservations: state.reservations.filter(reservation => reservation._id !== action.payload.reservation._id)
+            };
 
         default:
             return state;

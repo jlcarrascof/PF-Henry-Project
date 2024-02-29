@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getUserID, deleteUserByID, getUser, postUser, patchUser } = require('../handlers/usersHandlers');
+const { getUserID, deleteUserByID, getUser, postUser, patchUser, createReservation, getReservations, deleteReservation } = require('../handlers/usersHandlers');
 
 const usersRouter = Router();
 
@@ -44,6 +44,3 @@ usersRouter.post('/authenticate', (req, res) => { // este endpoint es para prueb
 module.exports = usersRouter;
 
 
-
-
-module.exports = usersRouter;

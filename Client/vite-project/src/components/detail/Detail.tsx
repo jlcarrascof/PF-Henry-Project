@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getRoomById } from "../../Redux/Actions/actions";
 import ReviewForm from "../reviewForm/reviewForm";
+import { postReservation } from '../../Redux/Actions/actions';
 import "./detail.css";
 
-const Detail: React.FC = () => {
+const Detail: React.FC = ({room}) => {
   const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch();
   const currentRoom = useSelector((state: State) => state.currentRoom);
@@ -16,6 +17,26 @@ const Detail: React.FC = () => {
       dispatch(getRoomById(id));
     }
   }, [dispatch, id]);
+
+  const [reservationData, setReservationData] = useState({
+    startDate: '',
+    endDate: '',
+    description: ''
+  });
+
+
+  const handleInputChange = (e) => {
+    setReservationData({ ...reservationData, [e.target.name]: e.target.value });
+  };
+
+
+  const handleReservationSubmit = () => {
+    dispatch(postReservation(room._id, reservationData));
+    // Lógica adicional después de enviar la reserva...
+  };
+
+
+
 
   return (
     <div className="detailContainer">
@@ -82,6 +103,22 @@ const Detail: React.FC = () => {
           </div>
         </div>
       )}
+
+{/*NO SÉ EN QUÉ PARTE DEL DETAIL AGREGAR EL FORUMLARIO DE RESERVAS */}
+<form>
+        <input type="date" name="startDate" value={reservationData.startDate} onChange={handleInputChange} />
+        <input type="date" name="endDate" value={reservationData.endDate} onChange={handleInputChange} />
+        <textarea name="description" value={reservationData.description} onChange={handleInputChange}></textarea>
+        <button type="button" onClick={handleReservationSubmit}>Agregar al carrito</button>
+      </form>
+      {/* Mostrar reservas existentes para esta habitación */}
+      {room.reservations.map((reservation) => (
+        <div key={reservation._id}>
+          <p>Inicio: {reservation.startDate}</p>
+          <p>Fin: {reservation.endDate}</p>
+          <p>Descripción: {reservation.description}</p>
+        </div>
+      ))}
     </div>
   );
 };

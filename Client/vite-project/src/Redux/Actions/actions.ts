@@ -107,6 +107,36 @@ export const resetFilters = () => ({
   type: RESET
 })
 
+
+
+export const postReservation = (userId: string, reservationData: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+      try {
+          const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, reservationData);
+          dispatch({
+              type: "POST_RESERVATION",
+              payload: res.data
+          });
+      } catch (error) {
+          console.error('An error occurred while posting the reservation:', error);
+      }
+  };
+};
+
+export const deleteReservation = (userId: string, reservationId: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+      try {
+          const res = await axios.delete(`http://localhost:3002/users/${userId}/reservations/${reservationId}`);
+          dispatch({
+              type: "DELETE_RESERVATION",
+              payload: res.data
+          });
+      } catch (error) {
+          console.error('An error occurred while deleting the reservation:', error);
+      }
+  };
+};
+
 /* export interface Action {
   type: string;
   payload: any;

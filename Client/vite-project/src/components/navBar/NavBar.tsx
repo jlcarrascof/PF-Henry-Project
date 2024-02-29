@@ -17,6 +17,10 @@ const NavBar: React.FC = () => {
           <Link to="/favorites">
             <p>Favorites</p>
           </Link>
+
+          <Link to="/cart">
+            <p>Cart Reservation</p>
+            </Link>
           <Link className="btnLogin" to="/login">
             <p>Login</p>
           </Link>
@@ -27,3 +31,8 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
+
+
+
+
+
