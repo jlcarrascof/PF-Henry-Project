@@ -30,38 +30,16 @@ const Login: React.FC = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const email = e.currentTarget.email.value;
-    const password = e.currentTarget.password.value;
-
-    try {
-      if (registration) {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-    } catch (error) {
-      console.error('Error during Firebase authentication:', error);
-    }
-  };
-
-  const handleGoogleLogin = async (): Promise<void> => {
-    try {
-      const result: UserCredential = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log(user);
-    } catch (error) {
-      console.error('Error during Google sign-in:', error);
-    }
-  };
-
-  const handleSignOut = async (): Promise<void> => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error('Error during sign-out:', error);
-    }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+    setErrors({
+      ...errors,
+      ...validation({ [name]: value }),
+    });
   };
 
   return (
