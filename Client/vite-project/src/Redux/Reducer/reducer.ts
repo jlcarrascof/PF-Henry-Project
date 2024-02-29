@@ -59,6 +59,15 @@ const rootReducer = (state: State = initialState, action: Action): State => {
                   reviews: [...state.currentRoom.reviews, action.payload],
               },
           };
+
+          case "RESET":
+            return {
+              ...state,
+              filteredRooms: [], 
+              allRooms: state.allRoomsBackUp 
+          };
+
+
         default:
             return state;
     }

@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Action } from "../../Redux/Actions/actions";
-import { getFilteredRooms } from "../../Redux/Actions/actions";
+import { getFilteredRooms, resetFilters } from "../../Redux/Actions/actions";
 import "./filters.css";
 import { Select, MenuItem } from '@material-ui/core';
 
 
+const initialFilters = {
+  p: 1,
+  minPrice: "",
+  maxPrice: "",
+  address: "",
+  desiredCheckInDate: "",
+  desiredCheckOutDate: "",
+  minScore: "",
+  services: "",
+  SrvSpa: false,
+  SrvWifi: false,
+  SrvBar: false,
+  SrvRoomService: false,
+  SrvConcierge: false,
+  SrvFineDiningRestaurant: false
+};
+
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
-  const [filters, setFilters] = useState<any>({
-    p: 1,
-    minPrice: "",
-    maxPrice: "",
-    address: "",
-    desiredCheckInDate: "",
-    desiredCheckOutDate: "",
-    minScore: "",
-    services: "",
-
-    SrvSpa: false,
-    SrvWifi: false,
-    SrvBar: false,
-    SrvRoomService: false,
-    SrvConcierge: false,
-    SrvFineDiningRestaurant: false
-  });
+  const [filters, setFilters] = useState(initialFilters);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value, type, checked}  = e.target;
@@ -66,6 +67,13 @@ const Filters: React.FC = () => {
 
     dispatch(getFilteredRooms(ToSend));
   };
+
+
+  const handleResetFilters = () => {
+    setFilters(initialFilters); 
+    dispatch(resetFilters()); 
+  };
+
 
   return (
     <div className="filtros">
@@ -136,6 +144,7 @@ const Filters: React.FC = () => {
       </div>
 
       <button onClick={handleFilterSubmit}>Apply Filters</button>
+      <button onClick={handleResetFilters}>Reset</button>
     </div>
   );
 };
