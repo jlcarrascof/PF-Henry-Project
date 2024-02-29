@@ -1,4 +1,3 @@
-
 import { Action } from "../Actions/actions"; //  tipo Action  archivo Types.ts
 import {
   GET_ROOMS_BY_NAME,
@@ -9,7 +8,7 @@ import {
 } from "../Actions/actions-types";
 
 export interface State {
-  allHotels: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
+  allRooms: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
   allHotelsBackUp: any[];
   currentHotel: any;
   filteredHotels: any[];
@@ -19,7 +18,7 @@ export interface State {
 }
 
 const initialState: State = {
-  allHotels: [],
+  allRooms: [],
   allHotelsBackUp: [],
   currentHotel: null,
   filteredHotels: [],
@@ -30,7 +29,7 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    case GET_HOTELS:
+    /*case GET_ROOMS:
           return {
               ...state,
               allHotels: action.payload.hotels,
@@ -50,7 +49,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case GET_FILTERED_ROOMS:
       return {
         ...state,
-        allHotels: action.payload.hotels,
+        allRooms: action.payload.hotels,
         allHotelsBackUp: action.payload.hotels,
         currentPage: action.payload.currentPage, // Actualizar la página actual
         totalPages: action.payload.totalPages, // Actualiza el total de páginas
@@ -71,7 +70,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
   }
 };
 
-export default rootReducer; */
+export default rootReducer;
 
 // import { Action } from "../Actions/actions"; //  tipo Action  archivo Types.ts
 // import {

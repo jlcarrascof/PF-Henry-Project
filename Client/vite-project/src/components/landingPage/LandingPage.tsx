@@ -6,11 +6,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SearchBar from "../searchBar/SearchBar";
 import { State } from "../../Redux/Reducer/reducer";
-import { getFilteredHotels } from "../../Redux/Actions/actions";
+import { getFilteredRooms } from "../../Redux/Actions/actions";
 import CardsLanding from "../cardsLanding/CardsLanding";
 
 import "./LandingPage.modules.css";
-import CardsLanding from "../cardsLanding/CardsLanding";
 
 const LandingPage: React.FC = () => {
   const carouselImages = [
@@ -26,8 +25,8 @@ const LandingPage: React.FC = () => {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1",
       link: "",
 
-      src: "https://static.cozycozy.com/images/catalog/bg2/horizontal-banner-elk.jpg",
-      link: "/home",
+      // src: "https://static.cozycozy.com/images/catalog/bg2/horizontal-banner-elk.jpg",
+      // link: "/home",
     },
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/113623519.jpg?k=71d6000bf94c0d9f576d57e05a9b26f71db6a1bc055ba0a3a8e79b5e1ac56483&o=&hp=1",
@@ -52,7 +51,7 @@ const LandingPage: React.FC = () => {
   const allRooms = useSelector((state: State) => state.allRooms);
 
   const onClickSearch = (filters: any) => {
-    dispatch(getFilteredHotels(filters));
+    // dispatch(getFilteredHotels(filters));
 
     dispatch(getFilteredRooms(filters));
 
@@ -109,9 +108,9 @@ const LandingPage: React.FC = () => {
       <h2>Some of our best hotels...</h2>
       {/* Renderizar la lista de hoteles */}
       <div className="allCards">
-        <CardsLanding allHotels={allHotels} />
+        {/* <CardsLanding allHotels={allHotels} /> */}
 
-        <Cards allRooms={allRooms} />
+        <CardsLanding allRooms={allRooms} />
       </div>
     </div>
   );
