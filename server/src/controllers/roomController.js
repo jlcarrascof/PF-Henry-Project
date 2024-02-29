@@ -1,17 +1,18 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
 
-const getById = async (id) => {
-  const db = getDb();
-  try {
-    const room = await db
-      .collection("rooms")
-      .findOne({ _id: new ObjectId(id) });
-    return room;
+
+const getRoomId = async (id) => {
+  const db = getDb()
+  try{
+    const room = await db.collection("rooms")
+    .findOne({_id: new ObjectId(id)})
+
+    return room
   } catch (error) {
-    throw error;
+    throw new Error(error)
   }
-};
+}
 
 const createRoom = async (data) => {
   const db = getDb();
@@ -39,7 +40,7 @@ const updateRoom = async (id, updateData) => {
   }
 };
 
-const deleteRoomById = async (id) => {
+const deleteRoomId = async (id) => {
   const db = getDb();
 
   try {
@@ -54,8 +55,8 @@ const deleteRoomById = async (id) => {
 };
 
 module.exports = {
-  getById,
+  getRoomId,
   createRoom,
   updateRoom,
-  deleteRoomById,
+  deleteRoomId,
 };

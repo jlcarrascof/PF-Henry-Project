@@ -1,18 +1,14 @@
-.logContainer {
+.logContainer{
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: lavender;
-  width: 100%;
-  height: 100%;
 }
 
 .home-link-container {
   display: flex;
-  justify-content: center;
-  height: 100%;
-  padding: 10px;
-  background-color: lavender;
+  justify-content: center; 
+  margin-top: 20px; 
 }
 
 .home-link {
@@ -20,68 +16,69 @@
   font-size: 1.5em;
 }
 
+
 .formLogin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 350px;
-  max-width: 350px;
-  margin: 0 auto;
-  /* background-color: #2B124C; */
-  padding: 40px;
-  border-radius: 8px;
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width:350px ;
+    max-width: 350px;
+    margin: 0 auto;
+    /* background-color: #2B124C; */
+    padding: 40px;
+    border-radius: 8px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  }
 
-.formLogin h1 {
-  padding: 20px;
-  display: flex;
-  justify-content: left;
-  text-align: left;
-  margin-right: 150px;
-  width: 200px;
-}
+  .formLogin h1{
+    padding: 20px;
+    display: flex;
+    justify-content: left;
+    text-align: left;
+    margin-right: 150px;
+    width: 200px
+  }
 
-.formLogin label {
-  margin-bottom: 11px;
-  color: rgb(0, 0, 0);
-}
+  .formLogin label {
+    margin-bottom: 11px;
+    color: rgb(0, 0, 0);
+  }
 
-.formLogin input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
-  border: 1px solid #230623;
-  /* -webkit-transition: border-color 0.3s ease;
+  .formLogin input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    border: 1px solid #230623;
+    /* -webkit-transition: border-color 0.3s ease;
     -moz-transition: border-color 0.3s ease;
     -ms-transition: border-color 0.3s ease;
     -o-transition: border-color 0.3s ease; */
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  margin: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin: 10px;
 }
 
-.formLogin button {
-  width: 100%;
-  padding: 17px;
-  margin: 10px;
-  color: #ffffff;
-  background-color: #230623;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  .formLogin button {
+    width: 100%;
+    padding: 17px;
+    margin: 10px;
+    color: #ffffff;
+    background-color: #230623;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
-.formLogin button:hover {
-  background-color: #2b124c;
-}
+  .formLogin button:hover {
+    background-color: #2B124C;
+  }  
