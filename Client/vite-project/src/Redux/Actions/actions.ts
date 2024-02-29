@@ -108,27 +108,33 @@ export const resetFilters = () => ({
 })
 
 
-export const reserveRoom = (roomId, formData) => ({
-  type: 'RESERVE_ROOM',
-  payload: { roomId, formData }
-});
-
-
-
-
-export const postReservation = (userId: string, reservationData: any) => {
-  return async (dispatch: Dispatch<Action>) => {
-      try {
-          const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, reservationData);
-          dispatch({
-              type: "POST_RESERVATION",
-              payload: res.data
-          });
-      } catch (error) {
-          console.error('An error occurred while posting the reservation:', error);
-      }
+export const reserveRoom = (userId: string, formData: any) => {
+  return async (dispatch: Dispatch<Action>) => { 
+    try {
+        const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, formData)
+        dispatch({
+          type: 'RESERVE_ROOM',
+          payload: res.data
+        });
+    } catch(error) {
+      console.error('An error occurred while posting the reservation:', error);
+    }
   };
 };
+
+// export const postReservation = (userId: string, reservationData: any) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//       try {
+//           const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, reservationData);
+//           dispatch({
+//               type: "POST_RESERVATION",
+//               payload: res.data
+//           });
+//       } catch (error) {
+//           console.error('An error occurred while posting the reservation:', error);
+//       }
+//   };
+// };
 
 export const deleteReservation = (userId: string, reservationId: string) => {
   return async (dispatch: Dispatch<Action>) => {

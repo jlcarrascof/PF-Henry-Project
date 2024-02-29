@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteReservation } from '../../Redux/Actions/actions'; // Action para eliminar reserva
+import { deleteReservation } from '../../Redux/Actions/actions'; 
 
 const CartReservation = () => {
   const reservations = useSelector(state => state.reservations);
   const dispatch = useDispatch();
 
   const handleDeleteReservation = (reservationId) => {
-    dispatch(deleteReservation(reservationId)); // Enviar acción para eliminar reserva
+    dispatch(deleteReservation(reservationId)); 
   };
 
   return (

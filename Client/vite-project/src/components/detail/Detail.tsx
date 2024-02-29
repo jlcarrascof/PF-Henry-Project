@@ -31,9 +31,9 @@ const Detail: React.FC = () => {
   };
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (currentRoom) {
-      dispatch(reserveRoom(currentRoom.id, formData)); // ESTO ES LO QUE ENVIA AL BACKEND Y NO ME ESTÁ FUNCIONANDO
+      dispatch(reserveRoom(userId, formData)); // ESTO ES LO QUE ENVIA AL BACKEND Y NO ME ESTÁ FUNCIONANDO
       setShowForm(false);
       setFormData({
         startDate: '',
