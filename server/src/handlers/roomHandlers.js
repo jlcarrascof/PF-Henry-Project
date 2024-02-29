@@ -1,18 +1,13 @@
-const {
-    getById,
-    createHotel,
-    updateHotel,
-    deleteRoomById,
-  } = require("../controllers/hotelsController");
-  const { ObjectId } = require("mongodb");
-  const { getDb } = require("../db");
+const { ObjectId } = require("mongodb");
+const { getDb } = require("../db");
+const { getRoomId, createRoom, updateRoom, deleteRoomId } = require("../controllers/roomController");
   
-  const getRoomById = async (req, res) => {
+const getRoomById = async (req, res) => {
     try {
       console.log("Id antes del handler", req.params.id);
       if (ObjectId.isValid(req.params.id)) {
         const { id } = req.params;
-        const hotel = await getById(id);
+        const hotel = await getRoomId(id);
   
         res.status(200).json(hotel);
       } else {
@@ -28,7 +23,7 @@ const {
   const postRoom = async (req, res) => {
     try {
       const hotelData = req.body;
-      const newHotel = await createHotel(hotelData);
+      const newHotel = await createRoom(hotelData);
   
       res.status(201).json(newHotel);
     } catch (error) {
@@ -45,7 +40,7 @@ const {
       const { id } = req.params;
       const updateData = req.body;
   
-      const success = await updateHotel(id, updateData);
+      const success = await updateRoom(id, updateData);
   
       if (success) {
         return res.status(200).json({ message: "Hotel updated successfully" });
@@ -151,7 +146,7 @@ const deleteRoomByID = async (req, res) => {
           .status(400)
           .json({ error: "ID not provided in route parameters" });
       }
-      const result = await deleteRoomById(id);
+      const result = await deleteRoomId(id);
       res.status(201).send(result)
     } catch (err) {
       res.status(500).send(err);
@@ -235,7 +230,7 @@ const updateFav = async (req, res) => {
       const totalHotels = await db.collection("rooms").countDocuments();
       const totalPages = Math.ceil(totalHotels / limit);
   
-      const hotels = await db
+      const rooms = await db
         .collection("rooms")
         .find()
         .skip((page - 1) * limit)

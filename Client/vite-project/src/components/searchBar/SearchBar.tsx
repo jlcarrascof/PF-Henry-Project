@@ -32,7 +32,7 @@ const SearchBar: React.FC = () => {
 
   const onClick = () => {
     dispatch(getFilteredRooms({ address: input })); 
-    navigate("/hotels"); 
+    navigate("/rooms"); 
   };
 
   useEffect(() => {

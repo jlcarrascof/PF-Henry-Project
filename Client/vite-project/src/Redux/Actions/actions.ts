@@ -25,7 +25,7 @@ export const getRooms = () => {
   };
 };
 
-export const getroomById = (id: string) => {
+export const getRoomById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get(`http://localhost:3002/rooms/${id}`);

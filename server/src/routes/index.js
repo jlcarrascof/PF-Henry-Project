@@ -6,9 +6,9 @@ const favRouter = require('./favRouter');
 
 const mainRouter = Router();
 
-mainRouter.use('/users', usersRouter);  
-mainRouter.use('/hotels', hotelsRouter); 
 mainRouter.use('/favs', favRouter)
 mainRouter.use('/rooms', roomsRouter); 
+mainRouter.use('/users', usersRouter);  
+mainRouter.use('/hotels', hotelsRouter); 
 
 module.exports = mainRouter;
