@@ -1,3 +1,4 @@
+
 import { Action } from "../Actions/actions"; //  tipo Action  archivo Types.ts
 import {
   GET_ROOMS_BY_NAME,
@@ -29,7 +30,7 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    /* case GET_HOTELS:
+    case GET_HOTELS:
           return {
               ...state,
               allHotels: action.payload.hotels,
@@ -70,7 +71,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
   }
 };
 
-export default rootReducer;
+export default rootReducer; */
 
 // import { Action } from "../Actions/actions"; //  tipo Action  archivo Types.ts
 // import {

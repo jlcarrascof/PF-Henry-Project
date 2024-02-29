@@ -101,6 +101,7 @@ export const authenticateUser = (user: User | null): Action => ({
   type: "AUTHENTICATE_USER",
   payload: user,
 });
+
 /* export const getHotels = () => {
 
   return async (dispatch: Dispatch<Action>) => {
