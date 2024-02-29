@@ -2,7 +2,7 @@ const { Router } = require("express");
 const {
   getRoomFiltered,updateFav,
   getRoomById,postRoom,
-  patchRoom,deleteRoomByID, getAllRooms,
+  patchRoom,deleteRoomByID, getAllRooms, postReview
 } = require("../handlers/roomHandlers");
 
 const roomsRouter = Router();
@@ -19,7 +19,16 @@ roomsRouter.patch("/:id", patchRoom);
 
 roomsRouter.delete("/:id", deleteRoomByID);
 
+roomsRouter.post("/:id/reviews", postReview);
+
 roomsRouter.patch("/fav/:id", updateFav);
 
 module.exports = roomsRouter;
+
+
+
+
+
+
+
 

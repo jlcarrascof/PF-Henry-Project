@@ -1,6 +1,7 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
 const { getRoomId, createRoom, updateRoom, deleteRoomId } = require("../controllers/roomController");
+const { Room } = require("../models/RoomsModel");
   
 const getRoomById = async (req, res) => {
     try {
@@ -204,22 +205,32 @@ const updateFav = async (req, res) => {
   };
   
   const postReview = async (req, res) => {
-    const db = getDb()
-    const updateData = req.body;
-    const {id} = req.params
-    try{
-      if (!ObjectId.isValid(req.params.id)){
-        return res.status(404).send({error: "No es un ObjectId valido"})
-      }
-      const result = await db
-        .collection("hotels")
-        .updateOne({ _id: new ObjectId(id) }, {$push: {review: updateData}})
-  
-        res.status(200).send(result)
+    const db = getDb();
+    const { id } = req.params;
+    const { description, score, date } = req.body; 
+    console.log("handler postReview: Description: ", description)
+    console.log("handler postReview: score: ", score)
+    console.log("handler postReview: date: ", date)
+
+    try {
+        if (!ObjectId.isValid(req.params.id)) {
+            return res.status(404).send({ error: "No es un ObjectId valido" });
+        }
+        
+        const reviewData = {
+            description: description,
+            score: score,
+            date: date
+        };
+
+        await db.collection("Room").updateOne({ _id: new ObjectId(id) }, { $push: { reviews: reviewData } }); 
+        
+        res.status(200).send(reviewData);
+
     } catch (err) {
-      res.status(500).send(err)
+        res.status(500).send(err);
     }
-  }
+};
 
   const getAllRooms = async (req, res) => {
     const db = getDb();
@@ -248,6 +259,7 @@ const updateFav = async (req, res) => {
     }
   };
 
+
   module.exports = {
     getRoomById,
     postRoom,
@@ -257,6 +269,13 @@ const updateFav = async (req, res) => {
     updateFav,
     getFav,
     postReview,
-    getAllRooms
+    getAllRooms, 
+
   };
+
+
+
+
+
+  
   

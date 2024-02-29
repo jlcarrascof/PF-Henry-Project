@@ -1,7 +1,6 @@
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
 import { HotelAction, RoomAction } from '../Actions/actions-types';
 
-
 export interface State {
     allRooms: any[];
     allRoomsBackUp: any[]; 
@@ -10,9 +9,9 @@ export interface State {
     currentPage: number; 
     totalPages: number; 
     totalResults: number;
-  }
-  
-  const initialState: State = {
+}
+
+const initialState: State = {
     allRooms: [],
     allRoomsBackUp: [],
     currentRoom: null,
@@ -20,9 +19,9 @@ export interface State {
     currentPage: 1, 
     totalPages: 1, 
     totalResults: 0,
-  };
-  
-  const rootReducer = (state: State = initialState, action: Action): State => {
+};
+
+const rootReducer = (state: State = initialState, action: Action): State => {
     switch(action.type) {
         case "GET_ROOMS":
             return {
@@ -35,28 +34,37 @@ export interface State {
             };
         case "GET_ROOMS_BY_ID":
             return {
-                ...state,
-                currentRoom: action.payload
+              ...state,
+              currentRoom: action.payload,
             };
         case "GET_ROOMS_BY_NAME":
             return {
                 ...state,
                 currentRoom: action.payload
             };
-  
-            case "GET_FILTERED_ROOMS":
-              return {
+        case "GET_FILTERED_ROOMS":
+            return {
                 ...state,
                 filteredRooms: action.payload.filteredRooms,
                 allRooms: action.payload.rooms,
                 currentPage: action.payload.currentPage,
                 totalPages: action.payload.totalPages,
                 totalResults: action.payload.totalResults,
-              };
+            };
+        case "POST_REVIEW":
+            return {
+              ...state,
+              currentRoom: {
+                  ...state.currentRoom,
+                  reviews: [...state.currentRoom.reviews, action.payload],
+              },
+          };
         default:
             return state;
     }
-  }
+}
+
+export default rootReducer;
 
 
 
@@ -116,7 +124,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
   }
 } */
 
-export default rootReducer;
+//export default rootReducer;
 
 
 

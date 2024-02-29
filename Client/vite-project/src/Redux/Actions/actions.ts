@@ -71,20 +71,37 @@ export const getFilteredRooms = (filters: any) => {
   };
 };
 
-export const postReview = (review: any) => {
-  return async (dispatch: Dispatch<Action>): Promise<void> => {
-    try {
-      const res = await axios.post('http://localhost:3002/hotels/', review)
-      dispatch({
-        type: POST_REVIEW,
-        payload: res.data
-      })
-    } catch (error) {
-      alert('An error occured at posting your review'+ error)
-    }
-  }
-}
-///tipo alert solo recibe 1 parametro
+// export const postReview = (review: any) => {
+//   return async (dispatch: Dispatch<Action>): Promise<void> => {
+//     try {
+//       const res = await axios.post('http://localhost:3002/hotels/', review)
+//       dispatch({
+//         type: POST_REVIEW,
+//         payload: res.data
+//       })
+//     } catch (error) {
+//       alert('An error occured at posting your review'+ error)
+//     }
+//   }
+// }
+
+
+//Reseña para habitación, porq el que comenté era para reseña de hotel!
+export const postReview = (roomId: string, reviewData: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+      try {
+          const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
+          console.log("actions: payload de postReview:",res.data)
+          dispatch({
+              type: "POST_REVIEW",
+              payload: res.data, 
+          });
+      } catch (error) {
+          console.error('An error occurred while posting the review:', error);
+      }
+  };
+};
+
 
 export const resetFilters = () => ({
   type: RESET
