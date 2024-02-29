@@ -19,7 +19,7 @@ const Login: React.FC = () => {
         const userData = {
           uid: userFirebase.uid,
           email: userFirebase.email,
-          providerId: userFirebase.providerData[0]?.providerId, // Add providerId to identify authentication method
+          providerId: userFirebase.providerData[0]?.providerId,
           displayName: userFirebase.displayName,
         };
         dispatch(authenticateUser(userData));
@@ -29,6 +29,9 @@ const Login: React.FC = () => {
     });
     return () => unsubscribe();
   }, [dispatch]);
+
+  
+  console.log("Usuario en el store:", user);
 
   const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
