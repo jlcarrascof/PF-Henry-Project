@@ -1,11 +1,9 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { User } from 'firebase/auth'; // Importa el tipo User de Firebase
-import {
-  GET_HOTEL_BY_ID,
-  GET_HOTEL_BY_NAME,
-  GET_FILTERED_HOTELS,
-} from "./actions-types";
+import { User } from 'firebase/auth'
+import { ThunkAction } from 'redux-thunk';
+import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
+
 
 
 import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
@@ -97,22 +95,39 @@ export const resetFilters = () => ({
   type: RESET
 })
 
-// Acción para obtener un hotel por su ID
-/* export const getHotelById = (id: string) => {
+// Nueva acción para autenticar al usuario
+export const authenticateUser = (user: User | null): Action => ({
+  type: 'AUTHENTICATE_USER',
+  payload: user,
+});
+/* export const getHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
+      const { data } = await axios.get("http://localhost:3002/hotels/");
       dispatch({
-        type: GET_HOTEL_BY_ID,
+        type: "GET_HOTELS",
         payload: data,
       });
     } catch (error) {
-      console.error("Error fetching hotel by ID:", error);
+      console.error("Error al obtener hoteles:", error);
     }
   };
 };
 
-// Acción para obtener un hotel por su nombre
+export const getHotelById = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
+      dispatch({
+        type: "GET_HOTEL_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener hotel por ID:", error);
+    }
+  };
+};
+
 export const getHotelByName = (address: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -120,34 +135,27 @@ export const getHotelByName = (address: string) => {
         `http://localhost:3002/hotels/?address=${address}`
       );
       dispatch({
-        type: GET_HOTEL_BY_NAME,
+        type: "GET_HOTEL_BY_NAME",
         payload: data,
       });
     } catch (error) {
-      console.error("Error fetching hotel by name:", error);
+      console.error("Error al obtener hotel por nombre:", error);
     }
   };
 };
 
-// Acción para obtener hoteles filtrados
 export const getFilteredHotels = (filters: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/hotels/", {
+      const { data } = await axios.get("http://localhost:3002/hotels/filtered/", {
         params: filters,
       });
       dispatch({
-        type: GET_FILTERED_HOTELS,
+        type: "GET_FILTERED_HOTELS",
         payload: data,
       });
     } catch (error) {
-      console.error("Error fetching filtered hotels:", error);
+      console.error("Error al obtener hoteles filtrados:", error);
     }
   };
-}; */
-
-// Nueva acción para autenticar al usuario
-export const authenticateUser = (user: User | null): Action => ({
-  type: 'AUTHENTICATE_USER',
-  payload: user,
-});
+};*/

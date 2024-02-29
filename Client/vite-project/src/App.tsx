@@ -28,7 +28,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/home" element={<Home />} />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/hotels" element={<Home />} />
+        <Route path="/rooms" element={<Home />} />
         <Route path="/reservation" element={<Notification />} />
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}

@@ -14,6 +14,7 @@ const hotelSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
   details: { type: String, required: true },
   address: { type: String, required: true },
+  services: [String],
   contact: {
     phone: Number,
     mail: String,
@@ -35,7 +36,6 @@ const roomSchema = new Schema({
     mail: String,
   },
   num_rooms: { type: Number, required: true },
-  isFav: { type: Boolean, default: false },
   reviews: [reviewSchema],
   totalScore: { type: Number, default: 0 }
 });
@@ -44,4 +44,5 @@ const Room = model("Room", roomSchema);
 
 module.exports = {
   Room,
+  Hotel
 };
