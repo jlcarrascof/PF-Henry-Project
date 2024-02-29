@@ -1,14 +1,5 @@
 
-import { Action } from "../Actions/actions"; //  tipo Action  archivo Types.ts
-import {
-  GET_HOTELS,
-  GET_HOTEL_BY_ID,
-  GET_HOTEL_BY_NAME,
-  GET_FILTERED_HOTELS,
-  POST_REVIEW,
-  RESET,
-} from "../Actions/actions-types";
-
+/* import { Action } from "../Actions/actions"; //  tipo Action  archivo Types.ts
 export interface State {
   allHotels: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
   allHotelsBackUp: any[];
@@ -31,12 +22,12 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    /* case GET_HOTELS:
+    case GET_HOTELS:
           return {
               ...state,
               allHotels: action.payload.hotels,
               allHotelsBackUp: action.payload.hotels
-          }; */
+          };
     case GET_HOTEL_BY_ID:
       return {
         ...state,
@@ -72,7 +63,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
   }
 };
 
-export default rootReducer;
+export default rootReducer; */
 
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
 import { HotelAction, RoomAction, AUTHENTICATE_USER, LOGOUT_USER } from '../Actions/actions-types';
