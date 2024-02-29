@@ -1,30 +1,18 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 
-import {
-  GET_HOTELS,
-  GET_HOTEL_BY_ID,
-  GET_HOTEL_BY_NAME,
-  GET_FILTERED_HOTELS,
-  POST_REVIEW,
-  RESET,
-} from "./actions-types";
+import { RoomAction, POST_REVIEW, RESET } from "./actions-types";
 
-import { User } from 'firebase/auth'
-import { ThunkAction } from 'redux-thunk';
-import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
-
+import { User } from "firebase/auth";
+// import { ThunkAction } from "redux-thunk";
+// import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
-
 
 export interface Action {
   type: string;
   payload: any;
 }
-
-
-export const getHotels = () => {
 
 export const getRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
@@ -73,9 +61,12 @@ export const getRoomByName = (address: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/filtered/", {
-        params: filters,
-      });
+      const { data } = await axios.get(
+        "http://localhost:3002/rooms/filtered/",
+        {
+          params: filters,
+        }
+      );
       dispatch({
         type: "GET_FILTERED_ROOMS",
         payload: data,
@@ -89,25 +80,25 @@ export const getFilteredRooms = (filters: any) => {
 export const postReview = (review: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const res = await axios.post('http://localhost:3002/hotels/', review)
+      const res = await axios.post("http://localhost:3002/hotels/", review);
       dispatch({
         type: POST_REVIEW,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } catch (error) {
-      alert('An error occured at posting your review'+ error)
+      alert("An error occured at posting your review" + error);
     }
-  }
-}
+  };
+};
 ///tipo alert solo recibe 1 parametro
 
 export const resetFilters = () => ({
-  type: RESET
-})
+  type: RESET,
+});
 
 // Nueva acción para autenticar al usuario
 export const authenticateUser = (user: User | null): Action => ({
-  type: 'AUTHENTICATE_USER',
+  type: "AUTHENTICATE_USER",
   payload: user,
 });
 /* export const getHotels = () => {
@@ -191,4 +182,3 @@ export const resetFilters = () => ({
 });
 
 };*/
-
