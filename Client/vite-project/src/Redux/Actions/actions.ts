@@ -1,15 +1,5 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-
-import {
-  GET_HOTELS,
-  GET_HOTEL_BY_ID,
-  GET_HOTEL_BY_NAME,
-  GET_FILTERED_HOTELS,
-  POST_REVIEW,
-  RESET,
-} from "./actions-types";
-
 import { User } from 'firebase/auth'
 import { ThunkAction } from 'redux-thunk';
 import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
@@ -22,9 +12,6 @@ export interface Action {
   type: string;
   payload: any;
 }
-
-
-export const getHotels = () => {
 
 export const getRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
@@ -73,7 +60,7 @@ export const getRoomByName = (address: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/filtered/", {
+      const { data } = await axios.get("http://localhost:3002/rooms/", {
         params: filters,
       });
       dispatch({
@@ -110,6 +97,8 @@ export const authenticateUser = (user: User | null): Action => ({
   type: 'AUTHENTICATE_USER',
   payload: user,
 });
+
+
 /* export const getHotels = () => {
 
   return async (dispatch: Dispatch<Action>) => {

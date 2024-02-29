@@ -1,15 +1,3 @@
-
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import SearchBar from "../searchBar/SearchBar";
-import { State } from "../../Redux/Reducer/reducer";
-import { getFilteredHotels } from "../../Redux/Actions/actions";
-import CardsLanding from "../cardsLanding/CardsLanding";
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -23,6 +11,7 @@ import { getFilteredRooms } from '../../Redux/Actions/actions';
 
 
 import "./LandingPage.modules.css";
+import CardsLanding from '../cardsLanding/CardsLanding';
 
 const LandingPage: React.FC = () => {
   const carouselImages = [
@@ -38,10 +27,6 @@ const LandingPage: React.FC = () => {
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1",
       link: "",
-
-      src:
-        'https://static.cozycozy.com/images/catalog/bg2/horizontal-banner-elk.jpg',
-      link: '/home',
     },
     {
       src:
@@ -53,7 +38,7 @@ const LandingPage: React.FC = () => {
         'https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1',
       link: '/home',
 
-    },
+    }
   ];
 
   const carouselSettings = {
@@ -69,9 +54,6 @@ const LandingPage: React.FC = () => {
   const allRooms = useSelector((state: State) => state.allRooms);
 
   const onClickSearch = (filters: any) => {
-
-    dispatch(getFilteredHotels(filters));
-
     dispatch(getFilteredRooms(filters)); 
 
     navigate("/home");
@@ -84,7 +66,7 @@ const LandingPage: React.FC = () => {
         <SearchBar onClickSearch={onClickSearch} />
       </div>
       <div className="upperText">
-        <h1>Now you don't have to worry about going on holidys</h1>
+        <h1>Now you don't have to worry about going on holidays</h1>
         <h3>Go for it now!</h3>
       </div>
 
@@ -128,10 +110,7 @@ const LandingPage: React.FC = () => {
       {/* Renderizar la lista de hoteles */}
       <div className="allCards">
 
-        <CardsLanding allHotels={allHotels} />
-
-        <Cards allRooms={allRooms} />
-        
+        <CardsLanding allRooms={allRooms} />        
 
       </div>
     </div>
