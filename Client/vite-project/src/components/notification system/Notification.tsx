@@ -1,8 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import "./notification.css";
 
 const Notification: React.FC = () => {
+  interface Values {
+    user_name: string;
+    user_email: string;
+    message: string;
+  }
+  const [values, setValues] = useState<Values>({
+    user_name: "",
+    user_email: "",
+    message: "Wohoo!! You have made a reservation! Enjoy your holidays!",
+  });
   const form = useRef<HTMLFormElement>();
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,17 +34,37 @@ const Notification: React.FC = () => {
       );
   };
 
-  //   form.message = "Wohoo!! You have made a reservation! Enjoy your holidays!";
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="notContainer">
       <form ref={form} onSubmit={sendEmail}>
         <label>Name</label>
-        <input type="text" name="user_name" />
+        <input
+          type="text"
+          name="user_name"
+          onChange={handleChange}
+          value={values.user_name}
+        />
         <label>Email</label>
-        <input type="email" name="user_email" />
-        <label>Message</label>
-        <textarea name="message" />
+        <input
+          type="email"
+          name="user_email"
+          onChange={handleChange}
+          value={values.user_email}
+        />
+        <input
+          className="message"
+          name="message"
+          onChange={handleChange}
+          value={values.message}
+        />
         <input type="submit" value="Send" />
       </form>
     </div>

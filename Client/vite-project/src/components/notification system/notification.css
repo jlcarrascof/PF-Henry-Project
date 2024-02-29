@@ -1,3 +1,7 @@
 .notContainer {
   padding: 200px;
 }
+
+.message {
+  display: none;
+}

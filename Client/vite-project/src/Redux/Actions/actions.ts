@@ -1,5 +1,15 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+
+import {
+  GET_HOTELS,
+  GET_HOTEL_BY_ID,
+  GET_HOTEL_BY_NAME,
+  GET_FILTERED_HOTELS,
+  POST_REVIEW,
+  RESET,
+} from "./actions-types";
+
 import { User } from 'firebase/auth'
 import { ThunkAction } from 'redux-thunk';
 import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
@@ -7,10 +17,14 @@ import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
 
+
 export interface Action {
   type: string;
   payload: any;
 }
+
+
+export const getHotels = () => {
 
 export const getRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
@@ -97,6 +111,7 @@ export const authenticateUser = (user: User | null): Action => ({
   payload: user,
 });
 /* export const getHotels = () => {
+
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
@@ -154,4 +169,26 @@ export const getFilteredHotels = (filters: any) => {
       console.error("Error al obtener hoteles filtrados:", error);
     }
   };
+
+};
+
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.post("http://localhost:3002/hotels/", review);
+      dispatch({
+        type: POST_REVIEW,
+        payload: res.data,
+      });
+    } catch (error) {
+      alert("An error occured at posting your review", error);
+    }
+  };
+};
+
+export const resetFilters = () => ({
+  type: RESET,
+});
+
 };*/
+
