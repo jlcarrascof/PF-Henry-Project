@@ -1,6 +1,11 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+import { User } from 'firebase/auth'
 import { ThunkAction } from 'redux-thunk';
+import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
+
+
+
 import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 
@@ -90,12 +95,12 @@ export const resetFilters = () => ({
   type: RESET
 })
 
-/* export interface Action {
-  type: string;
-  payload: any;
-}
-
-export const getHotels = () => {
+// Nueva acción para autenticar al usuario
+export const authenticateUser = (user: User | null): Action => ({
+  type: 'AUTHENTICATE_USER',
+  payload: user,
+});
+/* export const getHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
@@ -153,10 +158,4 @@ export const getFilteredHotels = (filters: any) => {
       console.error("Error al obtener hoteles filtrados:", error);
     }
   };
-}; */
-
-
-
-
-
-
+};*/

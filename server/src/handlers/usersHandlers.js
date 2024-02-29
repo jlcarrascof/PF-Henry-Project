@@ -100,7 +100,3 @@ module.exports = {
     patchUser,
     deleteUserByID
 };
-
-
-
-
