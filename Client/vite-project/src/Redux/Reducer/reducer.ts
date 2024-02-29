@@ -70,12 +70,19 @@ const rootReducer = (state: State = initialState, action: Action): State => {
           };
 
 
+          case 'RESERVE_ROOM':
+     
+           return {
+                ...state,
+                reservations: [...state.reservations, action.payload]
+          };
+          
           case "POST_RESERVATION":
             return {
                 ...state,
                 reservations: [...state.reservations, action.payload.reservation]
             };
-            
+
           case "DELETE_RESERVATION":
             return {
                 ...state,

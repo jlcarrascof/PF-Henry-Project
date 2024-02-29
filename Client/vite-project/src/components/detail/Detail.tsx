@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getRoomById } from "../../Redux/Actions/actions";
 import ReviewForm from "../reviewForm/reviewForm";
-import { postReservation } from '../../Redux/Actions/actions';
+import { reserveRoom } from '../../Redux/Actions/actions';
 import "./detail.css";
 
-const Detail: React.FC = ({room}) => {
+const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch();
   const currentRoom = useSelector((state: State) => state.currentRoom);
@@ -18,21 +18,29 @@ const Detail: React.FC = ({room}) => {
     }
   }, [dispatch, id]);
 
-  const [reservationData, setReservationData] = useState({
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
     startDate: '',
     endDate: '',
     description: ''
   });
 
 
-  const handleInputChange = (e) => {
-    setReservationData({ ...reservationData, [e.target.name]: e.target.value });
+  const handleReserveClick = () => {
+    setShowForm(true);
   };
 
-
-  const handleReservationSubmit = () => {
-    dispatch(postReservation(room._id, reservationData));
-    // Lógica adicional después de enviar la reserva...
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (currentRoom) {
+      dispatch(reserveRoom(currentRoom.id, formData)); // ESTO ES LO QUE ENVIA AL BACKEND Y NO ME ESTÁ FUNCIONANDO
+      setShowForm(false);
+      setFormData({
+        startDate: '',
+        endDate: '',
+        description: ''
+      });
+    }
   };
 
 
@@ -104,21 +112,32 @@ const Detail: React.FC = ({room}) => {
         </div>
       )}
 
-{/*NO SÉ EN QUÉ PARTE DEL DETAIL AGREGAR EL FORUMLARIO DE RESERVAS */}
-<form>
-        <input type="date" name="startDate" value={reservationData.startDate} onChange={handleInputChange} />
-        <input type="date" name="endDate" value={reservationData.endDate} onChange={handleInputChange} />
-        <textarea name="description" value={reservationData.description} onChange={handleInputChange}></textarea>
-        <button type="button" onClick={handleReservationSubmit}>Agregar al carrito</button>
-      </form>
-      {/* Mostrar reservas existentes para esta habitación */}
-      {room.reservations.map((reservation) => (
-        <div key={reservation._id}>
-          <p>Inicio: {reservation.startDate}</p>
-          <p>Fin: {reservation.endDate}</p>
-          <p>Descripción: {reservation.description}</p>
-        </div>
-      ))}
+      {/*NO SÉ EN QUÉ PARTE DEL DETAIL AGREGAR EL FORUMLARIO DE RESERVAS */}
+      <button onClick={handleReserveClick}>RESERVAR</button>
+      {showForm && (
+        <form onSubmit={handleFormSubmit}>
+          <input
+            type="date" 
+            placeholder="Fecha de inicio"
+            value={formData.startDate}
+            onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+          />
+          <input
+            type="date" 
+            placeholder="Fecha de fin"
+            value={formData.endDate}
+            onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Descripción"
+            value={formData.description}
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          />
+          <button type="submit">Reservar Habitación</button>
+        </form>
+      )}
+
     </div>
   );
 };

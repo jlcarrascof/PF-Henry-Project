@@ -108,6 +108,13 @@ export const resetFilters = () => ({
 })
 
 
+export const reserveRoom = (roomId, formData) => ({
+  type: 'RESERVE_ROOM',
+  payload: { roomId, formData }
+});
+
+
+
 
 export const postReservation = (userId: string, reservationData: any) => {
   return async (dispatch: Dispatch<Action>) => {
