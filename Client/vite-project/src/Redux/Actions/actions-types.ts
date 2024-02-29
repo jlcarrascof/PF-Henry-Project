@@ -23,7 +23,11 @@ export type HotelAction =
   | { type: 'GET_ROOMS_BY_NAME'; payload: any }
   | { type: 'GET_FILTERED_ROOMS'; payload: any };
 
-
+  export const POST_REVIEW = 'POST_REVIEW'
+  export const RESET = 'RESET'
+  
+  export const GET_USERS = 'GET_USERS'
+  export const GET_USER_NAME = 'GET_USER_NAME'
 //FILTROS
 
 

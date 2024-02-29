@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ThunkAction } from 'redux-thunk';
-import {HotelAction, RoomAction} from "./actions-types";
+import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
@@ -56,7 +56,7 @@ export const getRoomByName = (address: string) => {
 };
 
 export const getFilteredRooms = (filters: any) => {
-  return async (dispatch: Dispatch<Action>) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
       const { data } = await axios.get("http://localhost:3002/rooms/filtered/", {
         params: filters,
@@ -70,6 +70,25 @@ export const getFilteredRooms = (filters: any) => {
     }
   };
 };
+
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    try {
+      const res = await axios.post('http://localhost:3002/hotels/', review)
+      dispatch({
+        type: POST_REVIEW,
+        payload: res.data
+      })
+    } catch (error) {
+      alert('An error occured at posting your review'+ error)
+    }
+  }
+}
+///tipo alert solo recibe 1 parametro
+
+export const resetFilters = () => ({
+  type: RESET
+})
 
 /* export interface Action {
   type: string;
