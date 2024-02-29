@@ -23,6 +23,7 @@ const MercadoP: React.FC<AppProps> = () => {
       {
         id: 'xxxx-xxxx-xxxxxx-xxxxxx',
         unit_price: 100,
+        description: 'prueba',
         quantity: 1,
         title: 'room'
       }
