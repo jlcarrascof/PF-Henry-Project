@@ -108,10 +108,6 @@ const {
           ],
         });
       }
-  
-      /* if (minScore !== undefined && minScore !== "") {
-        filters.push({ "reviews.score": { $gte: parseInt(minScore) } });
-      } */
 
       if (minScore !== undefined && minScore !== "") {
         filters.push({
@@ -164,23 +160,22 @@ const deleteRoomByID = async (req, res) => {
   
 const updateFav = async (req, res) => {
     const { id } = req.params;
+    const { roomId } = req.body;
     const db = getDb();
     try {
-      const result = await db
-        .collection("rooms")
-        .updateOne(
-          { "_id": new ObjectId(id) },
-          { $set: { "isFav": true } }
+        const result = await db.collection("users").updateOne(
+            { "_id": new ObjectId(id) },
+            { $addToSet: { "Favorites": roomId } }
         );
-      if (result.modifiedCount === 1) {
-        res.status(200).json({ message: "Room marked as favorite" });
-      } else {
-        res.status(404).json({ message: "Room not found" });
-      }
+        if (result.modifiedCount === 1) {
+            res.status(200).json({ message: "Room marked as favorite" });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
-  };
+};
   
   const getFav = async (req, res) => {
     const db = getDb();

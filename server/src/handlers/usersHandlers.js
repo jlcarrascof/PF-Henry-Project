@@ -58,7 +58,6 @@ const patchUser = async (req, res) => {
                 .status(400)
                 .json({ error: 'Invalid ID' });
         }
-//
         const updateData = req.body;
 
         const success = await updateUser(id, updateData);

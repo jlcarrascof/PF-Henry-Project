@@ -23,13 +23,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
-
         <Route path="/about" element={<About />} />
-
         <Route path="/detail/:id" element={<Detail />} />
-
         <Route path="/home" element={<Home />} />
-
         <Route path="/detail" element={<Detail />} />
         <Route path="/hotels" element={<Home />} />
       </Routes>
