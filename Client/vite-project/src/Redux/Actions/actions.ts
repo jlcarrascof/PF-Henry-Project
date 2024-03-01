@@ -1,10 +1,12 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+import { User } from 'firebase/auth'
 import { ThunkAction } from 'redux-thunk';
 import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
+
 
 export interface Action {
   type: string;
@@ -58,7 +60,7 @@ export const getRoomByName = (address: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/filtered/", {
+      const { data } = await axios.get("http://localhost:3002/rooms/", {
         params: filters,
       });
       dispatch({
@@ -107,7 +109,6 @@ export const resetFilters = () => ({
   type: RESET
 })
 
-
 export const reserveRoom = (userId: string, formData: any) => {
   return async (dispatch: Dispatch<Action>) => { 
     try {
@@ -150,12 +151,16 @@ export const deleteReservation = (userId: string, reservationId: string) => {
   };
 };
 
-/* export interface Action {
-  type: string;
-  payload: any;
-}
+// Nueva acción para autenticar al usuario
+export const authenticateUser = (user: User | null): Action => ({
+  type: 'AUTHENTICATE_USER',
+  payload: user,
+});
 
-export const getHotels = () => {
+
+
+/* export const getHotels = () => {
+
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get("http://localhost:3002/hotels/");
@@ -213,10 +218,26 @@ export const getFilteredHotels = (filters: any) => {
       console.error("Error al obtener hoteles filtrados:", error);
     }
   };
-}; */
 
+};
 
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.post("http://localhost:3002/hotels/", review);
+      dispatch({
+        type: POST_REVIEW,
+        payload: res.data,
+      });
+    } catch (error) {
+      alert("An error occured at posting your review", error);
+    }
+  };
+};
 
+export const resetFilters = () => ({
+  type: RESET,
+});
 
-
+};*/
 

@@ -145,6 +145,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
   });
 
   const [avgRating, setAvgRating] = useState<number>(0);
+  const [avgRating, setAvgRating] = useState<number>(0);
 
   const handleRating = (input: number) => {
     setAvgRating(input);

@@ -1,5 +1,6 @@
 import React from "react";
-import Card from "../card/Card";
+import CardLanding from "../cardLanding/CardLanding";
+import "./CardsLanding.css";
 
 interface Room {
   _id: string;
@@ -14,13 +15,13 @@ interface CardsProps {
   allRooms: Room[];
 }
 
-const Cards: React.FC<CardsProps> = ({ allRooms }) => {
+const CardsLanding: React.FC<CardsProps> = ({ allRooms }) => {
   console.log("En cards la lista que recibe cómo props:", allRooms);
 
   return (
-    <div>
+    <div className="cardsLandContainer">
       {allRooms.map((room) => (
-        <Card
+        <CardLanding
           key={room._id} 
           room={room}
         />
@@ -29,5 +30,4 @@ const Cards: React.FC<CardsProps> = ({ allRooms }) => {
   );
 };
 
-export default Cards;
-
+export default CardsLanding;
