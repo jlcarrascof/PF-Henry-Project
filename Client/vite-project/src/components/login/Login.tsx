@@ -1,43 +1,79 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { validation } from "./LogValidation";
-import { getAuth, signInWithPopup, GoogleAuthProvider, User, signOut } from 'firebase/auth';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  User,
+  signOut,
+  UserCredential
+} from 'firebase/auth';
 import firebaseApp from './firebaseConfig';
-
+import { authenticateUser } from '../../Redux/Actions/actions';
 import "./Login.css";
+import Register from "../register/Register";
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
 
 const Login: React.FC = () => {
-  interface Data {
-    email: string;
-    password: string;
-  }
-
-  const navigate = useNavigate();
-  const [data, setData] = useState<Data>({ email: "", password: "" });
-  const [errors, setErrors] = useState<Data>({ email: "", password: "" });
-  const [user, setUser] = useState<User | null>(null);
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
+  const [registration, setRegistration] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
+      if (userFirebase) {
+        const userData = {
+          uid: userFirebase.uid,
+          email: userFirebase.email,
+          providerId: userFirebase.providerData[0]?.providerId,
+          displayName: userFirebase.displayName,
+        };
+        dispatch(authenticateUser(userData));
+      } else {
+        dispatch(authenticateUser(null));
+      }
     });
-
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      ...validation({ [name]: value }),
-    });
+  console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
+
+  useEffect(() => {
+    // Si hay un usuario y el valor ha cambiado
+    if (user) {
+      // Realizar una solicitud al servidor express
+      axios.post('http://localhost:3001/authenticate', { user })
+        .then(response => {
+          console.log('Información del usuario enviada al backend:', response.data);
+          // Manejar la respuesta del backend si es necesario
+        })
+        .catch(error => {
+          console.error('Error al enviar información del usuario al backend:', error);
+          // Manejar el error si es necesario
+        });
+    }
+  }, [user]);
+
+  const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const email = e.currentTarget.email.value;
+    const password = e.currentTarget.password.value;
+
+    try {
+      if (registration) {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+    } catch (error) {
+      console.error('Error during Firebase authentication:', error);
+    }
   };
 
   const handleGoogleLogin = async (): Promise<void> => {
@@ -56,121 +92,6 @@ const Login: React.FC = () => {
     } catch (error) {
       console.error('Error during sign-out:', error);
     }
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    navigate("/rooms")
-    // Aquí puedes agregar la lógica para el inicio de sesión con correo y contraseña
-  };
-
-  return (
-    <>
-    <div className="formLogin">
-      <form onSubmit={handleSubmit} className="logcontainer">
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={data.email}
-          onChange={onChange}
-          placeholder="myexample@gmail.com"
-          className="formLogin input"
-        />
-        {errors.email && <p>{errors.email}</p>}
-
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={data.password}
-          onChange={onChange}
-          placeholder="enter your password"
-          className="formLogin input"
-        />
-        {errors.password && <p>{errors.password}</p>}
-
-        <button type="submit" className="formLogin button">Log in</button>
-
-        <Link to="/register">
-          {/*<span>Do not have an account? Sign up!</span>*/}
-        </Link>
-      </form>
-
-      {/* Contenedor separado para el botón "Continue with Google" */}
-      <div className="google-button-container">
-        <div className="row">
-          <div className="col-md-4">
-            <div className="padre">
-              <div className="card card-body">
-                <img className="estilo-profile" src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google logo" />
-                <h4 className="text-center">Sign in with your Google account</h4>
-                {user ? (
-                  <button type="button" onClick={handleSignOut}>Log off</button>
-                ) : (
-                  <button type="button" onClick={handleGoogleLogin}>Continue with Google</button>
-                )}
-                {/* Agregar botones para continuar con otras redes sociales si lo deseas */}
-              </div>
-            </div>
-          </div>
-          <div className="col-md-8">
-            {/*acá una imagen para la columna de la derecha*/}
-          </div>
-        </div>
-      </div>
-      </div>
-    </>
-  );
-};
-
-export default Login;
-
-
-
-
-/* import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, User, signOut, UserCredential } from 'firebase/auth';
-import firebaseApp from './firebaseConfig';
-import { authenticateUser } from '../../Redux/Actions/actions';
-import "./Login.css";
-
-const auth = getAuth(firebaseApp);
-const provider = new GoogleAuthProvider();
-
-const Login: React.FC = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
-  const [registration, setRegistration] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
-      if (userFirebase) {
-        const userData = {
-          uid: userFirebase.uid,
-          email: userFirebase.email,
-          providerId: userFirebase.providerData[0]?.providerId, // Add providerId to identify authentication method
-          displayName: userFirebase.displayName,
-        };
-        dispatch(authenticateUser(userData));
-      } else {
-        dispatch(authenticateUser(null));
-      }
-    });
-    return () => unsubscribe();
-  }, [dispatch]);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      ...validation({ [name]: value }),
-    });
   };
 
   return (
@@ -219,9 +140,10 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {user && <Register />}
     </>
   );
 };
 
 export default Login;
- */
