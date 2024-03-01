@@ -79,7 +79,8 @@ export interface State {
     totalPages: number; 
     totalResults: number;
     isAuthenticated: boolean;
-    user: any
+    user: any;
+    post_hotel: any[];
   }
   
   const initialState: State = {
@@ -93,6 +94,7 @@ export interface State {
     totalResults: 0,
     isAuthenticated: false,
     user: null,
+    post_hotel: []
   };
   
   const rootReducer = (state: State = initialState, action: Action): State => {
@@ -146,6 +148,7 @@ export interface State {
               case "POST_HOTEL":
                 return{
                     ...state,
+                    post_hotel:action.payload
                 }
             default:
               return state;

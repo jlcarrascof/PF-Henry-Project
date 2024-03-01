@@ -99,20 +99,16 @@ interface RoomSchema {
   };
 
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    const {name,value} = event.target
     event.preventDefault();
+    
     try{
-      // dispatch(createHotels(formData));
-      setFormData({
-        name: "",
-        details: "",
-        images: [],
-        address: '',
-        contact: {
-          phone: 0,
-          mail: "",
-        },
-      });
+      // setFormData({...formData,
+      //   [name]:value
+
+      // });
+      dispatch(createHotels(formData));
       window.localStorage.removeItem("form-hoteldata")
       setStepRegister(2)
     } catch (error) {

@@ -103,7 +103,7 @@ export const authenticateUser = (user: User | null): Action => ({
 export const createHotels = (data: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const response = await axios.get("http://localhost:3002/hotels/", data);
+      const response = await axios.post("http://localhost:3002/hotels/", data);
       dispatch({
         type: "POST_HOTEL",
         payload: response,
