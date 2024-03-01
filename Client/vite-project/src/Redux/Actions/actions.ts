@@ -73,22 +73,6 @@ export const getFilteredRooms = (filters: any) => {
   };
 };
 
-// export const postReview = (review: any) => {
-//   return async (dispatch: Dispatch<Action>): Promise<void> => {
-//     try {
-//       const res = await axios.post('http://localhost:3002/hotels/', review)
-//       dispatch({
-//         type: POST_REVIEW,
-//         payload: res.data
-//       })
-//     } catch (error) {
-//       alert('An error occured at posting your review'+ error)
-//     }
-//   }
-// }
-
-
-//Reseña para habitación, porq el que comenté era para reseña de hotel!
 export const postReview = (roomId: string, reviewData: any) => {
   return async (dispatch: Dispatch<Action>) => {
       try {
@@ -157,14 +141,6 @@ export const deleteReservation = (userId: string, reservationId: string) => {
       }
   };
 };
-
-// Nueva acción para autenticar al usuario
-export const authenticateUser = (user: User | null): Action => ({
-  type: 'AUTHENTICATE_USER',
-  payload: user,
-});
-
-
 
 /* export const getHotels = () => {
 
