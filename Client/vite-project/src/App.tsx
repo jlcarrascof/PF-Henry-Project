@@ -10,6 +10,7 @@ import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 import About from "./components/about/About";
 import Home from "./components/home/Home";
+import Cloudinary from "./components/cloudinary/Cloudinary";
 import Notification from "./components/notification system/Notification";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/rooms" element={<Home />} />
         <Route path="/reservation" element={<Notification />} />
