@@ -1,3 +1,4 @@
+// Register.tsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { validation } from "./RegValidation";
@@ -64,40 +65,49 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   };
 
   return (
-    <>
+    <div className="register-container">
       <h1>Register Form</h1>
       {isRegistered && <p>Registro exitoso. Redirigiendo...</p>}
       <form onSubmit={handleSubmit}>
         <label>Upload your user image:</label>
         <Cloudinary onImageChange={(newImageUrl) => setFormData((prevData) => ({ ...prevData, image: newImageUrl }))} />
+        
+        <div className="label-datos">
+          <label>Name:</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+          {errors.name && <p>{errors.name}</p>}
+        </div>
+        
+        <div className="label-datos">
+          <label>Last name:</label>
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+          {errors.lastName && <p>{errors.lastName}</p>}
+        </div>
+        
+        <div className="label-datos">
+          <label>Date of Birth:</label>
+          <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required />
+          {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
+        </div>
 
-        <label>Name:</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-        {errors.name && <p>{errors.name}</p>}
+        <div className="label-datos">
+          <label>Phone number:</label>
+          <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
+          {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
+        </div>
 
-        <label>Last name:</label>
-        <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
-        {errors.lastName && <p>{errors.lastName}</p>}
+        <button className="register-button" type="submit">Register</button>
 
-        <label>Date of Birth:</label>
-        <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required />
-        {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
-
-        <label>Phone number:</label>
-        <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-        {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
-
-        <button type="submit">Register</button>
-
-        <Link to="/login">
-          <span>Sign in</span>
+        <Link to="/rooms" className="rooms-link">
+          <span className="rooms-span">At rooms</span>
         </Link>
       </form>
-    </>
+    </div>
   );
 };
 
 export default Register;
+
 
 
 

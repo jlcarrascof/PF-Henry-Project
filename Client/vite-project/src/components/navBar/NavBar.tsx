@@ -17,6 +17,12 @@ const NavBar: React.FC = () => {
           <Link to="/favorites">
             <p>Favorites</p>
           </Link>
+
+          <Link to="/register">
+            <p>Register</p>
+          </Link>
+
+
           <Link className="btnLogin" to="/login">
             <p>Login</p>
           </Link>

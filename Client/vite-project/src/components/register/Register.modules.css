@@ -1,59 +1,50 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .profile-card {
-    background-color: #190019;
-    color: #b64b12;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  img {
-    display: block;
-    margin: 20px auto;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .label {
-    margin-bottom: 8px;
-  }
-  
-  .data {
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
-  
-  .card-link button {
-    margin-top: 20px;
-    padding: 16px;
-    background: linear-gradient(45deg, #190019, #2b124c);
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  
-  .card-link button:hover {
-    background: linear-gradient(45deg, #2b124c, #190019);
-    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.3);
-    color: #fbe4d8;
-  }  
+/* Register.modules.css */
+
+.register-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.label-datos {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.register-button {
+  background-color: #9845d8;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #7b2eab;
+}
+
+.rooms-link {
+  text-decoration: none;
+  color: #4838c7;
+}
+
+.rooms-span {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+ 
