@@ -20,6 +20,7 @@ const getRoomById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
   const postRoom = async (req, res) => {
     try {
       const { hotel_id, description, typeOfRoom, 
@@ -44,23 +45,30 @@ const getRoomById = async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-
-    const { id } = req.params;
-    const updateData = req.body;
-
-    const success = await updateRoom(id, updateData);
-
-    if (success) {
-      return res.status(200).json({ message: "Hotel updated successfully" });
-    } else {
-      return res
-        .status(404)
-        .json({ error: "Hotel not found or no changes applied" });
-    }
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
   }
-};
+
+  const patchRoom = async (req, res) => {
+    try {
+      if (!ObjectId.isValid(req.params.id)) {
+        return res.status(400).json({ error: "ID not valid" });
+      }
+  
+      const { id } = req.params;
+      const updateData = req.body;
+  
+      const success = await updateRoom(id, updateData);
+  
+      if (success) {
+        return res.status(200).json({ message: "Hotel updated successfully" });
+      } else {
+        return res
+          .status(404)
+          .json({ error: "Hotel not found or no changes applied" });
+      }
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  };
   
   const getRoomFiltered = async (req, res) => {
     try {
@@ -162,37 +170,7 @@ const getRoomById = async (req, res) => {
         totalResults: rooms.length,
         rooms: rooms,
       });
-    }
-
-    if (minScore !== undefined && minScore !== "") {
-      filters.push({
-        reviews: {
-          $elemMatch: {
-            score: { $gte: parseFloat(minScore) }
-          }
-        }
-     });
-   }
-
-    const query = filters.length > 0 ? { $and: filters } : {};
-
-    const rooms = await db
-      .collection("rooms")
-      .find(query)
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .toArray();
-
-    const totalRooms = await db.collection("rooms").countDocuments(query);
-    const totalPages = Math.ceil(totalRooms / limit);
-
-    res.status(200).json({
-      currentPage: page,
-      totalPages: totalPages,
-      totalResults: rooms.length,
-      rooms: rooms,
-    });
-  } catch (error) {
+    } catch (error) {
     console.log("el error es: ", error);
     res.status(400).json({ error: error.message });
   }
@@ -262,13 +240,6 @@ const getFav = async (req, res) => {
     res.status(500).send(err);
   }
 };
-    ]).toArray();
-  
-      res.status(200).send(result);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  };
   
   const postReview = async (req, res) => {
     const db = getDb();
@@ -314,7 +285,7 @@ const getFav = async (req, res) => {
   
       const rooms = await db
         .collection("rooms")
-        .find()
+        .find({availability: true})
         .skip((page - 1) * limit)
         .limit(limit)
         .toArray();

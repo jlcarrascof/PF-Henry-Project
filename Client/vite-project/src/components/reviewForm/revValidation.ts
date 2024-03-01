@@ -16,9 +16,9 @@ interface Error {
     if (email && email.length > 40) {
       error.email = "The length of the email cannot exceed 40 digits";
     }
-      if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.test(email)) {
-        error.email = "That email is not valid";
-      }
+      // if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/.test(email)) {
+      //   error.email = "That email is not valid";
+      // }
     //?------------------------------------------------------------------------------PASSWORD
     if (!comment) {
       error.password = "This field cannot be blank";
