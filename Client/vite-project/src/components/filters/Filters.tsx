@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Action } from "../../Redux/Actions/actions";
 import { getFilteredRooms, resetFilters } from "../../Redux/Actions/actions";
 import "./filters.css";
 import { Select, MenuItem } from '@material-ui/core';

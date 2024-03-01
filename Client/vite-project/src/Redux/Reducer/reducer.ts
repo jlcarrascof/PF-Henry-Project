@@ -75,6 +75,7 @@ export interface State {
     currentRoom: any;
     filteredRooms: any[];
     currentPage: number; 
+    pageNum: any;
     totalPages: number; 
     totalResults: number;
     isAuthenticated: boolean;
@@ -89,6 +90,7 @@ export interface State {
     filteredRooms: [],
     currentPage: 1, 
     totalPages: 1, 
+    pageNum: null,
     totalResults: 0,
     isAuthenticated: false,
     user: null,
@@ -124,6 +126,7 @@ export interface State {
                 currentPage: action.payload.currentPage,
                 totalPages: action.payload.totalPages,
                 totalResults: action.payload.totalResults,
+                pageNum: action.payload.pageNum,
               };
               case "POST_REVIEW":
             return {

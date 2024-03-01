@@ -12,7 +12,7 @@ import { getFilteredRooms } from "../../Redux/Actions/actions";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const { totalPages, allRooms, filteredRooms } = useSelector((state: State) => state);
+  const { totalPages, allRooms, filteredRooms, pageNum } = useSelector((state: State) => state);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
       setCurrentPage(page);
       // Solo actualiza los filtros si hay cambios
       if (page !== currentPage) {
-        dispatch(getFilteredRooms({ p: page, ...filteredRooms }));
+        dispatch(getFilteredRooms({ p: currentPage, ...filteredRooms }));
       }
     }
   };
