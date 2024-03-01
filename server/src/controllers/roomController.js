@@ -16,8 +16,8 @@ const getRoomId = async (id) => {
 
 const createRoom = async (data) => {
   const db = getDb();
-
   try {
+    
     const result = await db.collection("rooms").insertOne(data);
 
     return result;

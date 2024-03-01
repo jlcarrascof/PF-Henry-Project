@@ -6,6 +6,7 @@ const {
 } = require("../controllers/hotelsController");
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
+const { Hotel } = require("../models/RoomsModel");
 
 const getHotelID = async (req, res) => {
   try {
@@ -29,11 +30,18 @@ const getHotelID = async (req, res) => {
 
 const postHotel = async (req, res) => {
   try {
-    const hotelData = req.body;
+    const { name, owner, details, address, services, contact } = req.body;
+    const newHotel = new Hotel({
+       name, 
+       owner, 
+       details, 
+       address, 
+       services, 
+       contact 
+      });
+    const savedHotel = await createHotel(newHotel);
 
-    const newHotel = await createHotel(hotelData);
-
-    res.status(201).json(newHotel);
+    res.status(201).json(savedHotel);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -60,7 +60,7 @@ export const getRoomByName = (address: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/", {
+      const { data } = await axios.get("http://localhost:3002/rooms/filtered", {
         params: filters,
       });
       dispatch({
