@@ -57,8 +57,8 @@ const getRoomById = async (req, res) => {
   const getRoomFiltered = async (req, res) => {
     try {
       const {
-        minPrice,maxPrice,address,desiredCheckInDate,
-        desiredCheckOutDate,minScore,services,
+        minPrice, maxPrice, address, desiredCheckInDate,
+        desiredCheckOutDate, minScore, services,
       } = req.query;
       const db = getDb();
       const page = parseInt(req.query.p) || 1;
@@ -68,24 +68,47 @@ const getRoomById = async (req, res) => {
   
       const defaultMinPrice = 0;
       const defaultMaxPrice = 1000;
-
-    const parsedMinPrice = minPrice !== undefined && minPrice !== "" ? parseInt(minPrice) : defaultMinPrice;
-    const parsedMaxPrice = maxPrice !== undefined && maxPrice !== "" ? parseInt(maxPrice) : defaultMaxPrice;
-
-    filters.push({
+  
+      const parsedMinPrice = minPrice !== undefined && minPrice !== "" ? parseInt(minPrice) : defaultMinPrice;
+      const parsedMaxPrice = maxPrice !== undefined && maxPrice !== "" ? parseInt(maxPrice) : defaultMaxPrice;
+  
+      filters.push({
         "price": { $gte: parsedMinPrice, $lte: parsedMaxPrice },
-    });
+      });
   
       if (address) {
-        filters.push({ address: { $regex: new RegExp(address, "i") } });
+        const roomWithHotel = await db
+          .collection("rooms")
+          .aggregate([
+            {
+              $lookup: {
+                from: "hotels",
+                localField: "hotel_id",
+                foreignField: "_id",
+                as: "hotel",
+              },
+            },
+            {
+              $match: {
+                "hotel.address": { $regex: new RegExp(address, 'i') },
+              },
+            },
+          ])
+          .toArray();
+  
+        filters.push({
+          "_id": { $in: roomWithHotel.map(room => room._id) },
+        });
       }
   
       if (services) {
-        filters.push({ services: {
-          $elemMatch: {
-            $in: services.split(",")
-          }
-        } });
+        filters.push({
+          services: {
+            $elemMatch: {
+              $in: services.split(","),
+            },
+          },
+        });
       }
   
       if (desiredCheckInDate && desiredCheckOutDate) {
@@ -103,16 +126,16 @@ const getRoomById = async (req, res) => {
           ],
         });
       }
-
+  
       if (minScore !== undefined && minScore !== "") {
         filters.push({
           reviews: {
             $elemMatch: {
-              score: { $gte: parseFloat(minScore) }
-            }
-          }
-       });
-     }
+              score: { $gte: parseFloat(minScore) },
+            },
+          },
+        });
+      }
   
       const query = filters.length > 0 ? { $and: filters } : {};
   
