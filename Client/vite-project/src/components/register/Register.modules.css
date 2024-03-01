@@ -1,0 +1,50 @@
+/* Register.modules.css */
+
+.register-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.label-datos {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.register-button {
+  background-color: #9845d8;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #7b2eab;
+}
+
+.rooms-link {
+  text-decoration: none;
+  color: #4838c7;
+}
+
+.rooms-span {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+ 
