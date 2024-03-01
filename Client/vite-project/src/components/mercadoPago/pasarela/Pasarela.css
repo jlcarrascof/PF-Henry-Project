@@ -1,0 +1,63 @@
+.Reservas * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.PasarelaCard {
+    border: #00000022 1px solid;
+    box-shadow: #00000066 0.25em 0.25em 0.5em 0;
+    margin: 0.5em;
+    padding: 0.5em;
+    display: flex;
+    position: relative;
+}
+.PasarelaImg {
+    aspect-ratio: 1/1;
+    height: 100px;
+}
+.PasarelaInfo {
+    display: flex;
+    width: 100%;
+}
+.PasarelaTitulo {
+    padding-left: 0.5em;
+}
+.PasarelaTitulo,
+.InfoPrecio,
+.InfoReserva,
+.PasarelaTotal  {
+    width: 50%;
+}
+.InfoPrecio, .InfoReserva, .PasarelaTotal {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.InfoReserva {
+    flex-direction: column;
+}
+.PasarelaTotal {
+    align-items:  center;
+    justify-content: center;
+}
+.PagoDesc {
+    width: 75%;
+}
+.PagosTotal {
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.TotalPagar {
+    background: #00000022;
+    padding: 1em;
+    margin: 0.5em;
+}
+.Pagos {
+    display: flex;
+    width: 100%;
+    margin: 1em;
+    padding: 1em;
+}
