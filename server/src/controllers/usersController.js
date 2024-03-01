@@ -52,7 +52,6 @@ const createUser = async (userData) => {
     }
 };
 
-//
 
 const updateUser = async (id, updateData) => {
     const db = getDb();

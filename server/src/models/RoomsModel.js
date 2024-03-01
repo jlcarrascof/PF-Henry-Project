@@ -29,28 +29,21 @@ const roomSchema = new Schema({
   typeOfRoom: { type: String, required: true },
   services: [String],
   price: { type: Number, required: true },
-  availability: { type: Boolean, required: true },
   images: [String],
   contact: {
     phone: Number,
     mail: String,
   },
   num_rooms: { type: Number, required: true },
-  reviews: [reviewSchema],
+  availability: { type: Boolean, required: true },
   totalScore: { type: Number, default: 0 },
+  reviews: [reviewSchema]
 });
 
 const Room = model("Room", roomSchema);
 
 module.exports = {
   Room,
-  Hotel
+  Hotel, 
+  reviewSchema
 };
-
-
-
-
-
-
-
-

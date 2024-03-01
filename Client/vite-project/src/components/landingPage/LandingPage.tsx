@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import Slider from 'react-slick';
@@ -39,7 +39,7 @@ const LandingPage: React.FC = () => {
   const dispatch = useDispatch();
   const allRooms = useSelector((state: State) => state.allRooms);
 
-  const onClickSearch = (filters: any) => {
+  const onClick = (filters: any) => {
     dispatch(getFilteredRooms(filters)); 
     navigate("/home");
   };
@@ -48,7 +48,7 @@ const LandingPage: React.FC = () => {
     <div className="landing-page">
       <div>{/* <Header /> */}</div>
       <div className="searchBar-container">
-        <SearchBar onClickSearch={onClickSearch} />
+        <SearchBar onClick={onClick} />
       </div>
       <div className="upperText">
         <h1>Now you don't have to worry about going on holidays</h1>

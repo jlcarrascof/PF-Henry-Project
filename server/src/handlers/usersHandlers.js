@@ -1,7 +1,37 @@
 const { getUserById, getUserByName, getAllUsers, createUser, updateUser, deleteUserById } = require("../controllers/usersController");
 const {ObjectId} = require("mongodb");
-const User = require("../models/UserModel")
+const User = require("../models/UserModel");
+const { getDb } = require("../db");
+const db = require("../db");
 
+const postUser = async (req, res) => {
+    try {
+      let db = getDb()
+      const { username, email, role, permissions, contactDetails, profile } = req.body;
+      
+      const existingUser = await db.collection("users").findOne({ $or: [{ username }, { email }] });
+      
+      if(existingUser){
+         res.status(400).send({error: "Usuario repetido"});
+         return
+        }
+        
+        const newUser = new User({
+          username,
+          email,
+          role,
+          permissions,
+          contactDetails,
+          profile,
+        });
+      const savedUser = await createUser(newUser)
+  
+      res.status(201).send(savedUser);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'Error al crear el usuario' });
+    }
+  }
 
 const getUserID = async (req, res) => {
     try {
@@ -35,20 +65,6 @@ const getUser = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-
-
-
-const postUser = async (req, res) => {
-    try {
-        const user = req.body;
-        const newUser = await createUser(user); 
-        return res.status(201).json(newUser);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-
 
 const patchUser = async (req, res) => {
     try {
