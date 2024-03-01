@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-
-import { RoomAction, POST_REVIEW, RESET } from "./actions-types";
+import { ThunkAction } from "redux-thunk";
+import { POST_REVIEW, RESET, RoomAction } from "./actions-types";
 
 import { User } from "firebase/auth";
 // import { ThunkAction } from "redux-thunk";
@@ -42,31 +42,28 @@ export const getRoomById = (id: string) => {
   };
 };
 
-export const getRoomByName = (address: string) => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:3002/rooms/?address=${address}`
-      );
-      dispatch({
-        type: "GET_ROOMS_BY_NAME",
-        payload: data,
-      });
-    } catch (error) {
-      console.error("Error al obtener habitacion por nombre:", error);
-    }
-  };
-};
+// export const getRoomByName = (address: string) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//     try {
+//       const { data } = await axios.get(
+//         `http://localhost:3002/rooms/?address=${address}`
+//       );
+//       dispatch({
+//         type: "GET_ROOMS_BY_NAME",
+//         payload: data,
+//       });
+//     } catch (error) {
+//       console.error("Error al obtener habitacion por nombre:", error);
+//     }
+//   };
+// };
 
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:3002/rooms/filtered/",
-        {
-          params: filters,
-        }
-      );
+      const { data } = await axios.get("http://localhost:3002/rooms/", {
+        params: filters,
+      });
       dispatch({
         type: "GET_FILTERED_ROOMS",
         payload: data,

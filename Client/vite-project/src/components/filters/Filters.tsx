@@ -1,39 +1,39 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Action } from "../../Redux/Actions/actions";
-import { getFilteredRooms } from "../../Redux/Actions/actions";
+import { getFilteredRooms, resetFilters } from "../../Redux/Actions/actions";
 import "./filters.css";
 import { Select, MenuItem } from '@material-ui/core';
 
 
+const initialFilters = {
+  p: 1,
+  minPrice: "",
+  maxPrice: "",
+  address: "",
+  desiredCheckInDate: "",
+  desiredCheckOutDate: "",
+  minScore: "",
+  services: "",
+  SrvSpa: false,
+  SrvWifi: false,
+  SrvBar: false,
+  SrvRoomService: false,
+  SrvConcierge: false,
+  SrvFineDiningRestaurant: false
+};
+
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
-  const [filters, setFilters] = useState<any>({
-    p: 1,
-    minPrice: "",
-    maxPrice: "",
-    address: "",
-    desiredCheckInDate: "",
-    desiredCheckOutDate: "",
-    minScore: "",
-    services: "",
-
-    SrvSpa: false,
-    SrvWifi: false,
-    SrvBar: false,
-    SrvRoomService: false,
-    SrvConcierge: false,
-    SrvFineDiningRestaurant: false
-  });
+  const [filters, setFilters] = useState(initialFilters);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const { name, value, type, checked}  = e.target;
+    const { name, value, type } = e.target;
 
     setFilters((prevState) => ({
       ...prevState,
-      [name]: type.toLowerCase() == 'checkbox' ? checked : value,
+      [name]: type.toLowerCase() === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
-  };
+};
 
 
   /* const services = [
@@ -66,6 +66,13 @@ const Filters: React.FC = () => {
 
     dispatch(getFilteredRooms(ToSend));
   };
+
+
+  const handleResetFilters = () => {
+    setFilters(initialFilters); 
+    dispatch(resetFilters()); 
+  };
+
 
   return (
     <div className="filtros">
@@ -122,7 +129,7 @@ const Filters: React.FC = () => {
       <div>
         <h2>Services</h2>
         <input onChange={handleFilterChange} type="checkbox" id="srvwifi" name="SrvWifi" checked={filters.SrvWifi} />
-        <label for="srvwifi">Wifi</label>
+        <label htmlFor="srvwifi">Wifi</label>
         <input onChange={handleFilterChange} type="checkbox" id="srvbar" name="SrvBar" checked={filters.SrvBar} />
         <label for="srvbar">Bar</label>
         <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />
@@ -136,6 +143,7 @@ const Filters: React.FC = () => {
       </div>
 
       <button onClick={handleFilterSubmit}>Apply Filters</button>
+      <button onClick={handleResetFilters}>Reset</button>
     </div>
   );
 };
