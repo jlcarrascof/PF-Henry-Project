@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, User, signOut, UserCredential } from 'firebase/auth';
+import axios from 'axios';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  User,
+  signOut,
+  UserCredential
+} from 'firebase/auth';
 import firebaseApp from './firebaseConfig';
 import { authenticateUser } from '../../Redux/Actions/actions';
 import "./Login.css";
@@ -30,8 +41,23 @@ const Login: React.FC = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  
-  console.log("Usuario en el store:", user);
+  console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
+
+  useEffect(() => {
+    // Si hay un usuario y el valor ha cambiado
+    if (user) {
+      // Realizar una solicitud al servidor express
+      axios.post('http://localhost:3001/authenticate', { user })
+        .then(response => {
+          console.log('Información del usuario enviada al backend:', response.data);
+          // Manejar la respuesta del backend si es necesario
+        })
+        .catch(error => {
+          console.error('Error al enviar información del usuario al backend:', error);
+          // Manejar el error si es necesario
+        });
+    }
+  }, [user]);
 
   const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
