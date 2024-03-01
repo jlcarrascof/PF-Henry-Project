@@ -15,6 +15,7 @@ import {
 import firebaseApp from './firebaseConfig';
 import { authenticateUser } from '../../Redux/Actions/actions';
 import "./Login.css";
+import Register from "../register/Register";
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
@@ -139,6 +140,8 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {user && <Register />}
     </>
   );
 };
