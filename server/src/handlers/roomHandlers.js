@@ -235,8 +235,15 @@ const updateFav = async (req, res) => {
         return res.status(404).send({error: "No es un ObjectId valido"})
       }
       const result = await db
-        .collection("hotels")
-        .updateOne({ _id: new ObjectId(id) }, {$push: {review: updateData}})
+        .collection("rooms")
+        .updateOne({ _id: new ObjectId(id) }, {
+          $push: {review: updateData},
+          $set: {
+            totalScore: {
+              $avg: "reviews.score"
+            }
+          },
+        })
   
         res.status(200).send(result)
     } catch (err) {
