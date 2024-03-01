@@ -9,19 +9,27 @@ interface RegisterProps {
 }
 
 interface FormData {
-  name: string;
+  username: string;
+  email: string;
+  role: string;
+  permissions: string;
+  firstName: string;
   lastName: string;
   dateOfBirth: string;
-  phoneNumber: string;
+  phone: string;
   image?: string;
 }
 
 const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   const initialFormData: FormData = {
-    name: "",
+    username: "",
+    email: "",
+    role: "client",
+    permissions: "read/write",
+    firstName: "",
     lastName: "",
     dateOfBirth: "",
-    phoneNumber: "",
+    phone: "",
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -32,10 +40,8 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
 
-    // Limpiar el error del campo actual
     setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
 
-    // Validar el campo que se está editando
     const fieldErrors = validation({ [name]: value });
     setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
   };
@@ -47,11 +53,8 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     const formErrors = validation(formData);
     setErrors(formErrors);
 
-    // Verificar si hay errores
     if (Object.keys(formErrors).length === 0) {
       onSubmit(formData);
-
-      // Limpiar el formulario después de registrarse
       setFormData(initialFormData);
       setErrors({});
 
@@ -72,11 +75,23 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
         <Cloudinary onImageChange={(newImageUrl) => setFormData((prevData) => ({ ...prevData, image: newImageUrl }))} />
         
         <div className="label-datos">
-          <label>Name:</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-          {errors.name && <p>{errors.name}</p>}
+          <label>Username:</label>
+          <input type="text" name="username" value={formData.username} onChange={handleChange} required />
+          {errors.username && <p>{errors.username}</p>}
         </div>
         
+        <div className="label-datos">
+          <label>Email:</label>
+          <input type="text" name="email" value={formData.email} onChange={handleChange} required />
+          {errors.email && <p>{errors.email}</p>}
+        </div>
+
+        <div className="label-datos">
+          <label>First name:</label>
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+          {errors.firstName && <p>{errors.firstName}</p>}
+        </div>
+
         <div className="label-datos">
           <label>Last name:</label>
           <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
@@ -91,14 +106,14 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
         <div className="label-datos">
           <label>Phone number:</label>
-          <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-          {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
+          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
+          {errors.phone && <p>{errors.phone}</p>}
         </div>
 
         <button className="register-button" type="submit">Register</button>
 
         <Link to="/rooms" className="rooms-link">
-          <span className="rooms-span">At rooms</span>
+          <span className="rooms-span">Check rooms</span>
         </Link>
       </form>
     </div>

@@ -24,7 +24,7 @@ function App() {
       {location.pathname !== "/login" ? <NavBar /> : ""}
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register onSubmit={onsubmit}/>} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/about" element={<About />} />
