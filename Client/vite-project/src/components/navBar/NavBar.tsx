@@ -10,12 +10,12 @@ const NavBar: React.FC = () => {
         </Link>
         <div className="navSeparator"></div>
         <div className="navItems">
-          <Link to="/rooms">
+          <Link to="/">
             <p>Home</p>
           </Link>
 
-          <Link to="/favorites">
-            <p>Favorites</p>
+          <Link to="/rooms">
+            <p>Rooms</p>
           </Link>
 
           <Link to="/cart-reservation">

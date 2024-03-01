@@ -79,15 +79,21 @@ const LandingPage: React.FC = () => {
       </div>
       <div className="imagSlay">
         <div className="archivo">
+          <a href='/rooms'>
           <img src="../../../images/archivo.png" />
+          </a>
           <span>Discover hotels from all the world</span>
         </div>
         <div className="archivo">
+          <a href='/rooms'>
           <img src="../../../images/billetera.png" />
+          </a>
           <span>Get the best sales</span>
         </div>
         <div className="archivo">
+          <a href='/rooms'>
           <img src="../../../images/hotel.png" />
+          </a>
           <span>Compare hotels according to your needs</span>
         </div>
 
