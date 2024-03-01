@@ -13,9 +13,23 @@ import { getFilteredRooms } from '../../Redux/Actions/actions';
 import "./LandingPage.modules.css";
 import CardsLanding from '../cardsLanding/CardsLanding';
 
+import "./LandingPage.modules.css";
+import CardsLanding from '../cardsLanding/CardsLanding';
+
 const LandingPage: React.FC = () => {
   const carouselImages = [
     {
+
+      src: "https://static.cozycozy.com/images/catalog/bg2/horizontal-banner-elk.jpg",
+      link: "",
+    },
+    {
+      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/113623519.jpg?k=71d6000bf94c0d9f576d57e05a9b26f71db6a1bc055ba0a3a8e79b5e1ac56483&o=&hp=1",
+      link: "",
+    },
+    {
+      src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1",
+      link: "",
 
       src: "https://static.cozycozy.com/images/catalog/bg2/horizontal-banner-elk.jpg",
       link: "",
@@ -39,6 +53,8 @@ const LandingPage: React.FC = () => {
       link: '/home',
 
     }
+
+    }
   ];
 
   const carouselSettings = {
@@ -50,11 +66,13 @@ const LandingPage: React.FC = () => {
     slidesToScroll: 1,
   };
   const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allRooms = useSelector((state: State) => state.allRooms);
 
   const onClickSearch = (filters: any) => {
     dispatch(getFilteredRooms(filters)); 
+
 
     navigate("/home");
   };
@@ -64,6 +82,11 @@ const LandingPage: React.FC = () => {
       <div>{/* <Header /> */}</div>
       <div className="searchBar-container">
         <SearchBar onClickSearch={onClickSearch} />
+        <SearchBar onClickSearch={onClickSearch} />
+      </div>
+      <div className="upperText">
+        <h1>Now you don't have to worry about going on holidays</h1>
+        <h3>Go for it now!</h3>
       </div>
       <div className="upperText">
         <h1>Now you don't have to worry about going on holidays</h1>
@@ -74,6 +97,7 @@ const LandingPage: React.FC = () => {
         <Slider {...carouselSettings}>
           {carouselImages.map((image, index) => (
             <div key={index}>
+              <a href={image.link} target="_blank" rel="noopener noreferrer">
               <a href={image.link} target="_blank" rel="noopener noreferrer">
                 <img
                   className="imagenCarrusel"
@@ -107,8 +131,12 @@ const LandingPage: React.FC = () => {
       </div>
 
       <h2>Some of our best hotels...</h2>
+      <h2>Some of our best hotels...</h2>
       {/* Renderizar la lista de hoteles */}
       <div className="allCards">
+
+        <CardsLanding allRooms={allRooms} />        
+
 
         <CardsLanding allRooms={allRooms} />        
 

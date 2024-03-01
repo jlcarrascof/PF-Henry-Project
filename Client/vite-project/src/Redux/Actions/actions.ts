@@ -123,6 +123,13 @@ export const reserveRoom = (userId: string, formData: any) => {
   };
 };
 
+// Nueva acción para autenticar al usuario
+export const authenticateUser = (user: User | null): Action => ({
+  type: 'AUTHENTICATE_USER',
+  payload: user,
+});
+
+
 // export const postReservation = (userId: string, reservationData: any) => {
 //   return async (dispatch: Dispatch<Action>) => {
 //       try {
