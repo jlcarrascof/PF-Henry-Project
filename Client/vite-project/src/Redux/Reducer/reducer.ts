@@ -97,7 +97,7 @@ export interface State {
     totalResults: 0,
     isAuthenticated: false,
     user: null,
-    post_hotel: []
+    post_hotel: [],
     reservations: []
   };
   
@@ -117,18 +117,11 @@ export interface State {
               ...state,
               currentRoom: action.payload,
             };
-
-
-        // case "GET_ROOMS_BY_NAME":
-        //     return {
-        //         ...state,
-        //         currentRoom: action.payload
-        //     };
-  
-
-            case "GET_FILTERED_ROOMS":
-              return {
-
+         case "GET_ROOMS_BY_NAME":
+             return {
+                 ...state,
+                 currentRoom: action.payload
+            };
         case "GET_ROOMS_BY_NAME":
             return {
                 ...state,
@@ -145,7 +138,7 @@ export interface State {
                 totalResults: action.payload.totalResults,
                 pageNum: action.payload.pageNum,
               };
-              case "POST_REVIEW":
+        case "POST_REVIEW":
             return {
               ...state,
               currentRoom: {
@@ -153,63 +146,51 @@ export interface State {
                   reviews: [...state.currentRoom.reviews, action.payload],
               },
           };
-
-          case "RESET":
+        case "RESET":
             return {
               ...state,
               filteredRooms: [], 
               allRooms: state.allRoomsBackUp 
           };
-
-
-          case 'RESERVE_ROOM':
-     
+        case 'RESERVE_ROOM':
            return {
                 ...state,
                 reservations: [...state.reservations, action.payload]
-          };
-          
-          case "POST_RESERVATION":
+          }; 
+        case "POST_RESERVATION":
             return {
                 ...state,
                 reservations: [...state.reservations, action.payload.reservation]
             };
 
-          case "DELETE_RESERVATION":
+        case "DELETE_RESERVATION":
             return {
                 ...state,
                 reservations: state.reservations.filter(reservation => reservation._id !== action.payload.reservation._id)
             };
-            case 'AUTHENTICATE_USER':
+        case 'AUTHENTICATE_USER':
               return {
                 ...state,
                 isAuthenticated: true,
                 user: action.payload,
               };
-
-            case 'LOGOUT_USER':
+        case 'LOGOUT_USER':
               return {
                 ...state,
                 isAuthenticated: false,
                 user: null,
               };
-
-              case "POST_HOTEL":
+        case "POST_HOTEL":
                 return{
                     ...state,
                     post_hotel:action.payload
                 }
+                
             default:
               return state;
     }
-  }
-
-        default:
-            return state;
-    }
 }
 export default rootReducer
-
 
 /* case GET_HOTEL_BY_ID:
       return {
