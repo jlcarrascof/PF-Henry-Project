@@ -15,6 +15,7 @@ import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 import CartReservation from "./components/cart/CartReservation";
+import BorradoLog from "./components/Borrado/BorradoLog";
 
 function App() {
   const location = useLocation();
@@ -34,8 +35,9 @@ function App() {
         <Route path="/cart-reservation" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
+        <Route path="/admin" element={<BorradoLog/>}/>
       </Routes>
-      {location.pathname !== "/login" ? <Footer /> : ""}
+      <Footer />
       
     </>
   );

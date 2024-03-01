@@ -1,0 +1,68 @@
+.Borrado-grid {
+  background-color: #fff;
+  padding-top: 400px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;  
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.Borrado-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 800px;
+  max-height: fit-content;
+  padding: 20px;
+}
+
+.imgContainer {
+  display: flex;
+}
+
+.card-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.card-title {
+  display: flex;
+  text-align: left;
+  justify-content: left;
+  padding: 10px;
+  font-weight: 800;
+}
+
+.card-adress {
+  display: flex;
+  text-align: left;
+  justify-content: left;
+  padding: 10px;
+}
+
+.card-button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  text-orientation:sideways-right;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  background-color: #2b124c;
+  color: white;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}

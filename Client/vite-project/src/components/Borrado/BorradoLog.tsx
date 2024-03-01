@@ -1,14 +1,16 @@
 import { State } from "../../Redux/Reducer/reducer";
-import CardsLanding from "../cardsLanding/CardsLanding";
 import {useSelector} from "react-redux"
+import CardsBorrado from "./CardsBorrado";
+import "./CardBorrado.css"
 
-const borradoLog: React.FC = () => {
-   const {allRooms} = useSelector((state: State) => state)
+const BorradoLog: React.FC = () => {
+    const {allRooms} = useSelector((state: State) => state)
+
     return (
-        <div>
-            <CardsLanding allRooms={allRooms}/>
+        <div className="borrado-grid">
+            <CardsBorrado allRooms={allRooms}/>
         </div>
     )
 }
 
-export default borradoLog;
+export default BorradoLog;

@@ -40,7 +40,7 @@ const updateRoom = async (id, updateData) => {
   }
 };
 
-const deleteRoomId = async (id) => {
+/* const deleteRoomId = async (id) => {
   const db = getDb();
 
   try {
@@ -52,11 +52,10 @@ const deleteRoomId = async (id) => {
   } catch (error) {
     throw error;
   }
-};
+}; */
 
 module.exports = {
   getRoomId,
   createRoom,
   updateRoom,
-  deleteRoomId,
 };
