@@ -1,5 +1,5 @@
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
-import { HotelAction, RoomAction } from '../Actions/actions-types';
+import { HotelAction, RoomAction, AUTHENTICATE_USER, LOGOUT_USER } from '../Actions/actions-types';
 
 export interface State {
     allRooms: any[];
@@ -10,6 +10,8 @@ export interface State {
     totalPages: number; 
     totalResults: number;
     reservations: any[];
+    isAuthenticated: boolean;
+    user: any;
 }
 
 const initialState: State = {
@@ -20,7 +22,9 @@ const initialState: State = {
     currentPage: 1, 
     totalPages: 1, 
     totalResults: 0,
-    reservations: []
+    reservations: [],
+    isAuthenticated: false,
+    user: null,
 };
 
 const rootReducer = (state: State = initialState, action: Action): State => {
@@ -53,6 +57,22 @@ const rootReducer = (state: State = initialState, action: Action): State => {
                 totalPages: action.payload.totalPages,
                 totalResults: action.payload.totalResults,
             };
+
+         // Agrega casos para manejar la autenticación del usuario
+         case 'AUTHENTICATE_USER':
+            return {
+              ...state,
+              isAuthenticated: true,
+              user: action.payload,
+            };
+
+          case 'LOGOUT_USER':
+            return {
+              ...state,
+              isAuthenticated: false,
+              user: null,
+            };
+            
         case "POST_REVIEW":
             return {
               ...state,

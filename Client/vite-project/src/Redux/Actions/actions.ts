@@ -58,7 +58,7 @@ export const getRoomByName = (address: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/filtered/", {
+      const { data } = await axios.get("http://localhost:3002/rooms/", {
         params: filters,
       });
       dispatch({
@@ -121,6 +121,13 @@ export const reserveRoom = (userId: string, formData: any) => {
     }
   };
 };
+
+// Nueva acción para autenticar al usuario
+export const authenticateUser = (user: User | null): Action => ({
+  type: 'AUTHENTICATE_USER',
+  payload: user,
+});
+
 
 // export const postReservation = (userId: string, reservationData: any) => {
 //   return async (dispatch: Dispatch<Action>) => {

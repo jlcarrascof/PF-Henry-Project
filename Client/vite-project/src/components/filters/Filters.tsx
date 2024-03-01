@@ -28,13 +28,13 @@ const Filters: React.FC = () => {
   const [filters, setFilters] = useState(initialFilters);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const { name, value, type, checked}  = e.target;
+    const { name, value, type } = e.target;
 
     setFilters((prevState) => ({
       ...prevState,
-      [name]: type.toLowerCase() == 'checkbox' ? checked : value,
+      [name]: type.toLowerCase() === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
-  };
+};
 
 
   /* const services = [
@@ -130,7 +130,7 @@ const Filters: React.FC = () => {
       <div>
         <h2>Services</h2>
         <input onChange={handleFilterChange} type="checkbox" id="srvwifi" name="SrvWifi" checked={filters.SrvWifi} />
-        <label for="srvwifi">Wifi</label>
+        <label htmlFor="srvwifi">Wifi</label>
         <input onChange={handleFilterChange} type="checkbox" id="srvbar" name="SrvBar" checked={filters.SrvBar} />
         <label for="srvbar">Bar</label>
         <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />

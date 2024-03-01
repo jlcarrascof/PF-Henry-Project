@@ -65,7 +65,6 @@ interface CardsProps {
 }
 
 const Cards: React.FC<CardsProps> = ({ allRooms }) => {
-  console.log("En cards la lista que recibe cómo props:", allRooms);
 
   return (
     <div>

@@ -40,9 +40,9 @@ const getUser = async (req, res) => {
 
 const postUser = async (req, res) => {
     try {
-         const user = req.body;
-         const newUser = await createUser(user); 
-         return res.status(201).json(newUser);
+        const user = req.body;
+        const newUser = await createUser(user); 
+        return res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
