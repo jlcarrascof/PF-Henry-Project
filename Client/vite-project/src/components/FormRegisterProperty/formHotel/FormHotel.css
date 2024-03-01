@@ -1,0 +1,74 @@
+.form-hotels-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    height: min-content;
+  }
+  
+  .form-hotels-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-hotels-container label {
+    margin-bottom: 10px;
+  }
+  
+  .form-hotels-container input[type="text"],
+  .form-hotels-container textarea,
+  .form-hotels-container input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    box-sizing: border-box; /* Para incluir el padding en el ancho */
+  }
+  
+  .form-hotels-container input[type="file"] {
+    margin-bottom: 15px;
+  }
+  
+  .form-hotels-container label img {
+    margin-top: 5px;
+    display: block;
+  }
+  
+  .form-hotels-container button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-hotels-container button:hover {
+    background-color: #45a049;
+  }
+  
+  .form-hotels-container button {
+    width: 100%;
+    padding: 17px;
+    margin: 10px;
+    color: #ffffff;
+    background-color: #230623;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+  .form-hotels-container button:hover {
+    background-color: #2B124C;
+  }  

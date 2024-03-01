@@ -66,10 +66,11 @@ const rootReducer = (state: State = initialState, action: Action): State => {
 export default rootReducer; */
 
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
-import { HotelAction, RoomAction, AUTHENTICATE_USER, LOGOUT_USER } from '../Actions/actions-types';
+import { HotelAction, RoomAction, AUTHENTICATE_USER, LOGOUT_USER, POST_HOTEL } from '../Actions/actions-types';
 
 
 export interface State {
+  allHotels: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
     allRooms: any[];
     allRoomsBackUp: any[]; 
     currentRoom: any;
@@ -83,6 +84,7 @@ export interface State {
   
   const initialState: State = {
     allRooms: [],
+    allHotels: [],
     allRoomsBackUp: [],
     currentRoom: null,
     filteredRooms: [],
@@ -109,12 +111,14 @@ export interface State {
                 ...state,
                 currentRoom: action.payload
             };
-        case "GET_ROOMS_BY_NAME":
-            return {
-                ...state,
-                currentRoom: action.payload
-            };
+
+        // case "GET_ROOMS_BY_NAME":
+        //     return {
+        //         ...state,
+        //         currentRoom: action.payload
+        //     };
   
+
             case "GET_FILTERED_ROOMS":
               return {
                 ...state,
@@ -138,6 +142,11 @@ export interface State {
                 isAuthenticated: false,
                 user: null,
               };
+
+              case "POST_HOTEL":
+                return{
+                    ...state,
+                }
             default:
               return state;
     }

@@ -11,6 +11,7 @@ import Footer from "./components/footer/Footer";
 import About from "./components/about/About";
 import Home from "./components/home/Home";
 import Notification from "./components/notification system/Notification";
+import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
@@ -30,8 +31,10 @@ function App() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/rooms" element={<Home />} />
         <Route path="/reservation" element={<Notification />} />
+        <Route path="/register-hotel" element={<FormProperty/>}/>
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}
+      
     </>
   );
 }
