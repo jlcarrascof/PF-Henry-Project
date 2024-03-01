@@ -1,0 +1,36 @@
+.cloudinary-container {
+    margin-top: 20px;
+  }
+  
+  .cloudinary-container input {
+    margin-bottom: 10px;
+  }
+  
+  .cloudinary-container img {
+    width: 200px;
+    height: 200px;
+    object-fit: initial;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cloudinary-container button {
+    background-color: #2B124C;
+    color: #ffffff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cloudinary-container button:hover {
+    background-color: #190019;
+  }  
+  
+    
+  
