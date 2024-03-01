@@ -24,7 +24,7 @@ const postUser = async (req, res) => {
           contactDetails,
           profile,
         });
-      const savedUser = await db.collection("users").insertOne(newUser)
+      const savedUser = await createUser(newUser)
   
       res.status(201).send(savedUser);
     } catch (error) {

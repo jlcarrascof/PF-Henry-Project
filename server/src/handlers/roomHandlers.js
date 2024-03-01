@@ -1,6 +1,7 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
 const { getRoomId, createRoom, updateRoom, deleteRoomId } = require("../controllers/roomController");
+const { Room, reviewSchema } = require("../models/RoomsModel");
   
 const getRoomById = async (req, res) => {
     try {
@@ -22,10 +23,25 @@ const getRoomById = async (req, res) => {
   
   const postRoom = async (req, res) => {
     try {
-      const hotelData = req.body;
-      const newHotel = await createRoom(hotelData);
+      const { hotel_id, description, typeOfRoom, 
+        services, price, availability, images, 
+        contact, num_rooms, reviews, totalScore } = req.body;
+        const newRoom = new Room({
+          hotel_id, 
+          description, 
+          typeOfRoom, 
+          services, 
+          price, 
+          images, 
+          contact, 
+          num_rooms, 
+          availability, 
+          totalScore, 
+          reviews
+          });
+        const savedRoom = await createRoom(newRoom);
   
-      res.status(201).json(newHotel);
+      res.status(201).json(savedRoom);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -227,17 +243,25 @@ const updateFav = async (req, res) => {
   };
   
   const postReview = async (req, res) => {
-    const db = getDb()
-    const updateData = req.body;
-    const {id} = req.params
+    const db = getDb();
+    const {id} = req.params;
     try{
+
       if (!ObjectId.isValid(req.params.id)){
         return res.status(404).send({error: "No es un ObjectId valido"})
       }
+
+      const { error } = reviewSchema.validate(req.body);
+
+      if (error) {
+          return res.status(400).json({ error: error.details[0].message });
+      }
+
+      const newReview = req.body; 
       const result = await db
         .collection("rooms")
         .updateOne({ _id: new ObjectId(id) }, {
-          $push: {review: updateData},
+          $push: {review: newReview},
           $set: {
             totalScore: {
               $avg: "reviews.score"
