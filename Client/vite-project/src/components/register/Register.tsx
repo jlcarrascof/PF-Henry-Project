@@ -107,8 +107,3 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
 export default Register;
 
-
-
-
-
-

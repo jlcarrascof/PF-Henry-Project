@@ -11,8 +11,10 @@ import Footer from "./components/footer/Footer";
 import About from "./components/about/About";
 import Home from "./components/home/Home";
 import Notification from "./components/notification system/Notification";
+import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
+import CartReservation from "./components/cart/CartReservation";
 
 function App() {
   const location = useLocation();
@@ -29,9 +31,12 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/rooms" element={<Home />} />
+        <Route path="/cart-reservation" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
+        <Route path="/register-hotel" element={<FormProperty/>}/>
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}
+      
     </>
   );
 }
