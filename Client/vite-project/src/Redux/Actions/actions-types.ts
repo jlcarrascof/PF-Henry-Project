@@ -22,3 +22,12 @@ export type HotelAction =
   export const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
   export const LOGOUT_USER = 'LOGOUT_USER'
 
+  export const GET_FILTERED_HOTELS = 'GET_FILTERED_HOTELS'
+  export const GET_HOTEL_BY_NAME = 'GET_HOTEL_BY_NAME'
+  export const GET_HOTEL_BY_ID = 'GET_HOTEL_BY_ID'
+  export const GET_HOTELS = 'GET_HOTELS'
+  // export const GET_ROOMS_BY_NAME = 'GET_ROOMS_BY_NAME'
+  export const GET_ROOMS = 'GET_ROOMS_BY_NAME'
+  export const GET_ROOMS_BY_ID = 'GET_ROOMS_BY_NAME'
+  export const POST_HOTEL = 'GET_ROOMS_BY_NAME'
+  export const GET_FILTERED_ROOMS ='GET_ROOMS_BY_NAME'

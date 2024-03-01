@@ -20,7 +20,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     //Para que no ponga el any por default
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "allowJs": true,
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { User } from 'firebase/auth'
 import { ThunkAction } from 'redux-thunk';
-import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
+import {HotelAction, POST_REVIEW, RESET, RoomAction, POST_HOTEL} from "./actions-types";
 
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
@@ -41,21 +41,21 @@ export const getRoomById = (id: string) => {
   };
 };
 
-export const getRoomByName = (address: string) => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:3002/rooms/?address=${address}`
-      );
-      dispatch({
-        type: "GET_ROOMS_BY_NAME",
-        payload: data,
-      });
-    } catch (error) {
-      console.error("Error al obtener habitacion por nombre:", error);
-    }
-  };
-};
+// export const getRoomByName = (address: string) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//     try {
+//       const { data } = await axios.get(
+//         `http://localhost:3002/rooms/?address=${address}`
+//       );
+//       dispatch({
+//         type: "GET_ROOMS_BY_NAME",
+//         payload: data,
+//       });
+//     } catch (error) {
+//       console.error("Error al obtener habitacion por nombre:", error);
+//     }
+//   };
+// };
 
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
@@ -111,7 +111,24 @@ export const reserveRoom = (userId: string, formData: any) => {
 export const authenticateUser = (user: User | null): Action => ({
   type: 'AUTHENTICATE_USER',
   payload: user,
+
 });
+
+
+export const createHotels = (data: any) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    try {
+      const response = await axios.post("http://localhost:3002/hotels/", data);
+      dispatch({
+        type: "POST_HOTEL",
+        payload: response,
+      });
+    } catch (error) {
+      console.error("Error al crear el hotel:", error);
+    }
+  };
+};
+
 
 
 // export const postReservation = (userId: string, reservationData: any) => {
