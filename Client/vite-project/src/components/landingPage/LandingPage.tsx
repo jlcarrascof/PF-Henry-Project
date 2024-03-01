@@ -5,7 +5,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SearchBar from '../searchBar/SearchBar';
-import Cards from '../cards/Cards';
 import { State } from '../../Redux/Reducer/reducer';
 import { getFilteredRooms } from '../../Redux/Actions/actions';
 import "./LandingPage.modules.css";
@@ -42,8 +41,6 @@ const LandingPage: React.FC = () => {
 
   const onClickSearch = (filters: any) => {
     dispatch(getFilteredRooms(filters)); 
-
-
     navigate("/home");
   };
 
@@ -102,11 +99,9 @@ const LandingPage: React.FC = () => {
           <span>With the most secure payment method</span>
         </div>
       </div>
-
       <h2>Some of our best hotels...</h2>
       {/* Renderizar la lista de hoteles */}
       <div className="allCards">
-
         <CardsLanding allRooms={allRooms} />        
       </div>
     </div>
