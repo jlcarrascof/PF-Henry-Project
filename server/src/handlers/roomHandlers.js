@@ -285,7 +285,7 @@ const getFav = async (req, res) => {
   
       const rooms = await db
         .collection("rooms")
-        .find()
+        .find({availability: true})
         .skip((page - 1) * limit)
         .limit(limit)
         .toArray();

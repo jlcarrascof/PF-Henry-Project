@@ -111,6 +111,8 @@ import ChangeRating from "./changeRating";
 import { revValidation } from "./revValidation";
 import { useDispatch } from "react-redux";
 import { postReview } from "../../Redux/Actions/actions";
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
 import "./review.css";
 
 interface Props {
@@ -118,6 +120,8 @@ interface Props {
 }
 
 const ReviewForm: React.FC<Props> = ({ roomId }) => {
+  const form = useRef<HTMLFormElement>();
+
   const dispatch = useDispatch();
 
   interface Review {
@@ -154,6 +158,16 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
     });
   };
 
+  interface Values {
+    user_email: string;
+    message: string;
+  }
+
+  const [values, setValues] = useState<Values>({
+    user_email: "",
+    message: `Wohoo! It looks like you have made a review at one of our hotels. Thank you for your support! :D `,
+  });
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = e.target;
     setReview({
@@ -169,11 +183,25 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(postReview(roomId, review));
+    if (!form.current) return;
+
+    emailjs
+      .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+        publicKey: "b645crolwMFi4MBSX",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
   };
 
   return (
     <div className="revContainer">
-      <form onSubmit={handleSubmit}>
+      <form ref={form} onSubmit={handleSubmit}>
         <h2>¡Deja una reseña!</h2>
         <div className="email">
           <label>Email:</label>
@@ -201,9 +229,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
             onChange={onChange}
             placeholder="Escribe tu comentario"
           />
-          {errors.description && (
-            <p className="error">{errors.description}</p>
-          )}
+          {errors.description && <p className="error">{errors.description}</p>}
         </div>
 
         <div className="date">
@@ -215,6 +241,11 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
             onChange={onChange}
           />
         </div>
+        <input
+          className="messageInput"
+          name="message"
+          value={values.message}
+        ></input>
 
         <button type="submit">Enviar reseña</button>
       </form>
