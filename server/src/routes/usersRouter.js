@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getUserID, deleteUserByID, getUser, postUser, patchUser } = require('../handlers/usersHandlers');
+const { getUserID, deleteUserByID, getUser, postUser, patchUser, createReservation, getReservations, deleteReservation } = require('../handlers/usersHandlers');
 
 const usersRouter = Router();
 
@@ -28,5 +28,16 @@ usersRouter.post('/authenticate', (req, res) => { // este endpoint es para prueb
   // acciones adicionales aquí: 
   res.sendStatus(200); 
 });
+
+//PARA CARRITO DE RESERVAS!! -->
+// Ruta para crear una reserva para un usuario específico
+usersRouter.post('/:userId/reservations', createReservation);
+
+// Ruta para obtener todas las reservas de un usuario
+usersRouter.get('/:userId/reservations', getReservations);
+
+// Ruta para eliminar una reserva de un usuario
+usersRouter.delete('/:userId/reservations/:reservationId', deleteReservation);
+
 
 module.exports = usersRouter;

@@ -21,7 +21,16 @@ roomsRouter.patch("/:id", patchRoom);
 
 roomsRouter.delete("/:id", deleteRoomByID);
 
+roomsRouter.post("/:id/reviews", postReview);
+
 roomsRouter.patch("/fav/:id", updateFav);
 
 module.exports = roomsRouter;
+
+
+
+
+
+
+
 
