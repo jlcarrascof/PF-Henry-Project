@@ -1,11 +1,13 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
+
 const {
   getRoomId,
   createRoom,
   updateRoom,
   deleteRoomId,
 } = require("../controllers/roomController");
+
 const { Room, reviewSchema } = require("../models/RoomsModel");
 
 const getRoomById = async (req, res) => {
@@ -174,7 +176,30 @@ const getRoomFiltered = async (req, res) => {
           $elemMatch: {
             score: { $gte: parseFloat(minScore) },
           },
+
         },
+
+        });
+      }
+  
+      const query = filters.length > 0 ? { $and: filters, availability: true } : {};
+  
+      const rooms = await db
+        .collection("rooms")
+        .find(query)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .toArray();
+  
+      const totalRooms = await db.collection("rooms").countDocuments(query);
+      const totalPages = Math.ceil(totalRooms / limit);
+  
+      res.status(200).json({
+        currentPage: page,
+        totalPages: totalPages,
+        totalResults: rooms.length,
+        rooms: rooms,
+
       });
     }
 
@@ -241,6 +266,7 @@ const updateFav = async (req, res) => {
 const getFav = async (req, res) => {
   const db = getDb();
   try {
+
     const result = await db
       .collection("rooms")
       .aggregate([
@@ -266,6 +292,9 @@ const getFav = async (req, res) => {
       ])
       .toArray();
 
+    
+
+
     res.status(200).send(result);
   } catch (err) {
     res.status(500).send(err);
@@ -281,7 +310,6 @@ const postReview = async (req, res) => {
     }
 
     const { error } = reviewSchema.validate(req.body);
-
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
@@ -304,6 +332,7 @@ const postReview = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
 
 const getAllRooms = async (req, res) => {
   const db = getDb();

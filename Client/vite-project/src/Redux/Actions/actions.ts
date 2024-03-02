@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { POST_REVIEW, RESET, RoomAction } from "./actions-types";
 
+import { ThunkAction } from "redux-thunk";
+import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
 import { User } from "firebase/auth";
 // import { ThunkAction } from "redux-thunk";
 // import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
@@ -12,6 +12,48 @@ import { User } from "firebase/auth";
 export interface Action {
   type: string;
   payload: any;
+}
+
+export const createUser = (userData: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const response = await axios.post("http://localhost:3002/users", userData)
+      dispatch({
+        type: "POST_USER",
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const disableRoom = (id: string) => {
+  return async (dispatch: Dispatch<Action>) =>{
+    try{
+      const {data} = await axios.patch(`http://localhost:3002/admin/rooms/${id}`)
+      dispatch({
+        type: "DISABLE_ROOMS_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error)
+    }
+  }
+}
+
+export const getDisabledRooms = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    try{
+      const {data } = await axios.get("http://localhost:3002/admin/rooms/");
+      dispatch ({
+        type: "GET_DISABLED_ROOMS",
+        payload: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export const getRooms = () => {

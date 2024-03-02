@@ -1,9 +1,13 @@
+
 // import { createHotels } from "../../../Redux/Actions/actions";
+        import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { hotelValidation } from "./HotelValidation";
+import Cloudinary from "../../cloudinary/Cloudinary.tsx";
+        
 import "./FormHotel.css";
 
-interface RoomSchema {
+  interface RoomSchema {
   name: string;
   description?: string;
   price?: number;
@@ -30,24 +34,23 @@ interface ErrorSchema {
   };
 }
 
-import React, { useEffect, useState } from "react";
 
-// interface FormProps {
-//   onSubmit: (formData: FormSchema) => void;
-// }
 
-// const FormHotel: React.FC<FormProps> = (/*{ onSubmit }*/) => {
+
 interface FormHotelProps {
   setStepRegister: React.Dispatch<React.SetStateAction<number>>;
 }
 
+// const FormHotel: React.FC<FormProps> = (/*{ onSubmit }*/) => {
+
 const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   const dispatch = useDispatch();
+ 
   const [formData, setFormData] = useState<FormSchema>({
     name: "",
     details: "",
-    images: [],
-    address: "",
+    images: [], // Cambiado a una matriz vacía
+    address: '',
     contact: {
       phone: "",
       mail: "",
@@ -130,6 +133,14 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     handleChange(event);
   };
 
+  const handleImageChange = (imageUrl: string) => {
+    setFormData({
+      ...formData,
+      images: [...formData.images, imageUrl],
+    });
+    window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
+  };
+
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -138,7 +149,11 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       window.localStorage.removeItem("form-hoteldata");
       setStepRegister(2);
     } catch (error) {
+
       console.error("Error in create Hotel: ", error);
+
+      console.error('Error in create Hotel: ', error);
+
     }
   };
 
@@ -155,7 +170,10 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             required
           />
         </label>
+
         {error.name && <p>{error.name}</p>}
+
+
         <label>
           Details:
           <textarea
@@ -165,7 +183,10 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             required
           />
         </label>
+
         {error.details && <p>{error.details}</p>}
+
+
         <label>
           Address:
           <input
@@ -175,7 +196,9 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             onChange={handleInputChange}
           />
         </label>
+
         {error.address && <p>{error.address}</p>}
+
         <div>
           <label>
             Email:
@@ -187,6 +210,12 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             />
           </label>
           {error.contact?.mail && <p>{error.contact?.mail}</p>}
+
+              value={formData.contact.mail}
+              onChange={handleInputChange}
+            />
+          </label>
+
           <label>
             Phone:
             <input
@@ -232,6 +261,18 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
         <button type="submit" className="formLogin button">
           Submmit Hotel
         </button>
+
+              value={formData.contact.phone }
+              onChange={handleInputChange}
+            />
+          </label>
+        </div>
+
+        {/* Nuevo componente de Cloudinary */}
+        <Cloudinary onImageChange={handleImageChange} />
+
+        <button type="submit" className="formLogin button">Submit Hotel</button>
+
       </form>
     </div>
   );

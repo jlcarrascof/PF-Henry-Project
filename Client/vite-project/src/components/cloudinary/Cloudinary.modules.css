@@ -22,7 +22,7 @@
     color: #ffffff;
     padding: 8px 12px;
     border: none;
-    border-radius: 50%;
+    border-radius: 15px;
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.3s ease;

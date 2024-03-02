@@ -1,6 +1,6 @@
 import React from "react";
-import CardLanding from "../cardLanding/CardLanding";
-import "./CardsLanding.css";
+import CardBorrado from "./CardDisable";
+import "./CardDisable.css"
 
 interface Room {
   _id: string;
@@ -15,19 +15,21 @@ interface CardsProps {
   allRooms: Room[];
 }
 
-const CardsLanding: React.FC<CardsProps> = ({ allRooms }) => {
+const CardsDisable: React.FC<CardsProps> = ({ allRooms }) => {
   console.log("En cards la lista que recibe cómo props:", allRooms);
 
   return (
-    <div className="Disable-container">
-      {allRooms.map((room) => (
-        <CardLanding
+    <div className="Disable-Container">
+      <div className="Disable-grid">
+        {allRooms.map((room) => (
+          <CardBorrado
           key={room._id} 
           room={room}
-        />
-      ))}
+          />
+          ))}
+        </div>
     </div>
   );
 };
 
-export default CardsLanding;
+export default CardsDisable;

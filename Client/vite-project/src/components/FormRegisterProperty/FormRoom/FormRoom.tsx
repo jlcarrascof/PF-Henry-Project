@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import './FormRoom.css'
 import { useNavigate } from "react-router-dom";
-import { Bounce, toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
+import Cloudinary from "../../cloudinary/Cloudinary.tsx";
 
 
 interface FormRoomData {
@@ -89,21 +88,13 @@ const FormRoom = (/*{ onSubmit }*/) => {
   // };
 
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const selectedImage = event.target.files[0];
-      if (selectedImage.type.startsWith("image/")) {
-        // Verificar si el archivo es de tipo imagen
-        setFormData({
-          ...formData,
-          images: [...formData.images, selectedImage],
-        });
+  const handleImageChange = (imageUrl: string) => {
+    setFormData({
+      ...formData,
+      images: [...formData.images, imageUrl],
+    });
         window.localStorage.setItem("form-roomdata",JSON.stringify(formData))
-      } else {
-        alert("Please select an image file."); // Mostrar un mensaje de error si no se selecciona un archivo de imagen
-      }
-    }
-  };
+      } 
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -188,26 +179,10 @@ const FormRoom = (/*{ onSubmit }*/) => {
           onChange={handleInputChange}
         />
       </label>
-      <label>
-        Image:
-        <input
-          type="file" // Cambiado a "file"
-          accept="image/*" // Acepta solo archivos de imagen
-          onChange={handleImageChange}
-        />
-        {/* Mostrar miniaturas de las imágenes cargadas */}
-        {formData.images.map((image, index) => (
-          <div key={index}>
-            <p>{image.name}</p> {/* Mostrar el nombre del archivo */}
-            <img
-              src={URL.createObjectURL(image)}
-              alt="thumbnail"
-              style={{ maxWidth: "100px" }}
-            />{" "}
-            {/* Mostrar miniatura */}
-          </div>
-        ))}
-      </label>
+      
+      {/* Nuevo componente de Cloudinary */}
+      <Cloudinary onImageChange={handleImageChange} />
+
       <button type="submit" className="formLogin button">Submmit Room</button>
     </form>
     </div>
