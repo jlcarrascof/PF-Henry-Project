@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getUserID, deleteUserByID, getUser, postUser, patchUser, createReservation, getReservations, deleteReservation } = require('../handlers/usersHandlers');
+const { getUserID, deleteUserByID, getUser, postUser, patchUser, createReservation, getReservations, deleteReservation, authUser } = require('../handlers/usersHandlers');
 
 const usersRouter = Router();
 
@@ -19,16 +19,7 @@ usersRouter.patch('/:id', patchUser);  // --> '/users/?id'
 usersRouter.delete('/:id', deleteUserByID); // --> '/users/?id'
 
 // Nueva ruta para recibir la información de Firebase
-usersRouter.post('/authenticate', (req, res) => { // este endpoint es para prueba inicial
-  const { displayName, email, uid } = req.body;
-  // Info de autenticación de Firebase
-  console.log('Received authentication information from Firebase:');
-  console.log('username:', displayName);
-  console.log('Email:', email);
-  console.log('UID:', uid);
-  // acciones adicionales aquí: 
-  res.sendStatus(200); 
-});
+usersRouter.post('/authenticate', authUser);
 
 //PARA CARRITO DE RESERVAS!! -->
 // Ruta para crear una reserva para un usuario específico

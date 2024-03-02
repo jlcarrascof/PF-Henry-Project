@@ -4,6 +4,32 @@ const User = require("../models/UserModel");
 const { getDb } = require("../db");
 const db = require("../db");
 
+const authUser = async (req, res) => {
+    try{
+      let db = getDb()
+      const { uid, email } = req.body;
+
+      const existingUser = await db.collection("users").findOne({ $or: [{ email }, { uid }] });
+
+      if(!existingUser){
+        res.status(404).send({error: "Usuario no encontrado"});
+        return
+       } 
+
+       const username = existingUser.username
+       const message = `Bienvenido ${username}`;
+
+        res.status(200).send({
+            Message: message,
+            Status: "OK",
+            Userdata: existingUser
+        })
+    } catch (error) {
+        res.status(500).send({error: "No pudo autenticarse"})
+    }
+}
+
+
 const postUser = async (req, res) => {
     try {
       let db = getDb()
@@ -188,6 +214,7 @@ module.exports = {
     getUserID,
     getUser,
     postUser,
+    authUser,
     patchUser,
     deleteUserByID,
     createReservation, 
