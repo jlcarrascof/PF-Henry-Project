@@ -1,23 +1,40 @@
 interface Error {
-  name?: string;
+  username?: string;
+  email?: string;
+  firstName?: string;
   lastName?: string;
-  phoneNumber?: string;
+  dateOfBirth?: string;
+  phone?: string;
 }
 
 export const validation = ({
-  name,
+  username,
+  email,
+  firstName,
   lastName,
-  phoneNumber,
+  dateOfBirth,
+  phone,
 }: Error): { [key: string]: string } => {
   let error: { [key: string]: string } = {};
 
   // Validaciones para el nombre
-  if (!name) {
-    // error.name = "This field cannot be blank";
-  } else if (!/^[A-Za-z]+$/.test(name)) {
-    error.name = "Only letters are allowed";
+  if (!username) {
+   error.username = "This field cannot be blank";
+  } else if (!/^[A-Za-z]+$/.test(username)) {
+    error.username = "Only letters are allowed";
   }
 
+  if (!email) {
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    error.email = "Must be a valid email";
+  }
+
+  if (!firstName) {
+    // error.name = "This field cannot be blank";
+  } else if (!/^[A-Za-z]+$/.test(firstName)) {
+    error.firstName = "Only letters are allowed";
+  }
+  
   // Validaciones para el apellido
   if (!lastName) {
     // error.lastName = "This field cannot be blank";
@@ -25,10 +42,16 @@ export const validation = ({
     error.lastName = "Only letters are allowed";
   }
 
+  if (!dateOfBirth) {
+    // error.lastName = "This field cannot be blank";
+  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(dateOfBirth)) {
+    error.dateOfBirth = "Invalid date";
+  }
+
   // Validaciones para el número de teléfono
-  if (!phoneNumber) {
+  if (!phone) {
     // error.phoneNumber = "This field cannot be blank";
-  } else if (!/^\d+$/.test(phoneNumber)) {
+  } else if (!/^\d+$/.test(phone)) {
     error.phoneNumber = "Only numbers are allowed";
   }
 
