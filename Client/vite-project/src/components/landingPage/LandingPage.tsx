@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
@@ -10,17 +8,6 @@ import { State } from "../../Redux/Reducer/reducer";
 import { getFilteredRooms } from "../../Redux/Actions/actions";
 import CardsLanding from "../cardsLanding/CardsLanding";
 
-=======
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import SearchBar from '../searchBar/SearchBar';
-import { State } from '../../Redux/Reducer/reducer';
-import { getFilteredRooms } from '../../Redux/Actions/actions';
->>>>>>> 2a87f02db3fc9ea71d805f767d95489b253a1979
 import "./LandingPage.modules.css";
 
 const LandingPage: React.FC = () => {
@@ -36,7 +23,6 @@ const LandingPage: React.FC = () => {
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1",
       link: "",
-<<<<<<< HEAD
 
       // src: "https://static.cozycozy.com/images/catalog/bg2/horizontal-banner-elk.jpg",
       // link: "/home",
@@ -48,8 +34,6 @@ const LandingPage: React.FC = () => {
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1",
       link: "/home",
-=======
->>>>>>> 2a87f02db3fc9ea71d805f767d95489b253a1979
     },
   ];
 
@@ -65,16 +49,8 @@ const LandingPage: React.FC = () => {
   const dispatch = useDispatch();
   const allRooms = useSelector((state: State) => state.allRooms);
 
-<<<<<<< HEAD
-  const onClickSearch = (filters: any) => {
-    // dispatch(getFilteredHotels(filters));
-
-    dispatch(getFilteredRooms(filters));
-
-=======
   const onClick = (filters: any) => {
-    dispatch(getFilteredRooms(filters)); 
->>>>>>> 2a87f02db3fc9ea71d805f767d95489b253a1979
+    dispatch(getFilteredRooms(filters));
     navigate("/home");
   };
 
@@ -90,14 +66,10 @@ const LandingPage: React.FC = () => {
       </div>
 
       <div className="carousel-container">
-      <Slider {...carouselSettings}>
+        <Slider {...carouselSettings}>
           {carouselImages.map((image, index) => (
             <div key={index}>
-              <a
-                href={image.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={image.link} target="_blank" rel="noopener noreferrer">
                 <img
                   className="imagenCarrusel"
                   src={image.src}
@@ -110,20 +82,20 @@ const LandingPage: React.FC = () => {
       </div>
       <div className="imagSlay">
         <div className="archivo">
-          <a href='/rooms'>
-          <img src="../../../images/archivo.png" />
+          <a href="/rooms">
+            <img src="../../../images/archivo.png" />
           </a>
           <span>Discover hotels from all the world</span>
         </div>
         <div className="archivo">
-          <a href='/rooms'>
-          <img src="../../../images/billetera.png" />
+          <a href="/rooms">
+            <img src="../../../images/billetera.png" />
           </a>
           <span>Get the best sales</span>
         </div>
         <div className="archivo">
-          <a href='/rooms'>
-          <img src="../../../images/hotel.png" />
+          <a href="/rooms">
+            <img src="../../../images/hotel.png" />
           </a>
           <span>Compare hotels according to your needs</span>
         </div>
@@ -136,13 +108,7 @@ const LandingPage: React.FC = () => {
       <h2>Some of our best hotels...</h2>
       {/* Renderizar la lista de hoteles */}
       <div className="allCards">
-<<<<<<< HEAD
-        {/* <CardsLanding allHotels={allHotels} /> */}
-
         <CardsLanding allRooms={allRooms} />
-=======
-        <CardsLanding allRooms={allRooms} />        
->>>>>>> 2a87f02db3fc9ea71d805f767d95489b253a1979
       </div>
     </div>
   );
