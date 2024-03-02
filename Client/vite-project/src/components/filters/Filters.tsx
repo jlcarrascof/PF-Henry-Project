@@ -76,6 +76,9 @@ const Filters: React.FC = () => {
 
   return (
     <div className="filtros">
+      <div>
+        <h1>Filtra tu busqueda</h1>
+      </div>
       <input
         type="text"
         name="minPrice"
@@ -126,18 +129,18 @@ const Filters: React.FC = () => {
         placeholder="Services"
       /> */}
 
-      <div>
         <h2>Services</h2>
-        <input onChange={handleFilterChange} type="checkbox" id="srvwifi" name="SrvWifi" checked={filters.SrvWifi} />
+      <div className="services-grid">
         <label htmlFor="srvwifi">Wifi</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvbar" name="SrvBar" checked={filters.SrvBar} />
+        <input onChange={handleFilterChange} type="checkbox" id="srvwifi" name="SrvWifi" checked={filters.SrvWifi} />
         <label for="srvbar">Bar</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />
+        <input onChange={handleFilterChange} type="checkbox" id="srvbar" name="SrvBar" checked={filters.SrvBar} />
         <label for="srvspa">Spa</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvroomservice" name="SrvRoomService" checked={filters.SrvRoomService} />
+        <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />
         <label for="srvroomservice">Room Service</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvfinediningrestaurant" name="SrvFineDiningRestaurant" checked={filters.SrvFineDiningRestaurant} />
+        <input onChange={handleFilterChange} type="checkbox" id="srvroomservice" name="SrvRoomService" checked={filters.SrvRoomService} />
         <label for="srvfinediningrestaurant">Fine dining restaurant</label>
+        <input onChange={handleFilterChange} type="checkbox" id="srvfinediningrestaurant" name="SrvFineDiningRestaurant" checked={filters.SrvFineDiningRestaurant} />
         
         
       </div>
