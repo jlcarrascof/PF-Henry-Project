@@ -48,9 +48,9 @@ const Login: React.FC = () => {
     // Si hay un usuario y el valor ha cambiado
     if (user) {
       // Realizar una solicitud al servidor express
-      axios.post('http://localhost:3002/users/authenticate', { user })
+      axios.post('http://localhost:3002/users/authenticate', user)
         .then(response => {
-          console.log('Información del usuario enviada al backend:', response.data);
+          console.log('Información del usuario enviada al backend:', response);
           // Manejar la respuesta del backend si es necesario
         })
         .catch(error => {

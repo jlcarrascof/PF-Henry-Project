@@ -20,9 +20,10 @@ usersRouter.delete('/:id', deleteUserByID); // --> '/users/?id'
 
 // Nueva ruta para recibir la información de Firebase
 usersRouter.post('/authenticate', (req, res) => { // este endpoint es para prueba inicial
-  const { email, uid } = req.body;
+  const { displayName, email, uid } = req.body;
   // Info de autenticación de Firebase
   console.log('Received authentication information from Firebase:');
+  console.log('username:', displayName);
   console.log('Email:', email);
   console.log('UID:', uid);
   // acciones adicionales aquí: 

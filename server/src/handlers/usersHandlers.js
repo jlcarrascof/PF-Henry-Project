@@ -7,9 +7,9 @@ const db = require("../db");
 const postUser = async (req, res) => {
     try {
       let db = getDb()
-      const { username, email, image, role, permissions, firstName, lastName, dateOfBirth, phone } = req.body;
+      const { username, uid, email, image, role, permissions, firstName, lastName, dateOfBirth, phone } = req.body;
       
-      const existingUser = await db.collection("users").findOne({ $or: [{ username }, { email }] });
+      const existingUser = await db.collection("users").findOne({ $or: [{ username }, { email }, { uid }] });
       
       if(existingUser){
          res.status(400).send({error: "Usuario repetido"});
@@ -17,6 +17,7 @@ const postUser = async (req, res) => {
         }      
         const newUser = new User({
           username,
+          uid,
           email,
           image,
           role,
