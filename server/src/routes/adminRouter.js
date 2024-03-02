@@ -5,7 +5,7 @@ const adminRouter = Router()
 
 adminRouter.get("/rooms/", getDisabledRooms)
 
-adminRouter.patch("/:id", disableRoom)
+adminRouter.patch("/rooms/:id", disableRoom)
 
 
 

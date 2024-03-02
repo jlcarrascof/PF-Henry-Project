@@ -1,14 +1,21 @@
 import { State } from "../../Redux/Reducer/reducer";
-import {useSelector} from "react-redux"
+import {useEffect} from "react"
+import {useSelector, useDispatch} from "react-redux"
 import CardsDisable from "./CardsDisable";
 import "./CardDisable.css"
+import { getDisabledRooms } from "../../Redux/Actions/actions";
 
 const DisableRooms: React.FC = () => {
-    const {allRooms} = useSelector((state: State) => state)
+    const {allAdminRooms} = useSelector((state: State) => state)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getDisabledRooms())
+    }, [])    
 
     return (
         <div >
-            <CardsDisable allRooms={allRooms}/>
+            <CardsDisable allAdminRooms={allAdminRooms}/>
         </div>
     )
 }

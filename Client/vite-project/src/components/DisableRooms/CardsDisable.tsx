@@ -12,16 +12,16 @@ interface Room {
 }
 
 interface CardsProps {
-  allRooms: Room[];
+  allAdminRooms: Room[];
 }
 
-const CardsDisable: React.FC<CardsProps> = ({ allRooms }) => {
-  console.log("En cards la lista que recibe cómo props:", allRooms);
+const CardsDisable: React.FC<CardsProps> = ({ allAdminRooms }) => {
+  console.log("En cards la lista que recibe cómo props:", allAdminRooms);
 
   return (
     <div className="Disable-Container">
       <div className="Disable-grid">
-        {allRooms.map((room) => (
+        {allAdminRooms.map((room) => (
           <CardBorrado
           key={room._id} 
           room={room}
