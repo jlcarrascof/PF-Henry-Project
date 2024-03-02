@@ -44,7 +44,16 @@ const ContenedorModal = styled.div`
 
 const Encabezado = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+`;
+
+const LoginButton = styled.button`
+  background-color: transparent;
+  border: none;
   font-size: 20px;
   cursor: pointer;
 `;
@@ -68,7 +77,7 @@ const Login: React.FC = () => {
       } else {
         dispatch(authenticateUser(null));
         setShowModal(true);
-        // swal('An error has occurred, verify your email and password or register by pressing "sing up"')
+         swal('An error has occurred, verify your email and password or register by pressing "sing up"')
       }
     });
     return () => unsubscribe();
@@ -98,7 +107,7 @@ const Login: React.FC = () => {
         const result = await signInWithEmailAndPassword(auth, email, password);
         const user = result.user;
         if (!user.emailVerified) {
-          alert("La cuenta no está verificada. Por favor, comprueba tu correo electrónico para verificar tu cuenta.");
+          swal('An error has occurred, you can try again or authenticate with the alternative method')
         }
       }
     } catch (error) {
@@ -130,7 +139,10 @@ const Login: React.FC = () => {
       {showModal && (
         <Overlay>
           <ContenedorModal>
-            <Encabezado onClick={() => setShowModal(false)}>x</Encabezado>
+            <Encabezado>
+              <LoginButton>Login</LoginButton>
+              <LoginButton onClick={() => setShowModal(false)}>x</LoginButton>
+            </Encabezado>
             <div className="userFirebase">
               <div className="padreFirebase">
                 <form onSubmit={firebaseAuthentication}>
