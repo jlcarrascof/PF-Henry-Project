@@ -105,11 +105,10 @@ const Detail: React.FC = () => {
               <button>Pay for your reservation!</button>
             </Link>
           </div>
-        </div>
-      )}
-
-      {/*NO SÉ EN QUÉ PARTE DEL DETAIL AGREGAR EL FORUMLARIO DE RESERVAS */}
-      <button onClick={handleReserveClick}>RESERVAR</button>
+{/*NO SÉ EN QUÉ PARTE DEL DETAIL AGREGAR EL FORUMLARIO DE RESERVAS */}
+      <button onClick={handleReserveClick}
+      className="reserva-button">
+        RESERVAR</button>
       {showForm && (
         <form onSubmit={handleFormSubmit}>
           <input
@@ -132,6 +131,7 @@ const Detail: React.FC = () => {
             type="text"
             placeholder="Descripción"
             value={formData.description}
+
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
             }

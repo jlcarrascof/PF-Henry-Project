@@ -171,6 +171,7 @@ import { HotelAction, RoomAction,UserAction } from '../Actions/actions-types';
 
 
 export interface State {
+    allAdminRooms: any[];
     allHotels: any[]; 
     allRooms: any[];
     allRoomsBackUp: any[]; 
@@ -187,6 +188,7 @@ export interface State {
   }
  
   const initialState: State = {
+    allAdminRooms: [],
     allRooms: [],
     allHotels: [],
     allRoomsBackUp: [],
@@ -223,15 +225,10 @@ export interface State {
                  ...state,
                  currentRoom: action.payload
             };
-        case "GET_ROOMS_BY_NAME":
-            return {
-                ...state,
-                currentRoom: action.payload
-            };
         case 'GET_DISABLED_ROOMS':
           return {
                 ...state,
-                allRooms: action.payload.rooms,
+                allAdminRooms: action.payload.rooms,
                 allRoomsBackUp: action.payload.rooms,
                 totalResults: action.payload.totalResults,
           };
@@ -239,7 +236,6 @@ export interface State {
           return {
             ...state,
             allRooms: action.payload.rooms,
-            allRoomsBackUp: action.payload.rooms
           }
         case "GET_FILTERED_ROOMS":
             return {

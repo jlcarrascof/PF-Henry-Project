@@ -80,3 +80,28 @@
   padding: 15px;
   flex-wrap: wrap;
 }
+
+.reserva-button {
+  align-self: center;
+  width:fit-content;
+  margin: 25px;
+  padding: 20px;
+  border-radius: 30px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(45deg, #2f0a2f, #4b2f6e);
+  background-color: #131126;
+  border: 2px solid #1d1a39;
+  transition: 0.3s transform ease-in-out;
+}
+
+.reserva-button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(45deg, #461d46, #694b8d);
+  color: #ffffff;
+}

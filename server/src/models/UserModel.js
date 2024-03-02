@@ -20,6 +20,7 @@ const reservationSchema = new Schema({
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
+  uid: { type: String, required: true, unique: true},
   email: { type: String, required: true, unique: true },
   image: {type: String, default: ""},
   role: { type: String, enum: ["client", "owner"], required: true },
