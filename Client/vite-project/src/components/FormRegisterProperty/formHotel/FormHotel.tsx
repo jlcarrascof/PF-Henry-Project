@@ -1,5 +1,6 @@
 // import { createHotels } from "../../../Redux/Actions/actions";
 import { useDispatch } from "react-redux";
+import { hotelValidation } from "./HotelValidation";
 import "./FormHotel.css";
 
 interface RoomSchema {
@@ -14,8 +15,18 @@ interface FormSchema {
   address: string;
   images: File[];
   contact: {
-    phone: number;
+    phone: string;
     mail: string;
+  };
+}
+interface ErrorSchema {
+  name?: string;
+  details?: string;
+  address?: string;
+  images?: File[];
+  contact?: {
+    phone?: string;
+    mail?: string;
   };
 }
 
@@ -38,17 +49,17 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     images: [],
     address: "",
     contact: {
-      phone: 0,
+      phone: "",
       mail: "",
     },
   });
-  const [error, setError] = useState<FormSchema>({
+  const [error, setError] = useState<ErrorSchema>({
     name: "",
     details: "",
     images: [],
     address: "",
     contact: {
-      phone: 0,
+      phone: "",
       mail: "",
     },
   });
@@ -58,22 +69,14 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     if (storageData !== null) {
       const parsedData = JSON.parse(storageData);
       setFormData(parsedData);
+      const formErrors = hotelValidation(formData);
+      setError(formErrors);
     }
   }, []);
 
   useEffect(() => {
     window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
   }, [formData]);
-
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-    window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
-  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -91,28 +94,46 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     }
   };
 
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    isContact: boolean = false
+  ) => {
+    const { name, value } = event.target;
+    const updatedFormData = isContact
+      ? {
+          ...formData,
+          contact: {
+            ...formData.contact,
+            [name]: value,
+          },
+        }
+      : {
+          ...formData,
+          [name]: value,
+        };
+    setFormData(updatedFormData);
+    setError(hotelValidation(updatedFormData));
+    window.localStorage.setItem(
+      "form-hoteldata",
+      JSON.stringify(updatedFormData)
+    );
+  };
   const handleContactChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      contact: {
-        ...formData.contact,
-        [event.target.name]: event.target.value,
-      },
-    });
-    window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
+    handleChange(event, true);
+  };
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    handleChange(event);
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    const { name, value } = event.target;
     event.preventDefault();
 
     try {
-      // setFormData({...formData,
-      //   [name]:value
-
-      // });
       dispatch(createHotels(formData));
       window.localStorage.removeItem("form-hoteldata");
       setStepRegister(2);
@@ -134,6 +155,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             required
           />
         </label>
+        {error.name && <p>{error.name}</p>}
         <label>
           Details:
           <textarea
@@ -143,6 +165,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             required
           />
         </label>
+        {error.details && <p>{error.details}</p>}
         <label>
           Address:
           <input
@@ -152,6 +175,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             onChange={handleInputChange}
           />
         </label>
+        {error.address && <p>{error.address}</p>}
         <div>
           <label>
             Email:
@@ -162,6 +186,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               onChange={handleContactChange}
             />
           </label>
+          {error.contact?.mail && <p>{error.contact?.mail}</p>}
           <label>
             Phone:
             <input
@@ -171,6 +196,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               onChange={handleContactChange}
             />
           </label>
+          {error.contact?.phone && <p>{error.contact?.phone}</p>}
         </div>
         <label>
           Image:
