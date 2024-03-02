@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import {useDispatch} from "react-redux"
+import { Link, useNavigate } from "react-router-dom";
 import { validation } from "./RegValidation";
 import "./Register.modules.css";
 import Cloudinary from "../cloudinary/Cloudinary";
+import { createUser } from "../../Redux/Actions/actions";
 
 interface RegisterProps {
   onSubmit: (formData: FormData) => void;
@@ -32,6 +34,8 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     phone: "",
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
@@ -46,7 +50,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validar todos los campos antes de enviar
@@ -54,16 +58,22 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length === 0) {
-      onSubmit(formData);
-      setFormData(initialFormData);
-      setErrors({});
+      try {
+        await dispatch(createUser(formData))
 
-      // Establecer isRegistered después de limpiar el formulario
-      setIsRegistered(true);
-      setTimeout(() => {
-        setIsRegistered(false);
-      }, 2000); // Espera 2 segundos antes de quitar el mensaje de registro exitoso
-    }
+        setIsRegistered(true);
+        setFormData(initialFormData);
+        setErrors({});
+        
+        // Establecer isRegistered después de limpiar el formulario
+        setTimeout(() => {
+          setIsRegistered(false);
+          navigate("/")
+        }, 2000); // Espera 2 segundos antes de quitar el mensaje de registro exitoso
+      } catch (error){
+        console.log("Error en el registro:", error)
+      }
+      }
   };
 
   return (

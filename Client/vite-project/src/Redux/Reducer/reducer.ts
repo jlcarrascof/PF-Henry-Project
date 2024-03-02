@@ -66,7 +66,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
 export default rootReducer; */
 
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
-import { HotelAction, RoomAction, AUTHENTICATE_USER, LOGOUT_USER } from '../Actions/actions-types';
+import { HotelAction, RoomAction,UserAction } from '../Actions/actions-types';
 
 
 export interface State {
@@ -181,6 +181,12 @@ export interface State {
                 ...state,
                 reservations: state.reservations.filter(reservation => reservation._id !== action.payload.reservation._id)
             };
+        case 'POST_USER':
+          return {
+              ...state,
+              user: action.payload,
+              isAuthenticated: true,
+          };
         case 'AUTHENTICATE_USER':
               return {
                 ...state,

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { User } from 'firebase/auth'
 import { ThunkAction } from 'redux-thunk';
-import {HotelAction, RESET, RoomAction} from "./actions-types";
+import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
 
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
@@ -11,6 +11,20 @@ import {HotelAction, RESET, RoomAction} from "./actions-types";
 export interface Action {
   type: string;
   payload: any;
+}
+
+export const createUser = (userData: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const response = await axios.post("http://localhost:3002/users", userData)
+      dispatch({
+        type: "POST_USER",
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export const disableRoom = (id: string) => {
