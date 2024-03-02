@@ -1,12 +1,13 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { User } from 'firebase/auth'
-import { ThunkAction } from 'redux-thunk';
-import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
 
+import { ThunkAction } from "redux-thunk";
+import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
+import { User } from "firebase/auth";
+// import { ThunkAction } from "redux-thunk";
+// import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
-
 
 export interface Action {
   type: string;
@@ -102,7 +103,7 @@ export const getRoomById = (id: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/filtered", {
+      const { data } = await axios.get("http://localhost:3002/rooms/", {
         params: filters,
       });
       dispatch({
@@ -115,91 +116,30 @@ export const getFilteredRooms = (filters: any) => {
   };
 };
 
-export const postReview = (roomId: string, reviewData: any) => {
-  return async (dispatch: Dispatch<Action>) => {
-      try {
-          const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
-          console.log("actions: payload de postReview:",res.data)
-          dispatch({
-              type: "POST_REVIEW",
-              payload: res.data, 
-          });
-      } catch (error) {
-          console.error('An error occurred while posting the review:', error);
-      }
-  };
-};
-
-
-export const resetFilters = () => ({
-  type: RESET
-})
-
-export const reserveRoom = (userId: string, formData: any) => {
-  return async (dispatch: Dispatch<Action>) => { 
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-        const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, formData)
-        dispatch({
-          type: 'RESERVE_ROOM',
-          payload: res.data
-        });
-    } catch(error) {
-      console.error('An error occurred while posting the reservation:', error);
+      const res = await axios.post("http://localhost:3002/hotels/", review);
+      dispatch({
+        type: POST_REVIEW,
+        payload: res.data,
+      });
+    } catch (error) {
+      alert("An error occured at posting your review" + error);
     }
   };
 };
+///tipo alert solo recibe 1 parametro
+
+export const resetFilters = () => ({
+  type: RESET,
+});
 
 // Nueva acción para autenticar al usuario
 export const authenticateUser = (user: User | null): Action => ({
-  type: 'AUTHENTICATE_USER',
+  type: "AUTHENTICATE_USER",
   payload: user,
-
 });
-
-
-export const createHotels = (data: any) => {
-  return async (dispatch: Dispatch<Action>): Promise<void> => {
-    try {
-      const response = await axios.post("http://localhost:3002/hotels/", data);
-      dispatch({
-        type: "POST_HOTEL",
-        payload: response,
-      });
-    } catch (error) {
-      console.error("Error al crear el hotel:", error);
-    }
-  };
-};
-
-
-
-// export const postReservation = (userId: string, reservationData: any) => {
-//   return async (dispatch: Dispatch<Action>) => {
-//       try {
-//           const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, reservationData);
-//           dispatch({
-//               type: "POST_RESERVATION",
-//               payload: res.data
-//           });
-//       } catch (error) {
-//           console.error('An error occurred while posting the reservation:', error);
-//       }
-//   };
-// };
-
-export const deleteReservation = (userId: string, reservationId: string) => {
-  return async (dispatch: Dispatch<Action>) => {
-      try {
-          const res = await axios.delete(`http://localhost:3002/users/${userId}/reservations/${reservationId}`);
-          dispatch({
-              type: "DELETE_RESERVATION",
-              payload: res.data
-          });
-      } catch (error) {
-          console.error('An error occurred while deleting the reservation:', error);
-      }
-  };
-};
 
 /* export const getHotels = () => {
 
@@ -282,4 +222,3 @@ export const resetFilters = () => ({
 });
 
 };*/
-

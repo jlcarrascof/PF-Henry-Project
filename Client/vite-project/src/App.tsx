@@ -15,7 +15,11 @@ import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 import CartReservation from "./components/cart/CartReservation";
+
+import Cloudinary from "./components/cloudinary/Cloudinary";
+
 import DisableRooms from "./components/DisableRooms/DisableRooms";
+
 
 function App() {
   const location = useLocation();
@@ -32,13 +36,17 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/rooms" element={<Home />} />
-        <Route path="/cart-reservation" element={<CartReservation />} />
+        {/* <Route path="/cart-reservation" element={<CartReservation />} /> */}
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
+
+        <Route path="/cloudinary" element={<Cloudinary/>} />
+
         <Route path="/admin" element={<DisableRooms/>}/>
+
       </Routes>
       <Footer />
-      
+     
     </>
   );
 }
