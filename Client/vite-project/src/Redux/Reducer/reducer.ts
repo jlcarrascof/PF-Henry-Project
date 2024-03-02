@@ -122,11 +122,6 @@ export interface State {
                  ...state,
                  currentRoom: action.payload
             };
-        case "GET_ROOMS_BY_NAME":
-            return {
-                ...state,
-                currentRoom: action.payload
-            };
         case 'GET_DISABLED_ROOMS':
           return {
                 ...state,
