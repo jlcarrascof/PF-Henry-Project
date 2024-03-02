@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch} from "react-redux"
 import { disableRoom } from "../../Redux/Actions/actions";
-import "./CardBorrado.css";
+import "./CardDisable.css";
 
 interface Room {
   _id: string;
@@ -16,7 +16,7 @@ interface CardProps {
   room: Room;
 }
 
-const CardBorrado: React.FC<CardProps> = ({ room }) => {
+const CardDisable: React.FC<CardProps> = ({ room }) => {
 
   const dispatch = useDispatch();
   const { name, typeOfRoom, description, price, images } = room;
@@ -28,11 +28,11 @@ const CardBorrado: React.FC<CardProps> = ({ room }) => {
 }
 
   return (
-    <div className="borrado-grid">
-      <div className="borrado-container">
-        <img className="card-image" src={images[0]} alt={`Photo of ${name}`} />
-        <div className="card-text-container">
-          <h3 className="card-title">{name}</h3>
+    <div className="Disable-grid">
+      <div className="DisableCard">
+        <img className="disableCard-img" src={images[0]} alt={`Photo of ${name}`} />
+        <div className="disableCard-text-container">
+          <h3 className="disableCard-title">{name}</h3>
           <p className="card-room-detail">{`${typeOfRoom} - ${description}`}</p>
         </div>
         <p className="card-price">${price}</p>
@@ -44,4 +44,4 @@ const CardBorrado: React.FC<CardProps> = ({ room }) => {
   );
 };
 
-export default CardBorrado;
+export default CardDisable;

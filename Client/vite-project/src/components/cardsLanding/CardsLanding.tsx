@@ -19,7 +19,7 @@ const CardsLanding: React.FC<CardsProps> = ({ allRooms }) => {
   console.log("En cards la lista que recibe cómo props:", allRooms);
 
   return (
-    <div className="cardsLandContainer">
+    <div className="Disable-container">
       {allRooms.map((room) => (
         <CardLanding
           key={room._id} 
