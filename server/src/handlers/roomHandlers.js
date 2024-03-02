@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
-const { getRoomId, createRoom, updateRoom, deleteRoomId } = require("../controllers/roomController");
+const { getRoomId, createRoom, updateRoom} = require("../controllers/roomController");
 const { Room, reviewSchema } = require("../models/RoomsModel");
   
 const getRoomById = async (req, res) => {
@@ -152,7 +152,7 @@ const getRoomById = async (req, res) => {
         });
       }
   
-      const query = filters.length > 0 ? { $and: filters } : {};
+      const query = filters.length > 0 ? { $and: filters, availability: true } : {};
   
       const rooms = await db
         .collection("rooms")
@@ -217,10 +217,10 @@ const getFav = async (req, res) => {
       { $match: { isFav: true } },
     {
       $lookup: {
-        from: "hotels", // Nombre de la colección de hoteles
-        localField: "hotel_id", // Campo local en la colección de habitaciones
-        foreignField: "_id", // Campo correspondiente en la colección de hoteles
-        as: "hotelInfo" // Nombre del nuevo campo que contendrá la información del hotel
+        from: "hotels", 
+        localField: "hotel_id", 
+        foreignField: "_id",
+        as: "hotelInfo" 
       }
     },
     {
@@ -301,7 +301,6 @@ const getFav = async (req, res) => {
     }
   };
 
-
   module.exports = {
     getRoomById,
     postRoom,
@@ -312,7 +311,6 @@ const getFav = async (req, res) => {
     getFav,
     postReview,
     getAllRooms, 
-
   };
 
 

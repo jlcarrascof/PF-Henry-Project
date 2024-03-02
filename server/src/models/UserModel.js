@@ -21,14 +21,15 @@ const reservationSchema = new Schema({
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
+  image: {type: String, default: ""},
   role: { type: String, enum: ["client", "owner"], required: true },
   permissions: { type: String, enum: ["read/write", "create/post/delete"], required: true },
-  contactDetails: { phone: Number },
   profile: {
     firstName: String,
     lastName: String,
-    birthdate: Date,
+    dateOfBirth: Date,
   },
+  phone: { type: Number },
   reservation: [reservationSchema],
   favorites: [{ type: Schema.Types.ObjectId, ref: "Room", required: true }]
 });
