@@ -1,10 +1,11 @@
-import React, { useEffect, useState, version } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getRoomById } from "../../Redux/Actions/actions";
 import ReviewForm from "../reviewForm/reviewForm";
 import { reserveRoom } from '../../Redux/Actions/actions';
+import { validateReservationForm } from './validationReserva';
 import "./detail.css";
 
 const Detail: React.FC = () => {
@@ -25,22 +26,32 @@ const Detail: React.FC = () => {
     description: ''
   });
 
+  const [formErrors, setFormErrors] = useState<any>({});
+
 
   const handleReserveClick = () => {
     setShowForm(true);
   };
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
-    if (currentRoom) {
-      dispatch(reserveRoom(userId, formData)); // ESTO ES LO QUE ENVIA AL BACKEND Y NO ME ESTÁ FUNCIONANDO
-      setShowForm(false);
-      setFormData({
-        startDate: '',
-        endDate: '',
-        description: ''
-      });
+     e.preventDefault();
+
+     const errors = validateReservationForm(formData);
+
+     if (Object.keys(errors).length === 0) {
+      if (currentRoom) {
+        dispatch(reserveRoom(userId, formData));
+        setShowForm(false);
+        setFormData({
+          startDate: '',
+          endDate: '',
+          description: ''
+        });
+      }
+    } else {
+      setFormErrors(errors);
     }
+  
   };
 
 
@@ -113,31 +124,37 @@ const Detail: React.FC = () => {
       <button onClick={handleReserveClick}
       className="reserva-button">
         RESERVAR</button>
-      {showForm && (
-        <form onSubmit={handleFormSubmit}>
-          <input
-            type="date" 
-            placeholder="Fecha de inicio"
-            value={formData.startDate}
-            onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-            />
-          <input
-            type="date" 
-            placeholder="Fecha de fin"
-            value={formData.endDate}
-            onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-            />
-          <input
-            type="text"
-            placeholder="Descripción"
-            value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            />
-          <button type="submit"
-          className="reserva-button"
-          >Reservar Habitación</button>
-        </form>
-      )}
+        {showForm && (
+            <form onSubmit={handleFormSubmit}>
+              <input
+                type="date"
+                placeholder="Fecha de inicio"
+                value={formData.startDate}
+                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+              />
+              {formErrors.startDate && <div className="error-message">{formErrors.startDate}</div>}
+
+              <input
+                type="date"
+                placeholder="Fecha de fin"
+                value={formData.endDate}
+                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+              />
+              {formErrors.endDate && <div className="error-message">{formErrors.endDate}</div>}
+
+              <input
+                type="text"
+                placeholder="Descripción"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              />
+              {formErrors.description && <div className="error-message">{formErrors.description}</div>}
+
+              <button type="submit" className="reserva-button">
+                Reservar Habitación
+              </button>
+            </form>
+          )}
         </div>
       )}
 
