@@ -109,11 +109,10 @@ const Detail: React.FC = () => {
               <button>Pay for your reservation!</button>
             </Link>
           </div>
-        </div>
-      )}
-
-      {/*NO SÉ EN QUÉ PARTE DEL DETAIL AGREGAR EL FORUMLARIO DE RESERVAS */}
-      <button onClick={handleReserveClick}>RESERVAR</button>
+{/*NO SÉ EN QUÉ PARTE DEL DETAIL AGREGAR EL FORUMLARIO DE RESERVAS */}
+      <button onClick={handleReserveClick}
+      className="reserva-button">
+        RESERVAR</button>
       {showForm && (
         <form onSubmit={handleFormSubmit}>
           <input
@@ -121,21 +120,25 @@ const Detail: React.FC = () => {
             placeholder="Fecha de inicio"
             value={formData.startDate}
             onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-          />
+            />
           <input
             type="date" 
             placeholder="Fecha de fin"
             value={formData.endDate}
             onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-          />
+            />
           <input
             type="text"
             placeholder="Descripción"
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          />
-          <button type="submit">Reservar Habitación</button>
+            />
+          <button type="submit"
+          className="reserva-button"
+          >Reservar Habitación</button>
         </form>
+      )}
+        </div>
       )}
 
     </div>

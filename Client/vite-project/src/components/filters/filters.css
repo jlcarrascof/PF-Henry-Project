@@ -6,7 +6,7 @@
   background-color: #e0e0e0;
   padding: 50px;
   border-radius: 30px;
-  min-height: 820px;
+  min-height: 840px;
   height: fit-content;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
@@ -19,6 +19,7 @@
 .filtros input {
   padding: 30px;
   border-radius: 20px;
+  font-size: 18px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
@@ -44,7 +45,7 @@
 .services-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  font-size: 1rem;
+  font-size: 20px;
   font-weight: 600;
   color: #312929;
 }
