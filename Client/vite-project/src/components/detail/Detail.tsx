@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { getRoomById } from "../../Redux/Actions/actions";
 import ReviewForm from "../reviewForm/reviewForm";
-import { reserveRoom } from '../../Redux/Actions/actions';
+// import { reserveRoom } from '../../Redux/Actions/actions';
 import "./detail.css";
 
 const Detail: React.FC = () => {
@@ -20,11 +20,10 @@ const Detail: React.FC = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    startDate: '',
-    endDate: '',
-    description: ''
+    startDate: "",
+    endDate: "",
+    description: "",
   });
-
 
   const handleReserveClick = () => {
     setShowForm(true);
@@ -36,15 +35,12 @@ const Detail: React.FC = () => {
       dispatch(reserveRoom(userId, formData)); // ESTO ES LO QUE ENVIA AL BACKEND Y NO ME ESTÁ FUNCIONANDO
       setShowForm(false);
       setFormData({
-        startDate: '',
-        endDate: '',
-        description: ''
+        startDate: "",
+        endDate: "",
+        description: "",
       });
     }
   };
-
-
-
 
   return (
     <div className="detailContainer">
@@ -117,36 +113,34 @@ const Detail: React.FC = () => {
       {showForm && (
         <form onSubmit={handleFormSubmit}>
           <input
-            type="date" 
+            type="date"
             placeholder="Fecha de inicio"
             value={formData.startDate}
-            onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, startDate: e.target.value })
+            }
           />
           <input
-            type="date" 
+            type="date"
             placeholder="Fecha de fin"
             value={formData.endDate}
-            onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, endDate: e.target.value })
+            }
           />
           <input
             type="text"
             placeholder="Descripción"
             value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
           />
           <button type="submit">Reservar Habitación</button>
         </form>
       )}
-
     </div>
   );
 };
 
 export default Detail;
-
-
-
-
-  
-
-          

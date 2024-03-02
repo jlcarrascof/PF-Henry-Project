@@ -36,7 +36,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/rooms" element={<Home />} />
-        <Route path="/cart-reservation" element={<CartReservation />} />
+        {/* <Route path="/cart-reservation" element={<CartReservation />} /> */}
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
 
@@ -46,7 +46,7 @@ function App() {
 
       </Routes>
       <Footer />
-      
+     
     </>
   );
 }

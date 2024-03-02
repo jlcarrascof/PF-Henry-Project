@@ -1,37 +1,68 @@
-import { createHotels } from "../../../Redux/Actions/actions";
-import { useDispatch, Dispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import './FormHotel.css';
+
+// import { createHotels } from "../../../Redux/Actions/actions";
+        import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { hotelValidation } from "./HotelValidation";
 import Cloudinary from "../../cloudinary/Cloudinary.tsx";
+        
+import "./FormHotel.css";
 
-
-
+  interface RoomSchema {
+  name: string;
+  description?: string;
+  price?: number;
+}
 
 interface FormSchema {
   name: string;
   details: string;
   address: string;
-  images: string[]; 
+  images: File[];
   contact: {
-    phone: number;
+    phone: string;
     mail: string;
   };
 }
+interface ErrorSchema {
+  name?: string;
+  details?: string;
+  address?: string;
+  images?: File[];
+  contact?: {
+    phone?: string;
+    mail?: string;
+  };
+}
+
+
+
 
 interface FormHotelProps {
   setStepRegister: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
-  const dispatch = useDispatch<Dispatch>(); // Ajusta 'TuTipoDeAccion' según tu implementación
+// const FormHotel: React.FC<FormProps> = (/*{ onSubmit }*/) => {
 
+const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
+  const dispatch = useDispatch();
+ 
   const [formData, setFormData] = useState<FormSchema>({
     name: "",
     details: "",
     images: [], // Cambiado a una matriz vacía
     address: '',
     contact: {
-      phone: 0,
+      phone: "",
+      mail: "",
+    },
+  });
+  const [error, setError] = useState<ErrorSchema>({
+    name: "",
+    details: "",
+    images: [],
+    address: "",
+    contact: {
+      phone: "",
       mail: "",
     },
   });
@@ -41,6 +72,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     if (storageData !== null) {
       const parsedData = JSON.parse(storageData);
       setFormData(parsedData);
+      const formErrors = hotelValidation(formData);
+      setError(formErrors);
     }
   }, []);
 
@@ -48,14 +81,56 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
   }, [formData]);
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const selectedImage = event.target.files[0];
+      if (selectedImage.type.startsWith("image/")) {
+        // Verificar si el archivo es de tipo imagen
+        setFormData({
+          ...formData,
+          images: [...formData.images, selectedImage],
+        });
+        window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
+      } else {
+        alert("Please select an image file."); // Mostrar un mensaje de error si no se selecciona un archivo de imagen
+      }
+    }
+  };
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    isContact: boolean = false
+  ) => {
+    const { name, value } = event.target;
+    const updatedFormData = isContact
+      ? {
+          ...formData,
+          contact: {
+            ...formData.contact,
+            [name]: value,
+          },
+        }
+      : {
+          ...formData,
+          [name]: value,
+        };
+    setFormData(updatedFormData);
+    setError(hotelValidation(updatedFormData));
+    window.localStorage.setItem(
+      "form-hoteldata",
+      JSON.stringify(updatedFormData)
+    );
+  };
+  const handleContactChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    handleChange(event, true);
+  };
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-    window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
+    handleChange(event);
   };
 
   const handleImageChange = (imageUrl: string) => {
@@ -74,7 +149,11 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       window.localStorage.removeItem("form-hoteldata");
       setStepRegister(2);
     } catch (error) {
+
+      console.error("Error in create Hotel: ", error);
+
       console.error('Error in create Hotel: ', error);
+
     }
   };
 
@@ -91,6 +170,10 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             required
           />
         </label>
+
+        {error.name && <p>{error.name}</p>}
+
+
         <label>
           Details:
           <textarea
@@ -100,6 +183,10 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             required
           />
         </label>
+
+        {error.details && <p>{error.details}</p>}
+
+
         <label>
           Address:
           <input
@@ -109,21 +196,72 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
             onChange={handleInputChange}
           />
         </label>
+
+        {error.address && <p>{error.address}</p>}
+
         <div>
           <label>
             Email:
             <input
               type="text"
               name="mail"
+              value={formData.contact.mail || ""}
+              onChange={handleContactChange}
+            />
+          </label>
+          {error.contact?.mail && <p>{error.contact?.mail}</p>}
+
               value={formData.contact.mail}
               onChange={handleInputChange}
             />
           </label>
+
           <label>
             Phone:
             <input
               type="text"
               name="phone"
+              value={formData.contact.phone || ""}
+              onChange={handleContactChange}
+            />
+          </label>
+          {error.contact?.phone && <p>{error.contact?.phone}</p>}
+        </div>
+        <label>
+          Image:
+          <input
+            type="file" // Cambiado a "file"
+            accept="image/*" // Acepta solo archivos de imagen
+            onChange={handleImageChange}
+          />
+          {/* Mostrar miniaturas de las imágenes cargadas */}
+          {formData.images.map((image, index) => (
+            <div key={index}>
+              <p>{image.name}</p> {/* Mostrar el nombre del archivo */}
+              <img
+                src={URL.createObjectURL(image)}
+                alt="thumbnail"
+                style={{ maxWidth: "100px" }}
+              />{" "}
+              {/* Mostrar miniatura */}
+            </div>
+          ))}
+        </label>
+
+        {/* <label>
+        Services:
+        <select multiple onChange={handleServicesChange}>
+          {services.map((service) => (
+            <option key={service} value={service}>
+              {service}
+            </option>
+          ))}
+          </select>
+        </label> */}
+        <button type="submit" className="formLogin button">
+          Submmit Hotel
+        </button>
+
               value={formData.contact.phone }
               onChange={handleInputChange}
             />
@@ -134,6 +272,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
         <Cloudinary onImageChange={handleImageChange} />
 
         <button type="submit" className="formLogin button">Submit Hotel</button>
+
       </form>
     </div>
   );
