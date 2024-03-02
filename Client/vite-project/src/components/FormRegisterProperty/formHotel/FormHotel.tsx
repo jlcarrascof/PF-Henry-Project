@@ -42,6 +42,16 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       mail: "",
     },
   });
+  const [error, setError] = useState<FormSchema>({
+    name: "",
+    details: "",
+    images: [],
+    address: "",
+    contact: {
+      phone: 0,
+      mail: "",
+    },
+  });
 
   useEffect(() => {
     const storageData = window.localStorage.getItem("form-hoteldata");

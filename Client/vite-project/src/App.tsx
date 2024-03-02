@@ -33,7 +33,7 @@ function App() {
         <Route path="/rooms" element={<Home />} />
         {/* <Route path="/cart-reservation" element={<CartReservation />} /> */}
         <Route path="/reservation" element={<Notification />} />
-        {/* <Route path="/register-hotel" element={<FormProperty/>}/> */}
+        <Route path="/register-hotel" element={<FormProperty />} />
       </Routes>
       {location.pathname !== "/login" ? <Footer /> : ""}
     </>
