@@ -1,89 +1,132 @@
-.form-rooms-container {
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
-    margin-top: 20vh;
-    margin-bottom: 20vh;
-
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    height: min-content;
-  }
-  
-  .form-rooms-container form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-rooms-container label {
-    margin-bottom: 10px;
-  }
-  
-  .form-rooms-container input[type="text"],
-  .form-rooms-container textarea,
-  .form-rooms-container input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 5px;
-    box-sizing: border-box; /* Para incluir el padding en el ancho */
-  }
-  
-  .form-rooms-container input[type="file"] {
-    margin-bottom: 15px;
-  }
-  
-  .form-rooms-container label img {
-    margin-top: 5px;
-    display: block;
-  }
-  
-  .form-rooms-container button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .form-rooms-container button:hover {
-    background-color: #45a049;
-  }
-  
-  .form-rooms-container button {
-    width: 100%;
-    padding: 17px;
-    margin: 10px;
-    color: #ffffff;
-    background-color: #230623;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+.allFormRoom {
+  background-color: lavender;
+  padding: 100px;
+  padding-top: 150px;
 }
 
-  .form-rooms-container button:hover {
-    background-color: #2B124C;
-  }  
+.form-rooms-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  /* background-color: #f9f9f9; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .btn-delete-service{
-    width: 100%;
-    padding: 3px;
-  }
+.form-rooms-container form {
+  display: flex;
+  flex-direction: column;
+}
 
-  .btn-register-container{
-    width: 10px;
-    height: 10px;
-    }
+.form-rooms-container label {
+  margin-bottom: 10px;
+}
 
-    .register-li{
-      display: flex;
-      align-items: center;
-    }
+.form-rooms-container input[type="text"],
+.form-rooms-container textarea,
+.form-rooms-container input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box; /* Para incluir el padding en el ancho */
+}
+
+.form-rooms-container input[type="file"] {
+  margin-bottom: 15px;
+}
+
+.form-rooms-container label img {
+  margin-top: 5px;
+  display: block;
+}
+
+.form-rooms-container button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-rooms-container button:hover {
+  background-color: #45a049;
+}
+
+.form-rooms-container button {
+  /* width: 100%;
+  padding: 17px;
+  margin: 10px;
+  color: #ffffff;
+  background-color: #230623;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px; */
+  background-color: #230623;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-rooms-container button:hover {
+  background-color: #2b124c;
+}
+
+.servicesSelect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 10px;
+  width: 300px;
+  background-color: #fff;
+}
+
+.selectedServices {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-register-container .btn-delete-service {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 10px;
+  height: 10px;
+  background-color: lavender;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.btn-register-container .btn-delete-service:hover {
+  color: #fff;
+}
+
+.register-li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  gap: 10px;
+  flex-direction: row;
+  margin: 10px;
+  flex-wrap: wrap;
+}

@@ -79,7 +79,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   return (
     <div className="allRegister">
       <div className="register-container">
-        <h1>Register Form</h1>
+        <h1>Register now!</h1>
         {isRegistered && <p>Registro exitoso. Redirigiendo...</p>}
         <form onSubmit={handleSubmit}>
           <label>Upload your user image:</label>
