@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
+import { Link } from "react-router-dom";
+import axios from "axios";
 import {
   getAuth,
   onAuthStateChanged,
@@ -10,10 +11,10 @@ import {
   GoogleAuthProvider,
   User,
   signOut,
-  UserCredential
-} from 'firebase/auth';
-import firebaseApp from './firebaseConfig';
-import { authenticateUser } from '../../Redux/Actions/actions';
+  UserCredential,
+} from "firebase/auth";
+import firebaseApp from "./firebaseConfig";
+import { authenticateUser } from "../../Redux/Actions/actions";
 import "./Login.css";
 import Register from "../register/Register";
 
@@ -48,19 +49,25 @@ const Login: React.FC = () => {
     // Si hay un usuario y el valor ha cambiado
     if (user) {
       // Realizar una solicitud al servidor express
-      axios.post('http://localhost:3002/users/authenticate', user)
-        .then(response => {
-          console.log('Información del usuario enviada al backend:', response);
+      axios
+        .post("http://localhost:3002/users/authenticate", user)
+        .then((response) => {
+          console.log("Información del usuario enviada al backend:", response);
           // Manejar la respuesta del backend si es necesario
         })
-        .catch(error => {
-          console.error('Error al enviar información del usuario al backend:', error);
+        .catch((error) => {
+          console.error(
+            "Error al enviar información del usuario al backend:",
+            error
+          );
           // Manejar el error si es necesario
         });
     }
   }, [user]);
 
-  const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
+  const firebaseAuthentication = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
@@ -72,7 +79,7 @@ const Login: React.FC = () => {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (error) {
-      console.error('Error during Firebase authentication:', error);
+      console.error("Error during Firebase authentication:", error);
     }
   };
 
@@ -82,7 +89,7 @@ const Login: React.FC = () => {
       const user = result.user;
       console.log(user);
     } catch (error) {
-      console.error('Error during Google sign-in:', error);
+      console.error("Error during Google sign-in:", error);
     }
   };
 
@@ -90,7 +97,7 @@ const Login: React.FC = () => {
     try {
       await signOut(auth);
     } catch (error) {
-      console.error('Error during sign-out:', error);
+      console.error("Error during sign-out:", error);
     }
   };
 
@@ -99,13 +106,27 @@ const Login: React.FC = () => {
       <div className="userFirebase">
         <div className="padreFirebase">
           <form onSubmit={firebaseAuthentication}>
-            <input type="text" placeholder="Enter your email" className="cajaTexto" id="email" />
-            <input type="password" placeholder="Enter your password" className="cajaTexto" id="password" />
-            <button>{registration ? "Sign up" : "Log in"}</button>
+            <input
+              type="text"
+              placeholder="Enter your email"
+              className="cajaTexto"
+              id="email"
+            />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              className="cajaTexto"
+              id="password"
+            />
+            <button>{registration ? "" : "Log in"}</button>
           </form>
           <div className="estilos-google">
-            <p> {registration ? "Already have an account?" : "Don't have an account?"}
-              <button onClick={() => setRegistration(!registration)}>{registration ? "Log in" : "Sign up"}</button>
+            <p>
+              {" "}
+              {registration ? "Already have an account?" : ""}
+              <button onClick={() => setRegistration(!registration)}>
+                {registration ? "Log in" : ""}
+              </button>
             </p>
           </div>
         </div>
@@ -115,33 +136,61 @@ const Login: React.FC = () => {
         <div className="button-google">
           <div className="card card-body">
             {user ? (
-              <p>If you want to disconnect, click on <strong>Log out</strong></p>
+              <p>
+                If you want to disconnect, click on <strong>Log out</strong>
+              </p>
             ) : (
-              <p>You can also log in with your <strong>Google account</strong></p>
+              <p>
+                You can also log in with your <strong>Google account</strong>
+              </p>
             )}
             {!user ? (
-              <button type="button" onClick={handleGoogleLogin}><img className="estilo-profile" src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png" alt="Google logo" />Continue with Google</button>
+              <button type="button" onClick={handleGoogleLogin}>
+                <img
+                  className="estilo-profile"
+                  src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
+                  alt="Google logo"
+                />
+                Continue with Google
+              </button>
             ) : (
               <div className="">
                 {user.providerId === "password" && (
-                  <button type="button" onClick={handleSignOut}>Log out</button>
+                  <button type="button" onClick={handleSignOut}>
+                    Log out
+                  </button>
                 )}
                 {user.providerId === "google.com" && (
-                  <button type="button" onClick={handleSignOut}><img className="estilo-profile" src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png" alt="Google logo" />Log out</button>
+                  <button type="button" onClick={handleSignOut}>
+                    <img
+                      className="estilo-profile"
+                      src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
+                      alt="Google logo"
+                    />
+                    Log out
+                  </button>
                 )}
               </div>
             )}
             {user && user.providerId === "password" && (
-              <p>You have successfully connected with the email: <b>{user.email}</b></p>
+              <p>
+                You have successfully connected with the email:{" "}
+                <b>{user.email}</b>
+              </p>
             )}
             {user && user.providerId === "google.com" && (
-              <p>User connected: <b>{user.displayName}</b></p>
+              <p>
+                User connected: <b>{user.displayName}</b>
+              </p>
             )}
           </div>
         </div>
+        <Link to="/register">
+          <p>Don't have an account? Sign up!</p>
+        </Link>
       </div>
 
-      {user && <Register />}
+      {/* {user && <Register />} */}
     </>
   );
 };

@@ -1,4 +1,8 @@
 /* Register.modules.css */
+.allRegister {
+  background-color: lavender;
+  padding: 100px;
+}
 
 .register-container {
   max-width: 600px;
@@ -6,6 +10,7 @@
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  /* background-color: #f9f9f9; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -24,7 +29,7 @@ input {
 }
 
 .register-button {
-  background-color: #9845d8;
+  background-color: #230623;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -34,7 +39,7 @@ input {
 }
 
 .register-button:hover {
-  background-color: #7b2eab;
+  background-color: #2b124c;
 }
 
 .rooms-link {
@@ -46,5 +51,3 @@ input {
   font-weight: bold;
   margin-left: 5px;
 }
-
- 
