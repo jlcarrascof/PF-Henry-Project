@@ -26,6 +26,9 @@ const NavBar: React.FC = () => {
           <Link to="/register">
             <p>Register</p>
           </Link>
+          <Link to="/register-hotel">
+            <p>Post a hotel</p>
+          </Link>
           <Link to="/cart-reservation">
             <p>Cart Reservation</p>
           </Link>
