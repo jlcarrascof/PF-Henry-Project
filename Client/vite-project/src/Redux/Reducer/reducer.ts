@@ -193,7 +193,7 @@ export interface State {
               return {
                 ...state,
                 isAuthenticated: true,
-                user: action.payload,
+                user: action.payload.data,
               };
         case 'LOGOUT_USER':
               return {

@@ -32,7 +32,6 @@ const Login: React.FC = () => {
         const userData = {
           uid: userFirebase.uid,
           email: userFirebase.email,
-          password: userFirebase.password,
           providerId: userFirebase.providerData[0]?.providerId,
           displayName: userFirebase.displayName,
         };
@@ -44,43 +43,37 @@ const Login: React.FC = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
-
   useEffect(() => {
-    // Si hay un usuario y el valor ha cambiado
     if (user) {
-      // Realizar una solicitud al servidor express
       axios
         .post("http://localhost:3002/users/authenticate", user)
         .then((response) => {
           console.log("Información del usuario enviada al backend:", response);
-          // Manejar la respuesta del backend si es necesario
         })
         .catch((error) => {
-          console.error(
-            "Error al enviar información del usuario al backend:",
-            error
-          );
-          // Manejar el error si es necesario
+          console.error("Error al enviar información del usuario al backend:", error);
         });
     }
   }, [user]);
 
-  const firebaseAuthentication = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
 
     try {
+      if (!email || !password) {
+        console.error("Correo electrónico y contraseña son obligatorios.");
+        return;
+      }
+
       if (registration) {
         await createUserWithEmailAndPassword(auth, email, password);
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (error) {
-      console.error("Error during Firebase authentication:", error);
+      console.error("Error durante la autenticación de Firebase:", error);
     }
   };
 
@@ -90,7 +83,7 @@ const Login: React.FC = () => {
       const user = result.user;
       console.log(user);
     } catch (error) {
-      console.error("Error during Google sign-in:", error);
+      console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
 
@@ -98,7 +91,7 @@ const Login: React.FC = () => {
     try {
       await signOut(auth);
     } catch (error) {
-      console.error("Error during sign-out:", error);
+      console.error("Error durante la desconexión:", error);
     }
   };
 
@@ -108,14 +101,14 @@ const Login: React.FC = () => {
         <div className="padreFirebase">
           <h1>Welcome to Rentify!</h1>
           <form onSubmit={firebaseAuthentication}>
-            <label> Email: </label>
+            <label>Email:</label>
             <input
               type="text"
               placeholder="myexample@gmail.com"
               className="cajaTexto"
               id="email"
             />
-            <label> Password: </label>
+            <label>Password:</label>
             <input
               type="password"
               placeholder="Enter your password"
@@ -128,7 +121,6 @@ const Login: React.FC = () => {
           </form>
           <div className="estilos-google">
             {/* <p>
-              {" "}
               {registration ? "Already have an account?" : ""}
               <button onClick={() => setRegistration(!registration)}>
                 {registration ? "Log in" : ""}
@@ -137,13 +129,9 @@ const Login: React.FC = () => {
           </div>
           <div className="card-body">
             {user ? (
-              <p>
-                If you want to disconnect, click on <strong>Log out</strong>
-              </p>
+              <p>If you want to disconnect, click on <strong>Log out</strong></p>
             ) : (
-              <p>
-                You can also log in with your <strong>Google account</strong>
-              </p>
+              <p>You can also log in with your <strong>Google account</strong></p>
             )}
             {!user ? (
               <button
@@ -182,15 +170,10 @@ const Login: React.FC = () => {
               </div>
             )}
             {user && user.providerId === "password" && (
-              <p>
-                You have successfully connected with the email:{" "}
-                <b>{user.email}</b>
-              </p>
+              <p>You have successfully connected with the email: <b>{user.email}</b></p>
             )}
             {user && user.providerId === "google.com" && (
-              <p>
-                User connected: <b>{user.displayName}</b>
-              </p>
+              <p>User connected: <b>{user.displayName}</b></p>
             )}
             <Link to="/register">
               <p>Don't have an account? Sign up!</p>
@@ -198,8 +181,6 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* {user && <Register />} */}
     </>
   );
 };

@@ -157,7 +157,7 @@ export const authenticateUser = (userData: { email: string; password: string }) 
  */
       dispatch({
         type: 'AUTHENTICATE_USER',
-        payload: response.data
+        payload: response
       })
     } catch (error) {
       console.log("Email: ${userData.email}")
