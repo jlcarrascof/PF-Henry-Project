@@ -149,12 +149,19 @@ export const reserveRoom = (userId: any, formData: any) => {
   };
 };
 
-// Nueva acción para autenticar al usuario
-export const authenticateUser = (user: User | null): Action => ({
-  type: 'AUTHENTICATE_USER',
-  payload: user,
-
-});
+export const authenticateUser = (user: User | null, userData: any ) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const response = await axios.post("http://localhost:3002/users/authenticate", userData)
+      dispatch({
+        type: 'AUTHENTICATE_USER',
+        payload: response.data
+      })
+    } catch (error) {
+      console.log("Falla en la autenticacion de usuario con contraseña")
+    }
+  }
+}
 
 
 export const createHotels = (data: any) => {

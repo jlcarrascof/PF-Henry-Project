@@ -32,6 +32,7 @@ const Login: React.FC = () => {
         const userData = {
           uid: userFirebase.uid,
           email: userFirebase.email,
+          password: userFirebase.password,
           providerId: userFirebase.providerData[0]?.providerId,
           displayName: userFirebase.displayName,
         };

@@ -5,6 +5,8 @@ interface Error {
   lastName?: string;
   dateOfBirth?: string;
   phone?: string;
+  password?: string;
+  repeatPassword?: string;
 }
 
 export const validation = ({
@@ -14,6 +16,8 @@ export const validation = ({
   lastName,
   dateOfBirth,
   phone,
+  password,
+  repeatPassword
 }: Error): { [key: string]: string } => {
   let error: { [key: string]: string } = {};
 
@@ -31,14 +35,14 @@ export const validation = ({
 
   if (!firstName) {
     // error.name = "This field cannot be blank";
-  } else if (!/^[A-Za-z]+$/.test(firstName)) {
+  } else if (!/^[A-Za-zÁ-Úá-ú\s]+$/.test(firstName)) {
     error.firstName = "Only letters are allowed";
   }
   
   // Validaciones para el apellido
   if (!lastName) {
     // error.lastName = "This field cannot be blank";
-  } else if (!/^[A-Za-z]+$/.test(lastName)) {
+  } else if (!/^[A-Za-zÁ-Úá-ú\s]+$/.test(lastName)) {
     error.lastName = "Only letters are allowed";
   }
 
@@ -53,6 +57,16 @@ export const validation = ({
     // error.phoneNumber = "This field cannot be blank";
   } else if (!/^\d+$/.test(phone)) {
     error.phoneNumber = "Only numbers are allowed";
+  }
+
+  if (!password) {
+    error.password = "This field cannot be blank";
+   } else if (!/^(?!.*\s)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password)) {
+     error.password = "Spaces not allowed";
+   }
+
+   if (password !== repeatPassword) {
+    error.password = "It must be the same password";
   }
 
   return error;

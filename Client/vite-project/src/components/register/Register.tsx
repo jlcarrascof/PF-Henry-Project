@@ -13,6 +13,8 @@ interface RegisterProps {
 interface FormData {
   username: string;
   email: string;
+  password: string;
+  repeatPassword: string;
   role: string;
   permissions: string;
   firstName: string;
@@ -26,6 +28,8 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   const initialFormData: FormData = {
     username: "",
     email: "",
+    password: "",
+    repeatPassword: "",
     role: "client",
     permissions: "read/write",
     firstName: "",
@@ -159,6 +163,30 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               required
             />
             {errors.phone && <p>{errors.phone}</p>}
+          </div>
+
+          <div className="label-datos">
+            <label>Password:</label>
+            <input
+              type="text"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            {errors.password && <p>{errors.password}</p>}
+          </div>
+
+          <div className="label-datos">
+            <label>Repeat password:</label>
+            <input
+              type="text"
+              name="repeatPassword"
+              value={formData.repeatPassword}
+              onChange={handleChange}
+              required
+            />
+            {errors.password && <p>{errors.password}</p>}
           </div>
 
           <button className="register-button" type="submit">
