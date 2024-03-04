@@ -105,36 +105,36 @@ const Login: React.FC = () => {
     <>
       <div className="userFirebase">
         <div className="padreFirebase">
+          <h1>Welcome to Rentify!</h1>
           <form onSubmit={firebaseAuthentication}>
+            <label> Email: </label>
             <input
               type="text"
-              placeholder="Enter your email"
+              placeholder="myexample@gmail.com"
               className="cajaTexto"
               id="email"
             />
+            <label> Password: </label>
             <input
               type="password"
               placeholder="Enter your password"
               className="cajaTexto"
               id="password"
             />
-            <button>{registration ? "" : "Log in"}</button>
+            <button className="loginButton">
+              {registration ? "" : "Log in"}
+            </button>
           </form>
           <div className="estilos-google">
-            <p>
+            {/* <p>
               {" "}
               {registration ? "Already have an account?" : ""}
               <button onClick={() => setRegistration(!registration)}>
                 {registration ? "Log in" : ""}
               </button>
-            </p>
+            </p> */}
           </div>
-        </div>
-      </div>
-
-      <div className="auth-status">
-        <div className="button-google">
-          <div className="card card-body">
+          <div className="card-body">
             {user ? (
               <p>
                 If you want to disconnect, click on <strong>Log out</strong>
@@ -145,23 +145,31 @@ const Login: React.FC = () => {
               </p>
             )}
             {!user ? (
-              <button type="button" onClick={handleGoogleLogin}>
+              <button
+                className="googleButton"
+                type="button"
+                onClick={handleGoogleLogin}
+              >
                 <img
                   className="estilo-profile"
                   src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
                   alt="Google logo"
                 />
-                Continue with Google
+                <strong>Continue with Google</strong>
               </button>
             ) : (
-              <div className="">
+              <div className="googleTime">
                 {user.providerId === "password" && (
                   <button type="button" onClick={handleSignOut}>
                     Log out
                   </button>
                 )}
                 {user.providerId === "google.com" && (
-                  <button type="button" onClick={handleSignOut}>
+                  <button
+                    className="googleButton"
+                    type="button"
+                    onClick={handleSignOut}
+                  >
                     <img
                       className="estilo-profile"
                       src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
@@ -183,11 +191,11 @@ const Login: React.FC = () => {
                 User connected: <b>{user.displayName}</b>
               </p>
             )}
+            <Link to="/register">
+              <p>Don't have an account? Sign up!</p>
+            </Link>
           </div>
         </div>
-        <Link to="/register">
-          <p>Don't have an account? Sign up!</p>
-        </Link>
       </div>
 
       {/* {user && <Register />} */}

@@ -18,10 +18,9 @@ import DisableRooms from "./components/DisableRooms/DisableRooms";
 import "./App.css";
 
 function App() {
-  const location = useLocation();
   return (
     <>
-      {location.pathname !== "/login" ? <NavBar /> : ""}
+      <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register onSubmit={onsubmit} />} />
