@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 const CartReservation = () => {
  
+  const userName = useSelector(state => state.user?.userName);
   const userEmail = useSelector(state => state.user?.email);
 
  const reservations = useSelector(state => state.reservations);
@@ -18,15 +19,16 @@ const CartReservation = () => {
     } else {
       console.log("No se hizo el useEffect:", userEmail)
     }
-  }, [dispatch, userEmail]);
+  }, [dispatch, userEmail, userName]);
   
   // const handleDeleteReservation = (reservationId) => {
   //   dispatch(deleteReservation(reservationId)); 
   // };
 
+ 
   return (
     <div>
-            <h2>Reservas del Usuario</h2>
+            <h2>Reservas del Usuario: </h2>
             <ul>
                 {reservations.map((reservation) => (
                     <li key={reservation._id}>
