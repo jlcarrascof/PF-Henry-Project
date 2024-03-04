@@ -4,6 +4,7 @@ import "./FormRoom.css";
 import { useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import Cloudinary from "../../cloudinary/Cloudinary.tsx";
 
 interface FormRoomData {
   description: string;
@@ -190,26 +191,10 @@ const FormRoom = (/*{ onSubmit }*/) => {
               onChange={handleInputChange}
             />
           </label>
-          <label>
-            Image:
-            <input
-              type="file" // Cambiado a "file"
-              accept="image/*" // Acepta solo archivos de imagen
-              onChange={handleImageChange}
-            />
-            {/* Mostrar miniaturas de las imágenes cargadas */}
-            {formData.images.map((image, index) => (
-              <div key={index}>
-                <p>{image.name}</p> {/* Mostrar el nombre del archivo */}
-                <img
-                  src={URL.createObjectURL(image)}
-                  alt="thumbnail"
-                  style={{ maxWidth: "100px" }}
-                />{" "}
-                {/* Mostrar miniatura */}
-              </div>
-            ))}
-          </label>
+         
+          {/* Nuevo componente de Cloudinary */}
+      <Cloudinary onImageChange={handleImageChange} />
+      
           <button type="submit" className="formLogin button">
             Submmit Room
           </button>

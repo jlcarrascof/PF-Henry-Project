@@ -1,49 +1,82 @@
 .CartPage-container {
-    display: flex;
-    background-color: lavender;
-    align-items: center;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: center;
-  }
-  
-  .upperText {
-    width: 100%;
-    display: flex;
-    justify-content: left;
-    align-items: left;
-    flex-direction: column;
-    margin-left: 300px;
-  }
-  
-  .searchBar-container {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    padding: 30px;
-    color: rgb(17, 16, 18);
-  }
-  
-  .imagenCarrusel {
-    /*padding: 20px;
-    */
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-  }
-  
-  .imagSlay {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
-    padding: 100px;
-    width: 80%;
-    font-weight: 600;
-  }
+  display: flex;
+  background-color: lavender;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+}
+
+/* Estilos para .upperText */
+.upperText {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  flex-direction: column;
+  margin-left: 300px;
+}
+
+/* Estilos para .searchBar-container */
+.searchBar-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  color: rgb(17, 16, 18);
+}
+
+/* Estilos para .imagenCarrusel */
+.imagenCarrusel {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+/* Estilos para .imagSlay */
+.imagSlay {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 100px;
+  width: 80%;
+  font-weight: 600;
+}
+
+/* Estilos adicionales */
+
+/* Estilos para .upperText h2 dentro del contexto de .CartPage-container */
+.CartPage-container .upperText h2 {
+  font-size: 2.5rem; 
+  color: #2b124c; 
+  margin-bottom: 20px;
+}
+
+/* Estilos para .searchBar-container p dentro del contexto de .CartPage-container */
+.CartPage-container .searchBar-container p {
+  font-size: 1.2rem; 
+  color: #4f4f4f; 
+}
+
+/* Estilos para .imagSlay img dentro del contexto de .CartPage-container */
+.CartPage-container .imagSlay img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para .imagSlay p dentro del contexto de .CartPage-container */
+.CartPage-container .imagSlay p {
+  font-size: 1rem; 
+  color: #2b124c; 
+}
+

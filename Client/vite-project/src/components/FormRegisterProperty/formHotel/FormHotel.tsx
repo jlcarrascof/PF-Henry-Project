@@ -165,24 +165,10 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               {errors.contact?.phone && <p className="error-message">{errors.contact.phone}</p>}
             </label>
           </div>
-          <label>
-            Image:
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-            {formData.images.map((image, index) => (
-              <div key={index}>
-                <p>{image.name}</p>
-                <img
-                  src={URL.createObjectURL(image)}
-                  alt="thumbnail"
-                  style={{ maxWidth: "100px" }}
-                />
-              </div>
-            ))}
-          </label>
+          
+           {/* Nuevo componente de Cloudinary */}
+        <Cloudinary onImageChange={handleImageChange} />
+        
           <button type="submit" className="formLogin button">
             Submit Hotel
           </button>
