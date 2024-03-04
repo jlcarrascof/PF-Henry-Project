@@ -149,22 +149,31 @@ export const reserveRoom = (userId: any, formData: any) => {
   };
 };
 
-export const authenticateUser = (userData: { email: string; password: string }) => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      const response = await axios.post("http://localhost:3002/users/authenticate", userData)
-/*       const accessToken = response.data.accessToken;
- */
-      dispatch({
-        type: 'AUTHENTICATE_USER',
-        payload: response
-      })
-    } catch (error) {
-      console.log("Email: ${userData.email}")
-      console.log("Falla en la autenticacion de usuario con contraseña")
-    }
-  }
-}
+export const authenticateUser = (user: User | null): Action => ({
+  type: 'AUTHENTICATE_USER',
+  payload: user,
+
+});
+
+
+// export const authenticateUser = (userData: { email: string; password: string }) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//     try {
+//       console.log("UserData: ", userData) //ESTO RECIBE BIEN ASIQ ESTO NO ES EL PROBLEMA
+//       const response = await axios.post("http://localhost:3002/users/authenticate", userData)
+// /*       const accessToken = response.data.accessToken;
+//  */
+//       dispatch({
+//         type: 'AUTHENTICATE_USER',
+//         payload: response.data
+//       })
+//     } catch (error) {
+//       console.log(error)
+//       console.log("Email: ${userData.email}")
+//       console.log("Falla en la autenticacion de usuario con contraseña")
+//     }
+//   }
+// }
 
 
 export const createHotels = (data: any) => {
