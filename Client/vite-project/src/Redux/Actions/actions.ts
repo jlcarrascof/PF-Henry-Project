@@ -135,7 +135,7 @@ export const resetFilters = () => ({
   type: RESET
 })
 
-export const reserveRoom = (userId: string, formData: any) => {
+export const reserveRoom = (userId: any, formData: any) => {
   return async (dispatch: Dispatch<Action>) => { 
     try {
         const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, formData)
@@ -171,6 +171,21 @@ export const createHotels = (data: any) => {
   };
 };
 
+
+export const getReservations = (userEmail: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.get(`http://localhost:3002/users/${userEmail}/reservations`);
+
+      dispatch({
+        type: "GET_RESERVATIONS",
+        payload: res.data
+      });
+    } catch (error) {
+      console.error('An error occurred while getting reservations:', error);
+    }
+  };
+};
 
 
 // export const postReservation = (userId: string, reservationData: any) => {

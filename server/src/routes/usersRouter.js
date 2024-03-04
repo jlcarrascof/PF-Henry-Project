@@ -6,6 +6,9 @@ const usersRouter = Router();
 // Ruta para traer todos los usuarios -->> GET ALL
 usersRouter.get('/', getUser); // --> '/users'
 
+//RUTA PARA TRAER RESERVAS
+usersRouter.get('/:identifier/reservations', getReservations);
+
 // Ruta para traer usuario por ObjectID ---> GET BY ID
 usersRouter.get('/:id', getUserID); // --> '/users/?id'
 
@@ -26,7 +29,7 @@ usersRouter.post('/authenticate', authUser);
 usersRouter.post('/:userId/reservations', createReservation);
 
 // Ruta para obtener todas las reservas de un usuario
-usersRouter.get('/:userId/reservations', getReservations);
+// usersRouter.get('/:userId/reservations', getReservations);
 
 // Ruta para eliminar una reserva de un usuario
 usersRouter.delete('/:userId/reservations/:reservationId', deleteReservation);

@@ -14,27 +14,46 @@ import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
 import DisableRooms from "./components/DisableRooms/DisableRooms";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticateUser, getReservations } from "./Redux/Actions/actions";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
 function App() {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.isAuthenticated);
+  const user = useSelector(state => state.user);
+
+
+
+  useEffect(() => {
+    if (user) {
+      dispatch(getReservations(user.uid));
+    } else {
+      dispatch(authenticateUser(null));
+    }
+  }, [dispatch, user]);
+
+
   return (
     <>
       <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register onSubmit={onsubmit} />} />
+        <Route path="/register" element={<Register onSubmit={onsubmit}/>} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/detail" element={<Detail />} />
+        {/* <Route path="/detail" element={<Detail />} /> */}
         <Route path="/rooms" element={<Home />} />
-        <Route path="/cart-reservation" element={<CartReservation />} />
+        <Route path="/reservations" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
-        <Route path="/register-hotel" element={<FormProperty />} />
-        <Route path="/admin" element={<DisableRooms />} />
+        <Route path="/register-hotel" element={<FormProperty/>}/>
+        <Route path="/admin" element={<DisableRooms/>}/>
       </Routes>
       <Footer />
     </>
