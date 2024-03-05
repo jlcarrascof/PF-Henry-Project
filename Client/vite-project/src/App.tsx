@@ -13,30 +13,14 @@ import Home from "./components/home/Home";
 import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
+
+import Cloudinary from "./components/cloudinary/Cloudinary";
+
 import DisableRooms from "./components/DisableRooms/DisableRooms";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { authenticateUser, getReservations } from "./Redux/Actions/actions";
-// ? -----------------------------------------------------STYLES
-import "./App.css";
+
 
 function App() {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.isAuthenticated);
-  const user = useSelector(state => state.user);
-
-
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getReservations(user.uid));
-    } else {
-      dispatch(authenticateUser(null));
-    }
-  }, [dispatch, user]);
-
-
+  
   return (
     <>
       <NavBar />
@@ -53,7 +37,11 @@ function App() {
         <Route path="/reservations" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
+
+        <Route path="/cloudinary" element={<Cloudinary/>} />
+
         <Route path="/admin" element={<DisableRooms/>}/>
+
       </Routes>
       <Footer />
     </>
