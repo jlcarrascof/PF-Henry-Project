@@ -1,0 +1,100 @@
+.userFirebase {
+  background-color: lavender;
+  padding: 100px;
+  padding-top: 150px;
+}
+
+.padreFirebase {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  /* background-color: #f9f9f9; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.padreFirebase label {
+  margin-bottom: 15px;
+}
+
+.padreFirebase p {
+  padding: 10px 0;
+}
+
+.loginButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #230623;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.loginButton:hover {
+  background-color: #2b124c;
+}
+
+.card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.googleButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #230623;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.googleButton:hover {
+  background-color: #2b124c;
+}
+
+.estilo-profile {
+  height: 20px;
+  padding: 0 10px;
+}
+
+.googleTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #230623;
+  color: white;
+  /* padding: 12px 20px; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  width: 100%;
+}

@@ -12,8 +12,6 @@ import About from "./components/about/About";
 import Home from "./components/home/Home";
 import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
-// ? -----------------------------------------------------STYLES
-import "./App.css";
 import CartReservation from "./components/cart/CartReservation";
 
 import Cloudinary from "./components/cloudinary/Cloudinary";
@@ -22,10 +20,10 @@ import DisableRooms from "./components/DisableRooms/DisableRooms";
 
 
 function App() {
-  const location = useLocation();
+  
   return (
     <>
-      {location.pathname !== "/login" ? <NavBar /> : ""}
+      <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register onSubmit={onsubmit}/>} />
@@ -34,9 +32,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/detail" element={<Detail />} />
+        {/* <Route path="/detail" element={<Detail />} /> */}
         <Route path="/rooms" element={<Home />} />
-        {/* <Route path="/cart-reservation" element={<CartReservation />} /> */}
+        <Route path="/reservations" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
 
@@ -46,7 +44,6 @@ function App() {
 
       </Routes>
       <Footer />
-     
     </>
   );
 }

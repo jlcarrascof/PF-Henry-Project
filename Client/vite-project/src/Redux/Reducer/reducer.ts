@@ -262,15 +262,21 @@ export interface State {
               filteredRooms: [], 
               allRooms: state.allRoomsBackUp 
           };
-        case 'RESERVE_ROOM':
-           return {
-                ...state,
-                reservations: [...state.reservations, action.payload]
-          }; 
+          case 'RESERVE_ROOM':
+            return {
+                 ...state,
+                 reservations: [...state.reservations, action.payload]
+           }; 
         case "POST_RESERVATION":
             return {
                 ...state,
                 reservations: [...state.reservations, action.payload.reservation]
+            };
+        
+        case "GET_RESERVATIONS":
+          return {
+                ...state,
+                reservations: action.payload
             };
 
         case "DELETE_RESERVATION":

@@ -12,6 +12,18 @@
   margin-bottom: 40px;
 }
 
+.navBar p {
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
+.navBar p:hover {
+  color: rgb(181, 145, 232);
+}
+
 .navContainer {
   width: 100%;
   margin: 0 1em;
@@ -67,8 +79,18 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
 }
 .btnLogin > p {
   margin: 0;
   padding: 0.2em 0.5em;
+}
+
+.btnLogin:hover {
+  color: rgb(181, 145, 232);
+  background-color: #1d1a39;
 }

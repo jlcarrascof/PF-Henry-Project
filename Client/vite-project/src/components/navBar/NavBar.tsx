@@ -23,14 +23,14 @@ const NavBar: React.FC = () => {
           <Link to="/rooms">
             <p>Search for rooms</p>
           </Link>
-          <Link to="/register">
-            <p>Register</p>
-          </Link>
           <Link to="/register-hotel">
             <p>Post a hotel</p>
           </Link>
-          <Link to="/cart-reservation">
+          <Link to="/reservations">
             <p>Cart Reservation</p>
+          </Link>
+          <Link className="btnLogin" to="/login">
+            <p>Login</p>
           </Link>
           <button className="btnLogin" onClick={() => setShowLogin(true)}>
             Login
@@ -43,4 +43,3 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
-

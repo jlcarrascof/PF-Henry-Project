@@ -2,12 +2,11 @@
 // import { createHotels } from "../../../Redux/Actions/actions";
         import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { hotelValidation } from "./HotelValidation";
-import Cloudinary from "../../cloudinary/Cloudinary.tsx";
-        
 import "./FormHotel.css";
+import { hotelValidation } from "./HotelValidation"; // Importa la función de validación y el tipo de error
+import Cloudinary from "../../cloudinary/Cloudinary.tsx";
 
-  interface RoomSchema {
+interface RoomSchema {
   name: string;
   description?: string;
   price?: number;
@@ -29,8 +28,8 @@ interface ErrorSchema {
   address?: string;
   images?: File[];
   contact?: {
-    phone?: string;
-    mail?: string;
+    phone?: string,
+    mail?: string
   };
 }
 
@@ -67,6 +66,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     },
   });
 
+  const [errors, setErrors] = useState<Error>({}); // Estado para almacenar errores de validación
+
   useEffect(() => {
     const storageData = window.localStorage.getItem("form-hoteldata");
     if (storageData !== null) {
@@ -81,11 +82,19 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
   }, [formData]);
 
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const selectedImage = event.target.files[0];
       if (selectedImage.type.startsWith("image/")) {
-        // Verificar si el archivo es de tipo imagen
         setFormData({
           ...formData,
           images: [...formData.images, selectedImage],
@@ -144,136 +153,88 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      dispatch(createHotels(formData));
-      window.localStorage.removeItem("form-hoteldata");
-      setStepRegister(2);
-    } catch (error) {
+    const formErrors = hotelValidation(formData); // Realiza la validación del formulario
+    setErrors(formErrors); // Actualiza los errores
 
-      console.error("Error in create Hotel: ", error);
-
-      console.error('Error in create Hotel: ', error);
-
+    // Si no hay errores, envía el formulario
+    if (Object.keys(formErrors).length === 0) {
+      try {
+        dispatch(createHotels(formData));
+        window.localStorage.removeItem("form-hoteldata");
+        setStepRegister(2);
+      } catch (error) {
+        console.error("Error in create Hotel: ", error);
+      }
     }
   };
 
   return (
-    <div className="form-hotels-container">
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-
-        {error.name && <p>{error.name}</p>}
-
-
-        <label>
-          Details:
-          <textarea
-            name="details"
-            value={formData.details}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-
-        {error.details && <p>{error.details}</p>}
-
-
-        <label>
-          Address:
-          <input
-            type="text"
-            name="address"
-            value={formData.address || ""}
-            onChange={handleInputChange}
-          />
-        </label>
-
-        {error.address && <p>{error.address}</p>}
-
-        <div>
+    <div className="allFormHotel">
+      <div className="form-hotels-container">
+        <h1>Post your hotel!</h1>
+        <form onSubmit={handleSubmit}>
           <label>
-            Email:
+            Name:
             <input
               type="text"
-              name="mail"
-              value={formData.contact.mail || ""}
-              onChange={handleContactChange}
-            />
-          </label>
-          {error.contact?.mail && <p>{error.contact?.mail}</p>}
-
-              value={formData.contact.mail}
+              name="name"
+              value={formData.name}
               onChange={handleInputChange}
+              required
             />
+            {errors.name && <p className="error-message">{errors.name}</p>}
           </label>
-
           <label>
-            Phone:
+            Details:
+            <textarea
+              name="details"
+              value={formData.details}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.details && <p className="error-message">{errors.details}</p>}
+          </label>
+          <label>
+            Address:
             <input
               type="text"
-              name="phone"
-              value={formData.contact.phone || ""}
-              onChange={handleContactChange}
-            />
-          </label>
-          {error.contact?.phone && <p>{error.contact?.phone}</p>}
-        </div>
-        <label>
-          Image:
-          <input
-            type="file" // Cambiado a "file"
-            accept="image/*" // Acepta solo archivos de imagen
-            onChange={handleImageChange}
-          />
-          {/* Mostrar miniaturas de las imágenes cargadas */}
-          {formData.images.map((image, index) => (
-            <div key={index}>
-              <p>{image.name}</p> {/* Mostrar el nombre del archivo */}
-              <img
-                src={URL.createObjectURL(image)}
-                alt="thumbnail"
-                style={{ maxWidth: "100px" }}
-              />{" "}
-              {/* Mostrar miniatura */}
-            </div>
-          ))}
-        </label>
-
-        {/* <label>
-        Services:
-        <select multiple onChange={handleServicesChange}>
-          {services.map((service) => (
-            <option key={service} value={service}>
-              {service}
-            </option>
-          ))}
-          </select>
-        </label> */}
-        <button type="submit" className="formLogin button">
-          Submmit Hotel
-        </button>
-
-              value={formData.contact.phone }
+              name="address"
+              value={formData.address || ""}
               onChange={handleInputChange}
             />
+            {errors.address && <p className="error-message">{errors.address}</p>}
           </label>
-        </div>
-
-        {/* Nuevo componente de Cloudinary */}
+          <div>
+            <label>
+              Email:
+              <input
+                type="text"
+                name="mail"
+                value={formData.contact.mail || ""}
+                onChange={handleContactChange}
+              />
+              {errors.contact?.mail && <p className="error-message">{errors.contact.mail}</p>}
+            </label>
+            <label>
+              Phone:
+              <input
+                type="text"
+                name="phone"
+                value={formData.contact.phone || ""}
+                onChange={handleContactChange}
+              />
+              {errors.contact?.phone && <p className="error-message">{errors.contact.phone}</p>}
+            </label>
+          </div>
+          
+           {/* Nuevo componente de Cloudinary */}
         <Cloudinary onImageChange={handleImageChange} />
-
-        <button type="submit" className="formLogin button">Submit Hotel</button>
-
-      </form>
+        
+          <button type="submit" className="formLogin button">
+            Submit Hotel
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

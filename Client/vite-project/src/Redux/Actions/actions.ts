@@ -132,14 +132,107 @@ export const postReview = (review: any) => {
 ///tipo alert solo recibe 1 parametro
 
 export const resetFilters = () => ({
-  type: RESET,
-});
+  type: RESET
+})
 
-// Nueva acción para autenticar al usuario
+export const reserveRoom = (userId: any, formData: any) => {
+  return async (dispatch: Dispatch<Action>) => { 
+    try {
+        const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, formData)
+        dispatch({
+          type: 'RESERVE_ROOM',
+          payload: res.data
+        });
+    } catch(error) {
+      console.error('An error occurred while posting the reservation:', error);
+    }
+  };
+};
+
 export const authenticateUser = (user: User | null): Action => ({
   type: "AUTHENTICATE_USER",
   payload: user,
 });
+
+
+// export const authenticateUser = (userData: { email: string; password: string }) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//     try {
+//       console.log("UserData: ", userData) //ESTO RECIBE BIEN ASIQ ESTO NO ES EL PROBLEMA
+//       const response = await axios.post("http://localhost:3002/users/authenticate", userData)
+// /*       const accessToken = response.data.accessToken;
+//  */
+//       dispatch({
+//         type: 'AUTHENTICATE_USER',
+//         payload: response.data
+//       })
+//     } catch (error) {
+//       console.log(error)
+//       console.log("Email: ${userData.email}")
+//       console.log("Falla en la autenticacion de usuario con contraseña")
+//     }
+//   }
+// }
+
+
+export const createHotels = (data: any) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    try {
+      const response = await axios.post("http://localhost:3002/hotels/", data);
+      dispatch({
+        type: "POST_HOTEL",
+        payload: response,
+      });
+    } catch (error) {
+      console.error("Error al crear el hotel:", error);
+    }
+  };
+};
+
+
+export const getReservations = (userEmail: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.get(`http://localhost:3002/users/${userEmail}/reservations`);
+
+      dispatch({
+        type: "GET_RESERVATIONS",
+        payload: res.data
+      });
+    } catch (error) {
+      console.error('An error occurred while getting reservations:', error);
+    }
+  };
+};
+
+
+// export const postReservation = (userId: string, reservationData: any) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//       try {
+//           const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, reservationData);
+//           dispatch({
+//               type: "POST_RESERVATION",
+//               payload: res.data
+//           });
+//       } catch (error) {
+//           console.error('An error occurred while posting the reservation:', error);
+//       }
+//   };
+// };
+
+export const deleteReservation = (userId: string, reservationId: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+      try {
+          const res = await axios.delete(`http://localhost:3002/users/${userId}/reservations/${reservationId}`);
+          dispatch({
+              type: "DELETE_RESERVATION",
+              payload: res.data
+          });
+      } catch (error) {
+          console.error('An error occurred while deleting the reservation:', error);
+      }
+  };
+};
 
 /* export const getHotels = () => {
 

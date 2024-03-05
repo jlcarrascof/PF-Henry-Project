@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import './FormRoom.css'
+import "./FormRoom.css";
 import { useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Cloudinary from "../../cloudinary/Cloudinary.tsx";
-
 
 interface FormRoomData {
   description: string;
@@ -13,7 +14,6 @@ interface FormRoomData {
   num_rooms: number;
   images: File[];
 }
-
 
 const FormRoom = (/*{ onSubmit }*/) => {
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
       ...formData,
       services,
     });
-    window.localStorage.setItem("form-roomdata",JSON.stringify(formData))
+    window.localStorage.setItem("form-roomdata", JSON.stringify(formData));
   };
 
   const handleServiceRemove = (service: string) => {
@@ -69,9 +69,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
       services: formData.services.filter((s) => s !== service),
     });
   };
-  const services = [
-    'wifi', 'pool', 'breakfast'
-  ]
+  const services = ["wifi", "pool", "breakfast"];
   // const handleRoomsChange = (index: number) => (
   //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   // ) => {
@@ -86,7 +84,6 @@ const FormRoom = (/*{ onSubmit }*/) => {
   //   });
   //   window.localStorage.setItem("form-roomdata",JSON.stringify(formData))
   // };
-
 
   const handleImageChange = (imageUrl: string) => {
     setFormData({
@@ -108,83 +105,93 @@ const FormRoom = (/*{ onSubmit }*/) => {
       images: [],
       num_rooms: 0,
     });
-    window.localStorage.removeItem("form-roomdata")
-    navigate('/home')
+    window.localStorage.removeItem("form-roomdata");
+    navigate("/home");
   };
 
   return (
-    <div className="form-rooms-container">
-    <form onSubmit={handleSubmit}>
-      <label>
-        Description:
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          required
-        />
-      </label>
-      <label>
-        Name of room:
-        <input
-          type="text"
-          name="typeOfRoom"
-          value={formData.typeOfRoom}
-          onChange={handleInputChange}
-          required
-        />
-      </label>
-      <label>
-          Services:
-          <select multiple onChange={handleServicesChange}>
-            {services.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
-          <ul>
-            {formData.services.map((service, index) => (
-              <li key={index} className="register-li">
-                {service}
-                <div className="btn-register-container">
-                <button
-                  onClick={() => handleServiceRemove(service)}
-                  className="btn-delete-service"
-                >
-                  X
-                </button>
+    <div className="allFormRoom">
+      <div className="form-rooms-container">
+        <h1>Post your hotel room!</h1>
 
-                </div>
-
-              </li>
-            ))}
-          </ul>
-        </label>
-      <label>
-        Price:
-        <input
-          type="text"
-          name="price"
-          value={formData.price || ""}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        Total of rooms:
-        <input
-          type="text"
-          name="num_rooms"
-          value={formData.num_rooms || ""}
-          onChange={handleInputChange}
-        />
-      </label>
-      
-      {/* Nuevo componente de Cloudinary */}
+        <form onSubmit={handleSubmit}>
+          <label>
+            Description:
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+          <label>
+            Name of room:
+            <input
+              type="text"
+              name="typeOfRoom"
+              value={formData.typeOfRoom}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+          <label>
+            Services:
+            <div className="servicesSpace">
+              <select
+                className="servicesSelect"
+                multiple
+                onChange={handleServicesChange}
+              >
+                {services.map((service) => (
+                  <option key={service} value={service}>
+                    {service}
+                  </option>
+                ))}
+              </select>
+              <ul className="selectedServices">
+                {formData.services.map((service, index) => (
+                  <li key={index} className="register-li">
+                    {service}
+                    <div className="btn-register-container">
+                      <button
+                        onClick={() => handleServiceRemove(service)}
+                        className="btn-delete-service"
+                      >
+                        X
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </label>
+          <label>
+            Price:
+            <input
+              type="text"
+              name="price"
+              value={formData.price || ""}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            Total of rooms:
+            <input
+              type="text"
+              name="num_rooms"
+              value={formData.num_rooms || ""}
+              onChange={handleInputChange}
+            />
+          </label>
+         
+          {/* Nuevo componente de Cloudinary */}
       <Cloudinary onImageChange={handleImageChange} />
-
-      <button type="submit" className="formLogin button">Submmit Room</button>
-    </form>
+      
+          <button type="submit" className="formLogin button">
+            Submmit Room
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

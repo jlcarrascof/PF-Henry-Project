@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
+import { Link } from "react-router-dom";
+import axios from "axios";
 import {
   getAuth,
   onAuthStateChanged,
@@ -79,20 +80,15 @@ const Login: React.FC = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
-
   useEffect(() => {
-    // Si hay un usuario y el valor ha cambiado
     if (user) {
-      // Realizar una solicitud al servidor express
-      axios.post('http://localhost:3002/users/authenticate', user)
-        .then(response => {
-          console.log('Información del usuario enviada al backend:', response);
-          // Manejar la respuesta del backend si es necesario
+      axios
+        .post("http://localhost:3002/users/authenticate", user)
+        .then((response) => {
+          console.log("Información del usuario enviada al backend:", response);
         })
-        .catch(error => {
-          console.error('Error al enviar información del usuario al backend:', error);
-          // Manejar el error si es necesario
+        .catch((error) => {
+          console.error("Error al enviar información del usuario al backend:", error);
         });
     }
   }, [user]);
@@ -103,13 +99,18 @@ const Login: React.FC = () => {
     const password = e.currentTarget.password.value;
 
     try {
+      if (!email || !password) {
+        console.error("Correo electrónico y contraseña son obligatorios.");
+        return;
+      }
+
       if (registration) {
         await createUserWithEmailAndPassword(auth, email, password);
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (error) {
-      console.error('Error during Firebase authentication:', error);
+      console.error("Error durante la autenticación de Firebase:", error);
     }
   };
 
@@ -119,7 +120,7 @@ const Login: React.FC = () => {
       const user = result.user;
       console.log(user);
     } catch (error) {
-      console.error('Error during Google sign-in:', error);
+      console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
 
@@ -127,7 +128,7 @@ const Login: React.FC = () => {
     try {
       await signOut(auth);
     } catch (error) {
-      console.error('Error during sign-out:', error);
+      console.error("Error durante la desconexión:", error);
     }
   };
 

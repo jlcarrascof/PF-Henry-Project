@@ -30,6 +30,7 @@ const authUser = async (req, res) => {
 }
 
 
+
 const postUser = async (req, res) => {
     try {
       let db = getDb()
@@ -145,32 +146,39 @@ const deleteUserByID = async (req, res) => {
 
 const createReservation = async (req, res) => {
     try {
+        let db = getDb();
         const { userId } = req.params;
-        const { startDate, endDate, room, description } = req.body;
+        const { startDate, endDate, roomId, description, userEmail } = req.body;
         
-        const user = await User.findById(userId);
+
+        const user = await db.collection("users").findOne({ $or: [{ email: userEmail }, { uid: userId }] });
+
         if (!user) {
-          return res.status(404).json({ error: 'User not found' });
+            console.log("No se encontró usuario en la base de datos")
+            return res.status(404).json({ error: 'User not found' });
         }
     
         const reservation = {
-          startDate,
-          endDate,
-          room,
-          description,
-          state: 'pending' 
+            user_id: userId, 
+            billing_id: 'some_billing_id', 
+            billing_status: 'Pending', 
+            startDate,
+            endDate,
+            state: 'pending', 
+            room: roomId,
+            description,
         };
 
-        console.log("Data de la reserva creada:", reservation)
-    
-        user.reservation.push(reservation);
-        await user.save();
+        await db.collection("users").updateOne(
+            { _id: new ObjectId(user._id) },
+            { $push: { reservation } }
+        );
     
         res.status(201).json({ message: 'Reservation created successfully', reservation });
-      } catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
-      }
+    }
 }
 
 const deleteReservation = async (req, res) => {
@@ -194,18 +202,30 @@ const deleteReservation = async (req, res) => {
 
 const getReservations = async (req, res) => {
     try {
-        const { userId } = req.params;
-        const user = await User.findById(userId).populate('reservation.room'); 
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
+      let db = getDb();
+      //const userId = req.params.userId;
+      //const { userEmail } = req.body; 
+      const userEmail = req.params.userEmail;
+      const identifier = req.params.identifier;
     
-        res.status(200).json(user.reservation);
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+      //const user = await db.collection("users").findOne({ email: userEmail });
+      const user = await db.collection("users").findOne({ $or: [{ uid: identifier }, { email: identifier }] });
+
+      if (!user) {
+        console.log("Usuario no encontrado");
+        return res.status(404).json({ error: 'User not found' });
       }
-}
+  
+      // Aquí obtén todas las reservas del usuario
+      const reservations = user.reservation;
+  
+      res.status(200).json(reservations);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 
 
 
