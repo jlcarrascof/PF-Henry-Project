@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
+//import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import {
@@ -78,7 +79,7 @@ const Login: React.FC = () => {
       } else {
         dispatch(authenticateUser(null));
         setShowModal(true);
-        swal('An error has occurred, verify your email and password or register by pressing "sing up"')
+        //por nada un swal acá
       }
     });
     return () => unsubscribe();
@@ -195,6 +196,7 @@ const Login: React.FC = () => {
           </ContenedorModal>
         </Overlay>
       )}
+      {/*<div><Link to="/login"><p>estadoComponente</p></Link> </div>*/}
     </>
   );
   

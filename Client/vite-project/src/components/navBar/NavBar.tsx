@@ -1,7 +1,11 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Login from "../login/Login";
 import "./navBar.css";
 
 const NavBar: React.FC = () => {
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <div className="navBar">
       <div className="navContainer">
@@ -25,11 +29,15 @@ const NavBar: React.FC = () => {
           <Link to="/reservations">
             <p>Cart Reservation</p>
           </Link>
-          <Link className="btnLogin" to="/login">
-            <p>Login</p>
+          <Link to="/stadouser">
+            <p>Stado User</p>
           </Link>
+          <button className="btnLogin" onClick={() => setShowLogin(true)}>
+            Login
+          </button>
         </div>
       </div>
+      {showLogin && <Login />}
     </div>
   );
 };
