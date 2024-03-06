@@ -61,6 +61,7 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
@@ -80,16 +81,15 @@ const Login: React.FC = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  console.log("Usuario en el store:", user);
-
   useEffect(() => {
     if (user) {
-      axios.post('http://localhost:3002/users/authenticate', { user })
-        .then(response => {
-          console.log('Información del usuario enviada al backend:', response.data);
+      axios
+        .post("http://localhost:3002/users/authenticate", user)
+        .then((response) => {
+          console.log("Información del usuario enviada al backend:", response);
         })
-        .catch(error => {
-          console.error('Error al enviar información del usuario al backend:', error);
+        .catch((error) => {
+          console.error("Error al enviar información del usuario al backend:", error);
         });
     }
   }, [user]);
@@ -101,6 +101,11 @@ const Login: React.FC = () => {
     e.currentTarget.email.value="";
     e.currentTarget.password.value="";
     try {
+      if (!email || !password) {
+        console.error("Correo electrónico y contraseña son obligatorios.");
+        return;
+      }
+
       if (registration) {
         await createUserWithEmailAndPassword(auth, email, password);
       } else {
@@ -117,6 +122,7 @@ const Login: React.FC = () => {
     } catch (error) {
       console.error('Error during Firebase authentication:', error);
       if(!user){swal('Invalid email or password.', 'Remember that you can also use your Google account.')};
+
     }
   };
 
@@ -127,6 +133,7 @@ const Login: React.FC = () => {
       console.log(user);
     } catch (error) {
       console.error('Error during Google sign-in:', error);
+
     }
   };
 
@@ -135,6 +142,7 @@ const Login: React.FC = () => {
       await signOut(auth);
     } catch (error) {
       console.error('Error during sign-out:', error);
+
     }
   };
 
@@ -146,6 +154,7 @@ const Login: React.FC = () => {
             <Encabezado>
               <LoginButton>Login</LoginButton>
               <LoginButton as={Link} to="/rooms">✖️</LoginButton>
+
             </Encabezado>
             <div className="userFirebase">
               <div className="padreFirebase">
@@ -160,6 +169,7 @@ const Login: React.FC = () => {
                   </p>
                 </div>
               </div>
+
               <div className="auth-status">
                 <div className="button-google">
                   <div className="card card-body">
@@ -187,12 +197,15 @@ const Login: React.FC = () => {
                       <p>User connected: <b>{user.displayName}</b></p>
                     )}
                   </div>
+
                 </div>
               </div>
             </div>
           </ContenedorModal>
         </Overlay>
+
       )
+
     </>
   );
 };
