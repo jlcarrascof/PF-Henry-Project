@@ -1,15 +1,14 @@
-import React, { useState, useEffect, } from "react";
-//import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import {
   getAuth,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  User,
   signOut,
   UserCredential
 } from 'firebase/auth';
@@ -17,8 +16,6 @@ import firebaseApp from './firebaseConfig';
 import { authenticateUser } from '../../Redux/Actions/actions';
 import swal from 'sweetalert'
 import styled from 'styled-components'
-//import "./Login.css";
-
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
@@ -64,7 +61,7 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  //const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
@@ -79,34 +76,29 @@ const Login: React.FC = () => {
       } else {
         dispatch(authenticateUser(null));
         setShowModal(true);
-        //por nada un swal acá
       }
     });
     return () => unsubscribe();
   }, [dispatch]);
 
-  console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
+  console.log("Usuario en el store:", user);
 
   useEffect(() => {
-    // Si hay un usuario y el valor ha cambiado
     if (user) {
-      // Realizar una solicitud al servidor express
       axios.post('http://localhost:3002/users/authenticate', { user })
         .then(response => {
           console.log('Información del usuario enviada al backend:', response.data);
-          // Manejar la respuesta del backend si es necesario
         })
         .catch(error => {
           console.error('Error al enviar información del usuario al backend:', error);
-          // Manejar el error si es necesario
         });
     }
   }, [user]);
+
   const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
-
 
     try {
       if (registration) {
@@ -123,7 +115,6 @@ const Login: React.FC = () => {
     }
   };
 
-
   const handleGoogleLogin = async (): Promise<void> => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
@@ -133,6 +124,7 @@ const Login: React.FC = () => {
       console.error('Error during Google sign-in:', error);
     }
   };
+
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
@@ -143,12 +135,12 @@ const Login: React.FC = () => {
 
   return (
     <>
-      {showModal && (
+      (
         <Overlay>
           <ContenedorModal>
             <Encabezado>
               <LoginButton>Login</LoginButton>
-              <LoginButton onClick={() => setShowModal(false)}>x</LoginButton>
+              <LoginButton as={Link} to="/rooms">x</LoginButton>
             </Encabezado>
             <div className="userFirebase">
               <div className="padreFirebase">
@@ -195,12 +187,9 @@ const Login: React.FC = () => {
             </div>
           </ContenedorModal>
         </Overlay>
-      )}
-      {/*<div><Link to="/login"><p>estadoComponente</p></Link> </div>*/}
+      )
     </>
   );
-  
 };
 
 export default Login;
-

@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Login from "../login/Login";
 import "./navBar.css";
 
 const NavBar: React.FC = () => {
-  const [showLogin, setShowLogin] = useState(false);
-
   return (
     <div className="navBar">
       <div className="navContainer">
@@ -32,15 +29,13 @@ const NavBar: React.FC = () => {
           <Link to="/stadouser">
             <p>Stado User</p>
           </Link>
-          <button className="btnLogin" onClick={() => setShowLogin(true)}>
-            Login
-          </button>
+          <Link className="btnLogin" to="/login">
+            <p>Login</p>
+          </Link>
         </div>
       </div>
-      {showLogin && <Login />}
     </div>
   );
 };
 
 export default NavBar;
-//

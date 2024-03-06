@@ -15,41 +15,9 @@ const StadoUser = () => {
     <div>
       <h1>hola</h1>
       <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1> <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1> <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1><h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1> <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1> <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
-      <h1>hola</h1>
+      <h1>Ver el código de este componente</h1>
+     <p>ver el código de este componente: Ahora tengo que ir a apagar un incendio en mi casa.</p> 
+      <p>al login todavía le falta ya que tiene unas alertas mál implementadas, en la Navbar tengo que gestionar de mejor forma el estado del Login _a menos de que lo quieran mover_</p>
     </div>
   );
 };
