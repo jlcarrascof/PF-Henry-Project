@@ -1,7 +1,8 @@
 import { createHotels } from "../../../Redux/Actions/actions";
 import { useDispatch, Dispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { hotelValidation } from "./HotelValidation.ts";
+import emailjs from "@emailjs/browser";
 import "./FormHotel.css";
 import Cloudinary from "../../cloudinary/Cloudinary.tsx";
 
@@ -36,6 +37,7 @@ interface FormHotelProps {
 
 const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   const dispatch = useDispatch<Dispatch>(); // Ajusta 'TuTipoDeAccion' según tu implementación
+  const form = useRef<HTMLFormElement>();
 
   const [formData, setFormData] = useState<FormSchema>({
     name: "",
@@ -60,7 +62,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   });
 
   const [values, setValues] = useState<Values>({
-    user_email: "",
+    user_email: formData.contact.mail,
     message: `Wohoo! It looks like you have posted a new hotel! Now it's public for people who wants to go on holidays in our app :D `,
   });
 
@@ -96,6 +98,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
           [name]: value,
         };
     setFormData(updatedFormData);
+
     setError(hotelValidation(updatedFormData));
     window.localStorage.setItem(
       "form-hoteldata",
@@ -139,6 +142,19 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     try {
       dispatch(createHotels(formData));
       window.localStorage.removeItem("form-hoteldata");
+      emailjs
+        .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+          publicKey: "b645crolwMFi4MBSX",
+          user_email: formData.contact.mail,
+        })
+        .then(
+          () => {
+            console.log("SUCCESS!");
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+          }
+        );
       setStepRegister(2);
     } catch (error) {
       console.error("Error in create Hotel: ", error);
