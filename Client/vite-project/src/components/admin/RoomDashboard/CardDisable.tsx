@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch} from "react-redux"
-import { disableRoom } from "../../Redux/Actions/actions";
+import { disableRoom } from "../../../Redux/Actions/actions";
 import "./CardDisable.css";
 
 interface Room {

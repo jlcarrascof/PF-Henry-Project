@@ -1,6 +1,6 @@
 
 // import { createHotels } from "../../../Redux/Actions/actions";
-        import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./FormHotel.css";
 import { hotelValidation } from "./HotelValidation"; // Importa la función de validación y el tipo de error
@@ -134,20 +134,6 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     handleChange(event, true);
-  };
-
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    handleChange(event);
-  };
-
-  const handleImageChange = (imageUrl: string) => {
-    setFormData({
-      ...formData,
-      images: [...formData.images, imageUrl],
-    });
-    window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {

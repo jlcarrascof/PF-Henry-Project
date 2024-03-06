@@ -16,7 +16,8 @@ import CartReservation from "./components/cart/CartReservation";
 
 import Cloudinary from "./components/cloudinary/Cloudinary";
 
-import DisableRooms from "./components/DisableRooms/DisableRooms";
+import DisableRooms from "./components/admin/RoomDashboard/DisableRooms";
+import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 
 
 function App() {
@@ -37,11 +38,11 @@ function App() {
         <Route path="/reservations" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
-
         <Route path="/cloudinary" element={<Cloudinary/>} />
 
-        <Route path="/admin" element={<DisableRooms/>}/>
-
+        <Route path="/admin/rooms" element={<DisableRooms/>}/>
+        <Route path="/admin/hotels" element={<HotelDashboard/>}/>
+        
       </Routes>
       <Footer />
     </>

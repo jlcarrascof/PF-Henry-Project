@@ -201,26 +201,6 @@ const getRoomFiltered = async (req, res) => {
         rooms: rooms,
 
       });
-    }
-
-    const query = filters.length > 0 ? { $and: filters } : {};
-
-    const rooms = await db
-      .collection("rooms")
-      .find(query)
-      // .skip((page - 1) * limit)
-      // .limit(limit)
-      .toArray();
-
-    // const totalRooms = await db.collection("rooms").countDocuments(query);
-    // const totalPages = Math.ceil(totalRooms / limit);
-
-    res.status(200).json({
-      // currentPage: page,
-      // totalPages: totalPages,
-      // totalResults: rooms.length,
-      rooms: rooms,
-    });
   } catch (error) {
     console.log("el error es: ", error);
     res.status(400).json({ error: error.message });

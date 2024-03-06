@@ -16,8 +16,6 @@ interface CardsProps {
 }
 
 const CardsDisable: React.FC<CardsProps> = ({ allAdminRooms }) => {
-  console.log("En cards la lista que recibe cómo props:", allAdminRooms);
-
   return (
     <div className="Disable-Container">
       <div className="Disable-grid">
