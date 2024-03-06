@@ -1,110 +1,3 @@
-// import React, { useState } from "react";
-// import StarRating from "./starRating";
-// import ChangeRating from "./changeRating";
-// import { revValidation } from "./revValidation";
-// import { useDispatch } from "react-redux";
-// import { postReview } from "../../Redux/Actions/actions";
-// import "./review.css";
-
-// interface Props {
-//   roomId: string; // Ajusta el tipo de roomId según corresponda
-// }
-
-// const ReviewForm: React.FC<Props> = ({ roomId }) => {
-//   const dispatch = useDispatch();
-
-//   interface Review {
-//     email: string;
-//     description: string;
-//     score: number,
-//     date: string,
-
-//   }
-
-//   const [review, setReview] = useState<Review>({
-//     email: "",
-//     description: "",
-//     score: 0, 
-//     date: new Date() 
-//   });
-
-//   interface Errors {
-//     email?: string;
-//     description?: string;
-//   }
-
-//   const [errors, setErrors] = useState<Errors>({
-//     email: "",
-//     description: "",
-//   });
-
-//   const [avgRating, setAvgRating] = useState<number>(0);
-
-//   const handleRating = (input: number) => {
-//     setReview({
-//       ...review,
-//       score: input
-//     });
-//   };
-
-//   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     let { name, value } = e.target;
-//     setReview({
-//       ...review,
-//       [name]: value,
-//     });
-//     // Validación de entrada al cambiar los campos del formulario
-//     setErrors({
-//       ...errors,
-//       ...revValidation({ [name]: value }),
-//     });
-//   };
-
-//   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     dispatch(postReview(roomId, review));
-//   };
-
-//   return (
-//     <div className="revContainer">
-//       <form onSubmit={handleSubmit}>
-//         <h2>¡Deja una reseña!</h2>
-//         <div className="email">
-//           <label>Email:</label>
-//           <input
-//             type="email"
-//             name="email"
-//             value={review.email}
-//             onChange={onChange}
-//             placeholder="miemail@gmail.com"
-//           />
-//           <ChangeRating rating={avgRating} handleRating={handleRating} />
-//           <StarRating stars={avgRating} />
-//         </div>
-
-//         <div className="comments">
-//           <label>Descripción:</label>
-//           <input
-//             type="text"
-//             name="description"
-//             value={review.description}
-//             onChange={onChange}
-//             placeholder="escribe tu comentario"
-//           />
-//           {errors.description && (
-//             <p className="error">{errors.description}</p>
-//           )}
-
-//           <button type="submit">Enviar reseña</button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default ReviewForm;
-
-
 import React, { useState } from "react";
 import StarRating from "./starRating";
 import ChangeRating from "./changeRating";
@@ -121,6 +14,15 @@ interface Props {
 
 const ReviewForm: React.FC<Props> = ({ roomId }) => {
   const form = useRef<HTMLFormElement>();
+  interface Values {
+    user_email: string;
+    message: string;
+  }
+
+  const [values, setValues] = useState<Values>({
+    user_email: "",
+    message: `Wohoo! It looks like you have made a review at one of our hotels. Thank you for your support! :D `,
+  });
 
   const dispatch = useDispatch();
 
@@ -132,7 +34,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
   }
 
   const [review, setReview] = useState<Review>({
-    email: "",
+    email: values.user_email,
     description: "",
     score: 0,
     date: new Date().toISOString().split("T")[0], // Obtener la fecha actual en formato YYYY-MM-DD
@@ -158,20 +60,14 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
     });
   };
 
-  interface Values {
-    user_email: string;
-    message: string;
-  }
-
-  const [values, setValues] = useState<Values>({
-    user_email: "",
-    message: `Wohoo! It looks like you have made a review at one of our hotels. Thank you for your support! :D `,
-  });
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = e.target;
     setReview({
       ...review,
+      [name]: value,
+    });
+    setValues({
+      ...values,
       [name]: value,
     });
     setErrors({
@@ -207,8 +103,8 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
           <label>Email:</label>
           <input
             type="email"
-            name="email"
-            value={review.email}
+            name="user_email"
+            value={values.user_email}
             onChange={onChange}
             placeholder="miemail@gmail.com"
           />
@@ -245,6 +141,12 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
           className="messageInput"
           name="message"
           value={values.message}
+          onChange={(e) =>
+            setValues((prevValues) => ({
+              ...prevValues,
+              message: e.target.value,
+            }))
+          }
         ></input>
 
         <button type="submit">Enviar reseña</button>
@@ -254,9 +156,3 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
 };
 
 export default ReviewForm;
-
-
-
-
-
-

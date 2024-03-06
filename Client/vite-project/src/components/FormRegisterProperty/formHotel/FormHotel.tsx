@@ -2,9 +2,9 @@ import { createHotels } from "../../../Redux/Actions/actions";
 import { useDispatch, Dispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { hotelValidation } from "./HotelValidation.ts";
-import emailjs from "@emailjs/browser";
 import "./FormHotel.css";
 import Cloudinary from "../../cloudinary/Cloudinary.tsx";
+import emailjs from "@emailjs/browser";
 
 interface FormSchema {
   name: string;
@@ -49,6 +49,10 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       mail: "",
     },
   });
+  const [values, setValues] = useState<Values>({
+    user_email: "",
+    message: `Wohoo! It looks like you have posted a new hotel! Now it's public for people who wants to go on holidays in our app :D `,
+  });
 
   const [error, setError] = useState<ErrorSchema>({
     name: "",
@@ -57,13 +61,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     address: "",
     contact: {
       phone: "",
-      mail: "",
+      mail: values.user_email,
     },
-  });
-
-  const [values, setValues] = useState<Values>({
-    user_email: formData.contact.mail,
-    message: `Wohoo! It looks like you have posted a new hotel! Now it's public for people who wants to go on holidays in our app :D `,
   });
 
   useEffect(() => {
@@ -127,7 +126,12 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   const handleContactChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    let { name, value } = event.target;
     handleChange(event, true);
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
 
   const handleInputChange = (
@@ -142,10 +146,11 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     try {
       dispatch(createHotels(formData));
       window.localStorage.removeItem("form-hoteldata");
+      if (!form.current) return;
+
       emailjs
         .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
           publicKey: "b645crolwMFi4MBSX",
-          user_email: formData.contact.mail,
         })
         .then(
           () => {
@@ -165,7 +170,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     <div className="allFormHotel">
       <div className="form-hotels-container">
         <h1>Post your hotel!</h1>
-        <form onSubmit={handleSubmit}>
+        <form ref={form} onSubmit={handleSubmit}>
           <label>
             Name:
             <input
@@ -202,12 +207,12 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               Email:
               <input
                 type="text"
-                name="mail"
-                value={formData.contact.mail}
+                name="user_email"
+                value={values.user_email}
                 onChange={handleContactChange}
               />
             </label>
-            {error.contact?.mail && <p>{error.contact?.mail}</p>}
+            {/* {error.contact?.mail && <p>{error.contact?.mail}</p>} */}
             <label>
               Phone:
               <input
@@ -222,11 +227,11 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
 
           {/* Nuevo componente de Cloudinary */}
           <Cloudinary onImageChange={handleImageChange} />
-          <input
+          {/* <input
             className="messageInput"
             name="user_email"
             value={values.user_email}
-          ></input>
+          ></input> */}
           <input
             className="messageInput"
             name="message"
