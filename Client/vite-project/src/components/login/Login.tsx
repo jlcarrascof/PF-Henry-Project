@@ -145,7 +145,7 @@ const Login: React.FC = () => {
           <ContenedorModal>
             <Encabezado>
               <LoginButton>Login</LoginButton>
-              <LoginButton as={Link} to="/rooms">x</LoginButton>
+              <LoginButton as={Link} to="/rooms">✖️</LoginButton>
             </Encabezado>
             <div className="userFirebase">
               <div className="padreFirebase">
