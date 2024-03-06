@@ -61,7 +61,6 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
-  //const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
@@ -99,15 +98,20 @@ const Login: React.FC = () => {
     e.preventDefault();
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
-
+    e.currentTarget.email.value="";
+    e.currentTarget.password.value="";
     try {
       if (registration) {
         await createUserWithEmailAndPassword(auth, email, password);
       } else {
         const result = await signInWithEmailAndPassword(auth, email, password);
         const user = result.user;
-        if (!user.emailVerified) {
-          swal('An error has occurred, you can try again or authenticate with the alternative method')
+        if (!user) {
+          // Si el usuario es nulo, entonces la autenticación falló
+          swal('Invalid email or password. Please try again or press "Sign up" to create a new account.');
+        } else if (!user.emailVerified) {
+          //swal('An error has occurred, you can try again or authenticate with the alternative method')
+          //el proceso de verificación de correo electronico no se encuentra implementado
         }
       }
     } catch (error) {

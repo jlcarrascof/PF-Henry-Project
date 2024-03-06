@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 // ? -----------------------------------------------------COMPONENTS
-import StadoUser from "./components/stadoUser/StadoUser";
 
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
@@ -46,8 +45,6 @@ function App() {
     <>
       <NavBar />
       <Routes>
-
-      <Route path="/stadoUser" element={<StadoUser />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register onSubmit={onsubmit}/>} />
         <Route path="/" element={<LandingPage />} />
