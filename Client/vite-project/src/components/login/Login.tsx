@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 import {
   getAuth,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  User,
   signOut,
   UserCredential
 } from 'firebase/auth';
@@ -57,6 +56,7 @@ const LoginButton = styled.button`
   font-size: 20px;
   cursor: pointer;
 `;
+
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
@@ -75,6 +75,7 @@ const Login: React.FC = () => {
         dispatch(authenticateUser(userData));
       } else {
         dispatch(authenticateUser(null));
+        setShowModal(true);
       }
     });
     return () => unsubscribe();
@@ -97,7 +98,8 @@ const Login: React.FC = () => {
     e.preventDefault();
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
-
+    e.currentTarget.email.value="";
+    e.currentTarget.password.value="";
     try {
       if (!email || !password) {
         console.error("Correo electrónico y contraseña son obligatorios.");
@@ -107,10 +109,20 @@ const Login: React.FC = () => {
       if (registration) {
         await createUserWithEmailAndPassword(auth, email, password);
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        const user = result.user;
+        if (!user) {
+          // Si el usuario es nulo, entonces la autenticación falló
+          swal('Invalid email or password. Please try again or press "Sign up" to create a new account.');
+        } else if (!user.emailVerified) {
+          //swal('An error has occurred, you can try again or authenticate with the alternative method')
+          //el proceso de verificación de correo electronico no se encuentra implementado
+        }
       }
     } catch (error) {
-      console.error("Error durante la autenticación de Firebase:", error);
+      console.error('Error during Firebase authentication:', error);
+      if(!user){swal('Invalid email or password.', 'Remember that you can also use your Google account.')};
+
     }
   };
 
@@ -120,7 +132,8 @@ const Login: React.FC = () => {
       const user = result.user;
       console.log(user);
     } catch (error) {
-      console.error("Error durante el inicio de sesión con Google:", error);
+      console.error('Error during Google sign-in:', error);
+
     }
   };
 
@@ -128,18 +141,20 @@ const Login: React.FC = () => {
     try {
       await signOut(auth);
     } catch (error) {
-      console.error("Error durante la desconexión:", error);
+      console.error('Error during sign-out:', error);
+
     }
   };
 
   return (
     <>
-      {showModal && (
+      (
         <Overlay>
           <ContenedorModal>
             <Encabezado>
               <LoginButton>Login</LoginButton>
-              <LoginButton onClick={() => setShowModal(false)}>x</LoginButton>
+              <LoginButton as={Link} to="/rooms">✖️</LoginButton>
+
             </Encabezado>
             <div className="userFirebase">
               <div className="padreFirebase">
@@ -154,40 +169,43 @@ const Login: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div className="auth-status">
-              <div className="button-google">
-                <div className="card card-body">
-                  {user ? (
-                    <p>If you want to disconnect, click on <strong>Log out</strong></p>
-                  ) : (
-                    <p>You can also log in with your <strong>Google account</strong></p>
-                  )}
-                  {!user ? (
-                    <button type="button" onClick={handleGoogleLogin}><img className="estilo-profile" src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png" alt="Google logo" />Continue with Google</button>
-                  ) : (
-                    <div className="">
-                      {user.providerId === "password" && (
-                        <button type="button" onClick={handleSignOut}>Log out</button>
-                      )}
-                      {user.providerId === "google.com" && (
-                        <button type="button" onClick={handleSignOut}><img className="estilo-profile" src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png" alt="Google logo" />Log out</button>
-                      )}
-                    </div>
-                  )}
-                  {user && user.providerId === "password" && (
-                    <p>You have successfully connected with the email: <b>{user.email}</b></p>
-                  )}
-                  {user && user.providerId === "google.com" && (
-                    <p>User connected: <b>{user.displayName}</b></p>
-                  )}
+              <div className="auth-status">
+                <div className="button-google">
+                  <div className="card card-body">
+                    {user ? (
+                      <p>If you want to disconnect, click on <strong>Log out</strong></p>
+                    ) : (
+                      <p>You can also log in with your <strong>Google account</strong></p>
+                    )}
+                    {!user ? (
+                      <button type="button" onClick={handleGoogleLogin}><img className="estilo-profile" src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png" alt="Google logo" />Continue with Google</button>
+                    ) : (
+                      <div className="">
+                        {user.providerId === "password" && (
+                          <button type="button" onClick={handleSignOut}>Log out</button>
+                        )}
+                        {user.providerId === "google.com" && (
+                          <button type="button" onClick={handleSignOut}><img className="estilo-profile" src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png" alt="Google logo" />Log out</button>
+                        )}
+                      </div>
+                    )}
+                    {user && user.providerId === "password" && (
+                      <p>You have successfully connected with the email: <b>{user.email}</b></p>
+                    )}
+                    {user && user.providerId === "google.com" && (
+                      <p>User connected: <b>{user.displayName}</b></p>
+                    )}
+                  </div>
+
                 </div>
               </div>
             </div>
           </ContenedorModal>
         </Overlay>
-      )}
+
+      )
+
     </>
   );
 };
