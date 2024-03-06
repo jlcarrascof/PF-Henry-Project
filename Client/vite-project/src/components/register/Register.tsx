@@ -5,6 +5,7 @@ import { validation } from "./RegValidation";
 import "./Register.modules.css";
 import Cloudinary from "../cloudinary/Cloudinary";
 import { createUser } from "../../Redux/Actions/actions";
+import { format, differenceInYears } from "date-fns";
 
 interface RegisterProps {
   onSubmit: (formData: FormData) => void;
@@ -50,7 +51,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
     setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
 
-    const fieldErrors = validation({ [name]: value });
+    const fieldErrors = validation({ ...formData, [name]: value });
     setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
   };
 
@@ -106,30 +107,6 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
           </div>
 
           <div className="label-datos">
-            <label>Email:</label>
-            <input
-              type="text"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            {errors.email && <p>{errors.email}</p>}
-          </div>
-
-          <div className="label-datos">
-            <label>First name:</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-            {errors.firstName && <p>{errors.firstName}</p>}
-          </div>
-
-          <div className="label-datos">
             <label>Last name:</label>
             <input
               type="text"
@@ -166,9 +143,21 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
           </div>
 
           <div className="label-datos">
-            <label>Password:</label>
+            <label>Email:</label>
             <input
               type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {errors.email && <p>{errors.email}</p>}
+          </div>
+
+          <div className="label-datos">
+            <label>Password:</label>
+            <input
+              type="password" // Cambiado a 'password' para ocultar la contraseña
               name="password"
               value={formData.password}
               onChange={handleChange}
@@ -180,13 +169,15 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
           <div className="label-datos">
             <label>Repeat password:</label>
             <input
-              type="text"
+              type="password" // Cambiado a 'password' para ocultar la contraseña
               name="repeatPassword"
               value={formData.repeatPassword}
               onChange={handleChange}
               required
             />
-            {errors.password && <p>{errors.password}</p>}
+            {errors.repeatPassword && (
+              <p>{formData.repeatPassword && "Passwords must match"}</p>
+            )}
           </div>
 
           <button className="register-button" type="submit">
@@ -203,3 +194,4 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 };
 
 export default Register;
+
