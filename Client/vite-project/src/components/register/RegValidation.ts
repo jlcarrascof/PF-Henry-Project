@@ -23,28 +23,28 @@ export const validation = ({
 
   // Validaciones para el nombre de usuario
   if (!username) {
-    //error.username = "Este campo no puede estar en blanco";
+    error.username = "This field cannot be blank";
   } else if (!/^[A-Za-z]+$/.test(username)) {
     error.username = "Only letters allowed";
   }
 
   // Validaciones para el email
   if (!email) {
-    //error.email = "Este campo no puede estar en blanco";
+    error.email = "This field cannot be blank";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     error.email = "It must be a valid email";
   }
 
   // Validaciones para el apellido
   if (!lastName) {
-    //error.lastName = "Este campo no puede estar en blanco";
+    error.lastName = "This field cannot be blank";
   } else if (!/^[A-Za-zÁ-Úá-ú\s]+$/.test(lastName)) {
     error.lastName = "Only letters allowed";
   }
 
   // Validaciones para la fecha de nacimiento
   if (!dateOfBirth) {
-    //error.dateOfBirth = "Este campo no puede estar en blanco";
+    error.dateOfBirth = "This field cannot be blank";
   } else if (!/^\d{4}-\d{2}-\d{2}$/.test(dateOfBirth)) {
     error.dateOfBirth = "Invalid date";
   } else {
@@ -62,14 +62,14 @@ export const validation = ({
 
   // Validaciones para el número de teléfono
   if (!phone) {
-    //error.phone = "Este campo no puede estar en blanco";
+    error.phone = "This field cannot be blank";
   } else if (!/^\d+$/.test(phone)) {
     error.phone = "Only numbers allowed";
   }
 
   // Validaciones para la contraseña
   if (!password) {
-    //error.password = "Este campo no puede estar en blanco";
+    error.password = "This field cannot be blank";
   } else if (
     !/^(?!.\s)(?=.[A-Za-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$/.test(
       password

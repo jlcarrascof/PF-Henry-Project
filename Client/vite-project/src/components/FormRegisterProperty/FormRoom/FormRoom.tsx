@@ -13,6 +13,15 @@ interface FormRoomData {
   images: File[];
 }
 
+interface RoomError {
+  description?: string;
+  typeOfRoom?: string;
+  services?: string;
+  price?: string;
+  num_rooms?: string;
+  images?: string;
+}
+
 const FormRoom = (/*{ onSubmit }*/) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +32,15 @@ const FormRoom = (/*{ onSubmit }*/) => {
     price: 0,
     num_rooms: 0,
     images: [],
+  });
+
+  const [error, setError] = useState<RoomError>({
+    description: "",
+    typeOfRoom: "",
+    services: "",
+    price: "",
+    num_rooms: "",
+    images: "",
   });
 
   useEffect(() => {
