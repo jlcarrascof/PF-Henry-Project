@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { getDb } = require('../db');
+const User = require('../models/UserModel');
 
 const getUserById = async (id) => {
     const db = getDb();
@@ -80,11 +81,13 @@ const deleteUserById = async (id) => {
     }
 };
 
+
+
 module.exports = {
     getUserById,
     getUserByName,
     getAllUsers,
     createUser,
     updateUser,
-    deleteUserById
+    deleteUserById,
 };

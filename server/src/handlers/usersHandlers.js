@@ -241,10 +241,3 @@ module.exports = {
     getReservations, 
     deleteReservation
 };
-
-
-
-
-
-
-
