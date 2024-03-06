@@ -116,6 +116,7 @@ const Login: React.FC = () => {
       }
     } catch (error) {
       console.error('Error during Firebase authentication:', error);
+      if(!user){swal('Invalid email or password.', 'Remember that you can also use your Google account.')};
     }
   };
 
