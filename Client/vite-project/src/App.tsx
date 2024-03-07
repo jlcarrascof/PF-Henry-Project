@@ -19,6 +19,7 @@ import Cloudinary from "./components/cloudinary/Cloudinary";
 import DisableRooms from "./components/admin/RoomDashboard/DisableRooms";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import EnhancedTable from "./components/admin/TestComp/TableComp";
+import RoomsDashboard from "./components/admin/RoomDashboard/RoomDashboard";
 
 
 function App() {
@@ -42,8 +43,8 @@ function App() {
         <Route path="/cloudinary" element={<Cloudinary/>} />
 
         <Route path="/admin/rooms" element={<DisableRooms/>}/>
-        <Route path="/admin/test" element={<EnhancedTable/>}/>
-        <Route path="/admin/hotels" element={<HotelDashboard/>}/>
+        <Route path="/admin/test/hotels" element={<EnhancedTable/>}/>
+        <Route path="/admin/test/rooms" element={<RoomsDashboard/>}/>
         
       </Routes>
       <Footer />

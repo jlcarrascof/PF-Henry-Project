@@ -24,8 +24,8 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: {type: String, required: true},
   image: {type: String, default: ""},
-  role: { type: String, enum: ["client", "owner"], required: true },
-  permissions: { type: String, enum: ["read/write", "create/post/delete"], required: true },
+  role: { type: String, enum: ["client", "owner"], default: "client", required: true },
+  permissions: { type: String, enum: ["read/write", "create/post/delete"], default: "read/write", required: true },
   profile: {
     firstName: String,
     lastName: String,
