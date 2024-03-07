@@ -250,11 +250,11 @@ const getFav = async (req, res) => {
         return res.status(404).send({error: "No es un ObjectId valido"})
       }
 
-      const { error } = reviewSchema.validate(req.body);
+      //const { error } = reviewSchema.validate(req.body);
 
-      if (error) {
-          return res.status(400).json({ error: error.details[0].message });
-      }
+      // if (error) {
+      //     return res.status(400).json({ error: error.details[0].message });
+      // }
 
       const newReview = req.body; 
       const result = await db
@@ -268,8 +268,10 @@ const getFav = async (req, res) => {
           },
         })
   
+        console.log("nueva reseña: ", newReview)
         res.status(200).send(result)
     } catch (err) {
+      console.log(err)
       res.status(500).send(err)
     }
   }

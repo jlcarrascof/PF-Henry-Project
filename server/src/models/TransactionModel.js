@@ -7,10 +7,10 @@ const TransactionSchema = new Schema({
     type: String,
     enum: ["approved", "refunded", "charged_back"],
   },
-  payer: {
-    id: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    email: { type: String, required: true },
-  },
+  // payer: {
+  //   id: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  //   // email: { type: String, required: true },
+  // },
   additional_info: {
     items: [
       {
