@@ -8,10 +8,10 @@ import { postReview } from '../../Redux/Actions/actions';
 
 interface Props {
   roomId: string;
+  onClose: () => void;
 }
 
-const ReviewModal: React.FC<Props> = ({ roomId }) => {
-  const [open, setOpen] = useState(false);
+const ReviewModal: React.FC<Props> = ({ roomId, onClose }) => {
   const [formData, setFormData] = useState({
     email: '',
     description: '',
@@ -20,14 +20,6 @@ const ReviewModal: React.FC<Props> = ({ roomId }) => {
   });
   const [errors, setErrors] = useState<any>({});
   const dispatch = useDispatch();
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,71 +41,68 @@ const ReviewModal: React.FC<Props> = ({ roomId }) => {
     const validationErrors = revValidation(formData);
     if (Object.keys(validationErrors).length === 0) {
       dispatch(postReview(roomId, formData));
-      handleClose();
+      onClose(); // Cerrar el modal después de enviar la reseña
     } else {
       setErrors(validationErrors);
     }
   };
 
   return (
-    <div>
-      <Button onClick={handleOpen}>Realizar Reseña</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+    <Modal
+      open={!!roomId} // Abre el modal si roomId está definido
+      onClose={onClose} // Cierra el modal cuando se hace clic fuera de él
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          p: 4,
+          width: 400,
+        }}
       >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-            width: 400,
-          }}
-        >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Realizar Reseña
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              name="email"
-              label="Email"
-              variant="outlined"
-              fullWidth
-              value={formData.email}
-              onChange={handleInputChange}
-              error={!!errors.email}
-              helperText={errors.email}
-              margin="normal"
-            />
-            <div>
-              <Typography>Calificación:</Typography>
-              <ChangeRating rating={formData.score} handleRating={handleRatingChange} />
-              <StarRating stars={formData.score} />
-            </div>
-            <TextField
-              name="description"
-              label="Descripción"
-              variant="outlined"
-              fullWidth
-              value={formData.description}
-              onChange={handleInputChange}
-              error={!!errors.description}
-              helperText={errors.description}
-              margin="normal"
-            />
-            <Button type="submit" variant="contained" color="primary">
-              Enviar Reseña
-            </Button>
-          </form>
-        </Box>
-      </Modal>
-    </div>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          Realizar Reseña
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            name="email"
+            label="Email"
+            variant="outlined"
+            fullWidth
+            value={formData.email}
+            onChange={handleInputChange}
+            error={!!errors.email}
+            helperText={errors.email}
+            margin="normal"
+          />
+          <div>
+            <Typography>Calificación:</Typography>
+            <ChangeRating rating={formData.score} handleRating={handleRatingChange} />
+            <StarRating stars={formData.score} />
+          </div>
+          <TextField
+            name="description"
+            label="Descripción"
+            variant="outlined"
+            fullWidth
+            value={formData.description}
+            onChange={handleInputChange}
+            error={!!errors.description}
+            helperText={errors.description}
+            margin="normal"
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Enviar Reseña
+          </Button>
+        </form>
+      </Box>
+    </Modal>
   );
 };
 
