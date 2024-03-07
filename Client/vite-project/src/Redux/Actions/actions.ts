@@ -235,6 +235,22 @@ export const deleteReservation = (userId: string, reservationId: string) => {
   };
 };
 
+
+export const getConfirmedReservations = (userEmail: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.get(`http://localhost:3002/users/${userEmail}/reservations/confirmed`);
+      dispatch({
+        type: "GET_CONFIRMED_RESERVATIONS",
+        payload: res.data
+      });
+    } catch (error) {
+      console.error('An error occurred while getting confirmed reservations:', error);
+    }
+  };
+};
+
+
 /* export const getHotels = () => {
 
   return async (dispatch: Dispatch<Action>) => {
