@@ -28,7 +28,6 @@ interface Data {
   Name: string;
   Type: string;
   Rooms: number;
-  Score: string;
   Hotel: string;
   Price: number;
 }
@@ -38,11 +37,10 @@ function createData(
   Name: string,
   Type: string,
   Rooms: number,
-  Score: string,
   Hotel: string,
   Price: number
 ): Data {
-  return { _id, Name, Type, Rooms, Score, Hotel, Price };
+  return { _id, Name, Type, Rooms, Hotel, Price };
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -88,7 +86,6 @@ const headCells: HeadCell[] = [
   { id: 'Type', numeric: false, disablePadding: true, label: 'Type of Room' },
   { id: 'Rooms', numeric: true, disablePadding: false, label: 'No. of Rooms' },
   { id: 'Hotel', numeric: false, disablePadding: true, label: 'Hotel ID' },
-  { id: 'Score', numeric: true, disablePadding: false, label: 'Overall Score' },
   { id: 'Price', numeric: true, disablePadding: false, label: 'Pricing ($USD)' },
 ];
 
@@ -123,7 +120,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ 'aria-label': 'select all rooms' }}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -159,8 +156,8 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(1),
     },
     highlight: {
-        color: theme.palette.text.primary,  // Cambiar al color deseado para el texto
-        backgroundColor: theme.palette.grey[202],  // Cambiar al gris claro deseado
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.grey[200], 
       },
       title: {
         flex: '1 1 100%',
@@ -171,6 +168,7 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 interface EnhancedTableToolbarProps {
   numSelected: number;
 }
+
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   const classes = useToolbarStyles();
@@ -253,7 +251,7 @@ const RoomsDashboard: React.FC = () => {
     console.log(allAdminRooms)
   
     const rows = allAdminRooms.map((room) =>
-      createData(room._id, room.name, room.typeOfRoom, room.num_rooms, room.hotel_id, room.totalScore, room.price)
+      createData(room._id, room.description, room.typeOfRoom, room.num_rooms, room.hotel_id, room.price)
     );
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
@@ -264,19 +262,19 @@ const RoomsDashboard: React.FC = () => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n._id);
+      const newSelecteds = rows.map((n) => n.Name);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, _id: string) => {
-    const selectedIndex = selected.indexOf(_id);
+  const handleClick = (event: React.MouseEvent<unknown>, Name: string) => {
+    const selectedIndex = selected.indexOf(Name);
     let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, _id);
+      newSelected = newSelected.concat(selected, Name);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -356,7 +354,6 @@ const RoomsDashboard: React.FC = () => {
                       </TableCell>
                       <TableCell align="left">{row.Type}</TableCell>
                       <TableCell align="center">{row.Rooms}</TableCell>
-                      <TableCell align="center">{row.Score}</TableCell>
                       <TableCell align="center">{row.Hotel}</TableCell>
                       <TableCell align="right">{row.Price}</TableCell>
                     </TableRow>

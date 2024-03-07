@@ -69,7 +69,7 @@ export const getDisabledHotels = () => {
 export const getDisabledRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
     try{
-      const {data } = await axios.get("http://localhost:3002/admin/rooms/");
+      const { data } = await axios.get("http://localhost:3002/admin/rooms/");
       dispatch ({
         type: "GET_DISABLED_ROOMS",
         payload: data
