@@ -10,10 +10,12 @@ export interface Action {
   payload: any;
 }
 
+const url = import.meta.env.VITE_APP_BACK;
+
 export const createUser = (userData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const response = await axios.post("http://localhost:3002/users", userData)
+      const response = await axios.post(`${url}/users`, userData)
       dispatch({
         type: "POST_USER",
         payload: response.data
@@ -55,7 +57,7 @@ export const disableRoom = (id: string) => {
 export const getDisabledHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try{
-      const { data } = await axios.get("http://localhost:3002/admin/hotels/");
+      const { data } = await axios.get(`http://localhost:3002/admin/hotels/`);
       dispatch ({
         type: 'GET_DISABLED_HOTELS',
         payload: data
@@ -69,7 +71,7 @@ export const getDisabledHotels = () => {
 export const getDisabledRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
     try{
-      const { data } = await axios.get("http://localhost:3002/admin/rooms/");
+      const { data } = await axios.get(`http://localhost:3002/admin/rooms/`);
       dispatch ({
         type: "GET_DISABLED_ROOMS",
         payload: data
@@ -83,7 +85,7 @@ export const getDisabledRooms = () => {
 export const getRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/");
+      const { data } = await axios.get(`http://localhost:3002/rooms/`);
       dispatch({
         type: "GET_ROOMS",
         payload: data,
@@ -97,7 +99,7 @@ export const getRooms = () => {
 export const getRoomById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get(`http://localhost:3002/rooms/${id}`);
+      const { data } = await axios.get(`${url}/rooms/${id}`);
       dispatch({
         type: "GET_ROOMS_BY_ID",
         payload: data,
@@ -112,7 +114,7 @@ export const getRoomById = (id: string) => {
 //   return async (dispatch: Dispatch<Action>) => {
 //     try {
 //       const { data } = await axios.get(
-//         `http://localhost:3002/rooms/?address=${address}`
+//         `${url}/rooms/?address=${address}`
 //       );
 //       dispatch({
 //         type: "GET_ROOMS_BY_NAME",
@@ -127,7 +129,7 @@ export const getRoomById = (id: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/", {
+      const { data } = await axios.get(`${url}/rooms/`, {
         params: filters,
       });
       dispatch({
@@ -143,7 +145,7 @@ export const getFilteredRooms = (filters: any) => {
 export const postReview = (review: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const res = await axios.post("http://localhost:3002/hotels/", review);
+      const res = await axios.post(`${url}/hotels/`, review);
       dispatch({
         type: "POST_REVIEW",
         payload: res.data,
@@ -162,7 +164,7 @@ export const resetFilters = () => ({
 export const reserveRoom = (userId: any, formData: any) => {
   return async (dispatch: Dispatch<Action>) => { 
     try {
-        const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, formData)
+        const res = await axios.post(`${url}/users/${userId}/reservations`, formData)
         dispatch({
           type: 'RESERVE_ROOM',
           payload: res.data
@@ -183,7 +185,7 @@ export const authenticateUser = (user: User | null): Action => ({
 //   return async (dispatch: Dispatch<Action>) => {
 //     try {
 //       console.log("UserData: ", userData) //ESTO RECIBE BIEN ASIQ ESTO NO ES EL PROBLEMA
-//       const response = await axios.post("http://localhost:3002/users/authenticate", userData)
+//       const response = await axios.post(`${url}/users/authenticate`, userData)
 // /*       const accessToken = response.data.accessToken;
 //  */
 //       dispatch({
@@ -202,7 +204,7 @@ export const authenticateUser = (user: User | null): Action => ({
 export const createHotels = (data: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const response = await axios.post("http://localhost:3002/hotels/", data);
+      const response = await axios.post(`${url}/hotels/`, data);
       dispatch({
         type: "POST_HOTEL",
         payload: response,
@@ -217,7 +219,7 @@ export const createHotels = (data: any) => {
 export const getReservations = (userEmail: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const res = await axios.get(`http://localhost:3002/users/${userEmail}/reservations`);
+      const res = await axios.get(`${url}/users/${userEmail}/reservations`);
 
       dispatch({
         type: "GET_RESERVATIONS",
@@ -233,7 +235,7 @@ export const getReservations = (userEmail: string) => {
 // export const postReservation = (userId: string, reservationData: any) => {
 //   return async (dispatch: Dispatch<Action>) => {
 //       try {
-//           const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, reservationData);
+//           const res = await axios.post(`${url}/users/${userId}/reservations`, reservationData);
 //           dispatch({
 //               type: "POST_RESERVATION",
 //               payload: res.data
@@ -247,7 +249,7 @@ export const getReservations = (userEmail: string) => {
 export const deleteReservation = (userId: string, reservationId: string) => {
   return async (dispatch: Dispatch<Action>) => {
       try {
-          const res = await axios.delete(`http://localhost:3002/users/${userId}/reservations/${reservationId}`);
+          const res = await axios.delete(`${url}/users/${userId}/reservations/${reservationId}`);
           dispatch({
               type: "DELETE_RESERVATION",
               payload: res.data
@@ -262,7 +264,7 @@ export const deleteReservation = (userId: string, reservationId: string) => {
 
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/hotels/");
+      const { data } = await axios.get(`${url}/hotels/`);
       dispatch({
         type: "GET_HOTELS",
         payload: data,
@@ -276,7 +278,7 @@ export const deleteReservation = (userId: string, reservationId: string) => {
 export const getHotelById = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get(`http://localhost:3002/hotels/${id}`);
+      const { data } = await axios.get(`${url}/hotels/${id}`);
       dispatch({
         type: "GET_HOTEL_BY_ID",
         payload: data,
@@ -291,7 +293,7 @@ export const getHotelByName = (address: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3002/hotels/?address=${address}`
+        `${url}/hotels/?address=${address}`
       );
       dispatch({
         type: "GET_HOTEL_BY_NAME",
@@ -306,7 +308,7 @@ export const getHotelByName = (address: string) => {
 export const getFilteredHotels = (filters: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/hotels/filtered/", {
+      const { data } = await axios.get(`${url}/hotels/filtered/`, {
         params: filters,
       });
       dispatch({
@@ -323,7 +325,7 @@ export const getFilteredHotels = (filters: any) => {
 export const postReview = (review: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const res = await axios.post("http://localhost:3002/hotels/", review);
+      const res = await axios.post(`${url}/hotels/`, review);
       dispatch({
         type: POST_REVIEW,
         payload: res.data,

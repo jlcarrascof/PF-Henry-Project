@@ -1,5 +1,5 @@
-.hotel-dashboard {
-    max-width: 800px;
+.TableContainer {
+    max-width: 1000px;
     margin: 200px auto;
     padding: 20px;
     background-color: #f4f4f4;
@@ -7,7 +7,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  h2 {
+  .th {
     color: #333;
   }
   
