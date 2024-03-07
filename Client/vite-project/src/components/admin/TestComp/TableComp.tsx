@@ -150,19 +150,13 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(1),
     },
-    highlight:
-      theme.palette.type === 'light'
-        ? {
-            color: theme.palette.secondary.main,
-            backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-          }
-        : {
-            color: theme.palette.text.primary,
-            backgroundColor: theme.palette.secondary.dark,
-          },
-    title: {
-      flex: '1 1 100%',
-    },
+    highlight: {
+        color: theme.palette.text.primary,  // Cambiar al color deseado para el texto
+        backgroundColor: theme.palette.grey[202],  // Cambiar al gris claro deseado
+      },
+      title: {
+        flex: '1 1 100%',
+      },
   }),
 );
 
@@ -233,26 +227,26 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function EnhancedTable() {
-  const dispatch = useDispatch();
-  const classes = useStyles();
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('Name');
-  const [selected, setSelected] = React.useState<string[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const { allAdminHotels } = useSelector((state: State) => state);
-
-  useEffect(() => {
-    dispatch(getDisabledHotels());
+const EnhancedTable: React.FC = () => {
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    const [order, setOrder] = React.useState<Order>('asc');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('Name');
+    const [selected, setSelected] = React.useState<string[]>([]);
+    const [page, setPage] = React.useState(0);
+    const [dense, setDense] = React.useState(false);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  
+    useEffect(() => {
+      dispatch(getDisabledHotels());
+    }, []);
+    
+    const { allAdminHotels } = useSelector((state: State) => state);
     console.log(allAdminHotels)
-  }, [dispatch]);
-
-  const rows = allAdminHotels.map((hotel) =>
-    createData(hotel.name, hotel.address, hotel.rooms.length, hotel.owner)
-  );
+  
+    const rows = allAdminHotels.map((hotel) =>
+      createData(hotel.name, hotel.address, hotel.rooms?.length || 0, hotel.owner ?? 0)
+    );
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -360,7 +354,7 @@ export default function EnhancedTable() {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={5} />
                 </TableRow>
               )}
             </TableBody>
@@ -383,3 +377,5 @@ export default function EnhancedTable() {
     </div>
   );
 }
+
+export default EnhancedTable

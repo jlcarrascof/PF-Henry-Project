@@ -71,7 +71,7 @@ export interface State {
         case 'GET_DISABLED_HOTELS':
           return {
                 ...state,
-                allAdminRooms: action.payload.hotels,
+                allAdminHotels: action.payload.hotels,
                 allHotelsBackUp: action.payload.hotels,
                 totalResults: action.payload.totalResults,
           };

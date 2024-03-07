@@ -55,9 +55,9 @@ export const disableRoom = (id: string) => {
 export const getDisabledHotels = () => {
   return async (dispatch: Dispatch<Action>) => {
     try{
-      const {data } = await axios.get("http://localhost:3002/admin/hotels/");
+      const { data } = await axios.get("http://localhost:3002/admin/hotels/");
       dispatch ({
-        type: "GET_DISABLED_HOTELS",
+        type: 'GET_DISABLED_HOTELS',
         payload: data
       })
     } catch (error) {
