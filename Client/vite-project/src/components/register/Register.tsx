@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { validation } from "./RegValidation";
 import "./Register.modules.css";
 import Cloudinary from "../cloudinary/Cloudinary";
 import { createUser } from "../../Redux/Actions/actions";
+import emailjs from "@emailjs/browser";
+
 import { format, differenceInYears } from "date-fns";
 
 interface RegisterProps {
@@ -25,10 +27,19 @@ interface FormData {
   image?: string;
 }
 
+interface Values {
+  user_email: string;
+  message: string;
+}
+
 const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
+  const [values, setValues] = useState<Values>({
+    user_email: "",
+    message: `Oh, it's someone new!! Welcome to Rentify, the best app in which you don't have to worry about spending hours lookig for a hotel to go! We are so glad to have you with us :D`,
+  });
   const initialFormData: FormData = {
     username: "",
-    email: "",
+    email: values.user_email,
     password: "",
     repeatPassword: "",
     role: "client",
@@ -41,6 +52,8 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const form = useRef<HTMLFormElement>();
+
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
@@ -53,6 +66,10 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
     const fieldErrors = validation({ ...formData, [name]: value });
     setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,6 +86,20 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
         setIsRegistered(true);
         setFormData(initialFormData);
         setErrors({});
+        if (!form.current) return;
+
+        emailjs
+          .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+            publicKey: "b645crolwMFi4MBSX",
+          })
+          .then(
+            () => {
+              console.log("SUCCESS!");
+            },
+            (error) => {
+              console.log("FAILED...", error.text);
+            }
+          );
 
         // Establecer isRegistered después de limpiar el formulario
         setTimeout(() => {
@@ -86,7 +117,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
       <div className="register-container">
         <h1>Register now!</h1>
         {isRegistered && <p>Registro exitoso. Redirigiendo...</p>}
-        <form onSubmit={handleSubmit}>
+        <form ref={form} onSubmit={handleSubmit}>
           <label>Upload your user image:</label>
           <Cloudinary
             onImageChange={(newImageUrl) =>
@@ -146,12 +177,12 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
             <label>Email:</label>
             <input
               type="text"
-              name="email"
-              value={formData.email}
+              name="user_email"
+              value={values.user_email}
               onChange={handleChange}
               required
             />
-            {errors.email && <p>{errors.email}</p>}
+            {/* {errors.email && <p>{errors.email}</p>} */}
           </div>
 
           <div className="label-datos">
@@ -179,6 +210,12 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               <p>{formData.repeatPassword && "Passwords must match"}</p>
             )}
           </div>
+
+          <input
+            className="messageInput"
+            name="message"
+            value={values.message}
+          ></input>
 
           <button className="register-button" type="submit">
             Register

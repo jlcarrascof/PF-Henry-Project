@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import "./FormRoom.css";
 import { useNavigate } from "react-router-dom";
 import Cloudinary from "../../cloudinary/Cloudinary.tsx";
+import { roomValidation } from "./RoomValidation.ts";
+import "./FormRoom.css";
 
 interface FormRoomData {
   description: string;
@@ -48,6 +49,8 @@ const FormRoom = (/*{ onSubmit }*/) => {
     if (storageData !== null) {
       const parsedData = JSON.parse(storageData);
       setFormData(parsedData);
+      const formErrors = roomValidation(formData);
+      setError(formErrors);
     }
   }, []);
 
@@ -62,6 +65,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
       ...formData,
       [event.target.name]: event.target.value,
     });
+
     window.localStorage.setItem("form-roomdata", JSON.stringify(formData));
   };
 
@@ -113,6 +117,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
       ...formData,
       images: [...formData.images, imageUrl],
     });
+
     window.localStorage.setItem("form-roomdata", JSON.stringify(formData));
   };
 
