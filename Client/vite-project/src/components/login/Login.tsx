@@ -16,32 +16,40 @@ import {
 import firebaseApp from "./firebaseConfig";
 import { authenticateUser } from "../../Redux/Actions/actions";
 import "./Login.css";
+import app from "./firebaseConfig";
 import Register from "../register/Register";
 
-const auth = getAuth(firebaseApp);
+const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-const Login: React.FC = () => {
+interface LoginProps {
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+const Login: React.FC<LoginProps> = ({ setUser }) => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
-      if (userFirebase) {
-        const userData = {
-          uid: userFirebase.uid,
-          email: userFirebase.email,
-          password: userFirebase.password,
-          providerId: userFirebase.providerData[0]?.providerId,
-          displayName: userFirebase.displayName,
-        };
-        dispatch(authenticateUser(userData));
-      } else {
-        dispatch(authenticateUser(null));
-      }
-    });
-    return () => unsubscribe();
+    // const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
+    //   if (userFirebase) {
+    //     const userData = {
+    //       uid: userFirebase.uid,
+    //       email: userFirebase.email,
+    //       password: userFirebase.password,
+    //       providerId: userFirebase.providerData[0]?.providerId,
+    //       displayName: userFirebase.displayName,
+    //     };
+    //     dispatch(authenticateUser(userData));
+    //   } else {
+    //     dispatch(authenticateUser(null));
+    //   }
+    // });
+    // return () => unsubscribe()
+    // dispatch(authenticateUser(userData));
+    // if (userData.email.length > 0 && userData.password.length > 0) {
+    //   dispatch(authenticateUser(userData));
+    // }
   }, [dispatch]);
 
   console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
@@ -66,22 +74,25 @@ const Login: React.FC = () => {
     }
   }, [user]);
 
-  const firebaseAuthentication = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const firebaseAuthentication = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = e.currentTarget.email.value;
-    const password = e.currentTarget.password.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    signInWithEmailAndPassword(auth, email, password).then(
+      (usuario) => dispatch(authenticateUser(usuario)) && setUser(usuario)
+    );
 
-    try {
-      if (registration) {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-    } catch (error) {
-      console.error("Error during Firebase authentication:", error);
-    }
+    // try {
+    //   if (registration) {
+
+    //     await createUserWithEmailAndPassword(auth, email, password);
+    //   } else {
+    //     await signInWithEmailAndPassword(auth, email, password);
+    //   }
+    // } catch (error) {
+    //   console.error("Error during Firebase authentication:", error);
+    // }
   };
 
   const handleGoogleLogin = async (): Promise<void> => {
@@ -108,14 +119,14 @@ const Login: React.FC = () => {
         <div className="padreFirebase">
           <h1>Welcome to Rentify!</h1>
           <form onSubmit={firebaseAuthentication}>
-            <label> Email: </label>
+            <label htmlFor="email"> Email: </label>
             <input
               type="text"
               placeholder="myexample@gmail.com"
               className="cajaTexto"
               id="email"
             />
-            <label> Password: </label>
+            <label htmlFor="password"> Password: </label>
             <input
               type="password"
               placeholder="Enter your password"

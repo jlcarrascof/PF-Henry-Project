@@ -39,7 +39,7 @@ usersRouter.patch("/:id", patchUser); // --> '/users/?id'
 usersRouter.delete("/:id", deleteUserByID); // --> '/users/?id'
 
 // Nueva ruta para recibir la información de Firebase
-usersRouter.post("/authenticate", authUser);
+usersRouter.get("/authenticate/:email", authUser);
 
 //PARA CARRITO DE RESERVAS!! -->
 // Ruta para crear una reserva para un usuario específico

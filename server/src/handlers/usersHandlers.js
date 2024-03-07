@@ -14,11 +14,8 @@ const db = require("../db");
 const authUser = async (req, res) => {
   try {
     let db = getDb();
-    const { uid, email } = req.body;
-    Ah;
-    const existingUser = await db
-      .collection("users")
-      .findOne({ $or: [{ email }, { uid }] });
+    const { email } = req.params;
+    const existingUser = await db.collection("users").findOne({ email });
 
     if (!existingUser) {
       res.status(404).send({ error: "Usuario no encontrado" });
@@ -55,14 +52,12 @@ const postUser = async (req, res) => {
       phone,
     } = req.body;
 
-    // const existingUser = await db
-    //   .collection("users")
-    //   .findOne({ $or: [{ username }, { email }, { uid }] });
+    const existingUser = await db.collection("users").findOne({ email });
 
-    // if (existingUser) {
-    //   res.status(400).send({ error: "Usuario repetido" });
-    //   return;
-    // }
+    if (existingUser) {
+      res.status(400).send({ error: "Usuario repetido" });
+      return;
+    }
     const newUser = new User({
       username,
       uid,
