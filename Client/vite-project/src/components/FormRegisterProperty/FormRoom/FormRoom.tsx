@@ -87,7 +87,6 @@ const FormRoom = (/*{ onSubmit }*/) => {
   //   window.localStorage.setItem("form-roomdata",JSON.stringify(formData))
   // };
 
-
   const handleImageChange = (imageUrl: string) => {
     setFormData({
       ...formData,

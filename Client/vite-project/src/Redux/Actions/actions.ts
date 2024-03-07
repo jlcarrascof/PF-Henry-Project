@@ -1,12 +1,13 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { User } from 'firebase/auth'
-import { ThunkAction } from 'redux-thunk';
-import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
 
+import { ThunkAction } from "redux-thunk";
+import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
+import { User } from "firebase/auth";
+// import { ThunkAction } from "redux-thunk";
+// import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
 // VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
-
 
 export interface Action {
   type: string;
@@ -27,6 +28,20 @@ export const createUser = (userData: any) => {
   }
 }
 
+export const disableHotel = (id: string) => {
+  return async (dispatch: Dispatch<Action>) =>{
+    try{
+      const {data} = await axios.patch(`http://localhost:3002/admin/hotels/${id}`)
+      dispatch({
+        type: "DISABLE_HOTELS_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error)
+    }
+  }
+}
+
 export const disableRoom = (id: string) => {
   return async (dispatch: Dispatch<Action>) =>{
     try{
@@ -37,6 +52,20 @@ export const disableRoom = (id: string) => {
       });
     } catch (error) {
       console.log("Error al borrar logicamente", error)
+    }
+  }
+}
+
+export const getDisabledHotels = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    try{
+      const {data } = await axios.get("http://localhost:3002/admin/hotels/");
+      dispatch ({
+        type: "GET_DISABLED_HOTELS",
+        payload: data
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 }
@@ -102,7 +131,7 @@ export const getRoomById = (id: string) => {
 export const getFilteredRooms = (filters: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
     try {
-      const { data } = await axios.get("http://localhost:3002/rooms/filtered", {
+      const { data } = await axios.get("http://localhost:3002/rooms/", {
         params: filters,
       });
       dispatch({
@@ -115,21 +144,20 @@ export const getFilteredRooms = (filters: any) => {
   };
 };
 
-export const postReview = (roomId: string, reviewData: any) => {
-  return async (dispatch: Dispatch<Action>) => {
-      try {
-          const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
-          console.log("actions: payload de postReview:",res.data)
-          dispatch({
-              type: "POST_REVIEW",
-              payload: res.data, 
-          });
-      } catch (error) {
-          console.error('An error occurred while posting the review:', error);
-      }
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>): Promise<void> => {
+    try {
+      const res = await axios.post("http://localhost:3002/hotels/", review);
+      dispatch({
+        type: "POST_REVIEW",
+        payload: res.data,
+      });
+    } catch (error) {
+      alert("An error occured at posting your review" + error);
+    }
   };
 };
-
+///tipo alert solo recibe 1 parametro
 
 export const resetFilters = () => ({
   type: RESET
@@ -150,9 +178,8 @@ export const reserveRoom = (userId: any, formData: any) => {
 };
 
 export const authenticateUser = (user: User | null): Action => ({
-  type: 'AUTHENTICATE_USER',
+  type: "AUTHENTICATE_USER",
   payload: user,
-
 });
 
 
@@ -316,4 +343,3 @@ export const resetFilters = () => ({
 });
 
 };*/
-

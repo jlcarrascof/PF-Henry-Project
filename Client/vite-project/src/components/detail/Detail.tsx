@@ -189,9 +189,9 @@ const Detail: React.FC = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    startDate: '',
-    endDate: '',
-    description: ''
+    startDate: "",
+    endDate: "",
+    description: "",
   });
 
   const [formErrors, setFormErrors] = useState<any>({});
