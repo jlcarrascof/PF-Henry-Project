@@ -1,13 +1,9 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-
 import { ThunkAction } from "redux-thunk";
 import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
 import { User } from "firebase/auth";
-// import { ThunkAction } from "redux-thunk";
-// import {HotelAction, POST_REVIEW, RESET, RoomAction} from "./actions-types";
 
-// VAMOS A TRAER A LAS HABITACIONES YIEPEEEEEEEEEEEEE
 
 export interface Action {
   type: string;
