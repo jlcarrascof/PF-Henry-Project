@@ -250,6 +250,39 @@ const getReservations = async (req, res) => {
   }
 };
 
+const getConfirmedReservations = async (req, res) => {
+  try {
+    let db = getDb();
+    //const { userId } = req.params;
+
+    // Buscar al usuario por su ID
+    //const user = await db.collection("users").findOne({ _id: new ObjectId(userId) });
+    const userEmail = req.params.userEmail;
+    const identifier = req.params.identifier;
+
+    //const user = await db.collection("users").findOne({ email: userEmail });
+    const user = await db
+      .collection("users")
+      .findOne({ $or: [{ uid: identifier }, { email: identifier }] });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Filtrar las reservas confirmadas y pagadas del usuario
+    const confirmedReservations = user.reservation.filter(
+      (reservation) =>
+        reservation.state === "confirmed" &&
+        reservation.billing_status === "Accepted"
+    );
+
+    res.status(200).json(confirmedReservations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
   getUserID,
   getUser,
@@ -260,4 +293,5 @@ module.exports = {
   createReservation,
   getReservations,
   deleteReservation,
+  getConfirmedReservations,
 };

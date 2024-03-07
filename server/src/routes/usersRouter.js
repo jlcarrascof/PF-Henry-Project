@@ -7,6 +7,7 @@ const {
   patchUser,
   createReservation,
   getReservations,
+  getConfirmedReservations,
   deleteReservation,
   authUser,
 } = require("../handlers/usersHandlers");
@@ -18,6 +19,12 @@ usersRouter.get("/", getUser); // --> '/users'
 
 //RUTA PARA TRAER RESERVAS
 usersRouter.get("/:identifier/reservations", getReservations);
+
+//usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
+usersRouter.get(
+  "/:identifier/reservations/confirmed",
+  getConfirmedReservations
+);
 
 // Ruta para traer usuario por ObjectID ---> GET BY ID
 usersRouter.get("/:id", getUserID); // --> '/users/?id'

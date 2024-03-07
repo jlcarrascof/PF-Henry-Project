@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 // ? -----------------------------------------------------COMPONENTS
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
@@ -10,21 +9,18 @@ import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 import About from "./components/about/About";
 import Home from "./components/home/Home";
-// import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
 import DisableRooms from "./components/DisableRooms/DisableRooms";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { authenticateUser, getReservations } from "./Redux/Actions/actions";
+import MyReservations from "./components/Reservations/MyReservations";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
 function App() {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.isAuthenticated);
-  const user = useSelector((state) => state.user);
+  // const location = useLocation();
+  // const dispatch = useDispatch();
+  // const isAuthenticated = useSelector((state) => state.isAuthenticated);
+  // const user = useSelector((state) => state.user);
 
   // useEffect(() => {
   //   if (user) {
@@ -48,7 +44,7 @@ function App() {
         {/* <Route path="/detail" element={<Detail />} /> */}
         <Route path="/rooms" element={<Home />} />
         <Route path="/reservations" element={<CartReservation />} />
-        {/* <Route path="/reservation" element={<Notification />} /> */}
+        <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/register-hotel" element={<FormProperty />} />
         <Route path="/admin" element={<DisableRooms />} />
       </Routes>

@@ -30,13 +30,13 @@ const userSchema = new Schema({
   role: {
     type: String,
     enum: ["client", "owner"],
-    defualt: "client",
+    default: "client",
     required: true,
   },
   permissions: {
     type: String,
     enum: ["read/write", "create/post/delete"],
-    defualt: "read/write",
+    default: "read/write",
     required: true,
   },
   profile: {
