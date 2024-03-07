@@ -96,6 +96,7 @@ import { Modal, Box, Typography, Button, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { postReview } from '../../Redux/Actions/actions';
 import ChangeRating from '../reviewForm/changeRating';
+import StarRating from '../reviewForm/starRating';
 
 interface Props {
   roomId: string;
@@ -170,7 +171,9 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose }) => {
           />
           <div>
             <Typography>Calificación:</Typography>
+            {/* Utiliza ChangeRating para el puntaje y StarRating para renderizar las estrellas */}
             <ChangeRating rating={formData.score} handleRating={handleRatingChange} />
+            <StarRating stars={formData.score} />
           </div>
           <TextField
             name="description"
