@@ -115,15 +115,31 @@ export const getFilteredRooms = (filters: any) => {
   };
 };
 
+// export const postReview = (roomId: string, reviewData: any) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//       try {
+//           const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
+//           console.log("actions: payload de postReview:",res.data)
+//           dispatch({
+//               type: "POST_REVIEW",
+//               payload: res.data, 
+//           });
+//       } catch (error) {
+//           console.error('An error occurred while posting the review:', error);
+//       }
+//   };
+// };
+
 export const postReview = (roomId: string, reviewData: any) => {
   return async (dispatch: Dispatch<Action>) => {
       try {
           const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
-          console.log("actions: payload de postReview:",res.data)
+          console.log("actions: payload de postReview:", res.data);
           dispatch({
               type: "POST_REVIEW",
               payload: res.data, 
           });
+          return res.data; 
       } catch (error) {
           console.error('An error occurred while posting the review:', error);
       }

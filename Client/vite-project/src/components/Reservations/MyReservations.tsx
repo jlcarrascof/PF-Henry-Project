@@ -117,6 +117,12 @@ const MyReservations: React.FC = () => {
     setSelectedRoomId(null);
   };
 
+  const handleReviewSubmitted = () => {
+    if (userEmail) {
+      dispatch(getConfirmedReservations(userEmail));
+    }
+  };
+
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 150 },
     { field: 'startDate', headerName: 'Start Date', width: 150 },
@@ -129,7 +135,7 @@ const MyReservations: React.FC = () => {
         <Link to={`/detail/${params.value}`}>{params.value}</Link>
       )
     },
-    { field: 'reservationMade', headerName: 'Reservation Made', width: 200 },
+    // { field: 'reservationMade', headerName: 'Reservation Made', width: 200 },
     {
       field: 'review',
       headerName: 'Review',
@@ -147,7 +153,7 @@ const MyReservations: React.FC = () => {
     startDate: reservation.startDate,
     endDate: reservation.endDate,
     room: reservation.room,
-    reservationMade: reservation.reservationMade,
+    // reservationMade: reservation.reservationMade,
     roomId: reservation.room
    }
   });
@@ -162,11 +168,13 @@ const MyReservations: React.FC = () => {
           pageSize={5}
         />
       </div>
-      {selectedRoomId !== null && <ReviewModal roomId={selectedRoomId} onClose={handleCloseModal} />}
+      {selectedRoomId !== null && <ReviewModal roomId={selectedRoomId} onClose={handleCloseModal} onSubmitReview={handleReviewSubmitted} />}
     </div>
   );
 };
 
 export default MyReservations;
+
+
 
 

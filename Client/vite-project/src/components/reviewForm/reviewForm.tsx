@@ -8,9 +8,10 @@ import "./review.css";
 
 interface Props {
   roomId: string;
+  onSubmitReview: () => void; // Nueva prop para notificar que se envió una reseña
 }
 
-const ReviewForm: React.FC<Props> = ({ roomId }) => {
+const ReviewForm: React.FC<Props> = ({ roomId, onSubmitReview }) => {
   const dispatch = useDispatch();
 
   interface Review {
@@ -50,8 +51,9 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(postReview(roomId, review));
-    // Aquí puedes agregar la lógica de emailjs si lo necesitas
+    dispatch(postReview(roomId, review)).then(() => {
+      onSubmitReview(); // Notificar a MyReservations que se envió una reseña
+    });
   };
 
   return (

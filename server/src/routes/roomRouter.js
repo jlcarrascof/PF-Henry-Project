@@ -15,7 +15,7 @@ roomsRouter.get("/:id", getRoomById);
 
 roomsRouter.post("/", postRoom); 
 
-roomsRouter.post("/:id", postReview); 
+// roomsRouter.post("/:id", postReview); 
 
 roomsRouter.patch("/:id", patchRoom); 
 

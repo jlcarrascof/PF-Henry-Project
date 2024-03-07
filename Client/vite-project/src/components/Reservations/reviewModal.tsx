@@ -101,9 +101,10 @@ import StarRating from '../reviewForm/starRating';
 interface Props {
   roomId: string;
   onClose: () => void;
+  onSubmitReview: () => void; // Nueva prop para notificar que se envió una reseña
 }
 
-const ReviewModal: React.FC<Props> = ({ roomId, onClose }) => {
+const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
   const [formData, setFormData] = useState({
     email: '',
     description: '',
@@ -131,6 +132,7 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(postReview(roomId, formData)).then(() => {
+      onSubmitReview(); // Notificar a MyReservations que se envió una reseña
       onClose(); // Cerrar el modal después de enviar la reseña
     });
   };

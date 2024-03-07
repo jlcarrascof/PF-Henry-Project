@@ -65,6 +65,8 @@ const rootReducer = (state: State = initialState, action: Action): State => {
 
 export default rootReducer; */
 
+
+
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
 import { HotelAction, RoomAction,UserAction } from '../Actions/actions-types';
 
