@@ -10,7 +10,7 @@ import Detail from "./components/detail/Detail";
 import Footer from "./components/footer/Footer";
 import About from "./components/about/About";
 import Home from "./components/home/Home";
-import Notification from "./components/notification system/Notification";
+// import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
 import DisableRooms from "./components/DisableRooms/DisableRooms";
@@ -23,26 +23,23 @@ import "./App.css";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.isAuthenticated);
-  const user = useSelector(state => state.user);
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
+  const user = useSelector((state) => state.user);
 
-
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getReservations(user.uid));
-    } else {
-      dispatch(authenticateUser(null));
-    }
-  }, [dispatch, user]);
-
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(getReservations(user.uid));
+  //   } else {
+  //     dispatch(authenticateUser(null));
+  //   }
+  // }, [dispatch, user]);
 
   return (
     <>
       <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register onSubmit={onsubmit}/>} />
+        <Route path="/register" element={<Register onSubmit={onsubmit} />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/about" element={<About />} />
@@ -51,9 +48,9 @@ function App() {
         {/* <Route path="/detail" element={<Detail />} /> */}
         <Route path="/rooms" element={<Home />} />
         <Route path="/reservations" element={<CartReservation />} />
-        <Route path="/reservation" element={<Notification />} />
-        <Route path="/register-hotel" element={<FormProperty/>}/>
-        <Route path="/admin" element={<DisableRooms/>}/>
+        {/* <Route path="/reservation" element={<Notification />} /> */}
+        <Route path="/register-hotel" element={<FormProperty />} />
+        <Route path="/admin" element={<DisableRooms />} />
       </Routes>
       <Footer />
     </>

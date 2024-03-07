@@ -61,50 +61,46 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setValues((prevData) => ({ ...prevData, [name]: value }));
 
     setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
 
     const fieldErrors = validation({ ...formData, [name]: value });
     setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
-    setValues({
-      ...values,
-      [name]: value,
-    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await dispatch(createUser(formData));
 
     // Validar todos los campos antes de enviar
+    if (!form.current) return;
+
+    emailjs
+      .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+        publicKey: "b645crolwMFi4MBSX",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
     const formErrors = validation(formData);
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length === 0) {
       try {
-        await dispatch(createUser(formData));
-
         setIsRegistered(true);
         setFormData(initialFormData);
         setErrors({});
-        if (!form.current) return;
-
-        emailjs
-          .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
-            publicKey: "b645crolwMFi4MBSX",
-          })
-          .then(
-            () => {
-              console.log("SUCCESS!");
-            },
-            (error) => {
-              console.log("FAILED...", error.text);
-            }
-          );
 
         // Establecer isRegistered después de limpiar el formulario
         setTimeout(() => {
           setIsRegistered(false);
-          navigate("/");
+          navigate("/login");
         }, 2000); // Espera 2 segundos antes de quitar el mensaje de registro exitoso
       } catch (error) {
         console.log("Error en el registro:", error);
