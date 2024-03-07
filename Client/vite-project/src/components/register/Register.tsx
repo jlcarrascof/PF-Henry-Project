@@ -35,7 +35,7 @@ interface Values {
 const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   const [values, setValues] = useState<Values>({
     user_email: "",
-    message: `Oh, it's someone new!! Welcome to Rentify, the best app in which you don't have to worry about spending hours lookig for a hotel to go! We are so glad to have you with us :D`,
+    message: `Oh, it's someone new!! Welcome to Rentify, the best app where you don't have to worry about spending hours looking for a hotel to go! We are so glad to have you with us :D`,
   });
   const initialFormData: FormData = {
     username: "",
