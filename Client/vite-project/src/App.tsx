@@ -13,13 +13,9 @@ import Home from "./components/home/Home";
 import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
-
 import Cloudinary from "./components/cloudinary/Cloudinary";
-
-import DisableRooms from "./components/admin/RoomDashboard/DisableRooms";
-import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
-import EnhancedTable from "./components/admin/TestComp/TableComp";
 import RoomsDashboard from "./components/admin/RoomDashboard/RoomDashboard";
+import HotelDashboard from "./components/admin/HotelsDashboard/HotelDashboard";
 
 
 function App() {
@@ -41,9 +37,7 @@ function App() {
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
         <Route path="/cloudinary" element={<Cloudinary/>} />
-
-        <Route path="/admin/rooms" element={<DisableRooms/>}/>
-        <Route path="/admin/test/hotels" element={<EnhancedTable/>}/>
+        <Route path="/admin/test/hotels" element={<HotelDashboard/>}/>
         <Route path="/admin/test/rooms" element={<RoomsDashboard/>}/>
         
       </Routes>
