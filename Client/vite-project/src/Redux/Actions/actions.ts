@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { User } from 'firebase/auth'
-import { ThunkAction } from 'redux-thunk';
-import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
+import { User } from "firebase/auth";
+import { ThunkAction } from "redux-thunk";
+import { HotelAction, RESET, RoomAction, UserAction } from "./actions-types";
+
 
 
 export interface Action {
@@ -13,44 +14,65 @@ export interface Action {
 export const createUser = (userData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const response = await axios.post("http://localhost:3002/users", userData)
+      const response = await axios.post(
+        "http://localhost:3002/users",
+        userData
+      );
       dispatch({
         type: "POST_USER",
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
+  };
+};
 
 export const disableRoom = (id: string) => {
-  return async (dispatch: Dispatch<Action>) =>{
-    try{
-      const {data} = await axios.patch(`http://localhost:3002/admin/rooms/${id}`)
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.patch(
+        `http://localhost:3002/admin/rooms/${id}`
+      );
       dispatch({
         type: "DISABLE_ROOMS_BY_ID",
         payload: data,
       });
     } catch (error) {
-      console.log("Error al borrar logicamente", error)
+      console.log("Error al borrar logicamente", error);
     }
-  }
-}
+  };
+};
 
 export const getDisabledRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
-    try{
-      const {data } = await axios.get("http://localhost:3002/admin/rooms/");
-      dispatch ({
+    try {
+      const { data } = await axios.get("http://localhost:3002/admin/rooms/");
+      dispatch({
         type: "GET_DISABLED_ROOMS",
-        payload: data
-      })
+        payload: data,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
+  };
+};
+
+export const authenticateUser = (email: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const authenticate = await axios(
+        `http://localhost:3002/users/authenticate/${email}`
+      );
+      dispatch({
+        type: "AUTHENTICATE_USER",
+        payload: authenticate,
+      });
+    } catch (error) {
+      console.log("An error occured: ", error);
+    }
+  };
+};
 
 export const disableHotel = (id: string) => {
   return async (dispatch: Dispatch<Action>) =>{
@@ -124,46 +146,89 @@ export const getFilteredRooms = (filters: any) => {
   };
 };
 
+
+// export const postReview = (roomId: string, reviewData: any) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//       try {
+//           const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
+//           console.log("actions: payload de postReview:",res.data)
+//           dispatch({
+//               type: "POST_REVIEW",
+//               payload: res.data,
+//           });
+//       } catch (error) {
+//           console.error('An error occurred while posting the review:', error);
+//       }
+//   };
+// };
+
+
 export const postReview = (roomId: string, reviewData: any) => {
   return async (dispatch: Dispatch<Action>) => {
-      try {
-          const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
-          console.log("actions: payload de postReview:", res.data);
-          dispatch({
-              type: "POST_REVIEW",
-              payload: res.data, 
-          });
-          return res.data; 
-      } catch (error) {
-          console.error('An error occurred while posting the review:', error);
-      }
-  };
-};
-
-
-export const resetFilters = () => ({
-  type: RESET
-})
-
-export const reserveRoom = (userId: any, formData: any) => {
-  return async (dispatch: Dispatch<Action>) => { 
     try {
-        const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, formData)
-        dispatch({
-          type: 'RESERVE_ROOM',
-          payload: res.data
-        });
-    } catch(error) {
-      console.error('An error occurred while posting the reservation:', error);
+      const res = await axios.post(
+        `http://localhost:3002/rooms/${roomId}/reviews`,
+        reviewData
+      );
+      console.log("actions: payload de postReview:", res.data);
+      dispatch({
+        type: "POST_REVIEW",
+        payload: res.data,
+      });
+      return res.data;
+    } catch (error) {
+      console.error("An error occurred while posting the review:", error);
     }
   };
 };
 
-export const authenticateUser = (user: User | null): Action => ({
-  type: 'AUTHENTICATE_USER',
-  payload: user,
-
+export const resetFilters = () => ({
+  type: RESET,
 });
+
+export const reserveRoom = (userId: any, formData: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:3002/users/${userId}/reservations`,
+        formData
+      );
+      dispatch({
+        type: "RESERVE_ROOM",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error("An error occurred while posting the reservation:", error);
+    }
+  };
+};
+
+// export const authenticateUser = (user: User | null): Action => ({
+//   type: 'AUTHENTICATE_USER',
+//   payload: user,
+
+
+// });
+
+// export const authenticateUser = (userData: { email: string; password: string }) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//     try {
+//       console.log("UserData: ", userData) //ESTO RECIBE BIEN ASIQ ESTO NO ES EL PROBLEMA
+//       const response = await axios.post("http://localhost:3002/users/authenticate", userData)
+// /*       const accessToken = response.data.accessToken;
+//  */
+//       dispatch({
+//         type: 'AUTHENTICATE_USER',
+//         payload: response.data
+//       })
+//     } catch (error) {
+//       console.log(error)
+//       console.log("Email: ${userData.email}")
+//       console.log("Falla en la autenticacion de usuario con contraseña")
+//     }
+//   }
+// }
+
 
 export const createHotels = (data: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
@@ -179,50 +244,74 @@ export const createHotels = (data: any) => {
   };
 };
 
-
 export const getReservations = (userEmail: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const res = await axios.get(`http://localhost:3002/users/${userEmail}/reservations`);
+      const res = await axios.get(
+        `http://localhost:3002/users/${userEmail}/reservations`
+      );
 
       dispatch({
         type: "GET_RESERVATIONS",
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
-      console.error('An error occurred while getting reservations:', error);
+      console.error("An error occurred while getting reservations:", error);
     }
   };
 };
 
+// export const postReservation = (userId: string, reservationData: any) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//       try {
+//           const res = await axios.post(`http://localhost:3002/users/${userId}/reservations`, reservationData);
+//           dispatch({
+//               type: "POST_RESERVATION",
+//               payload: res.data
+//           });
+//       } catch (error) {
+//           console.error('An error occurred while posting the reservation:', error);
+//       }
+//   };
+// };
+
 export const deleteReservation = (userId: string, reservationId: string) => {
   return async (dispatch: Dispatch<Action>) => {
-      try {
-          const res = await axios.delete(`http://localhost:3002/users/${userId}/reservations/${reservationId}`);
-          dispatch({
-              type: "DELETE_RESERVATION",
-              payload: res.data
-          });
-      } catch (error) {
-          console.error('An error occurred while deleting the reservation:', error);
-      }
+    try {
+      const res = await axios.delete(
+        `http://localhost:3002/users/${userId}/reservations/${reservationId}`
+      );
+      dispatch({
+        type: "DELETE_RESERVATION",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error("An error occurred while deleting the reservation:", error);
+    }
   };
 };
 
 export const getConfirmedReservations = (userEmail: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const res = await axios.get(`http://localhost:3002/users/${userEmail}/reservations/confirmed`);
+      const res = await axios.get(
+        `http://localhost:3002/users/${userEmail}/reservations/confirmed`
+      );
       dispatch({
         type: "GET_CONFIRMED_RESERVATIONS",
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
-      console.error('An error occurred while getting confirmed reservations:', error);
+      console.error(
+        "An error occurred while getting confirmed reservations:",
+        error
+      );
     }
   };
 };
 
+
+/* export const getHotels = () => {
 
 
 /* import axios from "axios";
@@ -495,4 +584,26 @@ export const getFilteredHotels = (filters: any) => {
     }
   };
 
-}; */
+
+};
+
+export const postReview = (review: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await axios.post("http://localhost:3002/hotels/", review);
+      dispatch({
+        type: POST_REVIEW,
+        payload: res.data,
+      });
+    } catch (error) {
+      alert("An error occured at posting your review", error);
+    }
+  };
+};
+
+export const resetFilters = () => ({
+  type: RESET,
+});
+
+};*/
+
