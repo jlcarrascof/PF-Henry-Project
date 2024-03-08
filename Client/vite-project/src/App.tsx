@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 // ? -----------------------------------------------------COMPONENTS
 import Login from "./components/login/Login";
@@ -22,7 +22,7 @@ interface User {
   password: string;
 }
 function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const [theUser, setTheUser] = useState<User | null>(null);
   // const location = useLocation();
   // const dispatch = useDispatch();
   // const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -39,9 +39,18 @@ function App() {
   return (
     <>
       <NavBar />
-      {user ? <LandingPage /> : <Login setUser={setUser} />}
+
       <Routes>
-        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route>
+          <Route
+            path="/"
+            element={theUser ? <LandingPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/login"
+            element={<Login setTheUser={setTheUser} theUser={theUser} />}
+          />
+        </Route>
         <Route path="/register" element={<Register onSubmit={onsubmit} />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />

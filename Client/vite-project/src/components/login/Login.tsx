@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   getAuth,
@@ -14,7 +14,7 @@ import {
   UserCredential,
 } from "firebase/auth";
 import firebaseApp from "./firebaseConfig";
-import { authenticateUser } from "../../Redux/Actions/actions";
+import { authenticateUser, createUser } from "../../Redux/Actions/actions";
 import "./Login.css";
 import app from "./firebaseConfig";
 import Register from "../register/Register";
@@ -23,10 +23,13 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 interface LoginProps {
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setTheUser: React.Dispatch<React.SetStateAction<User | null>>;
+  theUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
-const Login: React.FC<LoginProps> = ({ setUser }) => {
+const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
 
@@ -54,25 +57,25 @@ const Login: React.FC<LoginProps> = ({ setUser }) => {
 
   console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
 
-  useEffect(() => {
-    // Si hay un usuario y el valor ha cambiado
-    if (user) {
-      // Realizar una solicitud al servidor express
-      axios
-        .post("http://localhost:3002/users/authenticate", user)
-        .then((response) => {
-          console.log("Información del usuario enviada al backend:", response);
-          // Manejar la respuesta del backend si es necesario
-        })
-        .catch((error) => {
-          console.error(
-            "Error al enviar información del usuario al backend:",
-            error
-          );
-          // Manejar el error si es necesario
-        });
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   // Si hay un usuario y el valor ha cambiado
+  //   if (user) {
+  //     // Realizar una solicitud al servidor express
+  //     axios
+  //       .get(`http://localhost:3002/users/authenticate/${user.email}`)
+  //       .then((response) => {
+  //         console.log("Información del usuario enviada al backend:", response);
+  //         // Manejar la respuesta del backend si es necesario
+  //       })
+  //       .catch((error) => {
+  //         console.error(
+  //           "Error al enviar información del usuario al backend:",
+  //           error
+  //         );
+  //         // Manejar el error si es necesario
+  //       });
+  //   }
+  // }, [user]);
 
   const firebaseAuthentication = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -80,7 +83,7 @@ const Login: React.FC<LoginProps> = ({ setUser }) => {
     const password = e.target.password.value;
     console.log(email, password);
     signInWithEmailAndPassword(auth, email, password).then(
-      (usuario) => dispatch(authenticateUser(usuario)) && setUser(usuario)
+      (usuario) => dispatch(authenticateUser(email)) && setTheUser(usuario)
     );
 
     // try {
@@ -94,23 +97,39 @@ const Login: React.FC<LoginProps> = ({ setUser }) => {
     //   console.error("Error during Firebase authentication:", error);
     // }
   };
-
   const handleGoogleLogin = async (): Promise<void> => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
+      //LOCAL STORAGE USER INTERFACE
+      let localUser = {
+        name: user.displayName,
+        email: user.email,
+        role: "owner",
+      };
+      window.localStorage.setItem("user", JSON.stringify(localUser));
+      //LOCAL STORAGE USER INTERFACE
       console.log(user);
+      navigate("/");
     } catch (error) {
       console.error("Error during Google sign-in:", error);
     }
   };
+  // const handleGoogleLogin = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then(
+  //       (result) => dispatch(createUser(result.user)) && setTheUser(result.user)
+  //     )
+  //     .catch((err) => {
+  //       console.log("el error es: ", err);
+  //     });
+  //   //  .catch (error) {
+  //   //   console.error("Error during Google sign-in:", error)
+  //   // }
+  // };
 
-  const handleSignOut = async (): Promise<void> => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Error during sign-out:", error);
-    }
+  const handleSignOut = () => {
+    signOut(auth);
   };
 
   return (
@@ -159,7 +178,7 @@ const Login: React.FC<LoginProps> = ({ setUser }) => {
             {!user ? (
               <button
                 className="googleButton"
-                type="button"
+                type="submit"
                 onClick={handleGoogleLogin}
               >
                 <img

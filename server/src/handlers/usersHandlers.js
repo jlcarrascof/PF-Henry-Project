@@ -15,7 +15,10 @@ const authUser = async (req, res) => {
   try {
     let db = getDb();
     const { email } = req.params;
-    const existingUser = await db.collection("users").findOne({ email });
+    const { password } = req.body;
+    const existingUser = await db
+      .collection("users")
+      .findOne({ email }, { password });
 
     if (!existingUser) {
       res.status(404).send({ error: "Usuario no encontrado" });
