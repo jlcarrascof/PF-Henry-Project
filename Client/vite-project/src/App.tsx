@@ -15,7 +15,7 @@ import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
 import Cloudinary from "./components/cloudinary/Cloudinary";
 import MyReservations from "./components/Reservations/MyReservations";
-import HotelDashboard from "./components/admin/HotelsDashboard/HotelDashboard";
+import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
