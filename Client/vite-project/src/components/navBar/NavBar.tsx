@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import "./navBar.css";
+import LongMenu from "../dropDown/dropDown";
 
 const NavBar: React.FC = () => {
+  let user = window.localStorage.getItem('user');
+  if (user) {
+    user = JSON.parse(user); // user.role
+  } 
+
   return (
     <div className="navBar">
       <div className="navContainer">
@@ -28,9 +34,17 @@ const NavBar: React.FC = () => {
           <Link to="/my-reservations">
             <p>My Reservations</p>
           </Link>
-          <Link className="btnLogin" to="/login">
+          { 
+          user ?
+          <>
+          <div>Hola {user.name}!</div>
+          <LongMenu/>
+          </>
+          :
+            <Link className="btnLogin" to="/login">
             <p>Login</p>
           </Link>
+          }
         </div>
       </div>
     </div>

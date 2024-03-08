@@ -17,6 +17,7 @@ import firebaseApp from "./firebaseConfig";
 import { authenticateUser } from "../../Redux/Actions/actions";
 import "./Login.css";
 import Register from "../register/Register";
+import { useNavigate } from "react-router-dom";
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
@@ -25,6 +26,7 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
@@ -88,7 +90,16 @@ const Login: React.FC = () => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
+      //LOCAL STORAGE USER INTERFACE
+      let localUser = {
+        name: user.displayName,
+        email: user.email,
+        role: 'owner'
+      }
+      window.localStorage.setItem('user', JSON.stringify(localUser))
+      //LOCAL STORAGE USER INTERFACE
       console.log(user);
+      navigate('/')
     } catch (error) {
       console.error("Error during Google sign-in:", error);
     }
@@ -97,6 +108,7 @@ const Login: React.FC = () => {
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
+      window.localStorage.clear('user')
     } catch (error) {
       console.error("Error during sign-out:", error);
     }
