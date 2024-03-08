@@ -13,7 +13,7 @@ import Home from "./components/home/Home";
 import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
-import DisableRooms from "./components/DisableRooms/DisableRooms";
+import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import MyReservations from "./components/Reservations/MyReservations";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,7 +55,7 @@ function App() {
         <Route path="/reservation" element={<Notification />} />
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
-        <Route path="/admin" element={<DisableRooms/>}/>
+        <Route path="/admin/hotels" element={<HotelDashboard/>}/>
       </Routes>
       <Footer />
     </>

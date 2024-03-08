@@ -73,8 +73,10 @@ import { HotelAction, RoomAction,UserAction } from '../Actions/actions-types';
 
 export interface State {
     allAdminRooms: any[];
+    allAdminHotels: any[],
     allHotels: any[]; 
     allRooms: any[];
+    allHotelsBackUp: any[],
     allRoomsBackUp: any[]; 
     currentRoom: any;
     filteredRooms: any[];
@@ -91,8 +93,10 @@ export interface State {
  
   const initialState: State = {
     allAdminRooms: [],
+    allAdminHotels: [],
     allRooms: [],
     allHotels: [],
+    allHotelsBackUp: [],
     allRoomsBackUp: [],
     currentRoom: null,
     filteredRooms: [],
@@ -128,6 +132,18 @@ export interface State {
                  ...state,
                  currentRoom: action.payload
             };
+        case 'GET_DISABLED_HOTELS':
+          return {
+                ...state,
+                allAdminHotels: action.payload.hotels,
+                allHotelsBackUp: action.payload.hotels,
+                totalResults: action.payload.totalResults,
+          };
+        case "DISABLE_HOTEL_BY_ID":
+          return {
+            ...state,
+            allHotels: action.payload.hotels,
+          }
         case 'GET_DISABLED_ROOMS':
           return {
                 ...state,

@@ -55,6 +55,34 @@ export const getDisabledRooms = () => {
   }
 }
 
+export const getDisabledHotels = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    try{
+      const { data } = await axios.get(`http://localhost:3002/admin/hotels/`);
+      dispatch ({
+        type: 'GET_DISABLED_HOTELS',
+        payload: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const disableHotel = (id: string) => {
+  return async (dispatch: Dispatch<Action>) =>{
+    try{
+      const {data} = await axios.patch(`http://localhost:3002/admin/hotels/${id}`)
+      dispatch({
+        type: "DISABLE_HOTELS_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error)
+    }
+  }
+}
+
 export const getRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {

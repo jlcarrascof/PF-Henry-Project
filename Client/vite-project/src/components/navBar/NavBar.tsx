@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
         </Link>
         <div className="navSeparator"></div>
         <div className="navItems">
-          <Link to="/admin">
+          <Link to="/admin/hotels">
             <p>Admin</p>
           </Link>
           <Link to="/">
