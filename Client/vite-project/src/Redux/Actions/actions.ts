@@ -24,6 +24,20 @@ export const createUser = (userData: any) => {
   }
 }
 
+export const getUsers = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get("http://localhost:3002/users/");
+      dispatch({
+        type: "GET_USERS",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+    }
+  };
+};
+
 export const disableRoom = (id: string) => {
   return async (dispatch: Dispatch<Action>) =>{
     try{
