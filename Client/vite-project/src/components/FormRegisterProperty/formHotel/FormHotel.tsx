@@ -1,3 +1,4 @@
+
 import { createHotels } from "../../../Redux/Actions/actions";
 import { useDispatch, Dispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
@@ -12,7 +13,7 @@ interface FormSchema {
   address: string;
   images: string[];
   contact: {
-    phone: number;
+    phone: string;
     mail: string;
   };
 }
@@ -31,28 +32,37 @@ interface Values {
   message: string;
 }
 
+
+
+
+
+
 interface FormHotelProps {
   setStepRegister: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
-  const dispatch = useDispatch<Dispatch>(); // Ajusta 'TuTipoDeAccion' según tu implementación
-  const form = useRef<HTMLFormElement>();
 
+const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
+  const dispatch = useDispatch();
+  const form = useRef<HTMLFormElement>();
+ 
+    const [values, setValues] = useState<Values>({
+    user_email: "",
+    message: `Wohoo! It looks like you have posted a new hotel! Now it's public for people who wants to go on holidays in our app :D `,
+  });
+    
   const [formData, setFormData] = useState<FormSchema>({
     name: "",
     details: "",
     images: [], // Cambiado a una matriz vacía
     address: "",
     contact: {
-      phone: 0,
-      mail: "",
+      phone: "",
+      mail: values.user_email,
     },
   });
-  const [values, setValues] = useState<Values>({
-    user_email: "",
-    message: `Wohoo! It looks like you have posted a new hotel! Now it's public for people who wants to go on holidays in our app :D `,
-  });
+ 
+  
 
   const [error, setError] = useState<ErrorSchema>({
     name: "",
@@ -105,23 +115,26 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     );
   };
 
-  // const handleInputChange = (
-  //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   setFormData({
-  //     ...formData,
-  //     [event.target.name]: event.target.value,
-  //   });
-  //   window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
-  // };
 
-  const handleImageChange = (imageUrl: string) => {
-    setFormData({
-      ...formData,
-      images: [...formData.images, imageUrl],
-    });
-    window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
+  
+
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const selectedImage = event.target.files[0];
+      if (selectedImage.type.startsWith("image/")) {
+        setFormData({
+          ...formData,
+          images: [...formData.images, selectedImage],
+        });
+        window.localStorage.setItem("form-hoteldata", JSON.stringify(formData));
+      } else {
+        alert("Please select an image file."); // Mostrar un mensaje de error si no se selecciona un archivo de imagen
+      }
+    }
   };
+
+ 
 
   const handleContactChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

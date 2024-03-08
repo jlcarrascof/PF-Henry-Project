@@ -46,16 +46,16 @@ export const hotelValidation = ({ name, details, address, contact }: Error) => {
     };
   }
 
+
+
   if (!contact?.mail) {
-    error.contact = {
-      ...error.contact,
-      mail: "This field cannot be blank",
-    };
+    error.contact = { ...error.contact, mail: "This field cannot be blank" };
   } else if (
     contact.mail &&
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(contact.mail)
   ) {
     error.contact = { ...error.contact, mail: "That email is not valid" };
   }
+
   return error;
 };
