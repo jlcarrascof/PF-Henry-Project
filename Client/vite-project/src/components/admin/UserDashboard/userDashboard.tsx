@@ -39,11 +39,11 @@ const UserTable = () => {
     phone: user.phone,
     role: user.role,
     permissions: user.permissions,
-    reservation: user.reservation, // Esto es un array, ¿cómo se procese?
+    
   }));
 //sx puede que este sobrando
   return (
-    <TableContainer className='TableContainer' component={Paper} sx={{ maxHeight: '80%' }, { maxWidth: '85%' }}>
+    <TableContainer className='TableContainer' component={Paper} sx={{ maxWidth: '85%' }}>
       <Typography variant="h3" gutterBottom component="div">
         Admin your Users
       </Typography>
@@ -74,8 +74,6 @@ const UserTable = () => {
               <TableCell>{row.phone}</TableCell>
               <TableCell>{row.role}</TableCell>
               <TableCell>{row.permissions}</TableCell>
-              {/* Puedes agregar lógica aquí para mostrar la información de la reserva como desees */}
-              <TableCell>{row.reservation ? 'Has reservations' : 'No reservations'}</TableCell>
             </TableRow>
           ))}
         </TableBody>
