@@ -12,106 +12,110 @@ import {
   User,
   signOut,
   UserCredential,
+  EmailAuthCredential,
 } from "firebase/auth";
 import firebaseApp from "./firebaseConfig";
-import { authenticateUser } from "../../Redux/Actions/actions";
+import { authenticateUser, createUser } from "../../Redux/Actions/actions";
 import "./Login.css";
 import Register from "../register/Register";
+import app from "./firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
-const auth = getAuth(firebaseApp);
+const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
-      if (userFirebase) {
-        const userData = {
-          uid: userFirebase.uid,
-          email: userFirebase.email,
-          password: userFirebase.password,
-          providerId: userFirebase.providerData[0]?.providerId,
-          displayName: userFirebase.displayName,
-        };
-        dispatch(authenticateUser(userData));
-      } else {
-        dispatch(authenticateUser(null));
-      }
-    });
-    return () => unsubscribe();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
+  //     if (userFirebase) {
+  //       const userData = {
+  //         uid: userFirebase.uid,
+  //         email: userFirebase.email,
+  //         password: userFirebase.password,
+  //         providerId: userFirebase.providerData[0]?.providerId,
+  //         displayName: userFirebase.displayName,
+  //       };
+  //       dispatch(authenticateUser(userData));
+  //     } else {
+  //       dispatch(authenticateUser(null));
+  //     }
+  //   });
+  //   return () => unsubscribe();
+  // }, [dispatch]);
 
   console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
 
   useEffect(() => {
-    // Si hay un usuario y el valor ha cambiado
-    if (user) {
-      // Realizar una solicitud al servidor express
-      axios
-        .post("http://localhost:3002/users/authenticate", user)
-        .then((response) => {
-          console.log("Información del usuario enviada al backend:", response);
-          // Manejar la respuesta del backend si es necesario
-        })
-        .catch((error) => {
-          console.error(
-            "Error al enviar información del usuario al backend:",
-            error
-          );
-          // Manejar el error si es necesario
-        });
-    }
+    // // Si hay un usuario y el valor ha cambiado
+    // if (user) {
+    //   // Realizar una solicitud al servidor express
+    //   axios
+    //     .get(
+    //       `http://localhost:3002/users/authenticate/${user.email}/${user.password}`
+    //     )
+    //     .then((response) => {
+    //       console.log("Información del usuario enviada al backend:", response);
+    //       // Manejar la respuesta del backend si es necesario
+    //     })
+    //     .catch((error) => {
+    //       console.error(
+    //         "Error al enviar información del usuario al backend:",
+    //         error
+    //       );
+    //       // Manejar el error si es necesario
+    //     });
+    // }
   }, [user]);
 
-  const firebaseAuthentication = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const firebaseAuthentication = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = e.currentTarget.email.value;
-    const password = e.currentTarget.password.value;
-
-    try {
-      if (registration) {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-    } catch (error) {
-      console.error("Error during Firebase authentication:", error);
-    }
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    // if (registration) {
+    createUserWithEmailAndPassword(auth, email, password).then(() =>
+      dispatch(createUser(email, password))
+    );
+    // } else {
+    //   // signInWithEmailAndPassword(auth, email, password).then(
+    //   //   () =>
+    //   dispatch(authenticateUser(email, password)) && setRegistration(true);
+    //   // );
+    // }
   };
 
   const handleGoogleLogin = async (): Promise<void> => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
+
       //LOCAL STORAGE USER INTERFACE
       let localUser = {
         name: user.displayName,
         email: user.email,
-        role: 'owner'
-      }
-      window.localStorage.setItem('user', JSON.stringify(localUser))
+        role: "owner",
+      };
+      window.localStorage.setItem("user", JSON.stringify(localUser));
       //LOCAL STORAGE USER INTERFACE
       console.log(user);
-      navigate('/')
+      navigate("/");
     } catch (error) {
       console.error("Error during Google sign-in:", error);
     }
   };
 
   const handleSignOut = async (): Promise<void> => {
-    try {
-      await signOut(auth);
-      window.localStorage.clear('user')
-    } catch (error) {
-      console.error("Error during sign-out:", error);
-    }
+    // try {
+    //   await signOut(auth);
+    //   window.localStorage.clear("user");
+    // } catch (error) {
+    //   console.error("Error during sign-out:", error);
+    // }
   };
 
   return (
