@@ -13,31 +13,15 @@ import Home from "./components/home/Home";
 import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
-import DisableRooms from "./components/DisableRooms/DisableRooms";
+import Cloudinary from "./components/cloudinary/Cloudinary";
 import MyReservations from "./components/Reservations/MyReservations";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { authenticateUser, getReservations } from "./Redux/Actions/actions";
+import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
+
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
 function App() {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.isAuthenticated);
-  const user = useSelector(state => state.user);
-
-
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getReservations(user.uid));
-    } else {
-      dispatch(authenticateUser(null));
-    }
-  }, [dispatch, user]);
-
-
+  
   return (
     <>
       <NavBar />
@@ -55,7 +39,9 @@ function App() {
         <Route path="/reservation" element={<Notification />} />
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
-        <Route path="/admin" element={<DisableRooms/>}/>
+        <Route path="/cloudinary" element={<Cloudinary/>} />
+        <Route path="/admin/hotels" element={<HotelDashboard/>}/>
+        
       </Routes>
       <Footer />
     </>
