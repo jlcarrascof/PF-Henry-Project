@@ -1,80 +1,13 @@
-
-/* import { Action } from "../Actions/actions"; //  tipo Action  archivo Types.ts
-export interface State {
-  allHotels: any[]; // Define una propiedad allHotels que será un arreglo de cualquier tipo
-  allHotelsBackUp: any[];
-  currentHotel: any;
-  filteredHotels: any[];
-  currentPage: number;
-  totalPages: number;
-  totalResults: number;
-}
-
-const initialState: State = {
-  allHotels: [],
-  allHotelsBackUp: [],
-  currentHotel: null,
-  filteredHotels: [],
-  currentPage: 1,
-  totalPages: 1,
-  totalResults: 0,
-};
-
-const rootReducer = (state: State = initialState, action: Action): State => {
-  switch (action.type) {
-    case GET_HOTELS:
-          return {
-              ...state,
-              allHotels: action.payload.hotels,
-              allHotelsBackUp: action.payload.hotels
-          };
-    case GET_HOTEL_BY_ID:
-      return {
-        ...state,
-        currentHotel: action.payload,
-      };
-    case GET_HOTEL_BY_NAME:
-      return {
-        ...state,
-        currentHotel: action.payload,
-      };
-
-    case GET_FILTERED_HOTELS:
-      return {
-        ...state,
-        allHotels: action.payload.hotels,
-        allHotelsBackUp: action.payload.hotels,
-        currentPage: action.payload.currentPage, // Actualizar la página actual
-        totalPages: action.payload.totalPages, // Actualiza el total de páginas
-        totalResults: action.payload.totalResults,
-      };
-
-    case POST_REVIEW:
-      return {
-        ...state,
-      };
-    case RESET:
-      return {
-        ...state,
-        filteredHotels: [],
-      };
-    default:
-      return state;
-  }
-};
-
-export default rootReducer; */
-
-
-
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
 import { HotelAction, RoomAction,UserAction } from '../Actions/actions-types';
 
 
 export interface State {
     allAdminRooms: any[];
+    allAdminHotels: any[];
     allHotels: any[]; 
     allRooms: any[];
+    allHotelsBackUp: any[];
     allRoomsBackUp: any[]; 
     currentRoom: any;
     filteredRooms: any[];
@@ -91,8 +24,10 @@ export interface State {
  
   const initialState: State = {
     allAdminRooms: [],
+    allAdminHotels: [],
     allRooms: [],
     allHotels: [],
+    allHotelsBackUp: [],
     allRoomsBackUp: [],
     currentRoom: null,
     filteredRooms: [],
@@ -135,6 +70,18 @@ export interface State {
                 allRoomsBackUp: action.payload.rooms,
                 totalResults: action.payload.totalResults,
           };
+        case 'GET_DISABLED_HOTELS':
+          return {
+                ...state,
+                allAdminHotels: action.payload.hotels,
+                allHotelsBackUp: action.payload.hotels,
+                totalResults: action.payload.totalResults,
+          };
+        case "DISABLE_HOTEL_BY_ID":
+          return {
+            ...state,
+            allHotels: action.payload.hotels,
+          }
         case "DISABLE_ROOM_BY_ID":
           return {
             ...state,
@@ -223,6 +170,7 @@ export interface State {
 }
 export default rootReducer
 
+
 /* case GET_HOTEL_BY_ID:
       return {
         ...state,
@@ -248,17 +196,3 @@ export default rootReducer
           return state;
   }
 } */
-
-
-
-
-
-
-
-
-
-
-
-
-
-

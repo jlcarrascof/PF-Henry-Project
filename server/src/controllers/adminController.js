@@ -30,6 +30,36 @@ const disableRoomId = async (id) => {
     }
   };
 
+
+  const disableHotelId = async (id) => {
+    const db = getDb();
+    try {
+      const hotel = await db.collection("hotels").findOne({ _id: new ObjectId(id) });
+  
+      if (!hotel) {
+        throw new Error("Hotel not found");
+      }
+      const isDisabled = hotel.availability;
+  
+      const result = await db.collection("hotels").updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            availability: !isDisabled, 
+          },
+        }
+      );
+  
+      console.log(`Hotel ${id} availability updated: ${!isDisabled}`);
+  
+      return result;
+    } catch (error) {
+      console.error("Error updating room availability:", error.message);
+      throw error;
+    }
+  };
+
   module.exports = {
-    disableRoomId
+    disableRoomId,
+    disableHotelId
   }

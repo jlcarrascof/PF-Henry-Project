@@ -7,9 +7,9 @@ const db = require("../db");
 const authUser = async (req, res) => {
     try{
       let db = getDb()
-      const { uid, email } = req.body;
+      const { email, password } = req.body;
 
-      const existingUser = await db.collection("users").findOne({ $or: [{ email }, { uid }] });
+      const existingUser = await db.collection("users").findOne({ $and: [{ email }, { password }] });
 
       if(!existingUser){
         res.status(404).send({error: "Usuario no encontrado"});
@@ -30,11 +30,10 @@ const authUser = async (req, res) => {
 }
 
 
-
 const postUser = async (req, res) => {
     try {
       let db = getDb()
-      const { username, uid, email, image, role, permissions, firstName, lastName, dateOfBirth, phone } = req.body;
+      const { username, uid, email, image, role, permissions, firstName, lastName, dateOfBirth, phone, password } = req.body;
       
       const existingUser = await db.collection("users").findOne({ $or: [{ username }, { email }, { uid }] });
       
@@ -46,6 +45,7 @@ const postUser = async (req, res) => {
           username,
           uid,
           email,
+          password,
           image,
           role,
           permissions,
