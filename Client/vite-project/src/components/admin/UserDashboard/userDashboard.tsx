@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
-import { getDisabledUsers } from '../../../Redux/Actions/actions';
+import { getUsers } from '../../../Redux/Actions/actions';
 import {
   TableContainer,
   Table,
@@ -24,7 +24,7 @@ const UserTable = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDisabledUsers());
+    dispatch(getUsers());
   }, [dispatch]);
 
   const { users } = useSelector((state: State) => state);
