@@ -12,7 +12,6 @@ const { getDb } = require("../db");
 const db = require("../db");
 
 const authUser = async (req, res) => {
-
   try {
     let db = getDb();
     const { email } = req.params;
@@ -24,21 +23,20 @@ const authUser = async (req, res) => {
     if (!existingUser) {
       res.status(404).send({ error: "Usuario no encontrado" });
       return;
-
-       const username = existingUser.username
-       const message = `Bienvenido ${username}`;
-
-        res.status(200).send({
-            Message: message,
-            Status: "OK",
-            Userdata: existingUser
-        })
-    } catch (error) {
-        res.status(500).send({error: "No pudo autenticarse"})
     }
-  };
 
-   
+    const username = existingUser.username;
+    const message = `Bienvenido ${username}`;
+
+    res.status(200).send({
+      Message: message,
+      Status: "OK",
+      Userdata: existingUser,
+    });
+  } catch (error) {
+    res.status(500).send({ error: "No pudo autenticarse" });
+  }
+};
 
 const postUser = async (req, res) => {
   try {
@@ -62,32 +60,31 @@ const postUser = async (req, res) => {
     if (existingUser) {
       res.status(400).send({ error: "Usuario repetido" });
       return;
-     
-        const newUser = new User({
-          username,
-          uid,
-          email,
-          password,
-          image,
-          role,
-          permissions,
-          profile: {
-            firstName, 
-            lastName, 
-            dateOfBirth
-        },
-          dateOfBirth, 
-          phone
-        });
-      const savedUser = await createUser(newUser)
-  
-      res.status(201).send(savedUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ error: 'Error al crear el usuario' });
-
     }
-    
+
+    const newUser = new User({
+      username,
+      uid,
+      email,
+      password,
+      image,
+      role,
+      permissions,
+      profile: {
+        firstName,
+        lastName,
+        dateOfBirth,
+      },
+      dateOfBirth,
+      phone,
+    });
+    const savedUser = await createUser(newUser);
+
+    res.status(201).send(savedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Error al crear el usuario" });
+  }
 };
 
 const getUserID = async (req, res) => {
