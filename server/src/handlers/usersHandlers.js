@@ -33,10 +33,11 @@ const authUser = async (req, res) => {
             Status: "OK",
             Userdata: existingUser
         })
-    } catch (error) {
-        res.status(500).send({error: "No pudo autenticarse"})
-    }
-  };
+    } 
+  }catch (error) {
+    res.status(500).send({error: "No pudo autenticarse"})
+}
+}
 
    
 
@@ -82,13 +83,14 @@ const postUser = async (req, res) => {
       const savedUser = await createUser(newUser)
   
       res.status(201).send(savedUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ error: 'Error al crear el usuario' });
-
     }
     
-};
+}catch (error) {
+  console.error(error);
+  res.status(500).send({ error: 'Error al crear el usuario' });
+
+}
+}
 
 const getUserID = async (req, res) => {
   try {
