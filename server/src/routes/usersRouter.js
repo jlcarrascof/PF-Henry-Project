@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getUserID, deleteUserByID, getUser, postUser, patchUser, createReservation, getReservations, deleteReservation, authUser } = require('../handlers/usersHandlers');
+const { getUserID, deleteUserByID, getUser, postUser, patchUser, createReservation, getReservations, getConfirmedReservations, deleteReservation, authUser } = require('../handlers/usersHandlers');
 
 const usersRouter = Router();
 
@@ -8,6 +8,9 @@ usersRouter.get('/', getUser); // --> '/users'
 
 //RUTA PARA TRAER RESERVAS
 usersRouter.get('/:identifier/reservations', getReservations);
+
+//usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
+usersRouter.get('/:identifier/reservations/confirmed', getConfirmedReservations);
 
 // Ruta para traer usuario por ObjectID ---> GET BY ID
 usersRouter.get('/:id', getUserID); // --> '/users/?id'

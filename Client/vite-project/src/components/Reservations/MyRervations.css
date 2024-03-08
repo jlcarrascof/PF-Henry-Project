@@ -1,0 +1,18 @@
+
+.my-reservations-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+  
+ 
+  .data-grid-container {
+    width: 90%; 
+  }
+  
+ 
+  .data-grid {
+    height: 400px; 
+    width: 100%;
+  }

@@ -209,7 +209,6 @@ export const deleteReservation = (userId: string, reservationId: string) => {
   };
 };
 
-
 export const getConfirmedReservations = (userEmail: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {

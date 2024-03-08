@@ -14,9 +14,11 @@ import Notification from "./components/notification system/Notification";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
 import Cloudinary from "./components/cloudinary/Cloudinary";
-import RoomsDashboard from "./components/admin/RoomDashboard/RoomDashboard";
+import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/HotelDashboard";
 
+// ? -----------------------------------------------------STYLES
+import "./App.css";
 
 function App() {
   
@@ -35,6 +37,7 @@ function App() {
         <Route path="/rooms" element={<Home />} />
         <Route path="/reservations" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
+        <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
         <Route path="/cloudinary" element={<Cloudinary/>} />
         <Route path="/admin/hotels" element={<HotelDashboard/>}/>
@@ -46,3 +49,7 @@ function App() {
 }
 
 export default App;
+
+
+
+

@@ -285,29 +285,31 @@ const postReview = async (req, res) => {
       return res.status(404).send({ error: "No es un ObjectId valido" });
     }
 
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({ error: error.details[0].message });
+      //const { error } = reviewSchema.validate(req.body);
+
+      // if (error) {
+      //     return res.status(400).json({ error: error.details[0].message });
+      // }
+
+      const newReview = req.body; 
+      const result = await db
+        .collection("rooms")
+        .updateOne({ _id: new ObjectId(id) }, {
+          $push: {review: newReview},
+          $set: {
+            totalScore: {
+              $avg: "reviews.score"
+            }
+          }
+        })
+  
+        console.log("nueva reseña: ", newReview)
+        res.status(200).send(result)
+    } catch (err) {
+      console.log(err)
+      res.status(500).send(err)
     }
-
-    const newReview = req.body;
-    const result = await db.collection("rooms").updateOne(
-      { _id: new ObjectId(id) },
-      {
-        $push: { review: newReview },
-        $set: {
-          totalScore: {
-            $avg: "reviews.score",
-          },
-        },
-      }
-    );
-
-    res.status(200).send(result);
-  } catch (err) {
-    res.status(500).send(err);
   }
-};
 
 
 const getAllRooms = async (req, res) => {

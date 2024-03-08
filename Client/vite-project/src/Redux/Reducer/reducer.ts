@@ -19,6 +19,7 @@ export interface State {
     user: any;
     post_hotel: any[];
     reservations: any[];
+    confirmedReservations: any[];
   }
  
   const initialState: State = {
@@ -37,7 +38,8 @@ export interface State {
     isAuthenticated: false,
     user: null,
     post_hotel: [],
-    reservations: []
+    reservations: [],
+    confirmedReservations: [],
   };
   
   const rootReducer = (state: State = initialState, action: Action): State => {
@@ -151,10 +153,16 @@ export interface State {
                 user: null,
               };
         case "POST_HOTEL":
-                return{
-                    ...state,
-                    post_hotel:action.payload
-                }
+              return{
+                  ...state,
+                  post_hotel:action.payload
+              }
+
+        case "GET_CONFIRMED_RESERVATIONS":
+              return {
+                  ...state,
+                  confirmedReservations: action.payload
+              };
                 
             default:
               return state;
