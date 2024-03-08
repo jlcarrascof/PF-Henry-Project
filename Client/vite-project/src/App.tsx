@@ -37,8 +37,7 @@ function App() {
         <Route path="/reservation" element={<Notification />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
         <Route path="/cloudinary" element={<Cloudinary/>} />
-        <Route path="/admin/test/hotels" element={<HotelDashboard/>}/>
-        <Route path="/admin/test/rooms" element={<RoomsDashboard/>}/>
+        <Route path="/admin/hotels" element={<HotelDashboard/>}/>
         
       </Routes>
       <Footer />
