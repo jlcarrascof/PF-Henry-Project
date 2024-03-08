@@ -1,7 +1,8 @@
+import { format, differenceInYears } from "date-fns";
+
 interface Error {
   username?: string;
   email?: string;
-  firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
   phone?: string;
@@ -12,61 +13,75 @@ interface Error {
 export const validation = ({
   username,
   email,
-  firstName,
   lastName,
   dateOfBirth,
   phone,
   password,
-  repeatPassword
+  repeatPassword,
 }: Error): { [key: string]: string } => {
   let error: { [key: string]: string } = {};
 
-  // Validaciones para el nombre
+  // Validaciones para el nombre de usuario
   if (!username) {
-   error.username = "This field cannot be blank";
+    error.username = "This field cannot be blank";
   } else if (!/^[A-Za-z]+$/.test(username)) {
-    error.username = "Only letters are allowed";
+    error.username = "Only letters allowed";
   }
 
+  // Validaciones para el email
   if (!email) {
+    error.email = "This field cannot be blank";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    error.email = "Must be a valid email";
+    error.email = "It must be a valid email";
   }
 
-  if (!firstName) {
-    // error.name = "This field cannot be blank";
-  } else if (!/^[A-Za-zÁ-Úá-ú\s]+$/.test(firstName)) {
-    error.firstName = "Only letters are allowed";
-  }
-  
   // Validaciones para el apellido
   if (!lastName) {
-    // error.lastName = "This field cannot be blank";
+    error.lastName = "This field cannot be blank";
   } else if (!/^[A-Za-zÁ-Úá-ú\s]+$/.test(lastName)) {
-    error.lastName = "Only letters are allowed";
+    error.lastName = "Only letters allowed";
   }
 
+  // Validaciones para la fecha de nacimiento
   if (!dateOfBirth) {
-    // error.lastName = "This field cannot be blank";
+    error.dateOfBirth = "This field cannot be blank";
   } else if (!/^\d{4}-\d{2}-\d{2}$/.test(dateOfBirth)) {
     error.dateOfBirth = "Invalid date";
+  } else {
+    const currentDate = new Date();
+    const birthDate = new Date(dateOfBirth);
+    const age = differenceInYears(currentDate, birthDate);
+
+    if (age < 18) {
+      error.dateOfBirth = "You must be over 18 years old";
+    } else {
+      // Si la edad es mayor o igual a 18, se limpia el error
+      delete error.dateOfBirth;
+    }
   }
 
   // Validaciones para el número de teléfono
   if (!phone) {
-    // error.phoneNumber = "This field cannot be blank";
+    error.phone = "This field cannot be blank";
   } else if (!/^\d+$/.test(phone)) {
-    error.phoneNumber = "Only numbers are allowed";
+    error.phone = "Only numbers allowed";
   }
 
+  // Validaciones para la contraseña
   if (!password) {
     error.password = "This field cannot be blank";
-   } else if (!/^(?!.*\s)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password)) {
-     error.password = "Spaces not allowed";
-   }
+  } else if (
+    !/^(?!.\s)(?=.[A-Za-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$/.test(
+      password
+    )
+  ) {
+    error.password =
+      "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)";
+  }
 
-   if (password !== repeatPassword) {
-    error.password = "It must be the same password";
+  // Validaciones para la repetición de la contraseña
+  if (password !== repeatPassword) {
+    error.repeatPassword = "Passwords must match";
   }
 
   return error;
