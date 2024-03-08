@@ -11,10 +11,13 @@ import {
   GoogleAuthProvider,
   User,
   signOut,
-  UserCredential
-} from 'firebase/auth';
-import firebaseApp from './firebaseConfig';
-import { authenticateUser } from '../../Redux/Actions/actions';
+  UserCredential,
+} from "firebase/auth";
+import firebaseApp from "./firebaseConfig";
+import { authenticateUser } from "../../Redux/Actions/actions";
+import "./Login.css";
+import Register from "../register/Register";
+import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert'
 import styled from 'styled-components'
 
@@ -62,6 +65,7 @@ const Login: React.FC = () => {
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
@@ -118,7 +122,16 @@ const Login: React.FC = () => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
+      //LOCAL STORAGE USER INTERFACE
+      let localUser = {
+        name: user.displayName,
+        email: user.email,
+        role: 'owner'
+      }
+      window.localStorage.setItem('user', JSON.stringify(localUser))
+      //LOCAL STORAGE USER INTERFACE
       console.log(user);
+      navigate('/')
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
@@ -127,6 +140,7 @@ const Login: React.FC = () => {
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
+      window.localStorage.clear('user')
     } catch (error) {
       console.error("Error durante la desconexión:", error);
     }
