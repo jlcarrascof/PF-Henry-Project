@@ -5,6 +5,8 @@ import { validation } from "./RegValidation";
 import "./Register.modules.css";
 import Cloudinary from "../cloudinary/Cloudinary";
 import { createUser } from "../../Redux/Actions/actions";
+import app from "../login/firebaseConfig";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 interface RegisterProps {
   onSubmit: (formData: FormData) => void;
@@ -25,6 +27,7 @@ interface FormData {
 }
 
 const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
+  const auth = getAuth(app);
   const initialFormData: FormData = {
     username: "",
     email: "",
@@ -56,15 +59,16 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const email = e.target.emailRegister.value;
+    const password = e.target.passwordRegister.value;
     // Validar todos los campos antes de enviar
     const formErrors = validation(formData);
     setErrors(formErrors);
+    (await createUserWithEmailAndPassword(auth, email, password)) &&
+      (await dispatch(createUser(formData)));
 
     if (Object.keys(formErrors).length === 0) {
       try {
-        await dispatch(createUser(formData));
-
         setIsRegistered(true);
         setFormData(initialFormData);
         setErrors({});
@@ -108,6 +112,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
           <div className="label-datos">
             <label>Email:</label>
             <input
+              id="emailRegister"
               type="text"
               name="email"
               value={formData.email}
@@ -168,6 +173,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
           <div className="label-datos">
             <label>Password:</label>
             <input
+              id="passwordRegister"
               type="text"
               name="password"
               value={formData.password}

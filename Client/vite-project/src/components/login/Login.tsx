@@ -93,6 +93,7 @@ const Login: React.FC = () => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
+      dispatch(createUser(user)) && console.log(user);
 
       //LOCAL STORAGE USER INTERFACE
       let localUser = {
