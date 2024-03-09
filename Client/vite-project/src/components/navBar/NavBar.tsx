@@ -47,9 +47,6 @@ const NavBar: React.FC = () => {
             <Link className="btnLogin" to="/login">
             <p>Login</p>
           </Link>
-          <button className="btnLogin" onClick={() => setShowLogin(true)}>
-            Login
-          </button>
           }
         </div>
       </div>

@@ -29,10 +29,11 @@ export default function HotelDashboard() {
 
   const rows = allAdminHotels.map((hotel) =>
   createData(
+    hotel._id,
     hotel.name,
     hotel.address,
     hotel.owner || null,
-    hotel.disabled, 
+    hotel.availability, 
     hotel.rooms?.map((room) => ({
       description: room.description || '',
       typeOfRoom: room.typeOfRoom || '',
@@ -41,11 +42,12 @@ export default function HotelDashboard() {
       price: room.price || 0,
       availability: room.availability || true
     })) || [],
-    () => handleToggleDisableHotel(hotel._id),
-    () => handleToggleDisableRoom(room._id),
+    (hotelId) => handleToggleDisableHotel(hotelId),
+    (roomId) => handleToggleDisableRoom(roomId),
   )
 );
   return (
+    <div className='dashboardContainer'>
     <TableContainer component={Paper} className='TableContainer'>
       <Typography variant="h3" gutterBottom component="div">
         Admin your Hotels
@@ -57,7 +59,7 @@ export default function HotelDashboard() {
             <TableCell align="center">Hotel Name</TableCell>
             <TableCell align="center">Address</TableCell>
             <TableCell align="center">Owner</TableCell>
-            <TableCell align="right">Disabled</TableCell>
+            <TableCell align="right">Available</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -67,5 +69,6 @@ export default function HotelDashboard() {
         </TableBody>
       </Table>
     </TableContainer>
+  </div>
   );
 }

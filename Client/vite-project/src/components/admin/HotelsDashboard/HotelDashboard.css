@@ -1,11 +1,31 @@
 .TableContainer {
     max-width: 1000px;
-    margin: 200px auto;
+    margin: 40px 40px;
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+
+.dashboardContainer{
+  margin: 80px 40px;
+  display: grid;
+  grid-template-columns: 1fr ;
+}
+
+.calendarContainer{
+  transform: scale(0.75);
+  width: fit-content;
+  height: fit-content;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px;
+  box-shadow: 0 0 10px grey;
+}
+
+.ant-picker-cell ant-picker-cell-in-view{
+  height: 30px;
+}
   
   .th {
     color: #333;
