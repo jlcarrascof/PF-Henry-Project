@@ -15,9 +15,7 @@ import CartReservation from "./components/cart/CartReservation";
 import Cloudinary from "./components/cloudinary/Cloudinary";
 import MyReservations from "./components/Reservations/MyReservations";
 
-
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
-
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
@@ -29,14 +27,12 @@ interface User {
 function App() {
   const [theUser, setTheUser] = useState<User | null>(null);
 
-  
-
   return (
     <>
       <NavBar />
 
       <Routes>
-        <Route>
+        {/* <Route>
           <Route
             path="/"
             element={theUser ? <LandingPage /> : <Navigate to="/login" />}
@@ -45,7 +41,7 @@ function App() {
             path="/login"
             element={<Login setTheUser={setTheUser} theUser={theUser} />}
           />
-        </Route>
+        </Route> */}
         <Route path="/register" element={<Register onSubmit={onsubmit} />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/favorites" element={<Favorites />} />
@@ -56,11 +52,9 @@ function App() {
         <Route path="/reservations" element={<CartReservation />} />
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/register-hotel" element={<FormProperty />} />
-        <Route path="/admin" element={<DisableRooms />} />
-        <Route path="/cloudinary" element={<Cloudinary/>} />
-        <Route path="/admin/hotels" element={<HotelDashboard/>}/>
-        
-
+        {/* <Route path="/admin" element={<DisableRooms />} /> */}
+        <Route path="/cloudinary" element={<Cloudinary />} />
+        <Route path="/admin/hotels" element={<HotelDashboard />} />
       </Routes>
       <Footer />
     </>

@@ -25,6 +25,20 @@ const authUser = async (req, res) => {
       return;
     }
 
+       const username = existingUser.username
+       const message = `Bienvenido ${username}`;
+
+        res.status(200).send({
+            Message: message,
+            Status: "OK",
+            Userdata: existingUser
+        })
+    } catch (error) {
+    res.status(500).send({error: "No pudo autenticarse"})
+}
+}
+
+
     const username = existingUser.username;
     const message = `Bienvenido ${username}`;
 
@@ -60,6 +74,7 @@ const postUser = async (req, res) => {
     if (existingUser) {
       res.status(400).send({ error: "Usuario repetido" });
       return;
+<<<<<<< HEAD
     }
 
     const newUser = new User({
@@ -86,6 +101,36 @@ const postUser = async (req, res) => {
     res.status(500).send({ error: "Error al crear el usuario" });
   }
 };
+=======
+     
+        const newUser = new User({
+          username,
+          uid,
+          email,
+          password,
+          image,
+          role,
+          permissions,
+          profile: {
+            firstName, 
+            lastName, 
+            dateOfBirth
+        },
+          dateOfBirth, 
+          phone
+        });
+      const savedUser = await createUser(newUser)
+  
+      res.status(201).send(savedUser);
+    }
+    
+}catch (error) {
+  console.error(error);
+  res.status(500).send({ error: 'Error al crear el usuario' });
+
+}
+}
+>>>>>>> 142d89e71604d924684f6124b2091852485800d5
 
 const getUserID = async (req, res) => {
   try {
