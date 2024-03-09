@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
-import { disableHotel, disableRoom, getDisabledHotels } from '../../../Redux/Actions/actions';
+import { getDisabledHotels } from '../../../Redux/Actions/actions';
 import TableContainer from '@material-ui/core/TableContainer';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -9,23 +9,15 @@ import {Row, createData} from "./tableRow"
 import "./HotelDashboard.css"
 
 export default function HotelDashboard() {
-    
-  const dispatch = useDispatch()
 
+  const dispatch = useDispatch()
+  
   useEffect(() => {
     dispatch(getDisabledHotels());
   }, []);
   
   const { allAdminHotels } = useSelector((state: State) => state);
   console.log(allAdminHotels)
-
-  const handleToggleDisableHotel = (hotelId) => {
-    dispatch(disableHotel(hotelId));
-  };
-
-  const handleToggleDisableRoom = (roomId) => {
-    dispatch(disableRoom(roomId));
-  };
 
   const rows = allAdminHotels.map((hotel) =>
   createData(
@@ -42,8 +34,6 @@ export default function HotelDashboard() {
       price: room.price || 0,
       availability: room.availability || true
     })) || [],
-    (hotelId) => handleToggleDisableHotel(hotelId),
-    (roomId) => handleToggleDisableRoom(roomId),
   )
 );
   return (
