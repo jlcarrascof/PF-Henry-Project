@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
-import { getDisabledUsers } from '../../../Redux/Actions/actions';
+import { getUsers } from '../../../Redux/Actions/actions';
 import {
   TableContainer,
   Table,
@@ -24,13 +24,12 @@ const UserTable = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDisabledUsers());
+    dispatch(getUsers());
   }, [dispatch]);
 
   const { users } = useSelector((state: State) => state);
 
   const rows = users.map((user) => ({
-    disable: user.disable,
     uid: user.uid,
     firstName: user.profile.firstName,
     lastName: user.profile.lastName,
@@ -39,9 +38,8 @@ const UserTable = () => {
     phone: user.phone,
     role: user.role,
     permissions: user.permissions,
-    reservation: user.reservation, // Esto es un array, ¿cómo se procese?
   }));
-//sx puede que este sobrando
+//sx puede que este sobrando sx={{ maxHeight: '80%' }, { maxWidth: '85%' }}
   return (
     <TableContainer className='TableContainer' component={Paper} sx={{ maxHeight: '80%' }, { maxWidth: '85%' }}>
       <Typography variant="h3" gutterBottom component="div">
@@ -59,7 +57,6 @@ const UserTable = () => {
             <TableCell>Phone</TableCell>
             <TableCell>Role</TableCell>
             <TableCell>Permissions</TableCell>
-            <TableCell>Reservation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -74,8 +71,6 @@ const UserTable = () => {
               <TableCell>{row.phone}</TableCell>
               <TableCell>{row.role}</TableCell>
               <TableCell>{row.permissions}</TableCell>
-              {/* Puedes agregar lógica aquí para mostrar la información de la reserva como desees */}
-              <TableCell>{row.reservation ? 'Has reservations' : 'No reservations'}</TableCell>
             </TableRow>
           ))}
         </TableBody>
