@@ -72,10 +72,55 @@ const disableRoom = async (req, res) => {
     }
   };
 
+  const getMixedSearch = async (req, res) => {
+    try {
+      const { address } = req.query;
+      const db = getDb();
+  
+      if (!address) {
+        return res.status(400).send("Wrong input handling");
+      }
+  
+      const roomWithHotel = await db
+        .collection("rooms")
+        .aggregate([
+          {
+            $lookup: {
+              from: "hotels",
+              localField: "hotel_id",
+              foreignField: "_id",
+              as: "hotel",
+            },
+          },
+          {
+            $match: {
+              "hotel.address": { $regex: new RegExp(address, "i") },
+            },
+          },
+        ])
+        .toArray();
+  
+      const hotel = await db
+        .collection("hotels")
+        .find({ "address": { $regex: new RegExp(address, "i") } })
+        .toArray();
+  
+      const result = hotel.concat(roomWithHotel);
+  
+      res.status(200).json({
+        result: result,
+      });
+    } catch (error) {
+      console.log("Error: ", error);
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
 
   module.exports = {
     disableRoom,
     getDisabledRooms,
     disableHotel,
-    getDisabledHotels
+    getDisabledHotels,
+    getMixedSearch
   }

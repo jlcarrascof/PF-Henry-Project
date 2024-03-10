@@ -48,6 +48,7 @@
 .reviews {
   background-color: #b8b7c0;
   padding: 15px;
+  margin: 70px 15px;
   border-radius: 20px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -84,7 +85,7 @@
 .reserva-button {
   align-self: center;
   width:fit-content;
-  margin: 25px;
+  margin-top: 45px;
   padding: 20px;
   border-radius: 30px;
   -webkit-border-radius: 20px;

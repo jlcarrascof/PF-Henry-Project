@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,19 +10,19 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import "./HotelDashboard.css"
 import { Switch } from '@material-ui/core';
-
+import { Popconfirm } from 'antd';
+import "./HotelDashboard.css"
+import { useDispatch } from 'react-redux';
+import { disableHotel, disableRoom, getDisabledHotels } from '../../../Redux/Actions/actions'
 
 export function createData(
+    _id: string,
     Name: string,
     Address: string,
     Owner: string,
-    Disabled: boolean,
+    availability: boolean,
     RoomsData: { description: string; typeOfRoom: string; id: string; num_rooms: number; price: number; availability: boolean }[],
-    onToggleDisableHotel: () => void,
-    onToggleDisableRoom: () => void
-
 ) {
   const Rooms = Array.isArray(RoomsData) ? RoomsData.map(room => ({
     description: room.description || 'Its a room',
@@ -34,20 +34,52 @@ export function createData(
   })) : [];
 
   return {
+    _id,
     Name, 
     Address, 
     Owner,
     Rooms,
-    Disabled,
-    onToggleDisableHotel,
-    onToggleDisableRoom
+    availability,
   };
 }
 
 export function Row(props: { row: ReturnType<typeof createData> }) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
+    const [confirmedAction, setConfirmedAction] = useState(false);
+    const [localAvailability, setLocalAvailability] = useState(row.availability);
+    const dispatch = useDispatch()
+    
+    const handleToggleDisableHotel = async (hotelId) => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        setLocalAvailability(!localAvailability)
+        dispatch(disableHotel(hotelId));
+        setConfirmedAction(true);
+      } catch (error) {
+        console.error('Error during confirmation:', error);
+      }
+    };
+    
+    const handleToggleDisableRoom = async (roomId) => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        dispatch(disableRoom(roomId));
+        setConfirmedAction(true);
+
+        setLocalAvailability(!localAvailability)
+        } catch (error) {
+      console.error('Error during confirmation:', error);
+    }
+  };
   
+  const handleChangeAvailability = (checked) => {
+    if (confirmedAction) {
+      setConfirmedAction(false);
+    }
+  };
     const handleToggle = () => {
       setOpen(!open);
     };
@@ -66,11 +98,19 @@ export function Row(props: { row: ReturnType<typeof createData> }) {
           <TableCell align="left">{row.Address}</TableCell>
           <TableCell align="left">{row.Owner}</TableCell>
           <TableCell align="right">
+          <Popconfirm
+            title="Are you sure you want to disable this property?"
+            onConfirm={() => handleToggleDisableHotel(row._id)}
+            onCancel={() => console.log('Cancel')}
+            okText="Confirm"
+            cancelText="Cancel"
+          >
             <Switch
-            checked={row.Disabled}
-            onChange={() => row.onToggleDisableRoom()}
-            color="primary"
-            />
+              checked={localAvailability}
+              onChange={handleChangeAvailability}
+              color="primary"
+              />
+            </Popconfirm>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -102,11 +142,19 @@ export function Row(props: { row: ReturnType<typeof createData> }) {
                         <TableCell align="center">{room.amount}</TableCell>
                         <TableCell align="center">{room.price}</TableCell>
                         <TableCell align="right">
-                          <Switch
-                            checked={room.availability}
-                            onChange={() => row.onToggleDisableRoom()}
-                            color="primary"
-                          />
+                          <Popconfirm
+                            title="Are you sure you want to disable this property?"
+                            onConfirm={() => handleToggleDisableRoom(room.id)}
+                            onCancel={() => console.log('Cancel')}
+                            okText="Confirm"
+                            cancelText="Cancel"
+                          >
+                            <Switch
+                              checked={localAvailability}
+                              onChange={handleChangeAvailability}
+                              color="primary"
+                              />
+                          </Popconfirm>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -119,4 +167,3 @@ export function Row(props: { row: ReturnType<typeof createData> }) {
       </React.Fragment>
     );
   }
-  

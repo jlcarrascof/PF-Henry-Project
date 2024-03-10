@@ -96,6 +96,7 @@ import { Link } from "react-router-dom";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import ReviewModal from './reviewModal';
 import "./MyRervations.css";
+import EmptyComp from "./EmptyComp";
 
 const MyReservations: React.FC = () => {
   const dispatch = useDispatch();
@@ -159,15 +160,18 @@ const MyReservations: React.FC = () => {
   });
 
   return (
+    
     <div className="my-reservations-container">
+      {!rows || rows.length == 0 ? (<EmptyComp />) : (
       <div className="data-grid-container">
         <DataGrid
           className="data-grid"
           rows={rows}
           columns={columns}
           pageSize={5}
-        />
+          />
       </div>
+      )}
       {selectedRoomId !== null && <ReviewModal roomId={selectedRoomId} onClose={handleCloseModal} onSubmitReview={handleReviewSubmitted} />}
     </div>
   );

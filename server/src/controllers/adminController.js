@@ -61,5 +61,5 @@ const disableRoomId = async (id) => {
 
   module.exports = {
     disableRoomId,
-    disableHotelId
+    disableHotelId,
   }
