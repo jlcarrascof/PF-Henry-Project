@@ -70,14 +70,17 @@ export const validation = ({
   // Validaciones para la contraseña
   if (!password) {
     error.password = "This field cannot be blank";
-  } else if (
-    !/^(?!.\s)(?=.[A-Za-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$/.test(
-      password
-    )
-  ) {
-    error.password =
-      "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)";
+  } else if (password && password.length < 8) {
+    error.password = "The password should be at least 8 characters long";
   }
+  // } else if (
+  //   /^(?!.\s)(?=.[A-Za-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$/.test(
+  //     password
+  //   )
+  // ) {
+  //   error.password =
+  //     "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)";
+  // }
 
   // Validaciones para la repetición de la contraseña
   if (password !== repeatPassword) {

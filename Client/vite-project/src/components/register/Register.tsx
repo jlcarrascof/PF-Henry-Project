@@ -6,6 +6,8 @@ import "./Register.modules.css";
 import Cloudinary from "../cloudinary/Cloudinary";
 import { createUser } from "../../Redux/Actions/actions";
 import emailjs from "@emailjs/browser";
+import app from "../login/firebaseConfig";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import { format, differenceInYears } from "date-fns";
 
@@ -33,9 +35,11 @@ interface Values {
 }
 
 const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
+  const auth = getAuth(app);
   const [values, setValues] = useState<Values>({
     user_email: "",
-    message: `Oh, it's someone new!! Welcome to Rentify, the best app where you don't have to worry about spending hours looking for a hotel to go! We are so glad to have you with us :D`,
+    message:
+      "Oh, it's someone new!! Welcome to Rentify, the best app where you don't have to worry about spending hours looking for a hotel to go! We are so glad to have you with us :D",
   });
   const initialFormData: FormData = {
     username: "",
@@ -91,21 +95,35 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     const formErrors = validation(formData);
     setErrors(formErrors);
 
-    if (Object.keys(formErrors).length === 0) {
-      try {
-        setIsRegistered(true);
-        setFormData(initialFormData);
-        setErrors({});
-
-        // Establecer isRegistered después de limpiar el formulario
-        setTimeout(() => {
-          setIsRegistered(false);
-          navigate("/login");
-        }, 2000); // Espera 2 segundos antes de quitar el mensaje de registro exitoso
-      } catch (error) {
-        console.log("Error en el registro:", error);
+    // if (!Object.keys(formErrors)) {
+    try {
+      const email = e.target.emailReg.value;
+      const password = e.target.passwordReg.value;
+      console.log(formData);
+      const backResponse = await dispatch(createUser(formData));
+      if (!backResponse) {
+        return;
       }
+      await createUserWithEmailAndPassword(auth, email, password);
+      setIsRegistered(true);
+      setFormData(initialFormData);
+      setErrors({});
+
+      // Establecer isRegistered después de limpiar el formulario
+      setTimeout(() => {
+        setIsRegistered(false);
+        navigate("/login");
+      }, 2000); // Espera 2 segundos antes de quitar el mensaje de registro exitoso
+    } catch (error) {
+      console.log("Error en el registro:", error);
     }
+    // if (isRegistered) {
+    //   navigate("/login");
+    // } else {
+    //   alert("An error occured on your registration");
+    // }
+
+    // Establecer isRegistered después de limpiar el formulario
   };
 
   return (
@@ -171,7 +189,9 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
           <div className="label-datos">
             <label>Email:</label>
+
             <input
+              id="emailReg"
               type="text"
               name="user_email"
               value={values.user_email}
@@ -184,6 +204,20 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
           <div className="label-datos">
             <label>Password:</label>
             <input
+              id="passwordReg"
+              type="text"
+              name="user_email"
+              value={values.user_email}
+              onChange={handleChange}
+              required
+            />
+            {/* {errors.email && <p>{errors.email}</p>} */}
+          </div>
+
+          <div className="label-datos">
+            <label>Password:</label>
+            <input
+              id="passwordReg"
               type="password" // Cambiado a 'password' para ocultar la contraseña
               name="password"
               value={formData.password}

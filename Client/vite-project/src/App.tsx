@@ -16,7 +16,6 @@ import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
 
-
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
@@ -26,8 +25,6 @@ interface User {
 }
 function App() {
   const [theUser, setTheUser] = useState<User | null>(null);
-
-  
 
   return (
     <>
@@ -53,10 +50,9 @@ function App() {
         <Route path="/reservations" element={<CartReservation />} />
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/favorites" element={<FavoritesRoom />} />
-        <Route path="/register-hotel" element={<FormProperty/>}/>
-        <Route path="/cloudinary" element={<Cloudinary/>} />
-        <Route path="/admin/hotels" element={<HotelDashboard/>}/>
-        
+        <Route path="/register-hotel" element={<FormProperty />} />
+        <Route path="/cloudinary" element={<Cloudinary />} />
+        <Route path="/admin/hotels" element={<HotelDashboard />} />
       </Routes>
       <Footer />
     </>

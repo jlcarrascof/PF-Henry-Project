@@ -1,5 +1,19 @@
-const { Router } = require('express');
-const { getUserID, deleteUserByID, getUser, postUser, patchUser, createReservation, getReservations, getConfirmedReservations, deleteReservation, authUser, getFavoriteRooms, addFavoriteRoom, removeFavoriteRoom } = require('../handlers/usersHandlers');
+const { Router } = require("express");
+const {
+  getUserID,
+  deleteUserByID,
+  getUser,
+  postUser,
+  patchUser,
+  createReservation,
+  getReservations,
+  getConfirmedReservations,
+  deleteReservation,
+  authUser,
+  getFavoriteRooms,
+  addFavoriteRoom,
+  removeFavoriteRoom,
+} = require("../handlers/usersHandlers");
 
 const usersRouter = Router();
 
@@ -10,16 +24,19 @@ usersRouter.get("/", getUser); // --> '/users'
 usersRouter.get("/:identifier/reservations", getReservations);
 
 //usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
-usersRouter.get('/:identifier/reservations/confirmed', getConfirmedReservations);
+usersRouter.get(
+  "/:identifier/reservations/confirmed",
+  getConfirmedReservations
+);
 
 //Ruta para traer los rooms favoritos del usuario
-usersRouter.get('/:identifier/favorites', getFavoriteRooms)
+usersRouter.get("/:identifier/favorites", getFavoriteRooms);
 
 //Ruta para agregar un room a los favoritos del usuario
-usersRouter.patch('/:identifier/favorites/:roomId', addFavoriteRoom)
+usersRouter.patch("/:identifier/favorites/:roomId", addFavoriteRoom);
 
 //Ruta para eliminar un room de favoritos del usuario
-usersRouter.delete('/:identifier/favorites/:roomId', removeFavoriteRoom)
+usersRouter.delete("/:identifier/favorites/:roomId", removeFavoriteRoom);
 
 // Ruta para traer usuario por ObjectID ---> GET BY ID
 usersRouter.get("/:id", getUserID); // --> '/users/?id'
@@ -34,7 +51,7 @@ usersRouter.patch("/:id", patchUser); // --> '/users/?id'
 usersRouter.delete("/:id", deleteUserByID); // --> '/users/?id'
 
 // Nueva ruta para recibir la información de Firebase
-usersRouter.get("/authenticate/:email", authUser);
+usersRouter.get("/authenticate/:email/:password", authUser);
 
 //PARA CARRITO DE RESERVAS!! -->
 // Ruta para crear una reserva para un usuario específico
