@@ -48,7 +48,7 @@ const Login: React.FC = () => {
   //   return () => unsubscribe();
   // }, [dispatch]);
 
-  console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
+  // console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
 
   useEffect(() => {
     // // Si hay un usuario y el valor ha cambiado
@@ -78,8 +78,8 @@ const Login: React.FC = () => {
     const password = e.target.password.value;
     console.log(email, password);
     // if (registration) {
-    createUserWithEmailAndPassword(auth, email, password).then(() =>
-      dispatch(createUser(email, password))
+    signInWithEmailAndPassword(auth, email, password).then(() =>
+      dispatch(authenticateUser(email, password))
     );
     // } else {
     //   // signInWithEmailAndPassword(auth, email, password).then(
@@ -93,7 +93,7 @@ const Login: React.FC = () => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
-      dispatch(createUser(user)) && console.log(user);
+      dispatch(authenticateUser(user)) && console.log(user);
 
       //LOCAL STORAGE USER INTERFACE
       let localUser = {

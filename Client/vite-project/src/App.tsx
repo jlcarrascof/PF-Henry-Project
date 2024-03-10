@@ -43,13 +43,13 @@ function App() {
     }
   });
 
-  useEffect(() => {
-    if (user) {
-      dispatch(getReservations(user.uid));
-    } else {
-      dispatch(authenticateUser(null));
-    }
-  }, [dispatch, user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(getReservations(user.uid));
+  //   } else {
+  //     dispatch(authenticateUser(null));
+  //   }
+  // }, [dispatch, user]);
 
   return (
     <>

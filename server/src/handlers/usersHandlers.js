@@ -55,12 +55,12 @@ const postUser = async (req, res) => {
       phone,
     } = req.body;
 
-    const existingUser = await db.collection("users").findOne({ email });
+    // const existingUser = await db.collection("users").findOne({ email });
 
-    if (existingUser) {
-      res.status(400).send({ error: "Usuario repetido" });
-      return;
-    }
+    // if (existingUser) {
+    //   res.status(400).send({ error: "Usuario repetido" });
+    //   return;
+    // }
 
     const newUser = new User({
       username,

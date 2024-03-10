@@ -20,7 +20,7 @@ export const createUser = (userData: any) => {
       );
       dispatch({
         type: "POST_USER",
-        payload: response.data,
+        payload: response.data.insertedId,
       });
     } catch (error) {
       console.log(error);
