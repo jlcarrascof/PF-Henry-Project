@@ -5,6 +5,7 @@ export type HotelAction =
   | { type: 'GET_FILTERED_HOTELS'; payload: any }
   | { type: 'DISABLE_HOTELS_BY_ID'; payload: any}
   | { type: 'GET_DISABLED_HOTELS'; payload: any}
+  | { type: 'GET_MIXED_SEARCH'; payload: any}
   | { type: 'POST_HOTEL'; payload: any};
 
   export type RoomAction =

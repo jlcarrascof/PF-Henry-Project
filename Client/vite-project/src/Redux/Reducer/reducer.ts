@@ -77,6 +77,11 @@ export interface State {
                 allHotelsBackUp: action.payload.hotels,
                 totalResults: action.payload.totalResults,
           };
+        case 'GET_MIXED_SEARCH':
+          return {
+            ...state,
+            allAdminHotels: action.payload.result,
+          }
         case "DISABLE_HOTEL_BY_ID":
           return {
             ...state,

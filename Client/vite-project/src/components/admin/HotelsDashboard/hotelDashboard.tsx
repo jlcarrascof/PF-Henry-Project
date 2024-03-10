@@ -7,7 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@m
 import Paper from '@material-ui/core/Paper';
 import {Row, createData} from "./tableRow"
 import "./HotelDashboard.css"
-
+import ReuseCalendar from '../utils/calendar';
+import ReusableSearchBar from '../utils/ReusableSearchBar';
 export default function HotelDashboard() {
 
   const dispatch = useDispatch()
@@ -36,14 +37,19 @@ export default function HotelDashboard() {
     })) || [],
   )
 );
+
   return (
     <div className='dashboardContainer'>
-    <TableContainer component={Paper} className='TableContainer'>
-      <Typography variant="h3" gutterBottom component="div">
+    <div className='table_search'>
+      <ReusableSearchBar />
+
+    <div className='TableContainer'>
+    <TableContainer component={Paper} >
+      <Typography variant="h3" gutterBottom component="div" className='table-title'>
         Admin your Hotels
       </Typography>
       <Table aria-label="collapsible table">
-        <TableHead>
+        <TableHead className='table-head'>
           <TableRow>
             <TableCell> </TableCell>
             <TableCell align="center">Hotel Name</TableCell>
@@ -55,10 +61,15 @@ export default function HotelDashboard() {
         <TableBody>
           {rows.map((row) => (
             <Row key={row.Name} row={row} />
-          ))}
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
+      </div>
+    </div>
+      <div className='calendar'>
+      <ReuseCalendar />
+      </div>
   </div>
   );
 }

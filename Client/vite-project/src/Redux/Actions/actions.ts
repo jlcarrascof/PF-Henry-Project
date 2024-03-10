@@ -52,6 +52,22 @@ export const getDisabledRooms = () => {
   }
 }
 
+export const propertySearch = (address: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+        const {data} = await axios.get(`http://localhost:3002/admin/search/`, {
+          params: address
+        })
+      dispatch({
+        type: "GET_MIXED_SEARCH",
+        payload: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export const disableHotel = (id: string) => {
   return async (dispatch: Dispatch<Action>) =>{
     try{
