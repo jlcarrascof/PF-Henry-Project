@@ -1,8 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { User } from 'firebase/auth'
-import { ThunkAction } from 'redux-thunk';
-import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
+import { HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
 
 
 export interface Action {

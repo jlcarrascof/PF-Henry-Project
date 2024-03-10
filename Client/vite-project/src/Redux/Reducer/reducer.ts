@@ -1,5 +1,5 @@
 import { Action } from '../Actions/actions'; //  tipo Action  archivo Types.ts
-import { HotelAction, RoomAction,UserAction } from '../Actions/actions-types';
+import { HotelAction, RoomAction, UserAction } from '../Actions/actions-types';
 
 
 export interface State {

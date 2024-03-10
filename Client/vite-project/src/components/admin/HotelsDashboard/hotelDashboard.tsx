@@ -9,16 +9,17 @@ import {Row, createData} from "./tableRow"
 import "./HotelDashboard.css"
 import ReuseCalendar from '../utils/calendar';
 import ReusableSearchBar from '../utils/ReusableSearchBar';
-export default function HotelDashboard() {
 
+
+export default function HotelDashboard() {
+  
+  const allAdminHotels = useSelector((state: State) => state.allAdminHotels);
   const dispatch = useDispatch()
   
   useEffect(() => {
     dispatch(getDisabledHotels());
-  }, []);
+  }, [dispatch]);
   
-  const { allAdminHotels } = useSelector((state: State) => state);
-  console.log(allAdminHotels)
 
   const rows = allAdminHotels.map((hotel) =>
   createData(

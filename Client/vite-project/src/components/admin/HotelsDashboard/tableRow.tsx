@@ -13,10 +13,8 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { Switch } from '@material-ui/core';
 import { Popconfirm } from 'antd';
 import "./HotelDashboard.css"
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../../Redux/Reducer/reducer';
-import { disableHotel, disableRoom } from '../../../Redux/Actions/actions';
-
+import { useDispatch } from 'react-redux';
+import { disableHotel, disableRoom, getDisabledHotels } from '../../../Redux/Actions/actions'
 
 export function createData(
     _id: string,
@@ -50,31 +48,28 @@ export function Row(props: { row: ReturnType<typeof createData> }) {
     const [open, setOpen] = React.useState(false);
     const [confirmedAction, setConfirmedAction] = useState(false);
     const [localAvailability, setLocalAvailability] = useState(row.availability);
-
     const dispatch = useDispatch()
+    
+    const handleToggleDisableHotel = async (hotelId) => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        setLocalAvailability(!localAvailability)
+        dispatch(disableHotel(hotelId));
+        setConfirmedAction(true);
+      } catch (error) {
+        console.error('Error during confirmation:', error);
+      }
+    };
+    
+    const handleToggleDisableRoom = async (roomId) => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        dispatch(disableRoom(roomId));
+        setConfirmedAction(true);
 
-  const { allAdminHotels } = useSelector((state: State) => state);
-  console.log(allAdminHotels)
-
-  const handleToggleDisableHotel = async (hotelId) => {
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      setLocalAvailability(!localAvailability)
-      dispatch(disableHotel(hotelId));
-      setConfirmedAction(true);
-        } catch (error) {
-      console.error('Error during confirmation:', error);
-    }
-  };
-
-  const handleToggleDisableRoom = async (roomId) => {
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      setLocalAvailability(!localAvailability)
-      dispatch(disableRoom(roomId));
-      setConfirmedAction(true);
+        setLocalAvailability(!localAvailability)
         } catch (error) {
       console.error('Error during confirmation:', error);
     }
@@ -149,7 +144,7 @@ export function Row(props: { row: ReturnType<typeof createData> }) {
                         <TableCell align="right">
                           <Popconfirm
                             title="Are you sure you want to disable this property?"
-                            onConfirm={() => handleToggleDisableHotel(row._id)}
+                            onConfirm={() => handleToggleDisableRoom(room.id)}
                             onCancel={() => console.log('Cancel')}
                             okText="Confirm"
                             cancelText="Cancel"
@@ -172,4 +167,3 @@ export function Row(props: { row: ReturnType<typeof createData> }) {
       </React.Fragment>
     );
   }
-  
