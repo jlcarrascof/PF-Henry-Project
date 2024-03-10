@@ -9,6 +9,7 @@ import { getRoomById } from "../../Redux/Actions/actions";
 // import ReviewForm from "../reviewForm/reviewForm";
 import { validateReservationForm } from './validationReserva';
 import "./detail.css";
+import { Carousel } from "antd";
 
 const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -33,6 +34,10 @@ const Detail: React.FC = () => {
 
   const handleReserveClick = () => {
     setShowForm(true);
+  };
+
+  const onChange = (currentSlide: number) => {
+    console.log(currentSlide);
   };
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -101,9 +106,11 @@ const Detail: React.FC = () => {
             {currentRoom.images && (
               <div className="imageCarousel">
                 {currentRoom.images.map((image, index) => (
-                  <img key={index} src={image} alt={`Image ${index}`} />
+                  <div key={index} className="imageCarousel">
+                    <img src={image} alt={`Image ${index + 1}`} />
+                  </div>
                 ))}
-              </div>
+            </div>
             )}
           </div>
           <div className="reviews">
