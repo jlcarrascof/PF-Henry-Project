@@ -57,19 +57,6 @@
 }
 
 .form-rooms-container button {
-  /* width: 100%;
-  padding: 17px;
-  margin: 10px;
-  color: #ffffff;
-  background-color: #230623;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px; */
   background-color: #230623;
   color: white;
   padding: 12px 20px;

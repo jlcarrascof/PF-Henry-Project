@@ -10,6 +10,9 @@ const {
   getConfirmedReservations,
   deleteReservation,
   authUser,
+  getFavoriteRooms,
+  addFavoriteRoom,
+  removeFavoriteRoom,
 } = require("../handlers/usersHandlers");
 
 const usersRouter = Router();
@@ -25,6 +28,15 @@ usersRouter.get(
   "/:identifier/reservations/confirmed",
   getConfirmedReservations
 );
+
+//Ruta para traer los rooms favoritos del usuario
+usersRouter.get("/:identifier/favorites", getFavoriteRooms);
+
+//Ruta para agregar un room a los favoritos del usuario
+usersRouter.patch("/:identifier/favorites/:roomId", addFavoriteRoom);
+
+//Ruta para eliminar un room de favoritos del usuario
+usersRouter.delete("/:identifier/favorites/:roomId", removeFavoriteRoom);
 
 // Ruta para traer usuario por ObjectID ---> GET BY ID
 usersRouter.get("/:id", getUserID); // --> '/users/?id'

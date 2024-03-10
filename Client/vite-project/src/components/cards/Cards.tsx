@@ -12,16 +12,22 @@ interface Room {
 
 interface CardsProps {
   allRooms: Room[];
+  favoriteRooms: string[];
+  onAddFavorite: (roomId: string) => void; 
+  onRemoveFavorite: (roomId: string) => void;
+ 
 }
 
-const Cards: React.FC<CardsProps> = ({ allRooms }) => {
-
+const Cards: React.FC<CardsProps> = ({ allRooms, onAddFavorite, onRemoveFavorite, favoriteRooms }) => {
   return (
     <div>
       {allRooms.map((room) => (
         <Card
           key={room._id} 
           room={room}
+          isFavorite={favoriteRooms.includes(room._id)} 
+          onAddFavorite={() => onAddFavorite(room._id)} 
+          onRemoveFavorite={() => onRemoveFavorite(room._id)} 
         />
       ))}
     </div>

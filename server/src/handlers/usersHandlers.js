@@ -9,13 +9,12 @@ const {
 const { ObjectId } = require("mongodb");
 const User = require("../models/UserModel");
 const { getDb } = require("../db");
-const db = require("../db");
 
 const authUser = async (req, res) => {
   try {
     let db = getDb();
     const { email, password } = req.params;
-    // const { password } = req.body;
+
     const existingUser = await db
       .collection("users")
       .findOne({ email }, { password });
@@ -39,8 +38,8 @@ const authUser = async (req, res) => {
 };
 
 const postUser = async (req, res) => {
+  let db = getDb();
   try {
-    let db = getDb();
     const {
       username,
       uid,
@@ -61,7 +60,6 @@ const postUser = async (req, res) => {
     //   res.status(400).send({ error: "Usuario repetido" });
     //   return;
     // }
-
     const newUser = new User({
       username,
       uid,
@@ -282,6 +280,85 @@ const getConfirmedReservations = async (req, res) => {
   }
 };
 
+const getFavoriteRooms = async (req, res) => {
+  try {
+    const { identifier } = req.params;
+
+    const db = getDb();
+
+    const user = await db
+      .collection("users")
+      .findOne({ $or: [{ uid: identifier }, { email: identifier }] });
+
+    if (!user) {
+      console.log("No se encontró el usuario :(");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const favoriteRoomIds = user.favorites.map(
+      (roomId) => new ObjectId(roomId)
+    );
+
+    const favoriteRooms = await db
+      .collection("rooms")
+      .find({ _id: { $in: favoriteRoomIds } })
+      .toArray();
+    res.status(200).json(favoriteRooms);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const addFavoriteRoom = async (req, res) => {
+  try {
+    const { identifier, roomId } = req.params;
+
+    const db = getDb();
+    const user = await db.collection("users").findOneAndUpdate(
+      {
+        $or: [{ uid: identifier }, { email: identifier }],
+        favorites: { $ne: roomId },
+      },
+      { $addToSet: { favorites: roomId } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(user.favorites);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const removeFavoriteRoom = async (req, res) => {
+  try {
+    const { identifier, roomId } = req.params;
+
+    const db = getDb();
+    const user = await db
+      .collection("users")
+      .findOneAndUpdate(
+        { $or: [{ uid: identifier }, { email: identifier }] },
+        { $pull: { favorites: roomId } },
+        { new: true }
+      );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(user.favorites);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
   getUserID,
   getUser,
@@ -293,4 +370,7 @@ module.exports = {
   getReservations,
   deleteReservation,
   getConfirmedReservations,
+  getFavoriteRooms,
+  addFavoriteRoom,
+  removeFavoriteRoom,
 };

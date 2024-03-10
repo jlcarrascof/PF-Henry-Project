@@ -1,0 +1,42 @@
+.calendar{
+  position: relative;
+  margin-top: 80px;
+  margin-right: 45px;
+  justify-self: end;
+}
+.TableContainer {
+    max-width: 900px;
+    margin: 40px 40px;
+    padding: 20px;
+    background-color: rgba(244, 244, 244, 0.584);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(68, 68, 68, 0.854);
+  }
+.table_search{
+  width: 950px;
+  max-width: 950px;
+  margin: 5px auto;
+  padding: 40px;
+}
+.table-row {
+  background-color: rgba(244, 244, 244, 0.584);
+}
+
+.table-head{
+  background-color: rgba(244, 244, 244, 0.584);
+}
+
+.table-title{
+  padding: 25px;
+  background-color: rgba(35, 24, 63, 0.623);
+}
+
+.dashboardContainer{
+  margin: 80px 40px;
+  max-width: 100%;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+  

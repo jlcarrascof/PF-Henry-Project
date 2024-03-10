@@ -28,10 +28,16 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   image: { type: String, default: "" },
-  role: { type: String, enum: ["client", "owner"], required: true },
+  role: {
+    type: String,
+    enum: ["client", "owner"],
+    default: "client",
+    required: true,
+  },
   permissions: {
     type: String,
     enum: ["read/write", "create/post/delete"],
+    default: "read/write",
     required: true,
   },
   profile: {
@@ -48,36 +54,3 @@ userSchema.index({ username: 1, email: 1 });
 const User = mongoose.model("User", userSchema, "users");
 
 module.exports = User;
-
-/* {
-      "description": "Excellent service and luxurious accommodations!",
-      "score": 5,
-      "client": {
-        "$oid": "61f3c7fe9d8d6c5e2186a654"
-      },
-      "date": "2023-08-25"
-    },
-    
-    {
-      "description": "Spacious suite with a breathtaking balcony view!",
-      "score": 3.5,
-      "client": {
-        "$oid": "61f3c7fe9d8d6c5e2186a789"
-      },
-      "date": "2023-08-20"
-    }
-    */
-
-/* 
-{
-    "username": "Usuario-test",
-    "email": "quevedodiego3008@gmail.com",
-    "role": "client",
-    "permissions": "read/write",
-    "contactDetails": {"phone": 1234567890},
-    "profile": {
-        "firstName": "Soy Un",
-        "lastName": "Test",
-        "birthday": "2002-08-30"
-    }
-} */

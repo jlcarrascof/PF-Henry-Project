@@ -75,6 +75,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await dispatch(createUser(formData));
 
     // Validar todos los campos antes de enviar
     if (!form.current) return;
@@ -107,11 +108,6 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
       setIsRegistered(true);
       setFormData(initialFormData);
       setErrors({});
-      // if (isRegistered) {
-      //   navigate("/login");
-      // } else {
-      //   alert("An error occured on your registration");
-      // }
 
       // Establecer isRegistered después de limpiar el formulario
       setTimeout(() => {
@@ -121,7 +117,13 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     } catch (error) {
       console.log("Error en el registro:", error);
     }
+    // if (isRegistered) {
+    //   navigate("/login");
+    // } else {
+    //   alert("An error occured on your registration");
     // }
+
+    // Establecer isRegistered después de limpiar el formulario
   };
 
   return (
@@ -187,8 +189,22 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
           <div className="label-datos">
             <label>Email:</label>
+
             <input
               id="emailReg"
+              type="text"
+              name="user_email"
+              value={values.user_email}
+              onChange={handleChange}
+              required
+            />
+            {/* {errors.email && <p>{errors.email}</p>} */}
+          </div>
+
+          <div className="label-datos">
+            <label>Password:</label>
+            <input
+              id="passwordReg"
               type="text"
               name="user_email"
               value={values.user_email}
