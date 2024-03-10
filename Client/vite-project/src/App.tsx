@@ -19,6 +19,7 @@ import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
+import FavoritesRoom from "./components/favorites/FavoritesRooms";
 
 function App() {
   
@@ -29,7 +30,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register onSubmit={onsubmit}/>} />
         <Route path="/" element={<LandingPage />} />
-        <Route path="/favorites" element={<Favorites />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/home" element={<Home />} />
@@ -38,6 +38,7 @@ function App() {
         <Route path="/reservations" element={<CartReservation />} />
         <Route path="/reservation" element={<Notification />} />
         <Route path="/my-reservations" element={<MyReservations />} />
+        <Route path="/favorites" element={<FavoritesRoom />} />
         <Route path="/register-hotel" element={<FormProperty/>}/>
         <Route path="/cloudinary" element={<Cloudinary/>} />
         <Route path="/admin/hotels" element={<HotelDashboard/>}/>
