@@ -19,6 +19,7 @@ import FavoritesRoom from "./components/favorites/FavoritesRooms";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
+
 interface User {
   email: string;
   password: string;
