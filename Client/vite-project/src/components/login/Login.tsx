@@ -94,7 +94,7 @@ const Login: React.FC = () => {
       let localUser = {
         name: user.displayName,
         email: user.email,
-        role: 'client'
+        role: 'user'
       }
       window.localStorage.setItem('user', JSON.stringify(localUser))
       //LOCAL STORAGE USER INTERFACE
