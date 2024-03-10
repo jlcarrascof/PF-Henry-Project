@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState, FormEvent } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,9 +7,8 @@ import { getRoomById } from "../../Redux/Actions/actions";
 // import ReviewForm from "../reviewForm/reviewForm";
 import { validateReservationForm } from './validationReserva';
 import "./detail.css";
-import { Carousel, Image , Badge, Descriptions, Slider } from 'antd';
+import { Image , Badge, Descriptions, Slider } from 'antd';
 import type { DescriptionsProps } from 'antd';
-import ImageCarousel from "./CarouselDetail";
 
 const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -36,10 +33,6 @@ const Detail: React.FC = () => {
 
   const handleReserveClick = () => {
     setShowForm(true);
-  };
-
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
   };
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
