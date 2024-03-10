@@ -236,7 +236,8 @@ const Detail: React.FC = () => {
               <h3>Reviews:</h3>
               {currentRoom.reviews && (
                 <ul>
-                  {currentRoom.review.map((review: any, index: number) => (
+                    {/* {currentRoom.review.map((review: any, index: number) => ( */}
+                  {currentRoom.reviews.map((review: any, index: number) => (
                     <li key={index}>
                       <p>Description: {review.description}</p>
                       <p>Score: {review.score}</p>
