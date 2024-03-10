@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   getAuth,
@@ -14,15 +14,23 @@ import {
   UserCredential,
 } from "firebase/auth";
 import firebaseApp from "./firebaseConfig";
-import { authenticateUser } from "../../Redux/Actions/actions";
+import { authenticateUser, createUser } from "../../Redux/Actions/actions";
 import "./Login.css";
+import app from "./firebaseConfig";
 import Register from "../register/Register";
 import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert'
 import styled from 'styled-components'
 
-const auth = getAuth(firebaseApp);
+const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+
+
+interface LoginProps {
+  setTheUser: React.Dispatch<React.SetStateAction<User | null>>;
+  theUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
 
 const Overlay = styled.div`
   position: fixed;
@@ -61,13 +69,62 @@ const LoginButton = styled.button`
   cursor: pointer;
 `;
 const Login: React.FC = () => {
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
+
+    // const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
+    //   if (userFirebase) {
+    //     const userData = {
+    //       uid: userFirebase.uid,
+    //       email: userFirebase.email,
+    //       password: userFirebase.password,
+    //       providerId: userFirebase.providerData[0]?.providerId,
+    //       displayName: userFirebase.displayName,
+    //     };
+    //     dispatch(authenticateUser(userData));
+    //   } else {
+    //     dispatch(authenticateUser(null));
+    //   }
+    // });
+    // return () => unsubscribe()
+    // dispatch(authenticateUser(userData));
+    // if (userData.email.length > 0 && userData.password.length > 0) {
+    //   dispatch(authenticateUser(userData));
+    // }
+  }, [dispatch]);
+
+  console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
+
+  // useEffect(() => {
+  //   // Si hay un usuario y el valor ha cambiado
+  //   if (user) {
+  //     // Realizar una solicitud al servidor express
+  //     axios
+  //       .get(`http://localhost:3002/users/authenticate/${user.email}`)
+  //       .then((response) => {
+  //         console.log("Información del usuario enviada al backend:", response);
+  //         // Manejar la respuesta del backend si es necesario
+  //       })
+  //       .catch((error) => {
+  //         console.error(
+  //           "Error al enviar información del usuario al backend:",
+  //           error
+  //         );
+  //         // Manejar el error si es necesario
+  //       });
+  //   }
+  // }, [user]);
+
+ 
+
     const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
       if (userFirebase) {
         const userData = {
@@ -98,26 +155,30 @@ const Login: React.FC = () => {
   }, [user]);
 
   const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
-    const email = e.currentTarget.email.value;
-    const password = e.currentTarget.password.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    signInWithEmailAndPassword(auth, email, password).then(
+      (usuario) => dispatch(authenticateUser(email)) && setTheUser(usuario)
+    );
 
-    try {
-      if (!email || !password) {
-        console.error("Correo electrónico y contraseña son obligatorios.");
-        return;
-      }
 
-      if (registration) {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-    } catch (error) {
-      console.error("Error durante la autenticación de Firebase:", error);
-    }
+    // try {
+    //   if (registration) {
+
+   
+
+
+    //     await createUserWithEmailAndPassword(auth, email, password);
+    //   } else {
+    //     await signInWithEmailAndPassword(auth, email, password);
+    //   }
+    // } catch (error) {
+    //   console.error("Error during Firebase authentication:", error);
+    // }
   };
-
   const handleGoogleLogin = async (): Promise<void> => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
@@ -126,17 +187,37 @@ const Login: React.FC = () => {
       let localUser = {
         name: user.displayName,
         email: user.email,
-        role: 'owner'
+        role: "owner",
+      };
+      window.localStorage.setItem("user", JSON.stringify(localUser));
+      //LOCAL STORAGE USER INTERFACE
+      console.log(user);
+      navigate("/");
       }
       window.localStorage.setItem('user', JSON.stringify(localUser))
       //LOCAL STORAGE USER INTERFACE
       console.log(user);
       navigate('/')
+
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
+  // const handleGoogleLogin = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then(
+  //       (result) => dispatch(createUser(result.user)) && setTheUser(result.user)
+  //     )
+  //     .catch((err) => {
+  //       console.log("el error es: ", err);
+  //     });
+  //   //  .catch (error) {
+  //   //   console.error("Error during Google sign-in:", error)
+  //   // }
+  // };
 
+
+  
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
@@ -144,10 +225,12 @@ const Login: React.FC = () => {
     } catch (error) {
       console.error("Error durante la desconexión:", error);
     }
+
   };
 
   return (
     <>
+
       {showModal && (
         <Overlay>
           <ContenedorModal>
@@ -167,6 +250,7 @@ const Login: React.FC = () => {
                     <button onClick={() => setRegistration(!registration)}>{registration ? "Log in" : "Sign up"}</button>
                   </p>
                 </div>
+
               </div>
             </div>
 

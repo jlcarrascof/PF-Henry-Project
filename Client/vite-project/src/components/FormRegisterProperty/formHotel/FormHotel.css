@@ -82,3 +82,7 @@
 .form-hotels-container button:hover {
   background-color: #2b124c;
 }
+
+.messageInput {
+  display: none;
+}
