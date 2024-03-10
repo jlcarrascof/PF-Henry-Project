@@ -16,6 +16,7 @@ export interface State {
   totalResults: number;
   isAuthenticated: boolean;
   user: any[];
+  allUsers: any[],
   newUser: any;
   post_hotel: any[];
   reservations: any[];
@@ -40,6 +41,7 @@ const initialState: State = {
   isAuthenticated: false,
   user: [],
   newUser: null,
+  allUsers: [],
   post_hotel: [],
   reservations: [],
   confirmedReservations: [],
@@ -59,10 +61,6 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         totalResults: action.payload.totalResults,
       };
     case "GET_ROOMS_BY_ID":
-      return {
-        ...state,
-        currentRoom: action.payload,
-      };
     case "GET_ROOMS_BY_NAME":
       return {
         ...state,
@@ -131,19 +129,22 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         reservations: [...state.reservations, action.payload.reservation],
       };
-
     case "GET_RESERVATIONS":
       return {
         ...state,
         reservations: action.payload,
       };
-
     case "DELETE_RESERVATION":
       return {
         ...state,
         reservations: state.reservations.filter(
           (reservation) => reservation._id !== action.payload.reservation._id
         ),
+      };
+    case "GET_USERS":
+      return {
+        ...state,
+        users: action.payload,
       };
     case "POST_USER":
       return {
@@ -169,26 +170,22 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         post_hotel: action.payload,
       };
-
     case "GET_CONFIRMED_RESERVATIONS":
       return {
         ...state,
         confirmedReservations: action.payload,
       };
-
     case "GET_FAVORITE_ROOMS":
       return {
         ...state,
         favoriteRooms: action.payload,
       };
-
     case "ADD_FAVORITE_ROOM":
       return {
         ...state,
         favoriteRooms: [...state.favoriteRooms, action.payload],
         fav: true,
       };
-
     case "REMOVE_FAVORITE_ROOM":
       return {
         ...state,
@@ -197,9 +194,9 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ),
         fav: false,
       };
-
     default:
       return state;
   }
 };
+
 export default rootReducer;
