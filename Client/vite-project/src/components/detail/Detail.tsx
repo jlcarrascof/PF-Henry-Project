@@ -10,6 +10,7 @@ import "./detail.css";
 import { Image , Badge, Descriptions, Slider } from 'antd';
 import type { DescriptionsProps } from 'antd';
 
+
 const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch();
