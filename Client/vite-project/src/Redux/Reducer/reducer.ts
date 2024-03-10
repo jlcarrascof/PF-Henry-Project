@@ -20,6 +20,8 @@ export interface State {
     post_hotel: any[];
     reservations: any[];
     confirmedReservations: any[];
+    favoriteRooms: string[];
+    fav: boolean;
   }
  
   const initialState: State = {
@@ -40,6 +42,8 @@ export interface State {
     post_hotel: [],
     reservations: [],
     confirmedReservations: [],
+    favoriteRooms: [],
+    fav: false,
   };
   
   const rootReducer = (state: State = initialState, action: Action): State => {
@@ -163,6 +167,26 @@ export interface State {
                   ...state,
                   confirmedReservations: action.payload
               };
+
+              case 'GET_FAVORITE_ROOMS':
+                return {
+                    ...state,
+                    favoriteRooms: action.payload,
+                };
+  
+          case 'ADD_FAVORITE_ROOM':
+                  return {
+                    ...state,
+                    favoriteRooms: [...state.favoriteRooms, action.payload],
+                    fav:true,
+                  };
+                
+          case 'REMOVE_FAVORITE_ROOM':
+                  return {
+                    ...state,
+                    favoriteRooms: state.favoriteRooms.filter((roomId) => roomId !== action.payload),
+                    fav:false,
+                  };
                 
             default:
               return state;

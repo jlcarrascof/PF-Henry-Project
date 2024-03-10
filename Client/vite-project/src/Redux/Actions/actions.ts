@@ -224,6 +224,62 @@ export const getConfirmedReservations = (userEmail: string) => {
 };
 
 
+export const getFavoriteRooms = (identifier: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+      try {
+          const { data } = await axios.get(`http://localhost:3002/users/${identifier}/favorites`);
+          dispatch({
+              type: 'GET_FAVORITE_ROOMS',
+              payload: data,
+          });
+      } catch (error) {
+          console.error('Error al obtener las habitaciones favoritas:', error);
+      }
+  };
+};
+
+
+export const addFavoriteRoom = (identifier: string, roomId: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+
+      await axios.patch(`http://localhost:3002/users/${identifier}/favorites/${roomId}`);
+      dispatch({
+        type: 'ADD_FAVORITE_ROOM',
+        payload: roomId,
+      });
+    } catch (error) {
+      console.error('Error al agregar la habitación a favoritos:', error);
+    }
+  };
+};
+
+
+
+export const removeFavoriteRoom = (identifier: string, roomId: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+      try {
+          await axios.delete(`http://localhost:3002/users/${identifier}/favorites/${roomId}`);
+          dispatch({
+              type: 'REMOVE_FAVORITE_ROOM',
+              payload: roomId,
+          });
+         
+      } catch (error) {
+          console.error('Error al eliminar la habitación de favoritos:', error);
+      }
+  };
+};
+
+
+
+
+
+
+
+
+
+
 
 /* import axios from "axios";
 import { Dispatch } from "redux";
