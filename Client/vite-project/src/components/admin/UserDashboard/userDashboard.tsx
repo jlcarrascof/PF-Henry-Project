@@ -11,16 +11,9 @@ import {
   TableCell,
   Paper,
   Typography,
-  makeStyles,
 } from '@mui/material';
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
-const UserTable = () => {
+const UserDashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +22,13 @@ const UserTable = () => {
 
   const { users } = useSelector((state: State) => state);
 
-  const rows = users.map((user) => ({
+  
+  useEffect(() => {
+    console.log('Users:', users); // verificar los datos de usuarios
+  }, [users]);
+
+  // Verifica si los usuarios están disponibles antes de mapearlos
+  const rows = users ? users.map((user) => ({
     uid: user.uid,
     firstName: user.profile.firstName,
     lastName: user.profile.lastName,
@@ -38,8 +37,8 @@ const UserTable = () => {
     phone: user.phone,
     role: user.role,
     permissions: user.permissions,
-  }));
-//sx puede que este sobrando sx={{ maxHeight: '80%' }, { maxWidth: '85%' }}
+  })) : [];
+
   return (
     <TableContainer className='TableContainer' component={Paper} sx={{ maxHeight: '80%' }, { maxWidth: '85%' }}>
       <Typography variant="h3" gutterBottom component="div">
@@ -48,7 +47,6 @@ const UserTable = () => {
       <Table aria-label="simple table" stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell align="right">Disable</TableCell>
             <TableCell>UID</TableCell>
             <TableCell>First Name</TableCell>
             <TableCell>Last Name</TableCell>
@@ -62,7 +60,6 @@ const UserTable = () => {
         <TableBody>
           {rows.map((row, index) => (
             <TableRow key={index}>
-              <TableCell align="right">{row.disable}</TableCell>
               <TableCell>{row.uid}</TableCell>
               <TableCell>{row.firstName}</TableCell>
               <TableCell>{row.lastName}</TableCell>
@@ -79,4 +76,4 @@ const UserTable = () => {
   );
 };
 
-export default UserTable;
+export default UserDashboard;
