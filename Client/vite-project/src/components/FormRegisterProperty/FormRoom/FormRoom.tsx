@@ -207,7 +207,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
           <label>
             Total of rooms:
             <input
-              type="text"
+              type="number"
               name="num_rooms"
               value={formData.num_rooms || ""}
               onChange={handleInputChange}
@@ -217,7 +217,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
           <label>
           Latitude:
           <input
-            type="text"
+            type="number"
             name="latitude"
             value={formData.latitude || ""}
             onChange={handleInputChange}
