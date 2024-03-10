@@ -34,6 +34,9 @@ const NavBar: React.FC = () => {
           {/* <Link to="/reservations">
             <p>Cart Reservation</p>
           </Link> */}
+           <Link to="/favorites">
+            <p>Favorites</p>
+          </Link>
           <Link to="/my-reservations">
             <p>My Reservations</p>
           </Link>
@@ -47,9 +50,6 @@ const NavBar: React.FC = () => {
             <Link className="btnLogin" to="/login">
             <p>Login</p>
           </Link>
-          <button className="btnLogin" onClick={() => setShowLogin(true)}>
-            Login
-          </button>
           }
         </div>
       </div>

@@ -22,17 +22,6 @@ const LandingPage: React.FC = () => {
     },
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1",
-      link: "",
-
-      // src: "https://static.cozycozy.com/images/catalog/bg2/horizontal-banner-elk.jpg",
-      // link: "/home",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/113623519.jpg?k=71d6000bf94c0d9f576d57e05a9b26f71db6a1bc055ba0a3a8e79b5e1ac56483&o=&hp=1",
-      link: "/home",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/375835976.jpg?k=99a88ad6dab6e7ba87115a4e98331ba1eb0353be28ebd8f493228f9d20e24d9a&o=&hp=1",
       link: "/home",
     },
   ];
