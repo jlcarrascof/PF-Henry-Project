@@ -9,6 +9,9 @@ import { validateReservationForm } from './validationReserva';
 import "./detail.css";
 import { Image , Badge, Descriptions, Slider } from 'antd';
 import type { DescriptionsProps } from 'antd';
+//Para el mapita -->
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 
 const Detail: React.FC = () => {
@@ -206,6 +209,29 @@ const Detail: React.FC = () => {
               </button>
             </form>
           )}
+
+
+          <div className="map-container">
+            <MapContainer
+              center={[currentRoom.location.latitude, currentRoom.location.longitude]}
+              zoom={13}
+              style={{ height: '400px', width: '100%' }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[currentRoom.location.latitude, currentRoom.location.longitude]}>
+                <Popup>
+                  {currentRoom.name}
+                </Popup>
+              </Marker>
+            </MapContainer>
+          </div>
+
+
+
+
+
             <div className="reviews">
               <h3>Reviews:</h3>
               {currentRoom.reviews && (

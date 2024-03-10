@@ -15,9 +15,11 @@ import Cloudinary from "./components/cloudinary/Cloudinary";
 import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
+import Map from "./components/Maps/Map";
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
+
 
 interface User {
   email: string;
@@ -53,6 +55,7 @@ function App() {
         <Route path="/register-hotel" element={<FormProperty />} />
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
+        <Route path="/map" element={<Map />} />
       </Routes>
       <Footer />
     </>
