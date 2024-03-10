@@ -27,8 +27,6 @@ interface User {
 function App() {
   const [theUser, setTheUser] = useState<User | null>(null);
 
-  
-
   return (
     <>
       <NavBar />
