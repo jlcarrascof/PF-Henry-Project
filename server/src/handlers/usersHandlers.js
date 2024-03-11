@@ -13,24 +13,29 @@ const { getDb } = require("../db");
 const authUser = async (req, res) => {
   try {
     let db = getDb();
-    const { email, password } = req.params;
+    const { user_email, password } = req.query
 
-    const existingUser = await db
+    if (!user_email || !password) {
+      return res.status(404).send({error: "Falta informacion"})
+    }
+
+    // if( user_email ) {
+      const existingUser = await db
       .collection("users")
-      .findOne({ email }, { password });
+      .findOne({ user_email }, { password });
 
     if (!existingUser) {
       res.status(404).send({ error: "Usuario no encontrado" });
       return;
     }
-
+    // }
     const username = existingUser.username;
-    const message = `Bienvenido ${username}`;
+    const message = `Welcome ${username}`;
 
     res.status(200).send({
       Message: message,
       Status: "OK",
-      Userdata: existingUser,
+      userData: existingUser,
     });
   } catch (error) {
     res.status(500).send({ error: "No pudo autenticarse" });
@@ -43,7 +48,7 @@ const postUser = async (req, res) => {
     const {
       username,
       uid,
-      email,
+      user_email,
       image,
       password,
       role,
@@ -54,7 +59,7 @@ const postUser = async (req, res) => {
       phone,
     } = req.body;
 
-    // const existingUser = await db.collection("users").findOne({ email });
+    // const existingUser = await db.collection("users").findOne({ user_email });
 
     // if (existingUser) {
     //   res.status(400).send({ error: "Usuario repetido" });
@@ -63,7 +68,7 @@ const postUser = async (req, res) => {
     const newUser = new User({
       username,
       uid,
-      email,
+      user_email,
       password,
       image,
       role,
@@ -161,11 +166,11 @@ const createReservation = async (req, res) => {
   try {
     let db = getDb();
     const { userId } = req.params;
-    const { startDate, endDate, roomId, description, userEmail } = req.body;
+    const { startDate, endDate, roomId, description, user_email } = req.body;
 
     const user = await db
       .collection("users")
-      .findOne({ $or: [{ email: userEmail }, { uid: userId }] });
+      .findOne({ $or: [{ user_email: user_email }, { uid: userId }] });
 
     if (!user) {
       console.log("No se encontró usuario en la base de datos");
@@ -223,14 +228,14 @@ const getReservations = async (req, res) => {
   try {
     let db = getDb();
     //const userId = req.params.userId;
-    //const { userEmail } = req.body;
-    const userEmail = req.params.userEmail;
+    //const { user_email } = req.body;
+    const user_email = req.params.useruser_email;
     const identifier = req.params.identifier;
 
-    //const user = await db.collection("users").findOne({ email: userEmail });
+    //const user = await db.collection("users").findOne({ user_email: user_email });
     const user = await db
       .collection("users")
-      .findOne({ $or: [{ uid: identifier }, { email: identifier }] });
+      .findOne({ $or: [{ uid: identifier }, { user_email: identifier }] });
 
     if (!user) {
       console.log("Usuario no encontrado");
@@ -254,13 +259,13 @@ const getConfirmedReservations = async (req, res) => {
 
     // Buscar al usuario por su ID
     //const user = await db.collection("users").findOne({ _id: new ObjectId(userId) });
-    const userEmail = req.params.userEmail;
+    const user_email = req.params.user_email;
     const identifier = req.params.identifier;
 
-    //const user = await db.collection("users").findOne({ email: userEmail });
+    //const user = await db.collection("users").findOne({ user_email: useruser_email });
     const user = await db
       .collection("users")
-      .findOne({ $or: [{ uid: identifier }, { email: identifier }] });
+      .findOne({ $or: [{ uid: identifier }, { user_email: identifier }] });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -288,7 +293,7 @@ const getFavoriteRooms = async (req, res) => {
 
     const user = await db
       .collection("users")
-      .findOne({ $or: [{ uid: identifier }, { email: identifier }] });
+      .findOne({ $or: [{ uid: identifier }, { user_email: identifier }] });
 
     if (!user) {
       console.log("No se encontró el usuario :(");
@@ -317,7 +322,7 @@ const addFavoriteRoom = async (req, res) => {
     const db = getDb();
     const user = await db.collection("users").findOneAndUpdate(
       {
-        $or: [{ uid: identifier }, { email: identifier }],
+        $or: [{ uid: identifier }, { user_email: identifier }],
         favorites: { $ne: roomId },
       },
       { $addToSet: { favorites: roomId } },
@@ -343,7 +348,7 @@ const removeFavoriteRoom = async (req, res) => {
     const user = await db
       .collection("users")
       .findOneAndUpdate(
-        { $or: [{ uid: identifier }, { email: identifier }] },
+        { $or: [{ uid: identifier }, { user_email: identifier }] },
         { $pull: { favorites: roomId } },
         { new: true }
       );
