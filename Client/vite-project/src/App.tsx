@@ -56,6 +56,7 @@ function App() {
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
+        <Route path="/pay" element={<MercadoPago />} />
       </Routes>
       <Footer />
     </>
@@ -63,3 +64,4 @@ function App() {
 }
 
 export default App;
+
