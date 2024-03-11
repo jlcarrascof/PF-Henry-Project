@@ -42,6 +42,7 @@ const postRoom = async (req, res) => {
       num_rooms,
       reviews,
       totalScore,
+      location
     } = req.body;
     const newRoom = new Room({
       hotel_id,
@@ -55,6 +56,7 @@ const postRoom = async (req, res) => {
       availability,
       totalScore,
       reviews,
+      location
     });
     const savedRoom = await createRoom(newRoom);
 

@@ -12,6 +12,8 @@ interface FormRoomData {
   price: number;
   num_rooms: number;
   images: File[];
+  latitude: number; 
+  longitude: number;
 }
 
 interface RoomError {
@@ -21,6 +23,8 @@ interface RoomError {
   price?: string;
   num_rooms?: string;
   images?: string;
+  latitude: 0, 
+  longitude: 0,
 }
 
 const FormRoom = (/*{ onSubmit }*/) => {
@@ -132,6 +136,8 @@ const FormRoom = (/*{ onSubmit }*/) => {
       price: 0,
       images: [],
       num_rooms: 0,
+      latitude: 0,
+      longitude: 0,
     });
     window.localStorage.removeItem("form-roomdata");
     navigate("/home");
@@ -201,12 +207,33 @@ const FormRoom = (/*{ onSubmit }*/) => {
           <label>
             Total of rooms:
             <input
-              type="text"
+              type="number"
               name="num_rooms"
               value={formData.num_rooms || ""}
               onChange={handleInputChange}
             />
           </label>
+
+          <label>
+          Latitude:
+          <input
+            type="number"
+            name="latitude"
+            value={formData.latitude || ""}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        <label>
+          Longitude:
+          <input
+            type="text"
+            name="longitude"
+            value={formData.longitude || ""}
+            onChange={handleInputChange}
+          />
+        </label>
+
 
           {/* Nuevo componente de Cloudinary */}
           <Cloudinary onImageChange={handleImageChange} />

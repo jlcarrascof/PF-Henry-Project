@@ -24,6 +24,20 @@
   color: rgb(181, 145, 232);
 }
 
+.dropbox{
+  gap: 4px;
+  display: grid;
+  width: fit-content;
+  grid-template-columns: 1fr 1fr;
+}
+
+.avatar {
+  width: fit-content;
+  display: grid;
+  gap: 25px;
+  grid-template-columns: 1fr 1fr;
+}
+
 .navContainer {
   width: 100%;
   margin: 0 1em;

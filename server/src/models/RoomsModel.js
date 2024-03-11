@@ -37,7 +37,11 @@ const roomSchema = new Schema({
   num_rooms: { type: Number, required: true },
   availability: { type: Boolean, required: true, default: true },
   totalScore: { type: Number, default: 0 },
-  reviews: [reviewSchema]
+  reviews: [reviewSchema],
+  location: {//AGREGUÉ ESTO PARA PODER MARCAR EN EL MAPA LA UBICACIÓN EXACTA!
+    latitude: Number,
+    longitude: Number
+  }
 });
 
 const Room = model("Room", roomSchema);

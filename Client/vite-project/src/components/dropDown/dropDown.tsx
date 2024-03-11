@@ -4,43 +4,44 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signInWithPopup,
-    GoogleAuthProvider,
-    User,
-    signOut,
-    UserCredential,
-  } from "firebase/auth";
-  import firebaseApp from "../login/firebaseConfig.tsx";
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  User,
+  signOut,
+  UserCredential,
+} from "firebase/auth";
+import firebaseApp from "../login/firebaseConfig.tsx";
 
 import { useNavigate } from "react-router-dom";
 const options = [
-  { name: "My purchases", role: "client" },
-  { name: "Cart", role: "client" },
-  { name: "Search hotels", role: "client" },
-  { name: "Post hotel", role: "owner" },
-  { name: "Post room", role: "owner" },
-  { name: "Administer", role: "owner" },
-  { name: "My hotels", role: "owner" },
+  { name: "My purchases", location: "/my-reservations", role: "client" },
+  { name: "Cart", location: "/my-reservations", role: "client" },
+  { name: "Search hotels", location: "/rooms", role: "client" },
+  { name: "Post hotel", location: "/register-hotel", role: "owner" },
+  { name: "Post room", location: "/register-hotel", role: "owner" },
+  { name: "Administer", location: "/admin", role: "owner" },
+  { name: "My hotels", location: "/my-reservations", role: "owner" },
+  { name: "My profile", location: "/profile", role: "client" },
+  { name: "My profile", location: "/profile", role: "owner" },
   { name: "Log Out", role: "client" },
   { name: "Log Out", role: "owner" },
-
 ];
 
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu() {
-    const auth = getAuth(firebaseApp);
+  const auth = getAuth(firebaseApp);
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  let user = window.localStorage.getItem('user');
+  let user = window.localStorage.getItem("user");
   if (user) {
-    user = JSON.parse(user); // user.role
-  } 
+    user = JSON.parse(user);
+  }
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -50,18 +51,17 @@ export default function LongMenu() {
   };
 
   const handleItemClose = async (option_name) => {
-    if (option_name === 'Log Out') {
-        await handleSignOut()
-        navigate('/')
+    if (option_name === "Log Out") {
+      await handleSignOut();
+      navigate("/");
     }
     setAnchorEl(null);
   };
 
-
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
-      window.localStorage.clear('user')
+      window.localStorage.clear();
     } catch (error) {
       console.error("Error during sign-out:", error);
     }
@@ -76,7 +76,7 @@ export default function LongMenu() {
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
-        style={{color: 'white'}}
+        style={{ color: "white" }}
       >
         <MoreVertIcon />
       </IconButton>
@@ -98,8 +98,17 @@ export default function LongMenu() {
         {options.map((option) => (
           <MenuItem
             key={option.name}
-            onClick={() => {handleItemClose(option.name)}}
-            style={{display: user ? user.role === option.role ? 'bloque' : 'none' : 'none'}}
+            onClick={() => {
+              handleItemClose(option.name);
+              navigate(option.location);
+            }}
+            style={{
+              display: user
+                ? user.role === option.role
+                  ? "bloque"
+                  : "none"
+                : "none",
+            }}
           >
             {option.name}
           </MenuItem>
