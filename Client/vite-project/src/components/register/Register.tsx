@@ -75,7 +75,6 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await dispatch(createUser(formData));
 
     // Validar todos los campos antes de enviar
     if (!form.current) return;
@@ -192,19 +191,6 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
             <input
               id="emailReg"
-              type="text"
-              name="user_email"
-              value={values.user_email}
-              onChange={handleChange}
-              required
-            />
-            {/* {errors.email && <p>{errors.email}</p>} */}
-          </div>
-
-          <div className="label-datos">
-            <label>Password:</label>
-            <input
-              id="passwordReg"
               type="text"
               name="user_email"
               value={values.user_email}

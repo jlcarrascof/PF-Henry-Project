@@ -407,7 +407,6 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
       //LOCAL STORAGE USER INTERFACE
       console.log(user);
       navigate("/");
-      navigate("/");
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
@@ -483,7 +482,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
                 You can also log in with your <strong>Google account</strong>
               </p>
             )}
-            {!user ? (
+            {user ? (
               <button
                 className="googleButton"
                 type="button"
