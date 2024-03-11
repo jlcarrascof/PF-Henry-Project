@@ -18,12 +18,12 @@ import firebaseApp from "../login/firebaseConfig.tsx";
 
 import { useNavigate } from "react-router-dom";
 const options = [
-  { name: "My purchases", location: "/my-reservations", role: "client" },
-  { name: "Cart", location: "/my-reservations", role: "client" },
   { name: "Search hotels", location: "/rooms", role: "client" },
+  { name: "My purchases", location: "/my-reservations", role: "client" },
+  { name: "Your Favorites", location: "/favorites", role: "client" },
   { name: "Post hotel", location: "/register-hotel", role: "owner" },
-  { name: "Post room", location: "/register-hotel", role: "owner" },
-  { name: "Administer", location: "/admin", role: "owner" },
+  { name: "Post room", location: "/register-room", role: "owner" },
+  { name: "Dashboard", location: "/admin/hotels", role: "owner" },
   { name: "My hotels", location: "/my-reservations", role: "owner" },
   { name: "My profile", location: "/profile", role: "client" },
   { name: "My profile", location: "/profile", role: "owner" },
@@ -62,6 +62,7 @@ export default function LongMenu() {
     try {
       await signOut(auth);
       window.localStorage.clear();
+      window.location.reload();
     } catch (error) {
       console.error("Error during sign-out:", error);
     }

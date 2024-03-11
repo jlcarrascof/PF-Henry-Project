@@ -113,36 +113,36 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     // }
   }, [user]);
 
-  const firebaseAuthentication = (e: React.FormEvent<HTMLFormElement>) => {
+  const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
-    // if (registration) {
-    // signInWithEmailAndPassword(auth, email, password).then(() =>
-    dispatch(authenticateUser(email, password));
-    navigate("/");
-
-    let localUser = {
-      message: user.Message,
-      username: user.userData.username,
-      user_email: email,
-      password: password,
-      image: user.userData.image,
-      _id: user.userData._id,
-      role: user.userData.role,
-      permissions: user.userData.permissions,
-    };
-    window.localStorage.setItem("user", JSON.stringify(localUser));
-    // );
-    // } else {
-    //   // signInWithEmailAndPassword(auth, email, password).then(
-    //   //   () =>
-    //   dispatch(authenticateUser(email, password)) && setRegistration(true);
-    //   // );
-    // }
+  
+    if (email && password) {
+      try {
+        // Llamada a authenticateUser debe ser una acción asíncrona
+        await dispatch(authenticateUser(email, password));
+  
+        // Supongo que user proviene del estado o de algún lugar
+        const localUser = {
+          message: user?.Message,
+          username: user?.userData?.username,
+          user_email: email,
+          password: password,
+          image: user?.userData?.image,
+          _id: user?.userData?._id,
+          role: user?.userData?.role,
+          permissions: user?.userData?.permissions,
+        };
+  
+        window.localStorage.setItem("user", JSON.stringify(localUser));
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    }
   };
   const handleGoogleLogin = async (): Promise<void> => {
+
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -150,7 +150,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
 
       //LOCAL STORAGE USER INTERFACE
       let localUser = {
-        name: user.displayName,
+        usernname: user.displayName,
         user_email: user.email,
         role: "owner",
       };
@@ -178,7 +178,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
-      window.localStorage.clear("user");
+      window.localStorage.clear();
     } catch (error) {
       console.error("Error durante la desconexión:", error);
     }
