@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Login from "../login/Login"; // Asumiendo que la importación de Login es correcta
-import "./navBar.css";
 import LongMenu from "../dropDown/dropDown";
+import "./navBar.css";
+import { Avatar } from "antd";
 
 export const NavBar: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
   let user = window.localStorage.getItem("user");
   if (user) {
-    user = JSON.parse(user); // user.role
+    user = JSON.parse(user);
+    console.log(user);
   }
 
   return (
@@ -42,17 +43,25 @@ export const NavBar: React.FC = () => {
           </Link>
           {user ? (
             <>
-              <div>Hola {user.name}!</div>
-              <LongMenu />
+              <div className="dropbox">
+                <div className="avatar">
+                  {user.message}
+                  <Avatar
+                    alt=""
+                    src={user.image}
+                    size={48}
+                    gap={25}
+                    draggable="false"
+                  />
+                </div>
+                <LongMenu />
+              </div>
             </>
           ) : (
             <>
               <Link className="btnLogin" to="/login">
                 <p>Login</p>
               </Link>
-              {/* <button className="btnLogin" onClick={() => setShowLogin(true)}>
-                Login
-              </button> */}
             </>
           )}
         </div>

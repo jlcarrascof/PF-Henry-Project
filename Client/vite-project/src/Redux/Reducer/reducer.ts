@@ -15,9 +15,8 @@ export interface State {
   totalPages: number;
   totalResults: number;
   isAuthenticated: boolean;
+  allUsers: any[];
   user: any[];
-  allUsers: any[],
-  newUser: any;
   post_hotel: any[];
   reservations: any[];
   confirmedReservations: any[];
@@ -39,9 +38,8 @@ const initialState: State = {
   pageNum: null,
   totalResults: 0,
   isAuthenticated: false,
-  user: [],
-  newUser: null,
   allUsers: [],
+  user: [],
   post_hotel: [],
   reservations: [],
   confirmedReservations: [],
@@ -61,6 +59,10 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         totalResults: action.payload.totalResults,
       };
     case "GET_ROOMS_BY_ID":
+      return {
+        ...state,
+        currentRoom: action.payload,
+      };
     case "GET_ROOMS_BY_NAME":
       return {
         ...state,
@@ -129,11 +131,13 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         reservations: [...state.reservations, action.payload.reservation],
       };
+
     case "GET_RESERVATIONS":
       return {
         ...state,
         reservations: action.payload,
       };
+
     case "DELETE_RESERVATION":
       return {
         ...state,
@@ -141,16 +145,11 @@ const rootReducer = (state: State = initialState, action: Action): State => {
           (reservation) => reservation._id !== action.payload.reservation._id
         ),
       };
-    case "GET_USERS":
-      return {
-        ...state,
-        users: action.payload,
-      };
     case "POST_USER":
       return {
         ...state,
-        user: [...state.user, action.payload],
-        newUser: action.payload,
+        allUsers: [...state.user, action.payload],
+        user: action.payload,
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":
@@ -163,29 +162,33 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        user: [],
       };
     case "POST_HOTEL":
       return {
         ...state,
         post_hotel: action.payload,
       };
+
     case "GET_CONFIRMED_RESERVATIONS":
       return {
         ...state,
         confirmedReservations: action.payload,
       };
+
     case "GET_FAVORITE_ROOMS":
       return {
         ...state,
         favoriteRooms: action.payload,
       };
+
     case "ADD_FAVORITE_ROOM":
       return {
         ...state,
         favoriteRooms: [...state.favoriteRooms, action.payload],
         fav: true,
       };
+
     case "REMOVE_FAVORITE_ROOM":
       return {
         ...state,
@@ -194,9 +197,9 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ),
         fav: false,
       };
+
     default:
       return state;
   }
 };
-
 export default rootReducer;

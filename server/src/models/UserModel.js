@@ -25,7 +25,7 @@ const reservationSchema = new Schema({
 const userSchema = new Schema({
   username: { type: String, required: true },
   uid: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
+  user_email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   image: { type: String, default: "" },
   role: {

@@ -13,4 +13,7 @@ adminRouter.patch("/hotels/:id", disableHotel)
 
 adminRouter.get("/search", getMixedSearch)
 
+// Ruta para traer todos los usuarios -->> GET ALL
+/* usersRouter.get("/", getUser); */ // --> '/users'
+
 module.exports = adminRouter

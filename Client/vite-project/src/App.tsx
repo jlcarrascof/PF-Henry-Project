@@ -17,10 +17,9 @@ import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
 import UserDashboard from "./components/admin/UserDashboard/userDashboard";
 import MercadoPago from "./components/mercadoPago/MercadoPago";
-
+import UserProfile from "./components/userProfile/UserProfile";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
-
 
 interface User {
   email: string;
@@ -35,14 +34,7 @@ function App() {
 
       <Routes>
         <Route>
-          <Route
-            path="/"
-            element={theUser ? <LandingPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/login"
-            element={<Login setTheUser={setTheUser} theUser={theUser} />}
-          />
+          <Route path="/login" element={<Login />} />
         </Route>
         <Route path="/register" element={<Register onSubmit={onsubmit} />} />
         <Route path="/" element={<LandingPage />} />
@@ -58,9 +50,11 @@ function App() {
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
         <Route path="/pay" element={<MercadoPago />} />
+        {/* <Route path="/profile" element={<UserProfile />} />*/}
+
       </Routes>
       <Footer />
-    </>
+     </> 
   );
 }
 
