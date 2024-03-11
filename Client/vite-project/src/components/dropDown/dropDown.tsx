@@ -39,7 +39,7 @@ export default function LongMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   let user = window.localStorage.getItem('user');
   if (user) {
-    user = JSON.parse(user); // user.role
+    user = JSON.parse(user); 
   } 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -61,7 +61,7 @@ export default function LongMenu() {
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
-      window.localStorage.clear('user')
+      window.localStorage.clear()
     } catch (error) {
       console.error("Error during sign-out:", error);
     }

@@ -2,7 +2,7 @@ import { format, differenceInYears } from "date-fns";
 
 interface Error {
   username?: string;
-  email?: string;
+  user_email?: string;
   lastName?: string;
   dateOfBirth?: string;
   phone?: string;
@@ -12,7 +12,7 @@ interface Error {
 
 export const validation = ({
   username,
-  email,
+  user_email,
   lastName,
   dateOfBirth,
   phone,
@@ -29,10 +29,10 @@ export const validation = ({
   }
 
   // Validaciones para el email
-  if (!email) {
-    error.email = "This field cannot be blank";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    error.email = "It must be a valid email";
+  if (!user_email) {
+    error.user_email = "This field cannot be blank";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user_email)) {
+    error.user_email = "It must be a valid email";
   }
 
   // Validaciones para el apellido
