@@ -120,20 +120,20 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     console.log(email, password);
     // if (registration) {
     // signInWithEmailAndPassword(auth, email, password).then(() =>
-      dispatch(authenticateUser(email, password))
-      navigate("/");
-      
-      let localUser = {
-        message: user.Message,
-        username: user.userData.username,
-        user_email: email,
-        password: password,
-        image: user.userData.image,
-        _id: user.userData._id,
-        role: user.userData.role,
-        permissions: user.userData.permissions
-      };
-      window.localStorage.setItem("user", JSON.stringify(localUser));
+    dispatch(authenticateUser(email, password));
+    navigate("/");
+
+    let localUser = {
+      message: user.Message,
+      username: user.userData.username,
+      user_email: email,
+      password: password,
+      image: user.userData.image,
+      _id: user.userData._id,
+      role: user.userData.role,
+      permissions: user.userData.permissions,
+    };
+    window.localStorage.setItem("user", JSON.stringify(localUser));
     // );
     // } else {
     //   // signInWithEmailAndPassword(auth, email, password).then(
@@ -146,7 +146,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
-      dispatch(authenticateUser(user)) && console.log(user);
+      dispatch(createUser(user)) && console.log(user);
 
       //LOCAL STORAGE USER INTERFACE
       let localUser = {
@@ -224,9 +224,10 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
             </p> */}
           </div>
           <div className="card-body">
-              <p>
-                You can also log in with your <strong>Google account</strong>
-              </p>
+            <p>
+              You can also log in with your <strong>Google account</strong>
+            </p>
+
             {user ? (
               <button
                 className="googleButton"

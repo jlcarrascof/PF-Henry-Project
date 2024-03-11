@@ -8,8 +8,8 @@ export const NavBar: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
   let user = window.localStorage.getItem("user");
   if (user) {
-    user = JSON.parse(user); 
-    console.log(user)
+    user = JSON.parse(user);
+    console.log(user);
   }
 
   return (
@@ -43,14 +43,21 @@ export const NavBar: React.FC = () => {
           </Link>
           {user ? (
             <>
-            <div className="dropbox">
-              <div className="avatar">{user.message}!    
-              <Avatar alt="" src={user.image} size={48} gap={25} draggable="false"/>
+              <div className="dropbox">
+                <div className="avatar">
+                  {user.message}
+                  <Avatar
+                    alt=""
+                    src={user.image}
+                    size={48}
+                    gap={25}
+                    draggable="false"
+                  />
+                </div>
+                <LongMenu />
               </div>
-              <LongMenu />
-            </div>
             </>
-          ) : ( 
+          ) : (
             <>
               <Link className="btnLogin" to="/login">
                 <p>Login</p>

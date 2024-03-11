@@ -17,7 +17,7 @@ interface RegisterProps {
 
 interface FormData {
   username: string;
-  email: string;
+  user_email: string;
   password: string;
   repeatPassword: string;
   role: string;
@@ -75,6 +75,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!form.current) return;
 
     emailjs
