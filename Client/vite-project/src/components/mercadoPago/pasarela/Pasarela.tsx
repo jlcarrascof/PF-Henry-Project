@@ -106,7 +106,6 @@ const Pasarela: React.FC = () => {
         }
     })();});
 
-    // Aqui estaba
     return (
         <div className='Reservas'>
             {Reservas.map((Reserva) => (
