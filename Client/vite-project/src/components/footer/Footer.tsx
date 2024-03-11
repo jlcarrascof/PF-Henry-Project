@@ -19,7 +19,9 @@ const Footer: React.FC = () => {
         <h5>What is Rentify?</h5>
       </div>
       <div className="footerContent">
-        <h4>Pay</h4>
+        <Link to="/pay">
+          <h5>Pay</h5>
+        </Link>
         <h5>Cards</h5>
         <h5>Payment services</h5>
       
