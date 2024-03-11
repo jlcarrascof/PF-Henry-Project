@@ -16,6 +16,7 @@ import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
 import UserDashboard from "./components/admin/UserDashboard/userDashboard";
+import MercadoPago from "./components/mercadoPago/MercadoPago";
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
