@@ -3,11 +3,6 @@
   font-weight: bold;
   margin-bottom: 15px;
 }
-
-.reservation {
-  Añade estilos según sea necesario /
-}
-
 .reservation-item {
   display: flex;
   justify-content: space-between;
@@ -17,28 +12,22 @@
 .reservation-label {
   font-weight: bold;
   margin-right: 10px;
-  color: #2b124c; / Color de texto personalizado /
+  color: #2b124c; 
 }
 
-.reservation-value {
-  / Añade estilos según sea necesario /
-}
-
-/ Estilos para h2 en el contexto de las reservas /
 .reservations-title {
-  font-size: 2.5rem; / Tamaño de fuente personalizado /
-  color: #2b124c; / Color de texto personalizado /
+  font-size: 2.5rem; 
+  color: #2b124c; 
   margin-bottom: 20px;
 }
 
-/ Estilos para p en el contexto de las reservas /
+
 .reservation-label,
 .reservation-value {
-  font-size: 1.2rem; / Tamaño de fuente personalizado /
-  color: #4f4f4f; / Color de texto personalizado /
+  font-size: 1.2rem; 
+  color: #4f4f4f; 
 }
 
-/ Estilos para div en el contexto de las reservas
 .reservation-item {
   background-color: #e0e0e0;
   border-radius: 15px;
