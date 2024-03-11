@@ -113,16 +113,18 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     // }
   }, [user]);
 
-  const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
+  const firebaseAuthentication = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     if (email && password) {
       try {
         // Llamada a authenticateUser debe ser una acción asíncrona
         await dispatch(authenticateUser(email, password));
-  
+
         // Supongo que user proviene del estado o de algún lugar
         const localUser = {
           message: user?.Message,
@@ -134,7 +136,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
           role: user?.userData?.role,
           permissions: user?.userData?.permissions,
         };
-  
+
         window.localStorage.setItem("user", JSON.stringify(localUser));
       } catch (error) {
         console.error("Error during login:", error);
@@ -142,7 +144,6 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     }
   };
   const handleGoogleLogin = async (): Promise<void> => {
-
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;

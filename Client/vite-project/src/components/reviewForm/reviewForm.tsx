@@ -243,20 +243,20 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(postReview(roomId, review));
-    if (!form.current) return;
+    //   if (!form.current) return;
 
-    emailjs
-      .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
-        publicKey: "b645crolwMFi4MBSX",
-      })
-      .then(
-        () => {
-          console.log("SUCCESS!");
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
+    //   emailjs
+    //     .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+    //       publicKey: "b645crolwMFi4MBSX",
+    //     })
+    //     .then(
+    //       () => {
+    //         console.log("SUCCESS!");
+    //       },
+    //       (error) => {
+    //         console.log("FAILED...", error.text);
+    //       }
+    //     );
   };
 
   return (

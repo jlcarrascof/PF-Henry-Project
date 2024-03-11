@@ -16,7 +16,7 @@ export interface State {
   totalResults: number;
   isAuthenticated: boolean;
   allUsers: any[];
-  user: any[];
+  user: any;
   post_hotel: any[];
   reservations: any[];
   confirmedReservations: any[];
@@ -39,7 +39,7 @@ const initialState: State = {
   totalResults: 0,
   isAuthenticated: false,
   allUsers: [],
-  user: [],
+  user: null,
   post_hotel: [],
   reservations: [],
   confirmedReservations: [],

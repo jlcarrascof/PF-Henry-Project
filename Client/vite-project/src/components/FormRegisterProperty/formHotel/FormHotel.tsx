@@ -1,4 +1,3 @@
-
 import { createHotels } from "../../../Redux/Actions/actions";
 import { useDispatch, Dispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
@@ -32,25 +31,19 @@ interface Values {
   message: string;
 }
 
-
-
-
-
-
 interface FormHotelProps {
   setStepRegister: React.Dispatch<React.SetStateAction<number>>;
 }
 
-
 const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   const dispatch = useDispatch();
   const form = useRef<HTMLFormElement>();
- 
-    const [values, setValues] = useState<Values>({
+
+  const [values, setValues] = useState<Values>({
     user_email: "",
     message: `Wohoo! It looks like you have posted a new hotel! Now it's public for people who wants to go on holidays in our app :D `,
   });
-    
+
   const [formData, setFormData] = useState<FormSchema>({
     name: "",
     details: "",
@@ -61,8 +54,6 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       mail: values.user_email,
     },
   });
- 
-  
 
   const [error, setError] = useState<ErrorSchema>({
     name: "",
@@ -115,10 +106,6 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     );
   };
 
-
-  
-
-
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const selectedImage = event.target.files[0];
@@ -133,8 +120,6 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       }
     }
   };
-
- 
 
   const handleContactChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -159,20 +144,20 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     try {
       dispatch(createHotels(formData));
       window.localStorage.removeItem("form-hoteldata");
-      if (!form.current) return;
+      // if (!form.current) return;
 
-      emailjs
-        .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
-          publicKey: "b645crolwMFi4MBSX",
-        })
-        .then(
-          () => {
-            console.log("SUCCESS!");
-          },
-          (error) => {
-            console.log("FAILED...", error.text);
-          }
-        );
+      // emailjs
+      //   .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+      //     publicKey: "b645crolwMFi4MBSX",
+      //   })
+      //   .then(
+      //     () => {
+      //       console.log("SUCCESS!");
+      //     },
+      //     (error) => {
+      //       console.log("FAILED...", error.text);
+      //     }
+      //   );
       setStepRegister(2);
     } catch (error) {
       console.error("Error in create Hotel: ", error);
