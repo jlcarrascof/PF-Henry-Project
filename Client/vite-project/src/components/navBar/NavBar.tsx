@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import LongMenu from "../dropDown/dropDown";
 import "./navBar.css";
 import { Avatar } from "antd";
+import { useSelector } from "react-redux";
 
 export const NavBar: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
-  let user = window.localStorage.getItem("user");
-  if (user) {
+  const {user} = useSelector((state: any) => state.user)
+  console.log("hola4", user);
+  /* if (user) {
     user = JSON.parse(user);
-    console.log(user);
-  }
+  } */
 
   return (
     <div className="navBar">

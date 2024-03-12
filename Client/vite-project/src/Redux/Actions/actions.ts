@@ -82,8 +82,8 @@ export const getDisabledRooms = () => {
 export const authenticateUser = (user_email: string, password: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const authenticate = await axiosInstance.get(
-        `/users?user_email=${user_email}&password=${password}`
+      const authenticate = await axios.get(
+        `http://localhost:3002/users?user_email=${user_email}&password=${password}`
       );
       dispatch({
         type: "AUTHENTICATE_USER",
