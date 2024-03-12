@@ -49,6 +49,11 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
+    case "GET_USERS":
+  return {
+    ...state,
+    allUsers: action.payload, // Actualiza el estado con los usuarios recibidos
+  };
     case "GET_ROOMS":
       return {
         ...state,

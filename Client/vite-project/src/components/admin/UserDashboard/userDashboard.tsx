@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
 import { getUsers } from '../../../Redux/Actions/actions';
@@ -14,26 +14,25 @@ import {
 } from '@mui/material';
 
 const UserDashboard = () => {
+  const allUsers = useSelector((state: State) => state.allUsers);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const { users } = useSelector((state: State) => state);
-
   
   useEffect(() => {
-    console.log('Users:', users); // verificar los datos de usuarios
-  }, [users]);
+    console.log('Users:', allUsers); // verificar los datos de usuarios
+  }, [allUsers]);
 
   // Verifica si los usuarios están disponibles antes de mapearlos
-  const rows = users ? users.map((user) => ({
+  const rows = allUsers ? allUsers.map((user) => ({
     uid: user.uid,
     firstName: user.profile.firstName,
     lastName: user.profile.lastName,
     dateOfBirth: user.profile.dateOfBirth,
-    email: user.email,
+    email: user.user_email,
     phone: user.phone,
     role: user.role,
     permissions: user.permissions,

@@ -36,12 +36,15 @@ export const createUser = (userData: any) => {
   };
 };
 
+//export const GET_USERS = "GET_USERS"; // Definir el tipo de acción
+
+// Acción para obtener usuarios
 export const getUsers = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const { data } = await axiosInstance.get("/users/");
       dispatch({
-        type: "GET_USERS",
+        type: "GET_USERS", // Usar la constante definida
         payload: data,
       });
     } catch (error) {
