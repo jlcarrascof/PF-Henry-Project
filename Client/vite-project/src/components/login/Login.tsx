@@ -19,6 +19,7 @@ import { authenticateUser, createUser } from "../../Redux/Actions/actions";
 import "./Login.css";
 import Register from "../register/Register";
 import app from "./firebaseConfig";
+import { App } from "antd";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -65,6 +66,13 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
   //   cursor: pointer;
   // `;
 
+  const { notification } = App.useApp();
+  const showNotification = () => {
+    notification.info({
+      message: `Notification`,
+      description: `Hello, ${user?.username}!!`,
+    });
+  };
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -136,6 +144,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
         };
   
         window.localStorage.setItem("user", JSON.stringify(localUser));
+        showNotification();
       } catch (error) {
         console.error("Error during login:", error);
       }

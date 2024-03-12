@@ -34,20 +34,13 @@ const LandingPage: React.FC = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const allRooms = useSelector((state: State) => state.allRooms);
-
-  const onClick = (filters: any) => {
-    dispatch(getFilteredRooms(filters));
-    navigate("/home");
-  };
 
   return (
     <div className="landing-page">
       <div>{/* <Header /> */}</div>
       <div className="searchBar-container">
-        <SearchBar onClick={onClick} />
+        <SearchBar />
       </div>
       <div className="upperText">
         <h1>Now you don't have to worry about going on holidays</h1>
