@@ -50,7 +50,7 @@ function App() {
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
         <Route path="/pay" element={<MercadoPago />} />
-        {/* <Route path="/profile" element={<UserProfile />} />*/}
+        <Route path="/userProfile" element={<UserProfile />} />
 
       </Routes>
       <Footer />
