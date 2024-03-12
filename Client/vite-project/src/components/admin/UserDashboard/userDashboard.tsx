@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 
 const UserDashboard = () => {
-  const allUsers = useSelector((state: State) => state.allUsers);
+  const allUsers = useSelector((state: State) => state.allUsers.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
