@@ -19,6 +19,7 @@ import { authenticateUser, createUser } from "../../Redux/Actions/actions";
 import "./Login.css";
 import Register from "../register/Register";
 import app from "./firebaseConfig";
+import { State } from "../../Redux/Reducer/reducer";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -28,152 +29,58 @@ interface LoginProps {
   theUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
-  // const Overlay = styled.div`
-  //   position: fixed;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   background-color: rgba(0, 0, 0, 0.5);
-  //   z-index: 1000;
-  // `;
-
-  // const ContenedorModal = styled.div`
-  //   position: fixed;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-  //   background-color: white;
-  //   padding: 20px;
-  //   border-radius: 8px;
-  //   z-index: 1001;
-  // `;
-
-  // const Encabezado = styled.div`
-  //   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   font-size: 20px;
-  //   padding-bottom: 10px;
-  //   border-bottom: 1px solid #ccc;
-  // `;
-
-  // const LoginButton = styled.button`
-  //   background-color: transparent;
-  //   border: none;
-  //   font-size: 20px;
-  //   cursor: pointer;
-  // `;
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
-  //     if (userFirebase) {
-  //       const userData = {
-  //         uid: userFirebase.uid,
-  //         email: userFirebase.email,
-  //         password: userFirebase.password,
-  //         providerId: userFirebase.providerData[0]?.providerId,
-  //         displayName: userFirebase.displayName,
-  //       };
-  //       dispatch(authenticateUser(userData));
-  //     } else {
-  //       dispatch(authenticateUser(null));
-  //     }
-  //   });
-  //   return () => unsubscribe();
-  // }, [dispatch]);
-
-  // console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
-
-  useEffect(() => {
-    // // Si hay un usuario y el valor ha cambiado
-    // if (user) {
-    //   // Realizar una solicitud al servidor express
-    //   axios
-    //     .get(
-    //       http://localhost:3002/users/authenticate/${user.email}/${user.password}
-    //     )
-    //     .then((response) => {
-    //       console.log("Información del usuario enviada al backend:", response);
-    //       // Manejar la respuesta del backend si es necesario
-    //     })
-    //     .catch((error) => {
-    //       console.error(
-    //         "Error al enviar información del usuario al backend:",
-    //         error
-    //       );
-    //       // Manejar el error si es necesario
-    //     });
-    // }
-  }, [user]);
-
-  const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
+  const firebaseAuthentication = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     if (email && password) {
       try {
-        // Llamada a authenticateUser debe ser una acción asíncrona
         await dispatch(authenticateUser(email, password));
-  
-        // Supongo que user proviene del estado o de algún lugar
-        const localUser = {
-          message: user?.Message,
-          username: user?.userData?.username,
-          user_email: email,
-          password: password,
-          image: user?.userData?.image,
-          _id: user?.userData?._id,
-          role: user?.userData?.role,
-          permissions: user?.userData?.permissions,
-        };
-  
-        window.localStorage.setItem("user", JSON.stringify(localUser));
+        navigate("/");
       } catch (error) {
         console.error("Error during login:", error);
       }
     }
   };
-  const handleGoogleLogin = async (): Promise<void> => {
+  const localUser = {
+    message: user?.Message,
+    username: user?.userData?.username,
+    user_email: user?.userData?.user_email,
+    image: user?.userData?.image,
+    _id: user?.userData?._id,
+    role: user?.userData?.role,
+    permissions: user?.userData?.permissions,
+  };
 
+  window.localStorage.setItem("user", JSON.stringify(localUser));
+
+  const handleGoogleLogin = async (): Promise<void> => {
     try {
       const result: UserCredential = await signInWithPopup(auth, provider);
       const user = result.user;
       dispatch(createUser(user)) && console.log(user);
 
-      //LOCAL STORAGE USER INTERFACE
       let localUser = {
         usernname: user.displayName,
         user_email: user.email,
         role: "owner",
       };
       window.localStorage.setItem("user", JSON.stringify(localUser));
-      //LOCAL STORAGE USER INTERFACE
       console.log(user);
       navigate("/");
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
-  // const handleGoogleLogin = () => {
-  //   signInWithPopup(auth, provider)
-  //     .then(
-  //       (result) => dispatch(createUser(result.user)) && setTheUser(result.user)
-  //     )
-  //     .catch((err) => {
-  //       console.log("el error es: ", err);
-  //     });
-  //   //  .catch (error) {
-  //   //   console.error("Error during Google sign-in:", error)
-  //   // }
-  // };
 
   const handleSignOut = async (): Promise<void> => {
     try {
@@ -182,12 +89,6 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     } catch (error) {
       console.error("Error durante la desconexión:", error);
     }
-    // try {
-    //   await signOut(auth);
-    //   window.localStorage.clear("user");
-    // } catch (error) {
-    //   console.error("Error during sign-out:", error);
-    // }
   };
 
   return (
@@ -211,7 +112,8 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
               id="password"
             />
             <button className="loginButton" type="submit">
-              {registration ? "Log out" : "Log in"}
+              {/* {registration ? "Log out" : "Log in"} */}
+              Log in
             </button>
           </form>
           <div className="estilos-google">
@@ -228,31 +130,31 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
               You can also log in with your <strong>Google account</strong>
             </p>
 
-            {user ? (
-              <button
-                className="googleButton"
-                type="button"
-                onClick={handleGoogleLogin}
-              >
-                <img
-                  className="estilo-profile"
-                  src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
-                  alt="Google logo"
-                />
-                <strong>Continue with Google</strong>
-              </button>
-            ) : (
-              <div className="googleTime">
-                {user.provider === "password" && (
+            {/* {user ? ( */}
+            <button
+              className="googleButton"
+              type="button"
+              onClick={handleGoogleLogin}
+            >
+              <img
+                className="estilo-profile"
+                src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
+                alt="Google logo"
+              />
+              <strong>Continue with Google</strong>
+            </button>
+            {/* ) : ( */}
+            {/* <div className="googleTime">
+                {/* {user.provider === "password" && (
                   <button type="button" onClick={handleSignOut}>
                     Log out
                   </button>
-                )}
-                {user.provider === "google.com" && (
+                )} */}
+            {/* {user.provider === "google.com" && (
                   <button
                     className="googleButton"
                     type="button"
-                    onClick={handleSignOut}
+                    onClick={handleGoogleLogin}
                   >
                     <img
                       className="estilo-profile"
@@ -262,8 +164,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
                     Log out
                   </button>
                 )}
-              </div>
-            )}
+              </div>  */}
             {user && user.provider === "password" && (
               <p>
                 You have successfully connected with the email:{" "}
