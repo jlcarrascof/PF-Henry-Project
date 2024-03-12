@@ -17,7 +17,7 @@ const {
 
 const usersRouter = Router();
 
-usersRouter.get("/users", getUser);
+usersRouter.get("/allusers", getUser);
 
 // Nueva ruta para recibir la información de Firebase
 usersRouter.get("/", authUser);

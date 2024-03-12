@@ -42,7 +42,7 @@ export const createUser = (userData: any) => {
 export const getUsers = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axiosInstance.get("/users/");
+      const { data } = await axiosInstance.get("/users/allusers/");
       dispatch({
         type: "GET_USERS", // Usar la constante definida
         payload: data,
