@@ -1,0 +1,75 @@
+.user-profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 150px; 
+    text-align: center;
+  }
+  
+  .cloudinary-section {
+    text-align: center;
+  }
+  
+  .cloudinary-section h3 {
+    margin-bottom: 10px;
+  }
+  
+  .user-data {
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px; 
+  }
+  
+  .user-data-info {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .edit-message {
+    font-size: 20px; 
+    margin-bottom: 15px; 
+    color: #151515; 
+  }
+  
+  .user-data p {
+    margin: 10px 0; 
+    border-bottom: 1px solid #F2E7E5; 
+    padding-bottom: 10px; 
+    text-align: left;
+  }
+  
+  .separator {
+    border-bottom: 1px solid #F2E7E5; 
+    margin: 20px 0;
+  }
+  
+  .edit-icon {
+    cursor: pointer;
+    margin-top: 20px; 
+  }
+  
+  .update-button {
+    background-color: #6D386E; 
+    color: #FFF8E7; 
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; 
+    margin: 20px auto; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  .update-button:hover {
+    background-color: #522B5B; 
+  }  
+
+
+
+
+
+  
+  
+  
+  
+    

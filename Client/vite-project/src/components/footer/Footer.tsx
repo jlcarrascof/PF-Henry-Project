@@ -16,6 +16,11 @@ const Footer: React.FC = () => {
         <Link to="/about">
           <h5> About us</h5>
         </Link>
+
+        <Link to="/userProfile">
+          <h5> UserProfile</h5>
+        </Link>
+
         <h5>What is Rentify?</h5>
       </div>
       <div className="footerContent">
