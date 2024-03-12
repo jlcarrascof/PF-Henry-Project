@@ -11,8 +11,9 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPages, allRooms, filteredRooms } = useSelector((state: State) => state);
   const [currentPage, setCurrentPage] = useState(1);
-  const identifier = useSelector((state: State) => state.user?.email);
   const favoriteRooms = useSelector((state: State) => state.favoriteRooms);
+  let user: any = window.localStorage.getItem("user");
+  const identifier = user?.user_email;
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -34,11 +35,15 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
+    if (user) {
+      user = JSON.parse(user);
+      console.log(user);
+    }
     dispatch(getFilteredRooms({ p: currentPage, ...filteredRooms }));
     dispatch(getFavoriteRooms(identifier)); 
   }, [dispatch, currentPage, filteredRooms, identifier]);
 
-  const handleAddFavorite = (roomId: string) => {
+  const handleAddFavorite = () => {
     dispatch(addFavoriteRoom(identifier, roomId));
   };
 

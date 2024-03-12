@@ -7,10 +7,7 @@ import { Avatar } from "antd";
 export const NavBar: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
   let user = window.localStorage.getItem("user");
-  if (user) {
-    user = JSON.parse(user);
-    console.log(user);
-  }
+
 
   return (
     <div className="navBar">

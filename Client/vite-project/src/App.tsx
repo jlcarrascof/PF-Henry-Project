@@ -19,6 +19,7 @@ import UserDashboard from "./components/admin/UserDashboard/userDashboard";
 import UserProfile from "./components/userProfile/UserProfile";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
+import FormRoom from "./components/FormRegisterProperty/FormRoom/FormRoom";
 
 interface User {
   email: string;
@@ -45,6 +46,7 @@ function App() {
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/favorites" element={<FavoritesRoom />} />
         <Route path="/register-hotel" element={<FormProperty />} />
+        <Route path="/register-room" element={<FormRoom />} />
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
