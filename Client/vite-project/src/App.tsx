@@ -33,9 +33,7 @@ function App() {
       <NavBar />
 
       <Routes>
-        <Route>
-          <Route path="/login" element={<Login />} />
-        </Route>
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register onSubmit={onsubmit} />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
@@ -50,7 +48,7 @@ function App() {
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
         <Route path="/pay" element={<MercadoPago />} />
-        {/* <Route path="/profile" element={<UserProfile />} />*/}
+        <Route path="/profile" element={<UserProfile />} />
 
       </Routes>
       <Footer />

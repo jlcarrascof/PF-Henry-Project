@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import LongMenu from "../dropDown/dropDown";
 import "./navBar.css";
@@ -6,7 +6,6 @@ import { Avatar } from "antd";
 import { useSelector } from "react-redux";
 
 export const NavBar: React.FC = () => {
-  const [showLogin, setShowLogin] = useState(false);
   const {user} = useSelector((state: any) => state.user)
   console.log("hola4", user);
   /* if (user) {
