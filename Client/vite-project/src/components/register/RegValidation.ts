@@ -1,4 +1,4 @@
-import { format, differenceInYears } from "date-fns";
+import { differenceInYears } from "date-fns";
 
 interface Error {
   username?: string;
