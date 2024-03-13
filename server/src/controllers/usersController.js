@@ -54,25 +54,9 @@ const updateUser = async (id, updateData) => {
 };
 
 
-const deleteUserById = async (id) => {
-    const db = getDb();
-    try {
-
-        const result = await db.collection('users')
-        .deleteOne({ _id: new ObjectId(id) });
-        return result.deletedCount > 0 ? 'User removed' : 'User not found';
-    
-      } catch (error) {
-        throw error;
-    }
-};
-
-
-
 module.exports = {
     getUserById,
     getUserByName,
     createUser,
     updateUser,
-    deleteUserById,
 };

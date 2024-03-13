@@ -370,7 +370,7 @@ export const getUsers = () => {
     try {
       const { data } = await axios.get("http://localhost:3002/admin/users/");
       dispatch({
-        type: "GET_ALL_USERS",
+        type: "GET_USERS",
         payload: data,
       });
     } catch (error) {
@@ -403,6 +403,22 @@ export const disableUser = (id: string) => {
       );
       dispatch({
         type: "DISABLE_USER_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error);
+    }
+  };
+};
+
+export const deleteUsers = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:3002/admin/users/${id}`
+      );
+      dispatch({
+        type: "DELETE_USER",
         payload: data,
       });
     } catch (error) {

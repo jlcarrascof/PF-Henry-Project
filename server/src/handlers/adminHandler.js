@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
-const { disableRoomId, disableHotelId, getAllUsers, getRoomById, disableUserById } = require("../controllers/adminController");
+const { disableRoomId, disableHotelId, getAllUsers, getRoomById, disableUserById, deleteUser } = require("../controllers/adminController");
 
 
 const disableUser = async (req, res) => {
@@ -17,6 +17,26 @@ const disableUser = async (req, res) => {
     res.status(500).send(error)
   }
 }
+
+const deleteUserByID = async (req, res) => {
+  try {
+    if (!ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: "Invalid ID" });
+    }
+    const { id } = req.params;
+
+    const result = await deleteUser(id);
+
+    if (result.deletedCount <= 0) {
+      return res.status(400).json({ message: "Cannot delete user" });
+    }
+
+    return res.status(201).send(result)
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 const disableRoom = async (req, res) => {
     const {id} = req.params;
@@ -170,5 +190,6 @@ const disableRoom = async (req, res) => {
     getMixedSearch,
     getLinkedRoom,
     getUsers,
-    disableUser
+    disableUser,
+    deleteUserByID
   }

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
-import { getUsers } from '../../../Redux/Actions/actions';
+import { disableUser, getUsers } from '../../../Redux/Actions/actions';
 import React, { useRef, useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import type { GetRef, TableColumnsType, TableColumnType } from 'antd';
@@ -31,9 +31,21 @@ const UserDashboard: React.FC<{}> = () => {
   const users  = useSelector((state: State) => state.allUsers);
   const dispatch = useDispatch();
 
-  const handleClickDisable = async (id: string) => {
+  const handleClickDisable = async (_id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
     try {
-        dispatch(disableUser(id))
+        dispatch(disableUser(_id))
+        console.log(_id)
+    } catch (error) {
+        console.log("Something went wrong with the handleClick")
+    }
+  }
+
+  const handleClickDelete = async (_id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    try {
+        dispatch(deleteUser(_id))
+        console.log(_id)
     } catch (error) {
         console.log("Something went wrong with the handleClick")
     }
@@ -53,7 +65,7 @@ const UserDashboard: React.FC<{}> = () => {
       role: user.role,
       permissions: user.permissions,
       actions: (<Space size="middle">
-            <a>Disable</a>
+            <a onClick={(event) => handleClickDisable(user?._id, event)}>Disable</a>
             <a>Delete</a>
             </Space>)
     }))

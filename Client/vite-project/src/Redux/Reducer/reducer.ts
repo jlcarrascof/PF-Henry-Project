@@ -49,11 +49,16 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    case "GET_ALL_USERS":
+    case "GET_USERS":
       return {
         ...state,
         allUsers: action.payload,
       };
+    case "GET_USER_BY_ID":
+      return {
+        ...state,
+        user: action.payload
+      }
     case "GET_ROOMS":
       return {
         ...state,

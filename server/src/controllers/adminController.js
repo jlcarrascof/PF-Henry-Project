@@ -114,10 +114,28 @@ const disableRoomId = async (id) => {
     }
 };
 
+const deleteUser = async (id) => {
+  const db = getDb();
+  try {
+
+      const result = await db.collection('users')
+      .deleteOne({ _id: new ObjectId(id) });
+
+      if(!result){
+        return "issues with controller"
+      }
+
+      return result
+    } catch (error) {
+      throw error;
+  }
+};
+
   module.exports = {
     disableRoomId,
     disableHotelId,
     getAllUsers,
     getRoomById,
-    disableUserById
+    disableUserById,
+    deleteUser
   }
