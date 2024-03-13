@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import LongMenu from "../dropDown/dropDown";
 import "./navBar.css";
@@ -7,10 +7,12 @@ import { useSelector } from "react-redux";
 
 export const NavBar: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
-  const user = JSON.parse(window.localStorage.getItem("user"));
-  console.log("hola4", user);
+  const [userData, setUserData] = useState({})
   // let user = window.localStorage.getItem("user");
 
+  useEffect (() => {
+    setUserData(JSON.parse(window.localStorage.getItem("user")))
+  }, [])
   return (
     <div className="navBar">
       <div className="navContainer">
@@ -40,7 +42,7 @@ export const NavBar: React.FC = () => {
           <Link to="/my-reservations">
             <p>My Reservations</p>
           </Link>
-          {user === null || Object.keys(user).length === 0 ? (
+          {userData === null || Object.keys(userData).length === 0 ? (
             <>
               <Link className="btnLogin" to="/login">
                 <p>Login</p>
@@ -50,11 +52,11 @@ export const NavBar: React.FC = () => {
             <>
               <div className="dropbox">
                 <div className="avatar">
-                  {user.Message}
-                  {user && (
+                  {userData.Message}
+                  {userData && (
                     <Avatar
                       alt=""
-                      src={user.image}
+                      src={userData.image}
                       size={48}
                       gap={25}
                       draggable="false"

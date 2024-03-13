@@ -46,12 +46,12 @@ const LandingPage: React.FC = () => {
   return (
     <div className="landing-page">
       <div>{/* <Header /> */}</div>
-      <div className="searchBar-container">
-        <SearchBar onClick={onClick} />
-      </div>
       <div className="upperText">
         <h1>Now you don't have to worry about going on holidays</h1>
-        <h3>Go for it now!</h3>
+        <div className="flexUpper">
+          <SearchBar onClick={onClick} />
+          <h3>Go for it now!</h3>
+        </div>
       </div>
 
       <div className="carousel-container">

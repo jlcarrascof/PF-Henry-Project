@@ -8,6 +8,7 @@ import { createUser } from "../../Redux/Actions/actions";
 import emailjs from "@emailjs/browser";
 import app from "../login/firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Switch } from "antd";
 
 import { format, differenceInYears } from "date-fns";
 
@@ -52,6 +53,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     lastName: "",
     dateOfBirth: "",
     phone: "",
+    //message: values.message
   };
 
   const dispatch = useDispatch();
@@ -73,24 +75,30 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
   };
 
+
+  const handleRoleChange = (checked: boolean, role: string) => {
+    const newRole = checked ? role : "";
+    setFormData((prevData) => ({ ...prevData, role: newRole }));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // if (!form.current) return;
+    if (!form.current) return;
 
-    // emailjs
-    //   .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
-    //     publicKey: "b645crolwMFi4MBSX",
-    //   })
-    //   .then(
-    //     () => {
-    //       console.log("SUCCESS!");
-    //       navigate("/login");
-    //     },
-    //     (error) => {
-    //       console.log("FAILED...", error.text);
-    //     }
-    //   );
+    emailjs
+      .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+        publicKey: "b645crolwMFi4MBSX",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+          navigate("/login");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
     const formErrors = validation(formData);
     setErrors(formErrors);
 
@@ -238,6 +246,27 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
             )}
           </div>
 
+          <div className="label-datos">
+            <label>Role:</label>
+            <div style={{ display: "flex" }}>
+              <div>
+                <label style={{ marginRight: "10px" }}>Owner</label>
+                <Switch
+                  checked={formData.role === "owner"} // Utiliza checked en lugar de defaultChecked
+                  onChange={(checked) => handleRoleChange(checked, "owner")}
+                />
+              </div>
+              <div>
+                <label style={{ marginRight: "10px" }}>Client</label>
+                <Switch
+                  checked={formData.role === "client"} // Utiliza checked en lugar de defaultChecked
+                  onChange={(checked) => handleRoleChange(checked, "client")}
+                />
+              </div>
+            </div>
+          </div>
+
+
           <input
             className="messageInput"
             name="message"
@@ -256,5 +285,6 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     </div>
   );
 };
+
 
 export default Register;

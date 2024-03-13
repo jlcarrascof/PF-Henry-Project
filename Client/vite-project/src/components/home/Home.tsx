@@ -78,7 +78,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <SearchBar />
+        <SearchBar />
       <div>
         <h1>Some of our best hotels</h1>
         <div className="pagination">

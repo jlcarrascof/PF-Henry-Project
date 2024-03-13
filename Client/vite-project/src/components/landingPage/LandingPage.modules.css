@@ -3,17 +3,15 @@
   background-color: lavender;
   align-items: center;
   flex-direction: column;
-  justify-content: flex-start;
   align-content: center;
 }
 
 .upperText {
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: left;
   align-items: left;
   flex-direction: column;
-  margin-left: 300px;
 }
 
 .carousel-container {
@@ -32,14 +30,6 @@
 .carousel-container h2 {
   position: absolute;
   z-index: 999;
-}
-
-.searchBar-container {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding: 30px;
-  color: rgb(17, 16, 18);
 }
 
 .imagenCarrusel {
