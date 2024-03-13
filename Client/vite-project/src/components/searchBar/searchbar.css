@@ -2,9 +2,7 @@
   display: flex;
   text-align: center;
   justify-content: center;
-  margin-top: 100px;
   gap: 10px;
-  width: 100%;
 }
 
 .searchContainer input {
@@ -17,10 +15,11 @@
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   border: 3px solid #522b5b;
+  height: 2.6rem;
 }
 
 .searchContainer button {
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -31,4 +30,5 @@
   font-weight: 500;
   border: none;
   cursor: pointer;
+  height: 2.6rem;
 }

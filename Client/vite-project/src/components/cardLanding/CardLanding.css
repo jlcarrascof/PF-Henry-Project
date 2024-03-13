@@ -1,63 +1,59 @@
+/* Top */
+
 .cardLandContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 .imgContainer {
-  display: flex;
+  flex: 1;
 }
 
 .cardLand-image {
-  width: 250px;
+  width: 100%;
   height: 250px;
   object-fit: cover;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Bottom */
+
+.cardLand-text-container {
+  padding: 20px;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .cardLand-title {
-  display: flex;
-  text-align: left;
-  justify-content: left;
-  padding: 10px;
   font-weight: 800;
 }
 
 .cardLand-adress {
-  display: flex;
-  text-align: left;
-  justify-content: left;
-  padding: 10px;
 }
 
 .cardLand-link {
-  display: flex;
-  align-items: right;
-  justify-content: right;
 }
 
 .cardLand-button {
   display: flex;
   align-items: right;
   justify-content: right;
-  padding: 10px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  padding: 10px;
   background-color: #2b124c;
   color: white;
   font-weight: 500;

@@ -75,6 +75,17 @@ export const authenticateUser = (user_email: string, password: string) => {
       const authenticate = await axios.get(
         `http://localhost:3002/users?user_email=${user_email}&password=${password}`
       );
+      const user = {
+        message: authenticate.data.Message,
+        username: authenticate.data.userData.username,
+        user_email: authenticate.data.userData.user_email,
+        image: authenticate.data.userData.image,
+        _id: authenticate.data.userData._id,
+        role: authenticate.data.userData.role,
+        permissions: authenticate.data.userData.permissions,
+      };
+      console.log("to localStorage", user);
+      window.localStorage.setItem("user", JSON.stringify(user));
       dispatch({
         type: "AUTHENTICATE_USER",
         payload: authenticate.data,

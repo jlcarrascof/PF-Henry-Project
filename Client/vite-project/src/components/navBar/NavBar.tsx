@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import LongMenu from "../dropDown/dropDown";
 import "./navBar.css";
 import { Avatar } from "antd";
+import { useSelector } from "react-redux";
 
 export const NavBar: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
-  let user = window.localStorage.getItem("user");
-
+  const user = JSON.parse(window.localStorage.getItem("user"));
+  console.log("hola4", user);
+  // let user = window.localStorage.getItem("user");
 
   return (
     <div className="navBar">
@@ -38,27 +40,29 @@ export const NavBar: React.FC = () => {
           <Link to="/my-reservations">
             <p>My Reservations</p>
           </Link>
-          {user ? (
-            <>
-              <div className="dropbox">
-                <div className="avatar">
-                  {user.message}
-                  <Avatar
-                    alt=""
-                    src={user.image}
-                    size={48}
-                    gap={25}
-                    draggable="false"
-                  />
-                </div>
-                <LongMenu />
-              </div>
-            </>
-          ) : (
+          {user === null || Object.keys(user).length === 0 ? (
             <>
               <Link className="btnLogin" to="/login">
                 <p>Login</p>
               </Link>
+            </>
+          ) : (
+            <>
+              <div className="dropbox">
+                <div className="avatar">
+                  {user.Message}
+                  {user && (
+                    <Avatar
+                      alt=""
+                      src={user.image}
+                      size={48}
+                      gap={25}
+                      draggable="false"
+                    />
+                  )}
+                </div>
+                <LongMenu />
+              </div>
             </>
           )}
         </div>
@@ -69,4 +73,3 @@ export const NavBar: React.FC = () => {
 };
 
 export default NavBar;
-//

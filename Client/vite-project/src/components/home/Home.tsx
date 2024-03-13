@@ -4,12 +4,19 @@ import Cards from "../cards/Cards";
 import Filters from "../filters/Filters";
 import SearchBar from "../searchBar/SearchBar";
 import { State } from "../../Redux/Reducer/reducer";
-import { getFilteredRooms, addFavoriteRoom, removeFavoriteRoom, getFavoriteRooms } from "../../Redux/Actions/actions";
+import {
+  getFilteredRooms,
+  addFavoriteRoom,
+  removeFavoriteRoom,
+  getFavoriteRooms,
+} from "../../Redux/Actions/actions";
 import "./Home.modules.css";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const { totalPages, allRooms, filteredRooms } = useSelector((state: State) => state);
+  const { totalPages, allRooms, filteredRooms } = useSelector(
+    (state: State) => state
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const favoriteRooms = useSelector((state: State) => state.favoriteRooms);
   let user: any = window.localStorage.getItem("user");
@@ -40,7 +47,7 @@ const Home: React.FC = () => {
       console.log(user);
     }
     dispatch(getFilteredRooms({ p: currentPage, ...filteredRooms }));
-    dispatch(getFavoriteRooms(identifier)); 
+    dispatch(getFavoriteRooms(identifier));
   }, [dispatch, currentPage, filteredRooms, identifier]);
 
   const handleAddFavorite = () => {
@@ -56,7 +63,11 @@ const Home: React.FC = () => {
 
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
-        <button key={i} onClick={() => handlePageChange(i)} disabled={i === currentPage}>
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          disabled={i === currentPage}
+        >
           {i}
         </button>
       );
@@ -67,9 +78,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <div className="searchBar-container">
-        <SearchBar />
-      </div>
+      <SearchBar />
       <div>
         <h1>Some of our best hotels</h1>
         <div className="pagination">
@@ -77,7 +86,10 @@ const Home: React.FC = () => {
             Prev
           </button>
           {renderPageNumbers()}
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
             Next
           </button>
         </div>
@@ -101,19 +113,6 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react"; // Importa useState
 // import { useDispatch, useSelector } from "react-redux";

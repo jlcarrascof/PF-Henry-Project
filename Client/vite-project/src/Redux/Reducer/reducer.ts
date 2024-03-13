@@ -149,13 +149,14 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         allUsers: [...state.allUsers, action.payload],
+        // user: [action.payload, ...state.user],
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":
       return {
         ...state,
         isAuthenticated: true,
-        user: [action.payload, ...state.user],
+        user: action.payload,
       };
     case "LOGOUT_USER":
       return {

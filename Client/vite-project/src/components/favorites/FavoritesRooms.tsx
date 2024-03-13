@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../Redux/Reducer/reducer';
-import { getFavoriteRooms, removeFavoriteRoom } from '../../Redux/Actions/actions'; 
-import Card from '../card/Card';
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../Redux/Reducer/reducer";
+import {
+  getFavoriteRooms,
+  removeFavoriteRoom,
+} from "../../Redux/Actions/actions";
+import Card from "../card/Card";
+import EmptyFavorites from "./EmptyFavorites";
 
 const FavoritesRoom: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,21 +25,26 @@ const FavoritesRoom: React.FC = () => {
 
   return (
     <div className="favorites-container">
-      <h1>Your Favorite Rooms</h1>
-      <div className="favorites-cards-container">
-        {favoriteRooms.map((room) => (
-          <Card
-            key={room._id}
-            room={room}
-            isFavorite={true} 
-            onAddFavorite={() => {}} 
-            onRemoveFavorite={() => handleRemoveFavorite(room._id)}
-          />
-        ))}
-      </div>
+      {favoriteRooms.length === 0 ? (
+        <EmptyFavorites />
+      ) : (
+        <>
+          <h1>Your Favorite Rooms</h1>
+          <div className="favorites-cards-container">
+            {favoriteRooms.map((room) => (
+              <Card
+                key={room._id}
+                room={room}
+                isFavorite={true}
+                onAddFavorite={() => {}}
+                onRemoveFavorite={() => handleRemoveFavorite(room._id)}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
-
 
 export default FavoritesRoom;

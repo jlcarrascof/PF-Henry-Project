@@ -9,9 +9,14 @@
 }
 
 body {
+  background-color: lavender;
   font-family: "DM Sans", sans-serif;
 }
 
 a {
   text-decoration: none;
+}
+
+li {
+  list-style: none;
 }

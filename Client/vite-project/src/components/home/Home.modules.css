@@ -13,15 +13,6 @@
   gap: 20px;
 }
 
-.searchBar-container {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding-top: 30vh;
-  padding: 30px;
-  color: rgb(17, 16, 18);
-}
-
 .allCards {
   display: flex;
   align-items: center;
@@ -38,7 +29,7 @@
   text-align: center;
 }
 
-.pagination{
+.pagination {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -46,12 +37,12 @@
   padding: 30px;
 }
 
-.pagination button{
+.pagination button {
   padding: 10px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
-  border: 1px solid #2B124C ;
+  border: 1px solid #2b124c;
 }
