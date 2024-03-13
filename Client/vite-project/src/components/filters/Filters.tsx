@@ -17,9 +17,12 @@ const initialFilters = {
   SrvSpa: false,
   SrvWifi: false,
   SrvBar: false,
-  SrvRoomService: false,
-  SrvConcierge: false,
-  SrvFineDiningRestaurant: false
+  SrvRoomservice: false,
+  SrvJacuzzi: false,
+  SrvBreakfast: false,
+  SrvPool: false,
+  SrvGym: false,
+  SrvGameRoom : false,
 };
 
 const Filters: React.FC = () => {
@@ -42,12 +45,16 @@ const Filters: React.FC = () => {
 
   const handleFilterSubmit = () => {
     filters.services = "";
-    filters.services += filters.SrvSpa                  ? ",Spa"                    : "";
-    filters.services += filters.SrvWifi                 ? ",Wifi"                   : "";
-    filters.services += filters.SrvBar                  ? ",Bar"                    : "";
-    filters.services += filters.SrvRoomService          ? ",Room Service"           : "";
-    filters.services += filters.SrvConcierge            ? ",Concierge"              : "";
-    filters.services += filters.SrvFineDiningRestaurant ? ",Fine dining restaurant" : "";
+    filters.services += filters.SrvSpa                ? ",Spa"            : "";
+    filters.services += filters.SrvWifi               ? ",Wifi"           : "";
+    filters.services += filters.SrvBar                ? ",Bar"            : "";
+    filters.services += filters.SrvRoomservice        ? ",Room service"   : "";
+    filters.services += filters.SrvJacuzzi            ? ",Jacuzzi"        : "";
+    filters.services += filters.SrvBreakfast          ? ",Breakfast"      : "";
+    filters.services += filters.SrvPool               ? ",Pool"           : "";
+    filters.services += filters.SrvGym                ? ",Fitness center" : "";
+    filters.services += filters.SrvGameRoom           ? ",Game Room"      : "";
+
 
     filters.services = filters.services.startsWith(',') ? filters.services.slice(1) : filters.services;
     
@@ -76,9 +83,7 @@ const Filters: React.FC = () => {
 
   return (
     <div className="filtros">
-      <div>
-        <h1>Filtra tu busqueda</h1>
-      </div>
+      <h1>Filtra tu <span className="purple">busqueda</span></h1>
       <input
         type="text"
         name="minPrice"
@@ -129,20 +134,44 @@ const Filters: React.FC = () => {
         placeholder="Services"
       /> */}
 
-        <h2>Services</h2>
+      <h2 className="services-title">Services</h2>
       <div className="services-grid">
-        <label htmlFor="srvwifi">Wifi</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvwifi" name="SrvWifi" checked={filters.SrvWifi} />
-        <label for="srvbar">Bar</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvbar" name="SrvBar" checked={filters.SrvBar} />
-        <label for="srvspa">Spa</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />
-        <label for="srvroomservice">Room Service</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvroomservice" name="SrvRoomService" checked={filters.SrvRoomService} />
-        <label for="srvfinediningrestaurant">Fine dining restaurant</label>
-        <input onChange={handleFilterChange} type="checkbox" id="srvfinediningrestaurant" name="SrvFineDiningRestaurant" checked={filters.SrvFineDiningRestaurant} />
-        
-        
+        <div >
+          <label htmlFor="srvwifi">Wifi</label>
+          <input onChange={handleFilterChange} type="checkbox" id="srvwifi" name="SrvWifi" checked={filters.SrvWifi} />
+        </div>
+        <div>
+          <label htmlFor="srvbar">Bar</label>
+          <input onChange={handleFilterChange} type="checkbox" id="srvbar" name="SrvBar" checked={filters.SrvBar} />
+        </div>
+        <div>
+          <label htmlFor="srvspa">Spa</label>
+          <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />
+        </div>
+        <div>
+          <label htmlFor="srvroomservice">Room Service</label>
+          <input onChange={handleFilterChange} type="checkbox" id="srvroomservice" name="SrvRoomService" checked={filters.SrvRoomservice} />
+        </div>
+        <div>
+          <label htmlFor="srvfinediningrestaurant">Jacuzzi</label>
+          <input onChange={handleFilterChange} type="checkbox" id="SrvJacuzzi" name="SrvJacuzzi" checked={filters.SrvJacuzzi} />
+        </div>
+        <div>
+          <label htmlFor="srvwifi">Pool</label>
+          <input onChange={handleFilterChange} type="checkbox" id="SrvPool" name="SrvPool" checked={filters.SrvPool} />
+        </div>
+        <div>
+          <label htmlFor="srvwifi">Breakfast</label>
+          <input onChange={handleFilterChange} type="checkbox" id="SrvBreakfast" name="SrvBreakfast" checked={filters.SrvBreakfast} />
+        </div>
+        <div>
+          <label htmlFor="srvwifi">Fitness center</label>
+          <input onChange={handleFilterChange} type="checkbox" id="SrvGym" name="SrvGym" checked={filters.SrvGym} />
+        </div>
+        <div>
+          <label htmlFor="srvwifi">Game Room</label>
+          <input onChange={handleFilterChange} type="checkbox" id="SrvGameRoom" name="SrvGameRoom" checked={filters.SrvGameRoom} />
+        </div>
       </div>
 
       <button onClick={handleFilterSubmit}>Apply Filters</button>

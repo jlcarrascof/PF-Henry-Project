@@ -2,54 +2,55 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  padding: 15px;
   background-color: #e0e0e0;
-  padding: 50px;
-  border-radius: 30px;
-  min-height: 840px;
-  height: fit-content;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
-  height: 500px;
-  margin-left: 30px;
+  border-radius: 10px;
+  /* height: 500px; */
+}
+
+.filtros h1 {
+  font-size: 1.3rem;
 }
 
 .filtros input {
-  padding: 30px;
+  padding: 10px;
   border-radius: 20px;
-  font-size: 18px;
+  font-size: .9rem;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
-  border: 1px solid #030308;
+  /* border: 1px solid #030308; */
+  border: 1px solid #ddd;
 }
 
 .filtros button {
-  padding: 20px;
-  border-radius: 30px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
+  padding: 10px 10px;
+  background-color: #3b1b7b;;
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 5px;
   font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(45deg, #190019, #2b124c);
-  background-color: #1d1a39;
-  border: 2px solid #1d1a39;
+  cursor: pointer;
 }
 
 .services-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  font-size: 20px;
+  font-size: .9rem;
   font-weight: 600;
   color: #312929;
 }
 
+.services-grid label {
+  font-size: .9rem;
+}
+
 .services-grid input {
   height: 20px;
+}
+
+.services-title {
+  color: #38079b;
+  font-size: 1.1rem;
 }

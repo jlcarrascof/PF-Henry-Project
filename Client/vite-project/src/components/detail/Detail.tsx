@@ -17,7 +17,9 @@ const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch();
   const currentRoom = useSelector((state: State) => state.currentRoom);
-  const user = useSelector((state: State) => state.user);
+  //const user = useSelector((state: State) => state.user);
+  const user = JSON.parse(window.localStorage.getItem("user") || "{}")
+
 
   useEffect(() => {
     if (id) {
@@ -48,12 +50,12 @@ const Detail: React.FC = () => {
         const formDataWithRoomId = {
           ...formData,
           roomId: id,
-          userEmail: user.email,
+          userEmail: user.user_email,
         };
 
         console.log("id de room en detail: ", id);
         console.log("formDataWithRoomId: ", formDataWithRoomId);
-        dispatch(reserveRoom(user.uid, formDataWithRoomId)); //formData
+        dispatch(reserveRoom(user.user_email, formDataWithRoomId)); //formData
 
         setShowForm(false);
         setFormData({
@@ -66,6 +68,23 @@ const Detail: React.FC = () => {
       setFormErrors(errors);
     }
   };
+  function Reservar() {
+    const Start = new Date(formData.startDate);
+    const End = new Date(formData.endDate);
+    const DiffMS = End.getTime() - Start.getTime();
+    const msPd = 1000 * 60 * 60 * 24;
+    const Dias = DiffMS / msPd;
+    const Room: Types.Pasarela.ReservInfo = {
+      dias: Dias,
+      id: id as string,
+      image: currentRoom.images[0],
+      precio: currentRoom.price,
+      titulo: currentRoom.name
+    };
+    console.log("Room:", Room)
+    localStorage.setItem("ReservInfo", JSON.stringify(Room));
+    window.location.replace('/pay');
+  }
 
   const items: DescriptionsProps["items"] = [
     {
@@ -233,7 +252,7 @@ const Detail: React.FC = () => {
                 <div className="error-message">{formErrors.description}</div>
               )}
 
-              <button type="submit" className="reserva-button">
+              <button onClick={Reservar}type="submit" className="reserva-button">
                 Confirmar Reserva
               </button>
             </form>

@@ -1,21 +1,38 @@
 .userFirebase {
-  background-color: lavender;
-  padding: 100px;
-  padding-top: 150px;
+  /* background-color: lavender; */
+  /* padding: 100px; */
+  padding-top: 30px;
 }
 
 .padreFirebase {
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
+  background-color: #fff;
   border-radius: 8px;
   /* background-color: #f9f9f9; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.padreFirebase h1 {
+  margin-bottom: 30px;
+  font-size: 1.7rem;
+}
+
 .padreFirebase label {
-  margin-bottom: 15px;
+  color: #38079B;
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+.padreFirebase input {
+  margin-bottom: 20px;
+}
+
+.padreFirebase input:focus {
+  outline: 1px solid #38079B;
+  border: 1px solid transparent;
 }
 
 .padreFirebase p {
@@ -27,7 +44,7 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  background-color: #230623;
+  background-color: #3B1B7B;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -42,7 +59,7 @@
 }
 
 .loginButton:hover {
-  background-color: #2b124c;
+  background-color: #230a44;
 }
 
 .card-body {
@@ -57,7 +74,7 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  background-color: #230623;
+  background-color: #3B1B7B;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -72,7 +89,7 @@
 }
 
 .googleButton:hover {
-  background-color: #2b124c;
+  background-color: #230a44;
 }
 
 .estilo-profile {

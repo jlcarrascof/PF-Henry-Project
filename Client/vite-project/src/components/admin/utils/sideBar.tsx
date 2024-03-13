@@ -1,76 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  PieChartOutlined,
+  SettingOutlined,
+  HddOutlined,
+  UsergroupDeleteOutlined,
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Button, Menu } from 'antd';
+import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
+import UserDashboard from '../UserDashboard/UserDashboard';
+import UserProfile from '../../userProfile/UserProfile';
+import { Layout, Menu, Button } from 'antd';
+import "../HotelsDashboard/HotelDashboard.css"
 
-type MenuItem = Required<MenuProps>['items'][number];
+const { Header, Sider, Content } = Layout;
 
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group',
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('Option 3', '3', <ContainerOutlined />),
-
-  getItem('Navigation One', 'sub1', <MailOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Option 7', '7'),
-    getItem('Option 8', '8'),
-  ]),
-
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
-
-    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
-  ]),
-];
-
-const App: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+const SideBar: React.FC = () => {
+    const [collapsed, setCollapsed] = useState(false);
+    const [selectedKey, setSelectedKey] = useState<string>('1'); 
+  
+    useEffect(() => {
+      const storedKey = localStorage.getItem('selectedKey');
+      if (storedKey) {
+        setSelectedKey(storedKey);
+      }
+    }, []);
+  
+    const handleMenuSelect = ({ key }: { key: string }) => {
+      setSelectedKey(key);
+      localStorage.setItem('selectedKey', key);
+    };
+  
 
   return (
-    <div style={{ width: 256 }}>
-      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16, height: "100%" }}>
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
-      <Menu
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        theme="dark"
-        inlineCollapsed={collapsed}
-        items={items}
-      />
-    </div>
+    <Layout className='Dashboard'>
+      <Sider trigger={null} collapsible collapsed={collapsed} className='sider-bar'>
+        <div className="demo-logo-vertical" />
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          className='sider'
+          onSelect={handleMenuSelect}
+          items={[
+            {
+              key: '1',
+              icon: <HddOutlined />,
+              label: 'Admin Hotels',
+            },
+            {
+              key: '2',
+              icon: <UsergroupDeleteOutlined />,
+              label: 'Admin Users',
+            },
+            {
+              key: '3',
+              icon: <SettingOutlined />,
+              label: 'Profile Settings',
+            },
+          ]}
+        />
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0 }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+          }}
+        >
+          {selectedKey === "1" ? <HotelsDashboard/> : 
+          selectedKey === "2" ? <UserDashboard /> :
+          <UserProfile />}
+        </Content>
+      </Layout>
+    </Layout>
   );
 };
 
-export default App;
+export default SideBar;

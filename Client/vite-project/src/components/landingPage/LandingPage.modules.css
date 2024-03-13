@@ -108,3 +108,22 @@
 .footer {
   min-width: 100%;
 }
+
+.slick-prev:before, .slick-next:before{
+  color: #38079b;
+}
+
+.slick-dots button:before {
+  width: 30px;
+  height: 30px;
+  color: #38079b !important;
+  background-color: #38079b;
+  border-radius: 50px;
+  transition: all .3s ease;
+
+}
+
+/* button:before .slick-active  {
+  background-color: #38079b;
+
+} */

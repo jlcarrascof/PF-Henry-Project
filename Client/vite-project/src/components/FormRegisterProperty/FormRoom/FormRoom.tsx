@@ -98,8 +98,11 @@ const FormRoom = (/*{ onSubmit }*/) => {
     "Spa",
     "Bar",
     "Room Service",
-    "Fine dining",
-    "restaurant",
+    "Breakfast",
+    "Jacuzzi",
+    "Pool",
+    "Gym",
+    "Game room",
   ];
   // const handleRoomsChange = (index: number) => (
   //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

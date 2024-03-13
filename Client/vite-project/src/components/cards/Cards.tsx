@@ -20,7 +20,7 @@ interface CardsProps {
 
 const Cards: React.FC<CardsProps> = ({ allRooms, onAddFavorite, onRemoveFavorite, favoriteRooms }) => {
   return (
-    <div>
+    <>
       {allRooms.map((room) => (
         <Card
           key={room._id} 
@@ -30,7 +30,7 @@ const Cards: React.FC<CardsProps> = ({ allRooms, onAddFavorite, onRemoveFavorite
           onRemoveFavorite={() => onRemoveFavorite(room._id)} 
         />
       ))}
-    </div>
+    </>
   );
 };
 

@@ -12,14 +12,17 @@ import Home from "./components/home/Home";
 import FormProperty from "./components/FormRegisterProperty/FormPropertyIndex";
 import CartReservation from "./components/cart/CartReservation";
 import Cloudinary from "./components/cloudinary/Cloudinary";
+import FormRoom from "./components/FormRegisterProperty/FormRoom/FormRoom";
 import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
-import UserDashboard from "./components/admin/UserDashboard/userDashboard";
+import UserDashboard from "./components/admin/UserDashboard/UserDashboard";
 import UserProfile from "./components/userProfile/UserProfile";
+import SideBar from "./components/admin/utils/sideBar";
+ import MercadoPago from "./components/mercadoPago/MercadoPago"; 
+
 // ? -----------------------------------------------------STYLES
 import "./App.css";
-import FormRoom from "./components/FormRegisterProperty/FormRoom/FormRoom";
 
 interface User {
   email: string;
@@ -50,7 +53,9 @@ function App() {
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/admin" element={<SideBar />} />
+        <Route path="/pay" element={<MercadoPago />} />
       </Routes>
       <Footer />
     </>
