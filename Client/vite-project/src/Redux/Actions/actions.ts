@@ -26,10 +26,10 @@ export const createUser = (userData: any) => {
   };
 };
 
-export const updateUser = (id: string) => {
+export const updateUser = (id: string, updateData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const response = await axios.patch(`http://localhost:3002/users/${id}`)
+      const response = await axios.patch(`http://localhost:3002/users/${id}`, updateData)
 
       dispatch({
         type: "UPDATE_USER",

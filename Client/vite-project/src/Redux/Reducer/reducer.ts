@@ -164,7 +164,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "UPDATE_USER":
       return {
         ...state,
-        user: [...state.user, action.payload],
+        user: action.payload,
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":

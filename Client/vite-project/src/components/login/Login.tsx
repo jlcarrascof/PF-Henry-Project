@@ -98,6 +98,11 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
 
   window.localStorage.setItem("user", JSON.stringify(localUser));
   
+  const TratedUser = user;
+  /* Por si se debe mover algun dato antes de guardar */
+
+  window.localStorage.setItem("user2", JSON.stringify(TratedUser));
+
   const handleGoogleLogin = async (): Promise<void> => {
 
     try {

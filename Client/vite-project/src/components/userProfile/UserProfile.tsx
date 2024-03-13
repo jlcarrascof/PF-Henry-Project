@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Cloudinary from "../cloudinary/Cloudinary";
-import { updateUser } from "../../Redux/Actions/actions";
+import { getUserById, updateUser } from "../../Redux/Actions/actions";
 import Modal from "../modal/Modal";
 import "./UserProfile.css";
 import { validation } from "./UserValidation";
@@ -95,13 +95,23 @@ const UserEdit = ({ user, handleChange, errors }) => (
   </>
 );
 
-const UserProfile = () => {
-  
-  const usuario = useSelector((state: any) => state.user);
+let DataToSend: {[key: string]: string} = {};
+let UsuarioI;
 
-  useEffect(()=> {
-    dispatch(getUsers())
-  }, [])
+
+const UserProfile = () => {
+  const UserData = localStorage.getItem('user2');
+  let usuario;
+  if (UserData && UserData !== '') {
+    usuario = JSON.parse(UserData);
+    console.log(usuario);
+  } else usuario = {};
+  UsuarioI = usuario?.userData;
+  /* const usuario = useSelector((state: any) => {
+    console.log("DBG_state user", state);
+    return state.user
+  });  */
+
 
   const initialuser = {
     username: usuario?.userData?.username,
@@ -112,7 +122,7 @@ const UserProfile = () => {
     password: usuario?.userData?.password,
     imageUrl: usuario?.userData?.image,
     permissions: usuario?.userData?.permissions,
-    id: usuario?.userData?._id,
+    _id: usuario?.userData?._id,
     repeatPassword: "",
   }
 
@@ -132,7 +142,7 @@ const UserProfile = () => {
     setEditMode(false);
   };
 
-  const handleUpdate = (id: string) => {
+  const handleUpdate = (id: string, prevData: any) => {
     const validationErrors = validation({
       email: user.email,
       password: user.password,
@@ -150,7 +160,39 @@ const UserProfile = () => {
     console.log("Update user data");
     setEditMode(false);
     setShowModal(true);
-    dispatch(updateUser(id))
+    /*
+    username:
+    usuario:
+    user_email:
+    password:
+    image:
+    role:
+    permissions:
+    profile: {
+      firstName: String,
+      lastName: String,
+      dateOfBirth: Date,
+    },
+    phone:
+    reservation:
+    favorites:
+    */
+    console.log("Data to view", DataToSend, user);
+    let usuario = UsuarioI;
+    let UserToSend = usuario;
+    UserToSend.username   = DataToSend.username ?? usuario.username;
+    UserToSend.user_email = DataToSend.email    ?? usuario.user_email
+    UserToSend.password   = DataToSend.password ?? usuario.password
+    UserToSend.image   = DataToSend.imageUrl ?? usuario.image
+    console.log("user object", usuario);
+    UserToSend.profile = {
+        firstName: DataToSend.firstName ?? usuario.profile.firstName,
+        lastName:  DataToSend.lastName  ?? usuario.profile.lastName,
+        dateOfBirth: usuario.profile?.dateOfBirth ?? '11/03/2000',
+    }
+    UserToSend.phone = Number(DataToSend.phoneNumber) ?? usuario.phone
+    console.log("to send user object", id, UserToSend);
+    dispatch(updateUser(usuario._id, UserToSend));
   };
 
   const handleChange = (e) => {
@@ -164,6 +206,7 @@ const UserProfile = () => {
 
     setErrors(validationErrors);
 
+    DataToSend[name] = value;
     setuser((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -178,7 +221,10 @@ const UserProfile = () => {
       <div className="edita2-message">𝗘𝗱𝗶𝘁 𝗜𝗺𝗮𝗴𝗲</div>
         <Cloudinary
           imageUrl={user.imageUrl}
-          onImageChange={(newImageUrl) => setuser((prevData) => ({ ...prevData, imageUrl: newImageUrl }))}
+          onImageChange={(newImageUrl) => {
+            DataToSend['imageUrl'] = newImageUrl;
+            setuser((prevData) => ({ ...prevData, imageUrl: newImageUrl }))
+          }}
         />
       </div>
 
