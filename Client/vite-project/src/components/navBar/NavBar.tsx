@@ -52,7 +52,7 @@ export const NavBar: React.FC = () => {
             <>
               <div className="dropbox">
                 <div className="avatar">
-                  {userData.Message}
+                 Hi {userData.username} !
                   {userData && (
                     <Avatar
                       alt=""

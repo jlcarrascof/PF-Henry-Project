@@ -1,5 +1,6 @@
 .searchContainer {
   width: 22rem;
+  padding-top: 10px;
 }
 
 .searchContainer .searchComponent {
@@ -14,6 +15,7 @@
   border: 1px solid #522b5b;
   margin: 0;
   height: 2.6rem;
+  min-width: 10rem;
 }
 
 .searchContainer .searchComponent input:focus {
