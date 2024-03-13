@@ -20,6 +20,8 @@ const usersRouter = Router();
 // Nueva ruta para recibir la información de Firebase
 usersRouter.get("/", authUser);
 
+usersRouter.get("/:id", getUserID);
+
 //RUTA PARA TRAER RESERVAS
 usersRouter.get("/:identifier/reservations", getReservations);
 
@@ -36,7 +38,7 @@ usersRouter.patch("/:identifier/favorites/:roomId", addFavoriteRoom);
 usersRouter.delete("/:identifier/favorites/:roomId", removeFavoriteRoom);
 
 // Ruta para traer usuario por ObjectID ---> GET BY ID
-/* usersRouter.get("/:id", getUserID); */ // --> '/users/?id'
+usersRouter.patch("/:id", patchUser); // --> '/users/?id'
 
 // Ruta para crear usuario             -----> POST USER
 usersRouter.post("/", postUser); // --> '/users'
@@ -46,7 +48,6 @@ usersRouter.patch("/:id", patchUser); // --> '/users/?id'
 
 // Ruta para eliminar usuario por ObjectID (Para el admin dsp) --> DELETE USER
 usersRouter.delete("/:id", deleteUserByID); // --> '/users/?id'
-
 
 //PARA CARRITO DE RESERVAS!! -->
 // Ruta para crear una reserva para un usuario específico
