@@ -7,6 +7,7 @@ import SearchBar from "../searchBar/SearchBar";
 import { State } from "../../Redux/Reducer/reducer";
 import { getFilteredRooms } from "../../Redux/Actions/actions";
 import CardsLanding from "../cardsLanding/CardsLanding";
+import archivo from '../../../images/archivo.png'
 
 import "./LandingPage.modules.css";
 
@@ -48,7 +49,7 @@ const LandingPage: React.FC = () => {
       <div>{/* <Header /> */}</div>
       <div className="upperText">
         <div className="flexUpper">
-          <h1>Now you don't have to worry about going on holidays</h1>
+          <h1>Now you don't have to worry about going <span className="purple">on holidays</span></h1>
           <SearchBar onClick={onClick} />
         </div>
         <h3>Go for it now!</h3>
@@ -72,7 +73,7 @@ const LandingPage: React.FC = () => {
       <div className="imagSlay">
         <div className="archivo">
           <a href="/rooms">
-            <img src="../../../images/archivo.png" />
+            <img src = {archivo} />
           </a>
           <span>Discover hotels from all the world</span>
         </div>
@@ -94,7 +95,7 @@ const LandingPage: React.FC = () => {
           <span>With the most secure payment method</span>
         </div>
       </div>
-      <h2>Some of our best hotels...</h2>
+      <h2>Some of our best <span className="purple">hotels...</span></h2>
       {/* Renderizar la lista de hoteles */}
       <div className="allCards">
         <CardsLanding allRooms={allRooms} />

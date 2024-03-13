@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -35,51 +33,46 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
   const navigate = useNavigate();
 
   const user = useSelector((state: any) => state.user);
+
+
   const [registration, setRegistration] = useState(false);
 
   const firebaseAuthentication = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+    
     const email = e.target.email.value;
     const password = e.target.password.value;
-
     if (email && password) {
       try {
-        await signInWithEmailAndPassword(auth, email, password)
         await dispatch(authenticateUser(email, password));
-        navigate("/");
-      window.location.href='/'
-
+        await signInWithEmailAndPassword(auth, email, password)
+        const localUser = {
+          message: user?.Message,
+          username: user?.userData?.username,
+          user_email: user?.userData?.user_email,
+          image: user?.userData?.image,
+          _id: user?.userData?._id,
+          role: user?.userData?.role,
+          permissions: user?.userData?.permissions,
+        };
+      
+        window.localStorage.setItem("user", JSON.stringify(localUser));
+        window.location.href='/';
+      navigate("/");
       } catch (error) {
         console.error("Error during login:", error);
       }
     }
   };
-  useEffect(() => {
-    console.log("user login", user);
-    if (user) {
-      const localUser = {
-        message: user?.Message,
-        username: user?.userData?.username,
-        user_email: user?.userData?.user_email,
-        image: user?.userData?.image,
-        _id: user?.userData?._id,
-        role: user?.userData?.role,
-        permissions: user?.userData?.permissions,
-      };
-      window.localStorage.setItem("user", JSON.stringify(localUser));
+  // useEffect(() => {
+  //   console.log("user login", user);
+  //   if (user) {
+      
 
-
-
-      // const localUserGoogle = {
-      //   name: user.displayName,
-      //   user_email: user.email,
-      //   role: "owner",
-      // };
-      // window.localStorage.setItem("user", JSON.stringify(localUserGoogle));
-    }
-  }, [user]);
+  //   }
+  // }, [user]);
 
   const handleGoogleLogin = async (): Promise<void> => {
     try {
@@ -134,7 +127,7 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
               className="cajaTexto"
               id="password"
             />
-            <button className="loginButton" type="submit">
+            <button onSubmit={firebaseAuthentication} className="loginButton" type="submit">
               {registration ? "Log out" : "Log in"}
             </button>
           </form>
@@ -167,12 +160,12 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
               </button>
             ) : (
               <div className="googleTime">
-                {user.provider === "password" && (
+                {/* {user.provider === "password" && ( */}
                   <button type="button" onClick={handleSignOut}>
                     Log out
                   </button>
-                )}
-                {user.provider === "google.com" && (
+                {/* )} */}
+                {/* {user.provider === "google.com" && ( */}
                   <button
                     className="googleButton"
                     type="button"
@@ -185,20 +178,20 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
                     />
                     Log out
                   </button>
-                )}
+                {/* )} */}
               </div>
             )}
-            {user && user.provider === "password" && (
-              <p>
+            {/* {user && user.provider === "password" && ( */}
+              {/* <p>
                 You have successfully connected with the email:{" "}
                 <b>{user.email}</b>
-              </p>
-            )}
-            {user && user.provider === "google.com" && (
-              <p>
+              </p> */}
+            {/* )} */}
+            {/* {user && user.provider === "google.com" && ( */}
+              {/* <p>
                 User connected: <b>{user.displayName}</b>
-              </p>
-            )}
+              </p> */}
+            {/* )} */}
             <Link to="/register">
               <p>Don't have an account? Sign up!</p>
             </Link>
