@@ -1,7 +1,7 @@
 .user-profile-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 150px; 
+    padding: 150px; /* Se reduce el padding */
     text-align: center;
   }
   
@@ -14,10 +14,10 @@
   }
   
   .user-data {
-    display: flex; 
+    display: flex; /* Se cambia la dirección del flex a row */
     flex-direction: row;
     align-items: center;
-    margin-bottom: 30px; 
+    margin-bottom: 30px; /* Se ajusta el margen */
   }
   
   .user-data-info {
@@ -28,18 +28,24 @@
   .edit-message {
     font-size: 20px; 
     margin-bottom: 15px; 
-    color: #151515; 
+    color: #854F6C; 
+  }
+  
+  .edita2-message {
+    font-size: 20px; 
+    margin-bottom: 15px;
+    color: #854F6C; 
   }
   
   .user-data p {
     margin: 10px 0; 
-    border-bottom: 1px solid #F2E7E5; 
+    border-bottom: 1px solid #2B124C;
     padding-bottom: 10px; 
     text-align: left;
   }
   
   .separator {
-    border-bottom: 1px solid #F2E7E5; 
+    border-bottom: 1px solid #522B5B; 
     margin: 20px 0;
   }
   
@@ -49,27 +55,27 @@
   }
   
   .update-button {
-    background-color: #6D386E; 
-    color: #FFF8E7; 
+    background-color: #6D386E;
+    color: #d1cdd7; 
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     display: block; 
-    margin: 20px auto; 
+    margin: 20px auto;
     transition: background-color 0.3s ease; 
   }
   
   .update-button:hover {
     background-color: #522B5B; 
   }  
-
-
-
-
-
+  
   
   
   
   
     
+    
+    
+    
+      

@@ -368,7 +368,7 @@ export const createUser = (userData: any) => {
 export const getUsers = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/users/");
+      const { data } = await axios.get("http://localhost:3002/admin/users/");
       dispatch({
         type: "GET_USERS",
         payload: data,
@@ -378,6 +378,7 @@ export const getUsers = () => {
     }
   };
 };
+
 export const disableRoom = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -394,10 +395,42 @@ export const disableRoom = (id: string) => {
   };
 };
 
+export const disableUser = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.patch(
+        `http://localhost:3002/admin/users/${id}`
+      );
+      dispatch({
+        type: "DISABLE_USER_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error);
+    }
+  };
+};
+
+export const deleteUsers = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:3002/admin/users/${id}`
+      );
+      dispatch({
+        type: "DELETE_USER",
+        payload: id,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error);
+    }
+  };
+};
+
 export const getDisabledRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/admin/rooms/");
+      const { data } = await axios.get(`http://localhost:3002/admin/rooms/`);
       dispatch({
         type: "GET_DISABLED_ROOMS",
         payload: data,

@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
-import { getDisabledHotels } from '../../../Redux/Actions/actions';
+import { getDisabledHotels, getDisabledRooms } from '../../../Redux/Actions/actions';
 import TableContainer from '@material-ui/core/TableContainer';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -13,31 +13,40 @@ import ReusableSearchBar from '../utils/ReusableSearchBar';
 
 export default function HotelDashboard() {
   
-  const allAdminHotels = useSelector((state: State) => state.allAdminHotels);
-  const dispatch = useDispatch()
-  
+  const allAdminHotels = useSelector((state: any) => state.allAdminHotels);
+  const allAdminRooms = useSelector((state: any) => state.allAdminRooms);
+  const [rows, setRows] = useState([]);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getDisabledHotels());
+    dispatch(getDisabledRooms());
   }, [dispatch]);
-  
 
-  const rows = allAdminHotels.map((hotel) =>
-  createData(
-    hotel._id,
-    hotel.name,
-    hotel.address,
-    hotel.owner || null,
-    hotel.availability, 
-    hotel.rooms?.map((room) => ({
-      description: room.description || '',
-      typeOfRoom: room.typeOfRoom || '',
-      id: room.id || '',
-      num_rooms: room.num_rooms || 0,
-      price: room.price || 0,
-      availability: room.availability || true
-    })) || [],
-  )
-);
+  useEffect(() => {
+    if (allAdminHotels.length > 0 && allAdminRooms.length > 0) {
+      const updatedRows = allAdminHotels.map((hotel) =>
+        createData(
+          hotel._id,
+          hotel.name,
+          hotel.address,
+          hotel.owner || null,
+          hotel.availability,
+          allAdminRooms
+            .filter((room) => room.hotelId === hotel._id)
+            .map((room) => ({
+              description: room.description || '',
+              typeOfRoom: room.typeOfRoom || '',
+              id: room.id || '',
+              num_rooms: room.num_rooms || 0,
+              price: room.price || 0,
+              availability: room.availability || true,
+            }))
+        )
+      );
+      setRows(updatedRows);
+    }
+  }, [allAdminHotels, allAdminRooms]);
 
   return (
     <div className='dashboardContainer'>

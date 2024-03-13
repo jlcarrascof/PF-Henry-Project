@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+/* import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
 import { getUsers } from '../../../Redux/Actions/actions';
@@ -14,33 +14,28 @@ import {
 } from '@mui/material';
 
 const UserDashboard = () => {
+  const users  = useSelector((state: State) => state.allUsers);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const { users } = useSelector((state: State) => state);
+  console.log(users)
 
-  
-  useEffect(() => {
-    console.log('Users:', users); // verificar los datos de usuarios
-  }, [users]);
-
-  // Verifica si los usuarios están disponibles antes de mapearlos
   const rows = users ? users.map((user) => ({
-    uid: user.uid,
-    firstName: user.profile.firstName,
-    lastName: user.profile.lastName,
-    dateOfBirth: user.profile.dateOfBirth,
-    email: user.email,
-    phone: user.phone,
+    uid: user.uid || "No UID",
+    firstName: user?.profile?.firstName || "No firstName",
+    lastName: user?.profile?.lastName || "No lastName",
+    dateOfBirth: user?.profile?.dateOfBirth || "No Birthday",
+    email: user.email || "No Email",
+    phone: user.phone || "No Phone",
     role: user.role,
     permissions: user.permissions,
   })) : [];
 
   return (
-    <TableContainer className='TableContainer' component={Paper} sx={{ maxHeight: '80%' }, { maxWidth: '85%' }}>
+    <TableContainer className='TableContainer' component={Paper} sx={{ maxWidth: '85%', maxHeight: '80%' }}>
       <Typography variant="h3" gutterBottom component="div">
         Admin your Users
       </Typography>
@@ -77,3 +72,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+ */
