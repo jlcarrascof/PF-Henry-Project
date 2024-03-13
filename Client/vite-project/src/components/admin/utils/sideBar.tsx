@@ -3,15 +3,24 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingOutlined,
-  UserOutlined,
+  HddOutlined,
   UsergroupDeleteOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
+import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
+import UserDashboardrom from "../UserDashboard/userDashboard"
+import UserProfile from '../../userProfile/UserProfile';
+
+import { Layout, Menu, Button } from 'antd';
 
 const { Header, Sider, Content } = Layout;
 
 const SideBar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedKey, setSelectedKey] = useState('1'); 
+
+  const handleMenuSelect = ({ key }: Selection) => {
+    setSelectedKey(key || '1')
+  };
 
   return (
     <Layout>
@@ -21,27 +30,28 @@ const SideBar: React.FC = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
+          onSelect={handleMenuSelect}
           items={[
             {
               key: '1',
-              icon: <UserOutlined />,
-              label: 'Hotel Dashboard',
+              icon: <HddOutlined />,
+              label: 'Admin Hotels',
             },
             {
               key: '2',
               icon: <UsergroupDeleteOutlined />,
-              label: 'nav 2',
+              label: 'Admin Users',
             },
             {
               key: '3',
               icon: <SettingOutlined />,
-              label: 'nav 3',
+              label: 'Profile Settings',
             },
           ]}
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Header style={{ padding: 0 }}>
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -58,11 +68,11 @@ const SideBar: React.FC = () => {
             margin: '24px 16px',
             padding: 24,
             minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
           }}
         >
-          Content
+          {selectedKey === "1" ? <HotelsDashboard/> : 
+          selectedKey === "2" ? <UserDashboard /> :
+          <UserProfile />}
         </Content>
       </Layout>
     </Layout>

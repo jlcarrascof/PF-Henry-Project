@@ -228,22 +228,6 @@ const Detail: React.FC = () => {
             </MapContainer>
           </div>
            
-            <div className="reviews">
-              <h3>Reviews:</h3>
-              {currentRoom.reviews && (
-                <ul>
-                    {/* {currentRoom.review.map((review: any, index: number) => ( */}
-                  {currentRoom.reviews.map((review: any, index: number) => (
-                    <li key={index}>
-                      <p>Description: {review.description}</p>
-                      <p>Score: {review.score}</p>
-                      <p>Date: {review.date}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            
         </div>
       )}
     </div>

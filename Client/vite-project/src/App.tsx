@@ -16,11 +16,12 @@ import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
 import UserDashboard from "./components/admin/UserDashboard/userDashboard";
+import UserProfile from "./components/userProfile/UserProfile";
+import SideBar from "./components/admin/utils/sideBar";
 
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
-import UserProfile from "./components/userProfile/UserProfile";
 
 interface User {
   email: string;
@@ -48,8 +49,8 @@ function App() {
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
-        
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/admin" element={<SideBar />} />
 
       </Routes>
       <Footer />

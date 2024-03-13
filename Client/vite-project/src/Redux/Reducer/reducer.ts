@@ -49,6 +49,16 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
+    case "GET_USERS":
+      return {
+        ...state,
+        allUsers: action.payload,
+      };
+    case "GET_USER_BY_ID":
+      return {
+        ...state,
+        user: action.payload
+      }
     case "GET_ROOMS":
       return {
         ...state,
@@ -154,7 +164,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "UPDATE_USER":
       return {
         ...state,
-        user: action.payload,
+        user: [...state.user, action.payload],
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Cloudinary from "../cloudinary/Cloudinary";
+import { updateUser } from "../../Redux/Actions/actions";
 import Modal from "../modal/Modal";
 import "./UserProfile.css";
 import { validation } from "./UserValidation";
@@ -8,7 +9,6 @@ import { validation } from "./UserValidation";
 const UserDisplay = (initialuser: any) => (
   <>
     <div className="edit-message">𝗘𝗱𝗶𝘁 𝗗𝗮𝘁𝗮</div>
-
     <p>
       <strong>First Name:</strong> {initialuser?.firstName}
     </p>
@@ -98,6 +98,10 @@ const UserEdit = ({ user, handleChange, errors }) => (
 const UserProfile = () => {
   
   const usuario = useSelector((state: any) => state.user);
+
+  useEffect(()=> {
+    dispatch(getUsers())
+  }, [])
 
   const initialuser = {
     username: usuario?.userData?.username,

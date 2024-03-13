@@ -54,6 +54,21 @@ export const getUsers = () => {
     }
   };
 };
+
+export const getUserById = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3002/users/${id}`);
+      dispatch({
+        type: "GET_USER_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+    }
+  };
+};
+
 export const disableRoom = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
