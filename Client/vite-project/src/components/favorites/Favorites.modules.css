@@ -1,9 +1,8 @@
 .favorites-container {
-  max-width: 1200px;
   margin: 0 auto;
-  min-height: 800px;
-  max-height: fit-content;
   padding: 20px;
+  height: 100vh; 
+
 }
 
 .favorites-grid {

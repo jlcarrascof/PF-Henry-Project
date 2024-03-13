@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 header {
   position: sticky;
   top: 0;
@@ -40,12 +41,21 @@ header {
 /* .navBar {
   padding: 15px 0;
   background-color: #1d1a39;
+=======
+.navBar {
+  padding: 25px 0;
+  /* background-color: #1d1a39; */
+  background-color: #38079b;
+>>>>>>> ed244e9ec82c6dc92e58608526a0baf8e70f394e
   display: flex;
   flex-direction: row;
   justify-content: center;
   position: sticky;
   top: 0;
+<<<<<<< HEAD
   left: 0;
+=======
+>>>>>>> ed244e9ec82c6dc92e58608526a0baf8e70f394e
   width: 100%;
   z-index: 1000;
   margin-bottom: 30px;
@@ -78,15 +88,12 @@ header {
 }
 
 .navContainer {
-  width: 100%;
-  margin: 0 1em;
-  padding: 8px;
+  margin: 0 auto;
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  max-width: 1024px;
-  background-color: #1d1a39;
   color: white;
   display: flex;
   flex: 0 0 auto;
@@ -96,15 +103,14 @@ header {
   text-decoration: none;
 }
 .navItems > * {
-  padding: 0.75rem;
-  margin: 0 0.5em;
+  /* padding: 0.75rem; */
   color: #fff;
-  text-decoration: none;
 }
 .navItems {
   display: flex;
   justify-items: center;
   align-items: center;
+  gap: 20px;
 }
 
 .navSeparator {
@@ -120,29 +126,34 @@ header {
 }
 
 .btnLogin {
+  margin-left: 10px;
+  border: 1px solid #fff;
   background-color: #ffffff;
   color: #2b124c;
   flex: 0 0 auto;
   height: max-content;
-  margin: 0 1.2em;
-  padding: 0.5px;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
+  font-weight: 600;
 }
-.btnLogin > p {
-  margin: 0;
-  padding: 0.2em 0.5em;
+
+.btnLogin p:hover {
+ color: #fff;
 }
 
 .btnLogin:hover {
+<<<<<<< HEAD
   color: rgb(181, 145, 232);
   background-color: #1d1a39;
 } */
+=======
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+}
+>>>>>>> ed244e9ec82c6dc92e58608526a0baf8e70f394e
