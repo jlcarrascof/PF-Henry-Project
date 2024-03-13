@@ -39,7 +39,7 @@ const initialState: State = {
   totalResults: 0,
   isAuthenticated: false,
   allUsers: [],
-  user: [],
+  user: {username: "Soy un hardcodeo", email: "pero bien cerdo"},
   post_hotel: [],
   reservations: [],
   confirmedReservations: [],
@@ -149,6 +149,12 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         allUsers: [...state.allUsers, action.payload],
+        isAuthenticated: true,
+      };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        user: action.payload,
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":

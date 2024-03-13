@@ -16,10 +16,11 @@ import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
 import UserDashboard from "./components/admin/UserDashboard/userDashboard";
-import UserProfile from "./components/userProfile/UserProfile";
+
+
 // ? -----------------------------------------------------STYLES
 import "./App.css";
-import FormRoom from "./components/FormRegisterProperty/FormRoom/FormRoom";
+import UserProfile from "./components/userProfile/UserProfile";
 
 interface User {
   email: string;
@@ -33,9 +34,7 @@ function App() {
       <NavBar />
 
       <Routes>
-        <Route>
-          <Route path="/login" element={<Login />} />
-        </Route>
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register onSubmit={onsubmit} />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
@@ -46,15 +45,17 @@ function App() {
         <Route path="/my-reservations" element={<MyReservations />} />
         <Route path="/favorites" element={<FavoritesRoom />} />
         <Route path="/register-hotel" element={<FormProperty />} />
-        <Route path="/register-room" element={<FormRoom />} />
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
-        <Route path="/profile" element={<UserProfile />} />
+        
+        <Route path="/userProfile" element={<UserProfile />} />
+
       </Routes>
       <Footer />
-    </>
+     </> 
   );
 }
 
 export default App;
+

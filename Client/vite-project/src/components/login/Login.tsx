@@ -70,77 +70,34 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
 
   const user = useSelector((state: any) => state.user);
   const [registration, setRegistration] = useState(false);
-
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (userFirebase) => {
-  //     if (userFirebase) {
-  //       const userData = {
-  //         uid: userFirebase.uid,
-  //         email: userFirebase.email,
-  //         password: userFirebase.password,
-  //         providerId: userFirebase.providerData[0]?.providerId,
-  //         displayName: userFirebase.displayName,
-  //       };
-  //       dispatch(authenticateUser(userData));
-  //     } else {
-  //       dispatch(authenticateUser(null));
-  //     }
-  //   });
-  //   return () => unsubscribe();
-  // }, [dispatch]);
-
-  // console.log("Usuario en el store:", user); // Prueba de que el usuario está en el store
-
-  useEffect(() => {
-    // // Si hay un usuario y el valor ha cambiado
-    // if (user) {
-    //   // Realizar una solicitud al servidor express
-    //   axios
-    //     .get(
-    //       http://localhost:3002/users/authenticate/${user.email}/${user.password}
-    //     )
-    //     .then((response) => {
-    //       console.log("Información del usuario enviada al backend:", response);
-    //       // Manejar la respuesta del backend si es necesario
-    //     })
-    //     .catch((error) => {
-    //       console.error(
-    //         "Error al enviar información del usuario al backend:",
-    //         error
-    //       );
-    //       // Manejar el error si es necesario
-    //     });
-    // }
-  }, [user]);
-
+  
   const firebaseAuthentication = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+    
     if (email && password) {
       try {
-        // Llamada a authenticateUser debe ser una acción asíncrona
         await dispatch(authenticateUser(email, password));
-  
-        // Supongo que user proviene del estado o de algún lugar
-        const localUser = {
-          message: user?.Message,
-          username: user?.userData?.username,
-          user_email: email,
-          password: password,
-          image: user?.userData?.image,
-          _id: user?.userData?._id,
-          role: user?.userData?.role,
-          permissions: user?.userData?.permissions,
-        };
-  
-        window.localStorage.setItem("user", JSON.stringify(localUser));
+        navigate("/")
+        
       } catch (error) {
         console.error("Error during login:", error);
       }
     }
   };
+  const localUser = {
+    message: user?.Message,
+    username: user?.userData?.username,
+    user_email: user?.userData?.user_email,
+    image: user?.userData?.image,
+    _id: user?.userData?._id,
+    role: user?.userData?.role,
+    permissions: user?.userData?.permissions,
+  };
+
+  window.localStorage.setItem("user", JSON.stringify(localUser));
+  
   const handleGoogleLogin = async (): Promise<void> => {
 
     try {

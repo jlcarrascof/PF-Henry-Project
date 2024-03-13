@@ -227,11 +227,7 @@ const Detail: React.FC = () => {
               </Marker>
             </MapContainer>
           </div>
-
-
-
-
-
+           
             <div className="reviews">
               <h3>Reviews:</h3>
               {currentRoom.reviews && (
@@ -247,11 +243,7 @@ const Detail: React.FC = () => {
                 </ul>
               )}
             </div>
-          <div className="reservation">
-            <Link to="/reservation">
-              <button>Pay for your reservation!</button>
-            </Link>
-          </div>
+            
         </div>
       )}
     </div>

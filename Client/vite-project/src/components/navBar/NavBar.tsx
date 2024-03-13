@@ -5,9 +5,10 @@ import "./navBar.css";
 import { Avatar } from "antd";
 
 export const NavBar: React.FC = () => {
-  const [showLogin, setShowLogin] = useState(false);
-  let user = window.localStorage.getItem("user");
-
+  let user = window.localStorage.getItem("user")
+  if (user) {
+    user = JSON.parse(user)
+  }
 
   return (
     <div className="navBar">
@@ -17,27 +18,13 @@ export const NavBar: React.FC = () => {
         </Link>
         <div className="navSeparator"></div>
         <div className="navItems">
-          <Link to="/admin">
-            <p>Admin</p>
-          </Link>
           <Link to="/">
             <p>Home</p>
           </Link>
           <Link to="/rooms">
             <p>Search for rooms</p>
           </Link>
-          <Link to="/register-hotel">
-            <p>Post a hotel</p>
-          </Link>
-          {/* <Link to="/reservations">
-            <p>Cart Reservation</p>
-          </Link> */}
-          <Link to="/favorites">
-            <p>Favorites</p>
-          </Link>
-          <Link to="/my-reservations">
-            <p>My Reservations</p>
-          </Link>
+
           {user ? (
             <>
               <div className="dropbox">

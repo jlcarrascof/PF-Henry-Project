@@ -26,6 +26,21 @@ export const createUser = (userData: any) => {
   };
 };
 
+export const updateUser = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const response = await axios.patch(`http://localhost:3002/users/${id}`)
+
+      dispatch({
+        type: "UPDATE_USER",
+        payload: response.data
+      })
+    } catch(error) {
+      console.log(error)
+    }
+  }
+}
+
 export const getUsers = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {

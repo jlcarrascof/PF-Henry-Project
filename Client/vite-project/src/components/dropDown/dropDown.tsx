@@ -25,8 +25,8 @@ const options = [
   { name: "Post room", location: "/register-room", role: "owner" },
   { name: "Dashboard", location: "/admin/hotels", role: "owner" },
   { name: "My hotels", location: "/my-reservations", role: "owner" },
-  { name: "My profile", location: "/profile", role: "client" },
-  { name: "My profile", location: "/profile", role: "owner" },
+  { name: "My profile", location: "/userProfile", role: "client" },
+  { name: "My profile", location: "/userProfile", role: "owner" },
   { name: "Log Out", role: "client" },
   { name: "Log Out", role: "owner" },
 ];
