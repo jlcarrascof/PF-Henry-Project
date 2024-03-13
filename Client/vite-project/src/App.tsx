@@ -19,6 +19,7 @@ import MercadoPago from "./components/mercadoPago/MercadoPago";
 import UserProfile from "./components/userProfile/UserProfile";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
+import SideBar from "./components/admin/utils/sideBar";
 
 function App() {
   return (
@@ -40,8 +41,9 @@ function App() {
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
-        <Route path="/pay" element={<MercadoPago />} />
+        <Route path="/admin" element={<SideBar />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/pay" element={<MercadoPago />} />
 
       </Routes>
       <Footer />

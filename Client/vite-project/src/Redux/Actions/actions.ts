@@ -394,10 +394,10 @@ export const disableRoom = (id: string) => {
   };
 };
 
-export const getDisabledRooms = (id: string) => {
+export const getDisabledRooms = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get(`http://localhost:3002/admin/rooms/:${id}`);
+      const { data } = await axios.get(`http://localhost:3002/admin/rooms/`);
       dispatch({
         type: "GET_DISABLED_ROOMS",
         payload: data,

@@ -30,7 +30,7 @@ export const NavBar: React.FC = () => {
             <>
               <div className="dropbox">
                 <div className="avatar">
-                  {user.message}
+                  Welcome back {user.username}!
                   <Avatar
                     alt=""
                     src={user.image}

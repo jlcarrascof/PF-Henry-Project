@@ -76,9 +76,8 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "GET_DISABLED_ROOMS":
       return {
         ...state,
-        allAdminRooms: [...state.allAdminRooms, action.payload.rooms],
+        allAdminRooms: action.payload.rooms,
         allRoomsBackUp: action.payload.rooms,
-        totalResults: action.payload.totalResults,
       };
     case "GET_DISABLED_HOTELS":
       return {
