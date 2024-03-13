@@ -1,7 +1,22 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
-const { disableRoomId, disableHotelId, getAllUsers, getRoomById } = require("../controllers/adminController");
+const { disableRoomId, disableHotelId, getAllUsers, getRoomById, disableUserById } = require("../controllers/adminController");
 
+
+const disableUser = async (req, res) => {
+  const {id} = req.params;
+  try {
+    if(!ObjectId.isValid(id)){
+      res.status(404).send("Room id not valid")
+      return
+    }
+    const result = await disableUserById(id);
+
+    res.status(201).send(result)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
 
 const disableRoom = async (req, res) => {
     const {id} = req.params;
@@ -154,5 +169,6 @@ const disableRoom = async (req, res) => {
     getDisabledHotels,
     getMixedSearch,
     getLinkedRoom,
-    getUsers
+    getUsers,
+    disableUser
   }

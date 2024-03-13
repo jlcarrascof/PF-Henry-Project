@@ -1,5 +1,6 @@
 const { Router } = require("express")
-const { getDisabledRooms, disableRoom, getDisabledHotels, disableHotel, getMixedSearch, getUsers, getLinkedRoom } = require("../handlers/adminHandler")
+const { getDisabledRooms, disableRoom, getDisabledHotels, disableHotel, getMixedSearch, getUsers, getLinkedRoom, disableUser } = require("../handlers/adminHandler")
+
 
 const adminRouter = Router()
 
@@ -12,6 +13,8 @@ adminRouter.patch("/rooms/:id", disableRoom)
 adminRouter.get("/hotels/", getDisabledHotels)
 
 adminRouter.patch("/hotels/:id", disableHotel)
+
+adminRouter.patch("/users/:id", disableUser)
 
 adminRouter.get("/search", getMixedSearch)
 

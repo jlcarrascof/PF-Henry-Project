@@ -71,6 +71,7 @@ const postUser = async (req, res) => {
       user_email,
       password,
       image,
+      isDisabled: false,
       role,
       permissions,
       profile: {

@@ -378,6 +378,7 @@ export const getUsers = () => {
     }
   };
 };
+
 export const disableRoom = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -386,6 +387,22 @@ export const disableRoom = (id: string) => {
       );
       dispatch({
         type: "DISABLE_ROOMS_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error);
+    }
+  };
+};
+
+export const disableUser = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axios.patch(
+        `http://localhost:3002/admin/users/${id}`
+      );
+      dispatch({
+        type: "DISABLE_USER_BY_ID",
         payload: data,
       });
     } catch (error) {

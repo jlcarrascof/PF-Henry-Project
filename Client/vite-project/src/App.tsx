@@ -14,7 +14,7 @@ import Cloudinary from "./components/cloudinary/Cloudinary";
 import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
-import UserDashboard from "./components/admin/UserDashboard/userDashboard";
+import UserDashboard from "./components/admin/UserDashboard/UserDashboard2";
 import MercadoPago from "./components/mercadoPago/MercadoPago";
 import UserProfile from "./components/userProfile/UserProfile";
 // ? -----------------------------------------------------STYLES

@@ -7,7 +7,7 @@ import {
   UsergroupDeleteOutlined,
 } from '@ant-design/icons';
 import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
-import UserDashboardrom from "../UserDashboard/userDashboard"
+import UserDashboardrom from "../UserDashboard/UserDashboard2"
 import UserProfile from '../../userProfile/UserProfile';
 
 import { Layout, Menu, Button } from 'antd';

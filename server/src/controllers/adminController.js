@@ -14,6 +14,34 @@ const getRoomById = async (id) => {
   }
 }
 
+const disableUserById = async (id) => {
+  const db = getDb();
+  try {
+    const user = await db.collection("users").findOne({ _id: new ObjectId(id) });
+
+    if (!user) {
+      throw new Error("Room not found");
+    }
+    const isDisabled = user.isDisabled;
+
+    const result = await db.collection("users").updateOne(
+      { _id: new ObjectId(id) },
+      {
+        $set: {
+          isDisabled: !isDisabled, 
+        },
+      }
+    );
+
+    console.log(`User ${id} isDisabled updated to: ${!isDisabled}`);
+
+    return result;
+  } catch (error) {
+    console.error("Error updating User availability:", error.message);
+    throw error;
+  }
+};
+
 const disableRoomId = async (id) => {
     const db = getDb();
     try {
@@ -90,5 +118,6 @@ const disableRoomId = async (id) => {
     disableRoomId,
     disableHotelId,
     getAllUsers,
-    getRoomById
+    getRoomById,
+    disableUserById
   }

@@ -22,6 +22,7 @@ export type HotelAction =
   | { type: 'GET_USER_NAME'; payload: any}
   | { type: 'POST_USER'; payload: any}
   | { type: 'PATCH_USER'; payload:any}
+  | { type: 'DISABLE_USER_BY_ID'; payload: any}
   | { type: 'AUTHENTICATE_USER'; payload: any}
   | { type: 'LOGOUT_USER'; payload: any}
 
