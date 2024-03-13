@@ -49,6 +49,22 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
+    case "GET_USERS":
+      return {
+        ...state,
+        allUsers: action.payload,
+      };
+    case "GET_USER_BY_ID":
+      return {
+        ...state,
+        user: action.payload
+      }
+    case "DELETE_USER":
+      const updatedUsers = state.user.filter(user => user.id !== action.payload);
+      return {
+        ...state,
+        allUsers: updatedUsers,
+      }
     case "GET_ROOMS":
       return {
         ...state,
@@ -73,7 +89,11 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         allAdminRooms: action.payload.rooms,
         allRoomsBackUp: action.payload.rooms,
-        totalResults: action.payload.totalResults,
+      };
+      case "GET_USER_BY_ID":
+      return {
+        ...state,
+        allUsers: action.payload
       };
     case "GET_DISABLED_HOTELS":
       return {
@@ -148,7 +168,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "POST_USER":
       return {
         ...state,
-        allUsers: [...state.user, action.payload],
+        allUsers: [...state.allUsers, action.payload],
         user: action.payload,
         isAuthenticated: true,
       };

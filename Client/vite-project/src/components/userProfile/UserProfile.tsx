@@ -1,31 +1,62 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import Cloudinary from "../cloudinary/Cloudinary";
 import Modal from "../modal/Modal";
 import "./UserProfile.css";
 import { validation } from "./UserValidation";
 
-const UserDataDisplay = ({ email, password, phoneNumber }) => (
+const UserDisplay = (initialuser: any) => (
   <>
     <div className="edit-message">𝗘𝗱𝗶𝘁 𝗗𝗮𝘁𝗮</div>
+
     <p>
-      <strong>𝗘𝗺𝗮𝗶𝗹:</strong> {email}
+      <strong>First Name:</strong> {initialuser?.firstName}
     </p>
     <p>
-      <strong>𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱:</strong> {password}
+      <strong>Last Name:</strong> {initialuser?.lastName}
     </p>
     <p>
-      <strong>𝐏𝐡𝐨𝐧𝐞:</strong> {phoneNumber}
+      <strong>Email:</strong> {initialuser?.email}
+    </p>
+    <p>
+      <strong>Password:</strong> {initialuser?.password}
+    </p>
+    <p>
+      <strong>Phone:</strong> {initialuser?.phoneNumber}
     </p>
   </>
 );
 
-const UserDataEdit = ({ userData, handleChange, errors }) => (
+const UserEdit = ({ user, handleChange, errors }) => (
   <>
-    <label>Email:</label>
+
+<label>First Name:</label>
+    <input
+      type="text"
+      name="firstName"
+      value={user.firstName}
+      onChange={handleChange}
+    />
+    {errors && errors.firstName && (
+      <p className="error-message">{errors.firstName}</p>
+    )}
+
+    <label>Last Name:</label>
+    <input
+      type="text"
+      name="lastName"
+      value={user.lastName}
+      onChange={handleChange}
+    />
+    {errors && errors.lastName && (
+      <p className="error-message">{errors.lastName}</p>
+    )} 
+
+   <label>Email:</label>
     <input
       type="text"
       name="email"
-      value={userData.email}
+      value={user.email}
       onChange={handleChange}
     />
     {errors && errors.email && (
@@ -35,7 +66,7 @@ const UserDataEdit = ({ userData, handleChange, errors }) => (
     <input
       type="password"
       name="password"
-      value={userData.password}
+      value={user.password}
       onChange={handleChange}
     />
     {errors && errors.password && (
@@ -45,7 +76,7 @@ const UserDataEdit = ({ userData, handleChange, errors }) => (
     <input
       type="password"
       name="repeatPassword"
-      value={userData.repeatPassword}
+      value={user.repeatPassword}
       onChange={handleChange}
     />
     {errors && errors.repeatPassword && (
@@ -55,7 +86,7 @@ const UserDataEdit = ({ userData, handleChange, errors }) => (
     <input
       type="text"
       name="phoneNumber"
-      value={userData.phoneNumber}
+      value={user.phoneNumber}
       onChange={handleChange}
     />
     {errors && errors.phone && (
@@ -65,20 +96,28 @@ const UserDataEdit = ({ userData, handleChange, errors }) => (
 );
 
 const UserProfile = () => {
-  const initialUserData = {
-    username: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    repeatPassword: "",
-    imageUrl: "",
-  };
+  
+  const usuario = useSelector((state: any) => state.user);
 
-  const [userData, setUserData] = useState(initialUserData);
+  const initialuser = {
+    username: usuario?.userData?.username,
+    email: usuario?.userData?.user_email,
+    firstName: usuario?.userData?.profile.firstName,
+    lastName: usuario?.userData?.profile.lastName,
+    phoneNumber: usuario?.userData?.phone,
+    password: usuario?.userData?.password,
+    imageUrl: usuario?.userData?.image,
+    permissions: usuario?.userData?.permissions,
+    id: usuario?.userData?._id,
+    repeatPassword: "",
+  }
+
+  const [user, setuser] = useState(initialuser);
   const [editMode, setEditMode] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
-
+  const dispatch = useDispatch();
+  
   const handleEdit = (field) => {
     console.log(`Edit ${field}`);
     setEditMode(true);
@@ -89,12 +128,12 @@ const UserProfile = () => {
     setEditMode(false);
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (id: string) => {
     const validationErrors = validation({
-      email: userData.email,
-      password: userData.password,
-      repeatPassword: userData.repeatPassword,
-      phone: userData.phoneNumber,
+      email: user.email,
+      password: user.password,
+      repeatPassword: user.repeatPassword,
+      phone: user.phoneNumber,
     });
 
     if (Object.keys(validationErrors).length > 0) {
@@ -102,11 +141,12 @@ const UserProfile = () => {
       return;
     }
 
-    setErrors({}); // Limpiar errores si no hay ninguno
+    setErrors({});
 
     console.log("Update user data");
     setEditMode(false);
     setShowModal(true);
+    dispatch(updateUser(id))
   };
 
   const handleChange = (e) => {
@@ -114,27 +154,27 @@ const UserProfile = () => {
 
     // Aplicar validaciones en tiempo real
     const validationErrors = validation({
-      ...userData,
+      ...user,
       [name]: value,
     });
 
     setErrors(validationErrors);
 
-    setUserData((prevData) => ({ ...prevData, [name]: value }));
+    setuser((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleModalClose = () => {
     setShowModal(false);
-    setUserData(initialUserData); // Limpiar el estado después de cerrar el modal
+    setuser(initialuser); 
   };
 
   return (
     <div className="user-profile-container">
       <div className="cloudinary-section">
-        <h3>𝗘𝗱𝗶𝘁 𝗜𝗺𝗮𝗴𝗲</h3>
+      <div className="edita2-message">𝗘𝗱𝗶𝘁 𝗜𝗺𝗮𝗴𝗲</div>
         <Cloudinary
-          imageUrl={userData.imageUrl}
-          onImageChange={(newImageUrl) => setUserData((prevData) => ({ ...prevData, imageUrl: newImageUrl }))}
+          imageUrl={user.imageUrl}
+          onImageChange={(newImageUrl) => setuser((prevData) => ({ ...prevData, imageUrl: newImageUrl }))}
         />
       </div>
 
@@ -142,11 +182,11 @@ const UserProfile = () => {
 
       <div className="user-data">
         <div className="user-data-info">
-          <h3>{userData.username}</h3>
+          <h3>{user.username}</h3>
           {editMode ? (
-            <UserDataEdit userData={userData} handleChange={handleChange} errors={errors} />
+            <UserEdit user={user} handleChange={handleChange} errors={errors} />
           ) : (
-            <UserDataDisplay {...userData} />
+            <UserDisplay {...user} />
           )}
         </div>
         <span className="edit-icon" onClick={() => handleEdit("data")}>

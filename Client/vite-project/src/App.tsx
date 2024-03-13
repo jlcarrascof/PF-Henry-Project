@@ -1,5 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 // ? -----------------------------------------------------COMPONENTS
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
@@ -15,28 +14,21 @@ import Cloudinary from "./components/cloudinary/Cloudinary";
 import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
-import UserDashboard from "./components/admin/UserDashboard/userDashboard";
+import UserDashboard from "./components/admin/UserDashboard/UserDashboard2";
 import MercadoPago from "./components/mercadoPago/MercadoPago";
 import UserProfile from "./components/userProfile/UserProfile";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
+import SideBar from "./components/admin/utils/sideBar";
 
-interface User {
-  email: string;
-  password: string;
-}
 function App() {
-  const [theUser, setTheUser] = useState<User | null>(null);
-
   return (
     <>
       <NavBar />
 
       <Routes>
-        <Route>
-          <Route path="/login" element={<Login />} />
-        </Route>
-        <Route path="/register" element={<Register onSubmit={onsubmit} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
@@ -49,8 +41,9 @@ function App() {
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
-        <Route path="/pay" element={<MercadoPago />} />
+        <Route path="/admin" element={<SideBar />} />
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/pay" element={<MercadoPago />} />
 
       </Routes>
       <Footer />

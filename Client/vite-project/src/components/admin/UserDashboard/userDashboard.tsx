@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../../Redux/Reducer/reducer";
-import { getUsers } from "../../../Redux/Actions/actions";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../../Redux/Reducer/reducer';
+import { getUsers } from '../../../Redux/Actions/actions';
 import {
   TableContainer,
   Table,
@@ -14,38 +14,34 @@ import {
 } from "@mui/material";
 
 const UserDashboard = () => {
+  const users  = useSelector((state: State) => state.allUsers);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const users = useSelector((state: State) => state.allUsers);
+  const { users } = useSelector((state: State) => state);
 
+  
   useEffect(() => {
-    console.log("Users:", users); // verificar los datos de usuarios
+    console.log('Users:', users); // verificar los datos de usuarios
   }, [users]);
 
   // Verifica si los usuarios están disponibles antes de mapearlos
-  const rows = users
-    ? users.map((user) => ({
-        uid: user.uid,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        dateOfBirth: user.dateOfBirth,
-        email: user.user_email,
-        phone: user.phone,
-        role: user.role,
-        permissions: user.permissions,
-      }))
-    : [];
+  const rows = users ? users.map((user) => ({
+    uid: user.uid,
+    firstName: user.profile.firstName,
+    lastName: user.profile.lastName,
+    dateOfBirth: user.profile.dateOfBirth,
+    email: user.email,
+    phone: user.phone,
+    role: user.role,
+    permissions: user.permissions,
+  })) : [];
 
   return (
-    <TableContainer
-      className="TableContainer"
-      component={Paper}
-      sx={({ maxHeight: "80%" }, { maxWidth: "85%" })}
-    >
+    <TableContainer className='TableContainer' component={Paper} sx={{ maxHeight: '80%' }, { maxWidth: '85%' }}>
       <Typography variant="h3" gutterBottom component="div">
         Admin your Users
       </Typography>
@@ -82,3 +78,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+ */
