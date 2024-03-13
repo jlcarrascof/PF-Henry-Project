@@ -1,22 +1,53 @@
+.Dashboard{
+  margin-top: 73px;
+  height: 100%;
+}
+
+.sider {
+  background-color: #1d1a39; 
+  border-right: 1px solid #dcdcdc; 
+}
+
+.ant-layout-sider-children {
+  background-color: #1d1a39; 
+}
+
+.ant-layout-header{
+  background-color: #1d1a39; 
+  border-right: 1px solid #dcdcdc; 
+}
+
+.Dashboard .ant-btn.ant-btn-icon-only {
+  color: #f7f7f7; 
+}
+
+.sider .ant-menu-item {
+  color: #f7f7f7; 
+}
+
+.sider .ant-menu-item-selected {
+  background-color: #1890ff; 
+  color: #fff; 
+}
 .calendar{
   position: relative;
-  margin-top: 80px;
-  margin-right: 45px;
+  margin-top: 60px auto;
   justify-self: end;
 }
 .TableContainer {
     max-width: 900px;
-    margin: 40px 40px;
-    padding: 20px;
+    margin: auto;
+    padding: 10px;
     background-color: rgba(244, 244, 244, 0.584);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(68, 68, 68, 0.854);
   }
 .table_search{
-  width: 950px;
+  width: fit-content;
+  min-width: 700px;
   max-width: 950px;
-  margin: 5px auto;
-  padding: 40px;
+  margin: 5px;
+  padding: auto;
 }
 .table-row {
   background-color: rgba(244, 244, 244, 0.584);
@@ -32,11 +63,9 @@
 }
 
 .dashboardContainer{
-  margin: 80px 40px;
-  max-width: 100%;
+  max-width: 70%;
   width: fit-content;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: start;
 }
-
-  

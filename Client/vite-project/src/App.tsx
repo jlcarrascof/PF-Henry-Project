@@ -15,11 +15,11 @@ import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
 import UserDashboard from "./components/admin/UserDashboard/UserDashboard2";
-import MercadoPago from "./components/mercadoPago/MercadoPago";
 import UserProfile from "./components/userProfile/UserProfile";
+import SideBar from "./components/admin/utils/sideBar";
+import MercadoPago from "./components/mercadoPago/MercadoPago";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
-import SideBar from "./components/admin/utils/sideBar";
 
 function App() {
   return (
