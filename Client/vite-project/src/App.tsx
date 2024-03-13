@@ -42,7 +42,7 @@ function App() {
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
         <Route path="/admin" element={<SideBar />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/pay" element={<MercadoPago />} />
 
       </Routes>
