@@ -90,11 +90,12 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         allAdminRooms: action.payload.rooms,
         allRoomsBackUp: action.payload.rooms,
       };
+      /*
       case "GET_USER_BY_ID":
       return {
         ...state,
         allUsers: action.payload
-      };
+      };*/
     case "GET_DISABLED_HOTELS":
       return {
         ...state,
