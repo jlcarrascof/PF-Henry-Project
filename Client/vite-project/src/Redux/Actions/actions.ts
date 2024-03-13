@@ -419,7 +419,7 @@ export const deleteUsers = (id: string) => {
       );
       dispatch({
         type: "DELETE_USER",
-        payload: data,
+        payload: id,
       });
     } catch (error) {
       console.log("Error al borrar logicamente", error);

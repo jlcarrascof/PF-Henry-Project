@@ -1,16 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
-import { disableUser, getUsers } from '../../../Redux/Actions/actions';
+import { deleteUsers, disableUser, getUsers } from '../../../Redux/Actions/actions';
 import React, { useRef, useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import type { GetRef, TableColumnsType, TableColumnType } from 'antd';
-import { Button, Input, Space, Table } from 'antd';
+import { Space, Input, Button, Table, Tag  } from "antd"
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words';
+import { showConfirmationModal } from '../utils/ConfirmModal';
 
 type InputRef = GetRef<typeof Input>;
 
 interface DataType {
+    _id: string,
     firstName: string,
     lastName: string,
     dateOfBirth: string,
@@ -18,6 +20,7 @@ interface DataType {
     phone: string,
     role: string,
     permissions: string,
+    isDisabled: boolean,
     actions: any
 }
 
@@ -31,21 +34,27 @@ const UserDashboard: React.FC<{}> = () => {
   const users  = useSelector((state: State) => state.allUsers);
   const dispatch = useDispatch();
 
-  const handleClickDisable = async (_id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClickDelete = async (id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     try {
-        dispatch(disableUser(_id))
-        console.log(_id)
+        showConfirmationModal(() => {
+            dispatch(deleteUsers(id))
+            console.log('Disabling user...', id);
+            window.location.reload()
+          });
     } catch (error) {
         console.log("Something went wrong with the handleClick")
     }
-  }
+}
 
-  const handleClickDelete = async (_id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClickDisable = async (id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     try {
-        dispatch(deleteUser(_id))
-        console.log(_id)
+        showConfirmationModal(() => {
+            dispatch(disableUser(id))
+            console.log('Disabling user...', id);
+            window.location.reload()
+          });
     } catch (error) {
         console.log("Something went wrong with the handleClick")
     }
@@ -57,6 +66,7 @@ const UserDashboard: React.FC<{}> = () => {
 
   const data: DataType[] = users
   ? users.map((user) => ({
+      _id: user?._id,
       firstName: user?.profile?.firstName || "No firstName",
       lastName: user?.profile?.lastName || "No lastName",
       dateOfBirth: user?.profile?.dateOfBirth || "No Birthday",
@@ -64,9 +74,10 @@ const UserDashboard: React.FC<{}> = () => {
       phone: user.phone || "No Phone",
       role: user.role,
       permissions: user.permissions,
+      isDisabled: user.isDisabled || false,
       actions: (<Space size="middle">
             <a onClick={(event) => handleClickDisable(user?._id, event)}>Disable</a>
-            <a>Delete</a>
+            <a onClick={(event) => handleClickDelete(user?._id, event)}>Delete</a>
             </Space>)
     }))
   : [];
@@ -213,6 +224,15 @@ const UserDashboard: React.FC<{}> = () => {
       width: '10%',
       ...getColumnSearchProps('permissions'),
     },
+    {
+        title: 'Disabled',
+        dataIndex: 'isDisabled',
+        key: 'isDisabled',
+        width: '10%',
+        render: (isDisabled: boolean) => (
+          isDisabled ? <Tag color="red">Disabled</Tag> : null
+        ),
+      },
     {
         title: 'Actions',
         dataIndex: 'actions',

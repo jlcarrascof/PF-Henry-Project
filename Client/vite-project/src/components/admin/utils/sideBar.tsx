@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -15,12 +15,21 @@ import { Layout, Menu, Button } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 const SideBar: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState('1'); 
-
-  const handleMenuSelect = ({ key }: Selection) => {
-    setSelectedKey(key || '1')
-  };
+    const [collapsed, setCollapsed] = useState(false);
+    const [selectedKey, setSelectedKey] = useState<string>('1'); 
+  
+    useEffect(() => {
+      const storedKey = localStorage.getItem('selectedKey');
+      if (storedKey) {
+        setSelectedKey(storedKey);
+      }
+    }, []);
+  
+    const handleMenuSelect = ({ key }: { key: string }) => {
+      setSelectedKey(key);
+      localStorage.setItem('selectedKey', key);
+    };
+  
 
   return (
     <Layout>

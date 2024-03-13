@@ -59,6 +59,12 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         user: action.payload
       }
+    case "DELETE_USER":
+      const updatedUsers = state.user.filter(user => user.id !== action.payload);
+      return {
+        ...state,
+        allUsers: updatedUsers,
+      }
     case "GET_ROOMS":
       return {
         ...state,
