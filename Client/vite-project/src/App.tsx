@@ -1,5 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 // ? -----------------------------------------------------COMPONENTS
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
@@ -21,20 +20,14 @@ import UserProfile from "./components/userProfile/UserProfile";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
-interface User {
-  email: string;
-  password: string;
-}
 function App() {
-  const [theUser, setTheUser] = useState<User | null>(null);
-
   return (
     <>
       <NavBar />
 
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register onSubmit={onsubmit} />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />

@@ -105,21 +105,6 @@ const getUserID = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
-  try {
-    const { name } = req.query;
-
-    let users;
-    if (name) {
-      users = await getUserByName(name);
-    } else {
-      users = await getAllUsers();
-    }
-    return res.status(200).json(users);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 const patchUser = async (req, res) => {
   try {
@@ -366,7 +351,6 @@ const removeFavoriteRoom = async (req, res) => {
 
 module.exports = {
   getUserID,
-  getUser,
   postUser,
   authUser,
   patchUser,

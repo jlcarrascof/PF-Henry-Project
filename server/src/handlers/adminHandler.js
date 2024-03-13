@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
-const { disableRoomId, disableHotelId } = require("../controllers/adminController");
+const { disableRoomId, disableHotelId, getAllUsers, getRoomById } = require("../controllers/adminController");
 
 
 const disableRoom = async (req, res) => {
@@ -116,11 +116,43 @@ const disableRoom = async (req, res) => {
     }
   };
   
+  const getLinkedRoom = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      if (!id) {
+        res.status(404).send({error: "Your Id is not valid for a search"})
+        return 
+      } 
+      users = await getRoomById(id);
+      return res.status(200).send(users);
+    } catch (error) {
+      res.status(400).send({ error: error.message });
+    }
+  };
+
+  const getUsers = async (req, res) => {
+    try {
+      const { name } = req.query;
+  
+      let users;
+      if (name) {
+        users = await getUserByName(name);
+      } else {
+        users = await getAllUsers();
+      }
+      return res.status(200).json(users);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
 
   module.exports = {
     disableRoom,
     getDisabledRooms,
     disableHotel,
     getDisabledHotels,
-    getMixedSearch
+    getMixedSearch,
+    getLinkedRoom,
+    getUsers
   }

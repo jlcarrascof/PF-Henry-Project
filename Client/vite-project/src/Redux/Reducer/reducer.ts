@@ -49,6 +49,11 @@ const initialState: State = {
 
 const rootReducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
+    case "GET_ALL_USERS":
+      return {
+        ...state,
+        allUsers: action.payload,
+      };
     case "GET_ROOMS":
       return {
         ...state,
@@ -71,7 +76,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "GET_DISABLED_ROOMS":
       return {
         ...state,
-        allAdminRooms: action.payload.rooms,
+        allAdminRooms: [...state.allAdminRooms, action.payload.rooms],
         allRoomsBackUp: action.payload.rooms,
         totalResults: action.payload.totalResults,
       };
@@ -148,12 +153,11 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "POST_USER":
       return {
         ...state,
-        allUsers: [...state.user, action.payload],
+        allUsers: [...state.allUsers, action.payload],
         user: action.payload,
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":
-      console.log("hola 123", action.payload)
       return {
         ...state,
         isAuthenticated: true,

@@ -368,9 +368,9 @@ export const createUser = (userData: any) => {
 export const getUsers = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/users/");
+      const { data } = await axios.get("http://localhost:3002/admin/users/");
       dispatch({
-        type: "GET_USERS",
+        type: "GET_ALL_USERS",
         payload: data,
       });
     } catch (error) {
@@ -394,10 +394,10 @@ export const disableRoom = (id: string) => {
   };
 };
 
-export const getDisabledRooms = () => {
+export const getDisabledRooms = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.get("http://localhost:3002/admin/rooms/");
+      const { data } = await axios.get(`http://localhost:3002/admin/rooms/:${id}`);
       dispatch({
         type: "GET_DISABLED_ROOMS",
         payload: data,

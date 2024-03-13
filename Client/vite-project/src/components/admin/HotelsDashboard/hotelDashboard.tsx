@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../Redux/Reducer/reducer';
-import { getDisabledHotels } from '../../../Redux/Actions/actions';
+import { getDisabledHotels, getRoomById } from '../../../Redux/Actions/actions';
 import TableContainer from '@material-ui/core/TableContainer';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -15,29 +15,35 @@ export default function HotelDashboard() {
   
   const allAdminHotels = useSelector((state: State) => state.allAdminHotels);
   const dispatch = useDispatch()
-  
+
   useEffect(() => {
-    dispatch(getDisabledHotels());
-  }, [dispatch]);
+    allAdminHotels.forEach((hotel) => {
+      dispatch(getRoomById(hotel._id));
+    });
+  }, [dispatch, allAdminHotels]);
+  
+  const disabledRooms = useSelector((state: State) => state.allAdminRooms);
+
   
 
-  const rows = allAdminHotels.map((hotel) =>
+  const rows = allAdminHotels.map(async(hotel) =>{
+    
   createData(
     hotel._id,
     hotel.name,
     hotel.address,
     hotel.owner || null,
     hotel.availability, 
-    hotel.rooms?.map((room) => ({
+    disabledRooms.map((room) => ({
       description: room.description || '',
       typeOfRoom: room.typeOfRoom || '',
       id: room.id || '',
       num_rooms: room.num_rooms || 0,
       price: room.price || 0,
       availability: room.availability || true
-    })) || [],
+    }))
   )
-);
+})
 
   return (
     <div className='dashboardContainer'>

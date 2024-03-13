@@ -26,20 +26,6 @@ const getUserByName = async (name) => {
     }
 };
 
-const getAllUsers = async () => {
-    const db = getDb();
-    try {
-        const users = await db.collection('users')
-        .find()
-        .toArray();
-       
-        return users;
-
-    } catch (error) {
-        throw error;
-    }
-};
-
 
 const createUser = async (userData) => {
     const db = getDb();
@@ -86,7 +72,6 @@ const deleteUserById = async (id) => {
 module.exports = {
     getUserById,
     getUserByName,
-    getAllUsers,
     createUser,
     updateUser,
     deleteUserById,

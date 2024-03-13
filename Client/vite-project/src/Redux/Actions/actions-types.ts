@@ -18,7 +18,7 @@ export type HotelAction =
   | { type: 'POST_REVIEW'; payload: any};
 
   export type UserAction =
-  | { type: 'GET_USERS'; payload: any}
+  | { type: 'GET_ALL_USERS'; payload: any}
   | { type: 'GET_USER_NAME'; payload: any}
   | { type: 'POST_USER'; payload: any}
   | { type: 'PATCH_USER'; payload:any}

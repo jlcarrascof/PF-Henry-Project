@@ -1,6 +1,18 @@
 const { ObjectId } = require("mongodb");
 const { getDb } = require("../db");
 
+const getRoomById = async (id) => {
+  const db = getDb()
+  try{
+    const room = await db.collection("rooms")
+    .find({hotel_id: new ObjectId(id)})
+    .toArray()
+
+    return room
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 
 const disableRoomId = async (id) => {
     const db = getDb();
@@ -59,7 +71,24 @@ const disableRoomId = async (id) => {
     }
   };
 
+
+  const getAllUsers = async () => {
+    const db = getDb();
+    try {
+        const users = await db.collection('users')
+        .find()
+        .toArray();
+       
+        return users;
+
+    } catch (error) {
+        throw error;
+    }
+};
+
   module.exports = {
     disableRoomId,
     disableHotelId,
+    getAllUsers,
+    getRoomById
   }
