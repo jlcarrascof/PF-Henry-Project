@@ -337,14 +337,15 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-  
-    console.log("Valor del estado antes del dispatch", user)
+
+    console.log("Valor del estado antes del dispatch", user);
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     try {
-      await dispatch(authenticateUser(email, password));
-      if(localUser && localUser !== undefined) {
+      (await dispatch(authenticateUser(email, password))) &&
+        (await signInWithEmailAndPassword(auth, email, password));
+      if (localUser && localUser !== undefined) {
         window.location.href = "/";
       }
     } catch (error) {
@@ -361,14 +362,14 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     permissions: user?.userData?.permissions,
   };
   window.localStorage.setItem("user", JSON.stringify(localUser));
-  
-  console.log("LocalUser es:", localUser)
+
+  console.log("LocalUser es:", localUser);
 
   // useEffect(() => {
-    //   console.log("user login", user);
-    //   if (user) {
-      
-      //   }
+  //   console.log("user login", user);
+  //   if (user) {
+
+  //   }
   // }, [user]);
 
   const handleGoogleLogin = async (): Promise<void> => {

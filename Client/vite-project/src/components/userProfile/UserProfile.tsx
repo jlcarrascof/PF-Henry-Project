@@ -29,28 +29,60 @@ const UserDisplay = (initialuser: any) => (
 );
 
 const UserEdit = ({ user, handleChange, errors }) => (
-  <>
-    <label>First Name:</label>
-    <input
-      type="text"
-      name="firstName"
-      value={user.firstName}
-      onChange={handleChange}
-    />
-    {errors && errors.firstName && (
-      <p className="error-message">{errors.firstName}</p>
-    )}
+  <div className="edit-user">
+    <div className="flexUser">
+      <div className="flexItem">
+        <label>First Name:</label>
+        <input
+          type="text"
+          name="firstName"
+          value={user.firstName}
+          onChange={handleChange}
+        />
+        {errors && errors.firstName && (
+          <p className="errorForm">{errors.firstName}</p>
+        )}
+      </div>
+      <div className="flexItem">
+        <label>Last Name:</label>
+        <input
+          type="text"
+          name="lastName"
+          value={user.lastName}
+          onChange={handleChange}
+        />
+        {errors && errors.lastName && (
+          <p className="errorForm">{errors.lastName}</p>
+        )}
+      </div>
+    </div>
 
-    <label>Last Name:</label>
-    <input
-      type="text"
-      name="lastName"
-      value={user.lastName}
-      onChange={handleChange}
-    />
-    {errors && errors.lastName && (
-      <p className="error-message">{errors.lastName}</p>
-    )}
+    <div className="flexUser">
+      <div className="flexItem">
+        <label>Password:</label>
+        <input
+          type="password"
+          name="password"
+          value={user.password}
+          onChange={handleChange}
+        />
+        {errors && errors.password && (
+          <p className="errorForm">{errors.password}</p>
+        )}
+      </div>
+      <div className="flexItem">
+        <label>Repeat Password:</label>
+        <input
+          type="password"
+          name="repeatPassword"
+          value={user.repeatPassword}
+          onChange={handleChange}
+        />
+        {errors && errors.repeatPassword && (
+          <p className="errorForm">{errors.repeatPassword}</p>
+        )}
+      </div>
+    </div>
 
     <label>Email:</label>
     <input
@@ -59,27 +91,8 @@ const UserEdit = ({ user, handleChange, errors }) => (
       value={user.email}
       onChange={handleChange}
     />
-    {errors && errors.email && <p className="error-message">{errors.email}</p>}
-    <label>Password:</label>
-    <input
-      type="password"
-      name="password"
-      value={user.password}
-      onChange={handleChange}
-    />
-    {errors && errors.password && (
-      <p className="error-message">{errors.password}</p>
-    )}
-    <label>Repeat Password:</label>
-    <input
-      type="password"
-      name="repeatPassword"
-      value={user.repeatPassword}
-      onChange={handleChange}
-    />
-    {errors && errors.repeatPassword && (
-      <p className="error-message">{errors.repeatPassword}</p>
-    )}
+    {errors && errors.email && <p className="errorForm">{errors.email}</p>}
+
     <label>Phone:</label>
     <input
       type="text"
@@ -87,8 +100,8 @@ const UserEdit = ({ user, handleChange, errors }) => (
       value={user.phoneNumber}
       onChange={handleChange}
     />
-    {errors && errors.phone && <p className="error-message">{errors.phone}</p>}
-  </>
+    {errors && errors.phone && <p className="errorForm">{errors.phone}</p>}
+  </div>
 );
 
 let DataToSend: { [key: string]: string } = {};
@@ -216,14 +229,7 @@ const UserProfile = () => {
           <h3>{user.username}</h3>
           {editMode ? (
             <>
-              <UserEdit
-                user={user}
-                handleChange={handleChange}
-                errors={errors}
-              />
-
               <div className="cloudinary-section">
-                <div className="edita2-message">Edit image</div>
                 <Cloudinary
                   imageUrl={user.imageUrl}
                   onImageChange={(newImageUrl) => {
@@ -234,6 +240,16 @@ const UserProfile = () => {
                     }));
                   }}
                 />
+              </div>
+              <UserEdit
+                user={user}
+                handleChange={handleChange}
+                errors={errors}
+              />
+              <div className="user-data">
+                <button className="update-button" onClick={handleClose}>
+                  Update
+                </button>
               </div>
             </>
           ) : (
@@ -252,13 +268,9 @@ const UserProfile = () => {
         )}
       </div>
 
-      {editMode && (
-        <div className="user-data">
-          <button className="update-button" onClick={handleClose}>
-            Update
-          </button>
-        </div>
-      )}
+      {/* {editMode && (
+        
+      )} */}
 
       {showModal && (
         <Modal isOpen={showModal} onClose={handleModalClose} title="Success">

@@ -3,8 +3,8 @@ export default function EditIcon() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-edit"
-      width="44"
-      height="44"
+      width="30"
+      height="30"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#6f32be"
