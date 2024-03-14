@@ -101,7 +101,7 @@ import StarRating from '../reviewForm/starRating';
 interface Props {
   roomId: string;
   onClose: () => void;
-  onSubmitReview: () => void; // Nueva prop para notificar que se envió una reseña
+  onSubmitReview: () => void;
 }
 
 const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
@@ -129,19 +129,26 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("formData en reviewModal: ", formData)
-    dispatch(postReview(roomId, formData)).then(() => {
-      onSubmitReview(); // Notificar a MyReservations que se envió una reseña
-      onClose(); // Cerrar el modal después de enviar la reseña
-    });
+    console.log('Submitting review:', formData); // Verificar que se están enviando los datos correctamente
+    try {
+      const response = await dispatch(postReview(roomId, formData));
+      console.log('Post review response:', response); // Verificar la respuesta del servidor
+     
+        onSubmitReview();
+        onClose();
+     
+    } catch (error) {
+      console.error('Error posting review:', error); // Manejar errores si ocurren
+      // Handle error if needed
+    }
   };
 
   return (
     <Modal
-      open={!!roomId} // Abre el modal si roomId está definido
-      onClose={onClose} // Cierra el modal cuando se hace clic fuera de él
+      open={!!roomId}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -174,7 +181,6 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
           />
           <div>
             <Typography>Calificación:</Typography>
-            {/* Utiliza ChangeRating para el puntaje y StarRating para renderizar las estrellas */}
             <ChangeRating rating={formData.score} handleRating={handleRatingChange} />
             <StarRating stars={formData.score} />
           </div>
@@ -199,3 +205,88 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
 };
 
 export default ReviewModal;
+
+// import React, { useState } from 'react';
+// import { Modal, Box, Typography, Button, TextField } from '@mui/material';
+// import { useDispatch } from 'react-redux';
+// import { postReview } from '../../Redux/Actions/actions';
+
+// interface Props {
+//   roomId: string;
+//   onClose: () => void;
+// }
+
+// const ReviewModal: React.FC<Props> = ({ roomId, onClose }) => {
+//   const [formData, setFormData] = useState({
+//     description: '',
+//     score: 0
+//   });
+//   const dispatch = useDispatch();
+
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+//     e.preventDefault();
+//     dispatch(postReview(roomId, formData)).then(() => {
+//       onClose(); // Cerrar el modal después de enviar la reseña
+//     });
+//   };
+
+//   return (
+//     <Modal
+//       open={true} // Abre el modal
+//       onClose={onClose} // Cierra el modal cuando se hace clic fuera de él
+//       aria-labelledby="modal-modal-title"
+//       aria-describedby="modal-modal-description"
+//     >
+//       <Box
+//         sx={{
+//           position: 'absolute',
+//           top: '50%',
+//           left: '50%',
+//           transform: 'translate(-50%, -50%)',
+//           bgcolor: 'background.paper',
+//           boxShadow: 24,
+//           p: 4,
+//           width: 400,
+//         }}
+//       >
+//         <Typography id="modal-modal-title" variant="h6" component="h2">
+//           Realizar Reseña
+//         </Typography>
+//         <form onSubmit={handleSubmit}>
+//           <TextField
+//             name="description"
+//             label="Descripción"
+//             variant="outlined"
+//             fullWidth
+//             value={formData.description}
+//             onChange={handleInputChange}
+//             margin="normal"
+//           />
+//           <TextField
+//             name="score"
+//             label="Puntuación"
+//             type="number"
+//             variant="outlined"
+//             fullWidth
+//             value={formData.score}
+//             onChange={handleInputChange}
+//             margin="normal"
+//           />
+//           <Button type="submit" variant="contained" color="primary">
+//             Enviar Reseña
+//           </Button>
+//         </form>
+//       </Box>
+//     </Modal>
+//   );
+// };
+
+// export default ReviewModal;
