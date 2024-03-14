@@ -8,7 +8,7 @@ const ReviewFormComponent: React.FC<{ roomId: string }> = ({ roomId }) => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(postReview(roomId, review)); // Aquí pasamos el ID de la habitación y los datos de la revisión
+    dispatch(postReview(roomId, reviewData)); 
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +26,5 @@ const ReviewFormComponent: React.FC<{ roomId: string }> = ({ roomId }) => {
 };
 
 export default ReviewFormComponent;
-
 
 
