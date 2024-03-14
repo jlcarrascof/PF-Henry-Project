@@ -48,7 +48,6 @@ const Filters: React.FC = () => {
     filters.services += filters.SrvSpa                ? ",Spa"            : "";
     filters.services += filters.SrvWifi               ? ",Wifi"           : "";
     filters.services += filters.SrvBar                ? ",Bar"            : "";
-    filters.services += filters.SrvRoomservice        ? ",Room service"   : "";
     filters.services += filters.SrvJacuzzi            ? ",Jacuzzi"        : "";
     filters.services += filters.SrvBreakfast          ? ",Breakfast"      : "";
     filters.services += filters.SrvPool               ? ",Pool"           : "";
@@ -148,10 +147,10 @@ const Filters: React.FC = () => {
           <label htmlFor="srvspa">Spa</label>
           <input onChange={handleFilterChange} type="checkbox" id="srvspa" name="SrvSpa" checked={filters.SrvSpa} />
         </div>
-        <div>
+      {/* <div>
           <label htmlFor="srvroomservice">Room Service</label>
           <input onChange={handleFilterChange} type="checkbox" id="srvroomservice" name="SrvRoomService" checked={filters.SrvRoomservice} />
-        </div>
+        </div> */}
         <div>
           <label htmlFor="srvfinediningrestaurant">Jacuzzi</label>
           <input onChange={handleFilterChange} type="checkbox" id="SrvJacuzzi" name="SrvJacuzzi" checked={filters.SrvJacuzzi} />

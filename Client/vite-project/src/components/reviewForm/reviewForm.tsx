@@ -244,7 +244,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(postReview(roomId, review));
-    //   if (!form.current) return;
+    if (!form.current) return;
 
     emailjs
       .sendForm("service_owcj3ui", "template_0yv2m0n", form.current, {
@@ -263,7 +263,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
   return (
     <div className="revContainer">
       <form ref={form} onSubmit={handleSubmit}>
-        <h2>¡Deja una reseña!</h2>
+        <h2>Leave a review!</h2>
         <div className="email">
           <label>Email:</label>
           <input
@@ -276,7 +276,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
         </div>
 
         <div className="rating">
-          <label>Calificación:</label>
+          <label>Score:</label>
           <StarRating stars={review.score} />
           <ChangeRating rating={review.score} handleRating={handleRating} />
         </div>
@@ -287,7 +287,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
         </div> */}
 
         <div className="description">
-          <label>Descripción:</label>
+          <label>Description:</label>
           <input
             type="text"
             name="description"
@@ -319,7 +319,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
           }
         ></input>
 
-        <button type="submit">Enviar reseña</button>
+        <button type="submit">Send review</button>
       </form>
     </div>
   );

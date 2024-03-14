@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
   // let user = window.localStorage.getItem("user");
 
   useEffect(() => {
-    setUserData(JSON.parse(window.localStorage.getItem("user")));
+    setUserData(JSON.parse(localStorage.getItem("user")));
   }, []);
   return (
     <header>
@@ -55,7 +55,7 @@ const NavBar: React.FC = () => {
             <>
               <div className="dropbox">
                 <div className="avatar">
-                  <strong className="strong">Hi!</strong> {userData.username} !
+                  <strong className="strong">Hi </strong> {userData.username}!
                   {userData && (
                     <Avatar
                       alt=""

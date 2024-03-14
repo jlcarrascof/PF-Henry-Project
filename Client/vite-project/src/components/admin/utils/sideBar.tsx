@@ -8,7 +8,7 @@ import {
 
 } from '@ant-design/icons';
 import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
-import UserDashboard from '../UserDashboard/userDashboard';
+import UserDashboard from '../UserDashboard/UserDashboard2';
 import UserProfile from '../../userProfile/UserProfile';
 import { Layout, Menu, Button } from 'antd';
 import "../HotelsDashboard/HotelDashboard.css"

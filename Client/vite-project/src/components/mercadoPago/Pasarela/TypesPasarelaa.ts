@@ -13,6 +13,8 @@ namespace Types {
             titulo: string,
             precio: number,
             dias: number,
+            Start?: Date,
+            End?: Date
         }
     }
 }

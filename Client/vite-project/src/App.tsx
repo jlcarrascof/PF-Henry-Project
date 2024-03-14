@@ -24,12 +24,8 @@ import MercadoPago from "./components/mercadoPago/MercadoPago";
 // ? -----------------------------------------------------STYLES
 import "./App.css";
 
-interface User {
-  email: string;
-  password: string;
-}
+
 function App() {
-  const [theUser, setTheUser] = useState<User | null>(null);
 
   return (
     <>

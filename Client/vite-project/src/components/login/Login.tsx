@@ -1,35 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import {
   getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   signInWithPopup,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   User,
   signOut,
   UserCredential,
-  EmailAuthCredential,
 } from "firebase/auth";
-import firebaseApp from "./firebaseConfig";
 import { authenticateUser, createUser } from "../../Redux/Actions/actions";
 import "./Login.css";
-import Register from "../register/Register";
 import app from "./firebaseConfig";
 import { State } from "../../Redux/Reducer/reducer";
-import { Button, Modal, Switch } from "antd";
+import { Modal, Switch } from "antd";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-interface LoginProps {
-  setTheUser: React.Dispatch<React.SetStateAction<User | null>>;
-  theUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
-export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
+let Executed = false;
+
+export const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,26 +29,28 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("client");
 
-  const handleRoleChange = (checked: boolean, role: string) => {
-    setSelectedRole(checked ? role : "client");
-  };
-
   const [registration, setRegistration] = useState(false);
 
   const firebaseAuthentication = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-
-    console.log("Valor del estado antes del dispatch", user);
+  
+    console.log("Valor del estado antes del dispatch", user)
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+  
     try {
-      (await dispatch(authenticateUser(email, password))) &&
-        (await signInWithEmailAndPassword(auth, email, password));
-      if (localUser && localUser !== undefined) {
-        window.location.href = "/";
+      await dispatch(authenticateUser(email, password));
+      if(localUser && localUser !== undefined) {
+        const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+        if (lastVisitedPage){
+          navigate(lastVisitedPage)
+          window.location.reload();
+        } else {
+          navigate("/")
+          window.location.reload();
+        }
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -66,46 +60,38 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     message: user?.Message,
     username: user?.userData?.username,
     user_email: user?.userData?.user_email,
+    profile: user?.userData?.profile,
+    phone: user?.userData?.phone,
     image: user?.userData?.image,
     _id: user?.userData?._id,
     role: user?.userData?.role,
     permissions: user?.userData?.permissions,
   };
-  window.localStorage.setItem("user", JSON.stringify(localUser));
+  if (!Executed) {
+    Executed = true;
+  }
+  localStorage.setItem("user2", JSON.stringify(user));
+  localStorage.setItem("user", JSON.stringify(localUser));
+  
+  console.log("LocalUser es:", localUser)
 
-  console.log("LocalUser es:", localUser);
 
-  // useEffect(() => {
-  //   console.log("user login", user);
-  //   if (user) {
-
-  //   }
-  // }, [user]);
-
-  const handleGoogleLogin = async (): Promise<void> => {
+  const handleGoogleLogin = async (userGoogle: any): Promise<void> => {
+    setIsModalOpen(true);
     try {
-      const result: UserCredential = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userGoogle = {
-        username: user.displayName,
-        user_email: user.email,
-        role: selectedRole,
-        image: user.photoURL,
-      };
+      const create = dispatch(createUser(userGoogle))
+      
+      let existingUser = create?.error
+      if (existingUser && existingUser !== undefined) {
+        console.log("Solucionado y logueado")
+        await signInWithPopup(auth, provider);
+       }
 
-      dispatch(createUser(userGoogle)) && console.log(user);
-      // && dispatch(authenticateUser(user));
-      window.localStorage.setItem("user", JSON.stringify(userGoogle));
-
-      setIsModalOpen(true);
-
-      // window.location.href='/'  //A
-      // navigate("/");
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
-
+  
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
@@ -119,25 +105,54 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    navigate("/");
-    window.location.reload();
+  const handleOk = async () => {
+    try {
+      setIsModalOpen(false);
+      const result: UserCredential = await signInWithPopup(auth, provider);
+
+      const user = result.user;
+        const userGoogle = {
+          _id: user.uid,
+          username: user.displayName,
+          user_email: user.email,
+          role: selectedRole,
+          image: user.photoURL,
+          phone: user.phoneNumber || null,
+          profile: {
+            firstName: `${user.providerId} firstName`,
+            lastName: `${user.providerId} lastName`,
+            dateOfBirth: Date.now(),
+          },
+          isDisabled: false,
+          favorites: [],
+          reservation: []
+        };
+      
+      localStorage.setItem("user", JSON.stringify(userGoogle));
+      
+      await dispatch(createUser(userGoogle))
+      navigate("/");
+      window.location.reload();
+
+    } catch (error) {
+      console.log("Error handleOk")
+    }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    navigate("/");
-    window.location.reload();
+  };
+
+  const handleRoleChange = (checked: boolean, role: string) => {
+    console.log("ChangeRol", checked, role);
+    setSelectedRole(checked ? role : "client");
   };
 
   return (
     <>
       <div className="userFirebase">
         <div className="padreFirebase">
-          <h1>
-            Welcome to <span className="purple">Rentify!</span>
-          </h1>
+          <h1>Welcome to Rentify!</h1>
           <form onSubmit={firebaseAuthentication}>
             <label> Email: </label>
             <input
@@ -211,17 +226,6 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
                 {/* )} */}
               </div>
             )}
-            {/* {user && user.provider === "password" && ( */}
-            {/* <p>
-                You have successfully connected with the email:{" "}
-                <b>{user.email}</b>
-              </p> */}
-            {/* )} */}
-            {/* {user && user.provider === "google.com" && ( */}
-            {/* <p>
-                User connected: <b>{user.displayName}</b>
-              </p> */}
-            {/* )} */}
             <Link to="/register">
               <p>Don't have an account? Sign up!</p>
             </Link>

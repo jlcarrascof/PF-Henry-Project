@@ -58,12 +58,11 @@ const postUser = async (req, res) => {
       phone,
     } = req.body;
 
-    // const existingUser = await db.collection("users").findOne({ user_email });
-
-    // if (existingUser) {
-    //   res.status(400).send({ error: "Usuario repetido" });
-    //   return;
-    // }
+    const existingUser = await db.collection("users").findOne({ user_email });
+    /* if (existingUser) {
+      res.status(400).send({ error: "Usuario repetido" });
+      return;
+    } */
     const newUser = new User({
       username,
       uid,
@@ -116,8 +115,6 @@ const patchUser = async (req, res) => {
     const updateData = req.body;
 
     const success = await updateUser(id, updateData);
-
-
     if (success) {
       const user = await getUserById(id);
     return res.status(200).json(user);
@@ -132,7 +129,7 @@ const patchUser = async (req, res) => {
 };
 
 
-const createReservation = async (req, res) => { //////////
+const createReservation = async (req, res) => { 
   try {
     let db = getDb();
     const { user_email } = req.body;
@@ -167,7 +164,6 @@ const createReservation = async (req, res) => { //////////
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const deleteReservation = async (req, res) => {
   try {
@@ -234,8 +230,7 @@ const getConfirmedReservations = async (req, res) => {
 
     const confirmedReservations = user.reservation.filter(
       (reservation) =>
-        reservation.state === "confirmed" &&
-        reservation.billing_status === "Accepted"
+        reservation.billing_status === "approved"
     );
 
     console.log("reserva en handler: ", confirmedReservations)
@@ -245,7 +240,6 @@ const getConfirmedReservations = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const getFavoriteRooms = async (req, res) => {
   try {
@@ -337,5 +331,5 @@ module.exports = {
   getConfirmedReservations,
   getFavoriteRooms,
   addFavoriteRoom,
-  removeFavoriteRoom,
+  removeFavoriteRoom
 };

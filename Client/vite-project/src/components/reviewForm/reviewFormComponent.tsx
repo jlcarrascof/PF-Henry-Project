@@ -26,5 +26,3 @@ const ReviewFormComponent: React.FC<{ roomId: string }> = ({ roomId }) => {
 };
 
 export default ReviewFormComponent;
-
-

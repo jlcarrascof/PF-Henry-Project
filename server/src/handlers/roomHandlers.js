@@ -284,7 +284,8 @@ const postReview = async (req, res) => {
     if (!ObjectId.isValid(req.params.id)) {
       return res.status(404).send({ error: "No es un ObjectId valido" });
     }
-   const newReview = req.body; 
+
+    const newReview = req.body; 
 
     console.log("Reseña que se crea: ", newReview)
     const result = await db
@@ -298,16 +299,16 @@ const postReview = async (req, res) => {
         }
       })
 
-
-
-    console.log("nueva reseña: ", newReview);
-    res.status(200).send(result);
+    console.log("nueva reseña: ", newReview)
+    res.status(200).send(result)
   } catch (err) {
-    console.log(err);
-    res.status(500).send(err);
+    console.log(err)
+    res.status(500).send(err)
   }
-};
+}
 
+
+  
 const getAllRooms = async (req, res) => {
   const db = getDb();
   const page = parseInt(req.query.p) || 1;

@@ -1,15 +1,21 @@
+import Login from "../login/Login";
 import "./MercadoPago.css";
-/* import { useState } from "react";
-import MercadoP from "../mercadoPago/Mercado.config.tsx"; */
 import Pasarela from "./Pasarela/Pasarela";
 
 const MercadoPago: React.FC = () => {
-  //! aqui habia una demo para que funcionase el mercado pago sin embargo renderiza la pasarela (como tal si seria la demo de que funciona el mercado paggo xd)
-  return (
-    <div className="MercadoContainer">
-      <Pasarela />
-    </div>
-  );
-};
+  const user = localStorage.getItem("user")
+   return (
+    <>
+    {user && user !== undefined ?
+      <div className="MercadoContainer">
+      <Pasarela/> 
+      </div>
+      : <div>
+        <Login />
+      </div>
+    }
+    </>
+   )
+}
 //:)
 export default MercadoPago;
