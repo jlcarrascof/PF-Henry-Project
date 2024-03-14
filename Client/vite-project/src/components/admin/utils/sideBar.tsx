@@ -7,10 +7,10 @@ import {
   UsergroupDeleteOutlined,
 } from '@ant-design/icons';
 import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
-import UserDashboard from '../UserDashboard/UserDashboard';
 import UserProfile from '../../userProfile/UserProfile';
 import { Layout, Menu, Button } from 'antd';
 import "../HotelsDashboard/HotelDashboard.css"
+import UserDashboard from '../UserDashboard/userDashboard';
 
 const { Header, Sider, Content } = Layout;
 
