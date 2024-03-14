@@ -568,11 +568,11 @@ export const updateUser = (id: string, updateData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const response = await axios.patch(`http://localhost:3002/users/${id}`, updateData)
-
       dispatch({
         type: "UPDATE_USER",
         payload: response.data
       })
+      return response.data;
     } catch(error) {
       console.log(error)
     }

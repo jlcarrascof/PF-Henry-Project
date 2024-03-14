@@ -173,6 +173,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":
+      console.log(action.payload)
       return {
         ...state,
         isAuthenticated: true,

@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
   // let user = window.localStorage.getItem("user");
 
   useEffect(() => {
-    setUserData(JSON.parse(window.localStorage.getItem("user")));
+    setUserData(JSON.parse(localStorage.getItem("user")));
   }, []);
   return (
     <header>

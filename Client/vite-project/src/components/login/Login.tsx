@@ -45,7 +45,7 @@ export const Login: React.FC = () => {
     try {
       await dispatch(authenticateUser(email, password));
       if(localUser && localUser !== undefined) {
-        window.location.href = "/";
+        navigate("/")
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -55,9 +55,7 @@ export const Login: React.FC = () => {
     message: user?.Message,
     username: user?.userData?.username,
     user_email: user?.userData?.user_email,
-    firstName: user?.userData?.profile.firstName,
-    lastName: user?.userData?.profile.lastName,
-    dateOfBirth: user?.userData?.profile.dateOfBirth,
+    profile: user?.userData?.profile,
     phone: user?.userData?.phone,
     image: user?.userData?.image,
     _id: user?.userData?._id,

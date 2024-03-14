@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import Cloudinary from "../cloudinary/Cloudinary";
-import { getUserById, updateUser } from "../../Redux/Actions/actions";
+import { updateUser } from "../../Redux/Actions/actions";
 import Modal from "../modal/Modal";
 import "./UserProfile.css";
 import { validation } from "./UserValidation";
+import { State } from "../../Redux/Reducer/reducer";
 
 const UserDisplay = (initialuser: any) => (
   <>
@@ -85,8 +86,8 @@ const UserEdit = ({ user, handleChange, errors }) => (
     <label>Phone:</label>
     <input
       type="text"
-      name="phoneNumber"
-      value={user.phoneNumber}
+      name="phone"
+      value={user.phone}
       onChange={handleChange}
     />
     {errors && errors.phone && (
@@ -95,7 +96,7 @@ const UserEdit = ({ user, handleChange, errors }) => (
   </>
 );
 
-let DataToSend: {[key: string]: string} = {};
+let DataToSend: {[key: string]: string | number | {[key:string]:string}} = {};
 let UsuarioI;
 
 
@@ -104,109 +105,102 @@ const UserProfile = () => {
   let usuario;
   if (UserData && UserData !== '') {
     usuario = JSON.parse(UserData);
-    console.log(usuario);
   } else usuario = {};
   UsuarioI = usuario?.userData;
-  /* const usuario = useSelector((state: any) => {
-    console.log("DBG_state user", state);
-    return state.user
-  });  */
 
 
-  const initialuser = {
-    username: usuario?.userData?.username,
-    email: usuario?.userData?.user_email,
-    firstName: usuario?.userData?.profile.firstName,
-    lastName: usuario?.userData?.profile.lastName,
-    phoneNumber: usuario?.userData?.phone,
-    password: usuario?.userData?.password,
-    imageUrl: usuario?.userData?.image,
-    permissions: usuario?.userData?.permissions,
-    _id: usuario?.userData?._id,
-    repeatPassword: "",
+  function GetInitUser() {
+    const initialuser = {
+      username: usuario?.userData?.username || "",
+      email: usuario?.userData?.user_email || "",
+      firstName: usuario?.userData?.profile.firstName || "",
+      lastName: usuario?.userData?.profile.lastName || "",
+      phoneNumber: usuario?.userData?.phone || "",
+      password: usuario?.userData?.password || null,
+      image: usuario?.userData?.image || "",
+      permissions: usuario?.userData?.permissions || "",
+      _id: usuario?.userData?._id || "",
+      repeatPassword: "",
+    }
+    return initialuser;
   }
-
-  const [user, setuser] = useState(initialuser);
+  const [user, setuser] = useState(GetInitUser());
   const [editMode, setEditMode] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   
-  console.log(initialuser);
-
   const handleEdit = (field) => {
-/*     console.log(`Edit ${field}`);
- */    setEditMode(true);
+    setEditMode(true);
   };
 
   const handleClose = () => {
-/*     console.log("Cerrar formulario");
- */    setEditMode(false);
+     setEditMode(false);
   };
 
-  const handleUpdate = (id: string, prevData: any) => {
+  const handleUpdate = async (id: string, prevData: any) => {
+    
     const validationErrors = validation({
       email: user.email,
       password: user.password,
       repeatPassword: user.repeatPassword,
       phone: user.phoneNumber,
     });
-
+    
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
+      // return;
     }
-
+    
     setErrors({});
-
+    
     setEditMode(false);
     setShowModal(true);
-    /*
-    username:
-    usuario:
-    user_email:
-    password:
-    image:
-    role:
-    permissions:
-    profile: {
-      firstName: String,
-      lastName: String,
-      dateOfBirth: Date,
-    },
-    phone:
-    reservation:
-    favorites:
-    */
-    //console.log("Data to view", DataToSend, user, prevData);
-    let usuario = UsuarioI;
-    let UserToSend = usuario;
-    UserToSend.username   = DataToSend.username ?? usuario.username;
-    UserToSend.user_email = DataToSend.email    ?? usuario.user_email
-    UserToSend.password   = DataToSend.password ?? usuario.password
-    UserToSend.image   = DataToSend.imageUrl ?? usuario.image
-    //console.log("user object", usuario); 
-    UserToSend.profile = {
-        firstName: DataToSend.firstName ?? usuario.profile.firstName,
-        lastName:  DataToSend.lastName  ?? usuario.profile.lastName,
-        dateOfBirth: usuario.profile?.dateOfBirth ?? '11/03/2000',
-    }
-    UserToSend.phone = Number(DataToSend.phoneNumber) ?? usuario.phone
-    //console.log("to send user object", id, UserToSend);
-    console.log("Chingas a tu madre vs", prevData)
-    // const response = await dispatch(updateUser(usuario._id, UserToSend));
-    // setuser(response)
-  };
+    let fn = DataToSend.firstName;
+    let ln = DataToSend.lastName;
+    delete DataToSend.firstName;
+    delete DataToSend.lastName;
+    delete DataToSend.repeatPassword;
+    if (fn) DataToSend['profile.firstName'] = fn;
+    if (ln) DataToSend['profile.lastName'] = ln;
+    console.log("DTS", DataToSend);
 
-  const handleChange = (e) => {
+   // const updatedUser = async function 
+    try {
+       let newUser = await dispatch(updateUser(user._id, DataToSend));
+       console.log(newUser, newUser !== null, newUser !== undefined);
+       
+       if (!newUser) return console.log("X");
+        localStorage.setItem("user2", JSON.stringify({userData: newUser}))
+
+        const localUser = {
+          username: newUser?.username,
+          user_email: newUser?.user_email,
+          profile: newUser?.profile,
+          phone: newUser?.phone,
+          image: newUser?.image,
+          _id: newUser?._id,
+          role: newUser?.role,
+          permissions: newUser?.permissions,
+        };
+
+         localStorage.setItem("user", JSON.stringify(localUser))
+         usuario = {userData: newUser};
+         setuser(GetInitUser());
+         window.location.href = "/"
+      } catch (error) {
+        console.log("papi tenga cuidado", error)
+      }
+  };
+  
+    
+    const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Aplicar validaciones en tiempo real
     const validationErrors = validation({
       ...user,
       [name]: value,
     });
-
     setErrors(validationErrors);
 
     DataToSend[name] = value;
@@ -223,10 +217,10 @@ const UserProfile = () => {
       <div className="cloudinary-section">
       <div className="edita2-message">𝗘𝗱𝗶𝘁 𝗜𝗺𝗮𝗴𝗲</div>
         <Cloudinary
-          imageUrl={user.imageUrl}
+          imageUrl={user.image}
           onImageChange={(newImageUrl) => {
-            DataToSend['imageUrl'] = newImageUrl;
-            setuser((prevData) => ({ ...prevData, imageUrl: newImageUrl }))
+            DataToSend['image'] = newImageUrl;
+            setuser((prevData) => ({ ...prevData, image: newImageUrl }))
           }}
         />
       </div>
