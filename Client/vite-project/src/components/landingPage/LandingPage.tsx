@@ -7,7 +7,10 @@ import SearchBar from "../searchBar/SearchBar";
 import { State } from "../../Redux/Reducer/reducer";
 import { getFilteredRooms } from "../../Redux/Actions/actions";
 import CardsLanding from "../cardsLanding/CardsLanding";
-import archivo from '../../../images/archivo.png'
+import archivo from '../../../images/archivo.png';
+import billetera from '../../../images/billetera.png';
+import hotel from "../../../images/hotel.png";
+import security from "../../../images/metodo-de-pago.png";
 
 import "./LandingPage.modules.css";
 
@@ -79,19 +82,19 @@ const LandingPage: React.FC = () => {
         </div>
         <div className="archivo">
           <a href="/rooms">
-            <img src="../../../images/billetera.png" />
+            <img src= {billetera} />
           </a>
           <span>Get the best sales</span>
         </div>
         <div className="archivo">
           <a href="/rooms">
-            <img src="../../../images/hotel.png" />
+            <img src={hotel} />
           </a>
           <span>Compare hotels according to your needs</span>
         </div>
 
         <div className="archivo">
-          <img src="../../../images/metodo-de-pago.png" />
+          <img src= {security} />
           <span>With the most secure payment method</span>
         </div>
       </div>
