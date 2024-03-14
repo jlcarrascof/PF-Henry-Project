@@ -125,7 +125,7 @@ const Detail: React.FC = () => {
       key: "6",
       label: "Address",
       span: 2,
-      children: <Badge text={currentRoom?.address} />,
+      children: currentRoom?.address,
     },
     {
       key: "7",

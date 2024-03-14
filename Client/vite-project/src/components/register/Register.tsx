@@ -102,6 +102,20 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
       setTimeout(() => {
         setIsRegistered(false);
       }, 2000); 
+      if (!form.current) return;
+
+      emailjs
+        .sendForm("service_owcj3ui", "template_0yv2m0n", form.current, {
+          publicKey: "mMSNbNNhKTe-H44Fh",
+        })
+        .then(
+          () => {
+            console.log("SUCCESS!");
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+          }
+        );
     } catch (error) {
       console.log("Error en el registro:", error);
     }
