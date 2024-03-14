@@ -17,25 +17,27 @@ interface Error {
     if (!email) {
       //errors.email = "Este campo no puede estar en blanco";
     } else if (!/^\S+@\S+\.\S+$/.test(email)) {
-      errors.email = "El formato del correo electrónico no es válido";
+      errors.email = "The email format is not valid";
     }
   
     // Validaciones para la contraseña
     if (!password) {
       //errors.password = "Este campo no puede estar en blanco";
     } else if (password.length < 8) {
-      errors.password = "La contraseña debe tener al menos 8 caracteres";
+      errors.password = "The password must have at least 8 characters";
     }
   
     // Validaciones para la repetición de la contraseña
     if (password !== repeatPassword) {
-      errors.repeatPassword = "Las contraseñas deben coincidir";
+      errors.repeatPassword = "Passwords must match";
     }
   
     // Validaciones para el teléfono
     if (phone && !/^\d{10}$/.test(phone)) {
-      errors.phone = "El número de teléfono debe contener 10 dígitos numéricos";
+      errors.phone = "The phone number must contain 10 numerical digits";
     }
   
     return errors;
-  }; 
+  };   
+  
+  

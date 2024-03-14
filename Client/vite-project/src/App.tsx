@@ -58,8 +58,9 @@ function App() {
         <Route path="/pay" element={<MercadoPago />} />
       </Routes>
       <Footer />
-    </>
+     </> 
   );
 }
 
 export default App;
+

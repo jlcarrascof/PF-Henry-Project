@@ -1,69 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
 import Cloudinary from "../cloudinary/Cloudinary";
-import { getUserById, updateUser } from "../../Redux/Actions/actions";
 import Modal from "../modal/Modal";
 import "./UserProfile.css";
 import { validation } from "./UserValidation";
 
-const UserDisplay = (initialuser: any) => (
-  <div className="userProfile">
-    <h1 className="edit-message">Edit Data</h1>
+const UserDataDisplay = ({ email, password, phoneNumber }) => (
+  <>
+    <div className="edit-message">𝗘𝗱𝗶𝘁 𝗗𝗮𝘁𝗮</div>
     <p>
-      <strong>First Name:</strong> {initialuser?.firstName}
+      <strong>𝗘𝗺𝗮𝗶𝗹:</strong> {email}
     </p>
     <p>
-      <strong>Last Name:</strong> {initialuser?.lastName}
+      <strong>𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱:</strong> {password}
     </p>
     <p>
-      <strong>Email:</strong> {initialuser?.email}
+      <strong>𝐏𝐡𝐨𝐧𝐞:</strong> {phoneNumber}
     </p>
-    <p>
-      <strong>Password:</strong> {initialuser?.password}
-    </p>
-    <p>
-      <strong>Phone:</strong> {initialuser?.phoneNumber}
-    </p>
-  </div>
+  </>
 );
 
-const UserEdit = ({ user, handleChange, errors }) => (
+const UserDataEdit = ({ userData, handleChange, errors }) => (
   <>
-    <label>First Name:</label>
-    <input
-      type="text"
-      name="firstName"
-      value={user.firstName}
-      onChange={handleChange}
-    />
-    {errors && errors.firstName && (
-      <p className="error-message">{errors.firstName}</p>
-    )}
-
-    <label>Last Name:</label>
-    <input
-      type="text"
-      name="lastName"
-      value={user.lastName}
-      onChange={handleChange}
-    />
-    {errors && errors.lastName && (
-      <p className="error-message">{errors.lastName}</p>
-    )}
-
     <label>Email:</label>
     <input
       type="text"
       name="email"
-      value={user.email}
+      value={userData.email}
       onChange={handleChange}
     />
-    {errors && errors.email && <p className="error-message">{errors.email}</p>}
+    {errors && errors.email && (
+      <p className="error-message">{errors.email}</p>
+    )}
     <label>Password:</label>
     <input
       type="password"
       name="password"
-      value={user.password}
+      value={userData.password}
       onChange={handleChange}
     />
     {errors && errors.password && (
@@ -73,7 +45,7 @@ const UserEdit = ({ user, handleChange, errors }) => (
     <input
       type="password"
       name="repeatPassword"
-      value={user.repeatPassword}
+      value={userData.repeatPassword}
       onChange={handleChange}
     />
     {errors && errors.repeatPassword && (
@@ -83,47 +55,29 @@ const UserEdit = ({ user, handleChange, errors }) => (
     <input
       type="text"
       name="phoneNumber"
-      value={user.phoneNumber}
+      value={userData.phoneNumber}
       onChange={handleChange}
     />
-    {errors && errors.phone && <p className="error-message">{errors.phone}</p>}
+    {errors && errors.phone && (
+      <p className="error-message">{errors.phone}</p>
+    )}
   </>
 );
 
-let DataToSend: { [key: string]: string } = {};
-let UsuarioI;
-
 const UserProfile = () => {
-  const UserData = localStorage.getItem("user2");
-  let usuario;
-  if (UserData && UserData !== "") {
-    usuario = JSON.parse(UserData);
-    console.log(usuario);
-  } else usuario = {};
-  UsuarioI = usuario?.userData;
-  /* const usuario = useSelector((state: any) => {
-    console.log("DBG_state user", state);
-    return state.user
-  });  */
-
-  const initialuser = {
-    username: usuario?.userData?.username,
-    email: usuario?.userData?.user_email,
-    firstName: usuario?.userData?.profile.firstName,
-    lastName: usuario?.userData?.profile.lastName,
-    phoneNumber: usuario?.userData?.phone,
-    password: usuario?.userData?.password,
-    imageUrl: usuario?.userData?.image,
-    permissions: usuario?.userData?.permissions,
-    _id: usuario?.userData?._id,
+  const initialUserData = {
+    username: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
     repeatPassword: "",
+    imageUrl: "",
   };
 
-  const [user, setuser] = useState(initialuser);
+  const [userData, setUserData] = useState(initialUserData);
   const [editMode, setEditMode] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
 
   const handleEdit = (field) => {
     console.log(`Edit ${field}`);
@@ -135,12 +89,12 @@ const UserProfile = () => {
     setEditMode(false);
   };
 
-  const handleUpdate = (id: string, prevData: any) => {
+  const handleUpdate = () => {
     const validationErrors = validation({
-      email: user.email,
-      password: user.password,
-      repeatPassword: user.repeatPassword,
-      phone: user.phoneNumber,
+      email: userData.email,
+      password: userData.password,
+      repeatPassword: userData.repeatPassword,
+      phone: userData.phoneNumber,
     });
 
     if (Object.keys(validationErrors).length > 0) {
@@ -148,44 +102,11 @@ const UserProfile = () => {
       return;
     }
 
-    setErrors({});
+    setErrors({}); // Limpiar errores si no hay ninguno
 
     console.log("Update user data");
     setEditMode(false);
     setShowModal(true);
-    /*
-    username:
-    usuario:
-    user_email:
-    password:
-    image:
-    role:
-    permissions:
-    profile: {
-      firstName: String,
-      lastName: String,
-      dateOfBirth: Date,
-    },
-    phone:
-    reservation:
-    favorites:
-    */
-    console.log("Data to view", DataToSend, user);
-    let usuario = UsuarioI;
-    let UserToSend = usuario;
-    UserToSend.username = DataToSend.username ?? usuario.username;
-    UserToSend.user_email = DataToSend.email ?? usuario.user_email;
-    UserToSend.password = DataToSend.password ?? usuario.password;
-    UserToSend.image = DataToSend.imageUrl ?? usuario.image;
-    console.log("user object", usuario);
-    UserToSend.profile = {
-      firstName: DataToSend.firstName ?? usuario.profile.firstName,
-      lastName: DataToSend.lastName ?? usuario.profile.lastName,
-      dateOfBirth: usuario.profile?.dateOfBirth ?? "11/03/2000",
-    };
-    UserToSend.phone = Number(DataToSend.phoneNumber) ?? usuario.phone;
-    console.log("to send user object", id, UserToSend);
-    dispatch(updateUser(usuario._id, UserToSend));
   };
 
   const handleChange = (e) => {
@@ -193,50 +114,39 @@ const UserProfile = () => {
 
     // Aplicar validaciones en tiempo real
     const validationErrors = validation({
-      ...user,
+      ...userData,
       [name]: value,
     });
 
     setErrors(validationErrors);
 
-    DataToSend[name] = value;
-    setuser((prevData) => ({ ...prevData, [name]: value }));
+    setUserData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleModalClose = () => {
     setShowModal(false);
-    setuser(initialuser);
+    setUserData(initialUserData); // Limpiar el estado después de cerrar el modal
   };
 
   return (
     <div className="user-profile-container">
+      <div className="cloudinary-section">
+        <h3>𝗘𝗱𝗶𝘁 𝗜𝗺𝗮𝗴𝗲</h3>
+        <Cloudinary
+          imageUrl={userData.imageUrl}
+          onImageChange={(newImageUrl) => setUserData((prevData) => ({ ...prevData, imageUrl: newImageUrl }))}
+        />
+      </div>
+
+      <div className="separator"></div>
+
       <div className="user-data">
         <div className="user-data-info">
-          <h3>{user.username}</h3>
+          <h3>{userData.username}</h3>
           {editMode ? (
-            <>
-              <UserEdit
-                user={user}
-                handleChange={handleChange}
-                errors={errors}
-              />
-
-              <div className="cloudinary-section">
-                <div className="edita2-message">Edit image</div>
-                <Cloudinary
-                  imageUrl={user.imageUrl}
-                  onImageChange={(newImageUrl) => {
-                    DataToSend["imageUrl"] = newImageUrl;
-                    setuser((prevData) => ({
-                      ...prevData,
-                      imageUrl: newImageUrl,
-                    }));
-                  }}
-                />
-              </div>
-            </>
+            <UserDataEdit userData={userData} handleChange={handleChange} errors={errors} />
           ) : (
-            <UserDisplay {...user} />
+            <UserDataDisplay {...userData} />
           )}
         </div>
         <span className="edit-icon" onClick={() => handleEdit("data")}>
@@ -253,8 +163,8 @@ const UserProfile = () => {
 
       {editMode && (
         <div className="user-data">
-          <button className="update-button" onClick={handleClose}>
-            Update
+          <button className="update-button" onClick={handleUpdate}>
+            𝐔𝐩𝐝𝐚𝐭𝐞
           </button>
         </div>
       )}
@@ -269,3 +179,10 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
+
+
+
+
+
+
