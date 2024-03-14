@@ -27,6 +27,7 @@ const userSchema = new Schema({
   user_email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   image: { type: String, default: "" },
+  isDisabled: {type: Boolean, default: false},
   role: {
     type: String,
     enum: ["client", "owner"],
@@ -53,3 +54,6 @@ userSchema.index({ username: 1, email: 1 });
 const User = mongoose.model("User", userSchema, "users");
 
 module.exports = User;
+
+
+

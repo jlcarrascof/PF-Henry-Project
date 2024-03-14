@@ -1,17 +1,23 @@
 .allFormRoom {
   background-color: lavender;
-  padding: 100px;
-  padding-top: 150px;
+  width: 800px;
+  margin: 60px auto;
 }
 
 .form-rooms-container {
-  max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #ddd;
   border-radius: 8px;
   /* background-color: #f9f9f9; */
+  background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-rooms-container h1 {
+  text-align: center;
+  font-size: 1.7rem;
+  margin-bottom: 30px;
 }
 
 .form-rooms-container form {
@@ -20,7 +26,10 @@
 }
 
 .form-rooms-container label {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #3807a7;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .form-rooms-container input[type="text"],
@@ -32,6 +41,13 @@
   border-radius: 5px;
   margin-top: 5px;
   box-sizing: border-box; /* Para incluir el padding en el ancho */
+}
+
+.form-rooms-container input[type="text"]:focus,
+.form-rooms-container textarea:focus,
+.form-rooms-container input[type="file"]:focus {
+  outline: 2px solid #3807a7;
+  border: 1px solid transparent;
 }
 
 .form-rooms-container input[type="file"] {
@@ -57,17 +73,21 @@
 }
 
 .form-rooms-container button {
-  background-color: #230623;
+  background-color: #3807a7;
   color: white;
   padding: 12px 20px;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 5px;
   cursor: pointer;
+  max-width: 10rem;
+  margin: 0 auto;
   transition: background-color 0.3s ease;
 }
 
 .form-rooms-container button:hover {
-  background-color: #2b124c;
+  border: 1px solid #3807a7;
+  background-color: transparent;
+  color: #3807a7;
 }
 
 .servicesSelect {
@@ -97,13 +117,13 @@
   padding: 10px;
   width: 10px;
   height: 10px;
-  background-color: lavender;
+  background-color: #3807a7;
   border: 3px solid rgba(0, 0, 0, 0.1);
-  color: black;
+  color: #fff;
 }
 
 .btn-register-container .btn-delete-service:hover {
-  color: #fff;
+  color: black;
 }
 
 .register-li {

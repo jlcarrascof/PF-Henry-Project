@@ -1,15 +1,52 @@
 .my-reservations-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-  
+
 .data-grid-container {
-  width: 90%; 
+  width: 90%;
 }
-  
- 
+
+.data-grid-container h1 {
+  margin-bottom: 30px;
+}
+
 .data-grid {
-  height: 400px; 
+  height: 400px;
   width: 100%;
+  background-color: #fff;
+}
+
+.data-grid .MuiDataGrid-main .MuiDataGrid-row button {
+  padding: 10px;
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  background-color: #3b1b7b;
+}
+
+.data-grid .MuiDataGrid-main .MuiDataGrid-row:nth-child(odd) {
+  background-color: #3b1b7b !important;
+  color: #fff;
+}
+
+.data-grid .MuiDataGrid-main .MuiDataGrid-row:nth-child(odd) button {
+  padding: 10px;
+  border: none;
+  font-weight: 500;
+  font-size: 0.7rem;
+  border-radius: 5px;
+  color: #3b1b7b;
+  background-color: #fff;
+}
+
+.data-grid .MuiDataGrid-main .MuiDataGrid-row:nth-child(odd) button:hover {
+  color: #3b1b7b;
+}
+
+.data-grid .MuiDataGrid-main .MuiDataGrid-row:nth-child(odd) a {
+  color: #fff;
 }

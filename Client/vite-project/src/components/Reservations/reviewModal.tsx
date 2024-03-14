@@ -101,7 +101,7 @@ import StarRating from '../reviewForm/starRating';
 interface Props {
   roomId: string;
   onClose: () => void;
-  onSubmitReview: () => void; // Nueva prop para notificar que se envió una reseña
+  onSubmitReview: () => void;
 }
 
 const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
@@ -129,19 +129,26 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("formData en reviewModal: ", formData)
-    dispatch(postReview(roomId, formData)).then(() => {
-      onSubmitReview(); // Notificar a MyReservations que se envió una reseña
-      onClose(); // Cerrar el modal después de enviar la reseña
-    });
+    console.log('Submitting review:', formData); // Verificar que se están enviando los datos correctamente
+    try {
+      const response = await dispatch(postReview(roomId, formData));
+      console.log('Post review response:', response); // Verificar la respuesta del servidor
+     
+        onSubmitReview();
+        onClose();
+     
+    } catch (error) {
+      console.error('Error posting review:', error); // Manejar errores si ocurren
+      // Handle error if needed
+    }
   };
 
   return (
     <Modal
-      open={!!roomId} // Abre el modal si roomId está definido
-      onClose={onClose} // Cierra el modal cuando se hace clic fuera de él
+      open={!!roomId}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -174,7 +181,6 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
           />
           <div>
             <Typography>Calificación:</Typography>
-            {/* Utiliza ChangeRating para el puntaje y StarRating para renderizar las estrellas */}
             <ChangeRating rating={formData.score} handleRating={handleRatingChange} />
             <StarRating stars={formData.score} />
           </div>

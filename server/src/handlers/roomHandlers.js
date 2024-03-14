@@ -42,7 +42,7 @@ const postRoom = async (req, res) => {
       num_rooms,
       reviews,
       totalScore,
-      location
+      location,
     } = req.body;
     const newRoom = new Room({
       hotel_id,
@@ -56,7 +56,7 @@ const postRoom = async (req, res) => {
       availability,
       totalScore,
       reviews,
-      location
+      location,
     });
     const savedRoom = await createRoom(newRoom);
 
@@ -178,31 +178,29 @@ const getRoomFiltered = async (req, res) => {
           $elemMatch: {
             score: { $gte: parseFloat(minScore) },
           },
-
         },
-
-        });
-      }
-  
-      const query = filters.length > 0 ? { $and: filters, availability: true } : {};
-  
-      const rooms = await db
-        .collection("rooms")
-        .find(query)
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .toArray();
-  
-      const totalRooms = await db.collection("rooms").countDocuments(query);
-      const totalPages = Math.ceil(totalRooms / limit);
-  
-      res.status(200).json({
-        currentPage: page,
-        totalPages: totalPages,
-        totalResults: rooms.length,
-        rooms: rooms,
-
       });
+    }
+
+    const query =
+      filters.length > 0 ? { $and: filters, availability: true } : {};
+
+    const rooms = await db
+      .collection("rooms")
+      .find(query)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .toArray();
+
+    const totalRooms = await db.collection("rooms").countDocuments(query);
+    const totalPages = Math.ceil(totalRooms / limit);
+
+    res.status(200).json({
+      currentPage: page,
+      totalPages: totalPages,
+      totalResults: rooms.length,
+      rooms: rooms,
+    });
   } catch (error) {
     console.log("el error es: ", error);
     res.status(400).json({ error: error.message });
@@ -256,8 +254,8 @@ const getFav = async (req, res) => {
           $lookup: {
             from: "hotels",
             localField: "hotel_id",
-            foreignField: "_id", 
-            as: "hotelInfo", 
+            foreignField: "_id",
+            as: "hotelInfo",
           },
         },
         {
@@ -348,3 +346,8 @@ module.exports = {
   postReview,
   getAllRooms,
 };
+
+
+
+
+

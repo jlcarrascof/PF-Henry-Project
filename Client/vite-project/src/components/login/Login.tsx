@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -34,11 +34,11 @@ export const Login: React.FC = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-  
-    console.log("Valor del estado antes del dispatch", user)
+
+    console.log("Valor del estado antes del dispatch", user);
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     try {
       await dispatch(authenticateUser(email, password));
       if(localUser && localUser !== undefined) {
@@ -136,7 +136,9 @@ export const Login: React.FC = () => {
     <>
       <div className="userFirebase">
         <div className="padreFirebase">
-          <h1>Welcome to Rentify!</h1>
+          <h1>
+            Welcome to <span className="purple">Rentify!</span>
+          </h1>
           <form onSubmit={firebaseAuthentication}>
             <label> Email: </label>
             <input

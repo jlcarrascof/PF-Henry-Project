@@ -27,8 +27,8 @@
 
 .form-hotels-container label {
   margin-bottom: 20px;
-  color: #3807A7;
-  font-size: .95rem;
+  color: #3807a7;
+  font-size: 0.95rem;
   font-weight: 500;
 }
 
@@ -46,7 +46,7 @@
 .form-hotels-container input[type="text"]:focus,
 .form-hotels-container textarea:focus,
 .form-hotels-container input[type="file"]:focus {
-  outline: 2px solid #3807A7;
+  outline: 2px solid #3807a7;
   border: 1px solid transparent;
 }
 
@@ -90,7 +90,7 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px; */
-  background-color: #3807A7;
+  background-color: #3807a7;
   color: white;
   padding: 12px 20px;
   border: 1px solid transparent;
@@ -102,9 +102,9 @@
 }
 
 .form-hotels-container button:hover {
-  border: 1px solid #3807A7;
+  border: 1px solid #3807a7;
   background-color: transparent;
-  color: #3807A7;
+  color: #3807a7;
 }
 
 .messageInput {
@@ -112,12 +112,15 @@
 }
 
 .errorForm {
-  color: #F44336;
+  color: #f44336;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 500;
-  font-size: .85rem;
-  background-color: #F5DDDD;
+  font-size: 0.85rem;
+  background-color: #f5dddd;
   padding: 10px;
-  border: 1px solid #FFCCCF;
+  border: 1px solid #ffcccf;
 }
 
 .form-hotels-container input[type="file"] {

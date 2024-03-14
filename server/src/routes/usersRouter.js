@@ -56,3 +56,4 @@ usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
 //usersRouter.get("/:identifier/reservations/confirmed",  getConfirmedReservations);
 
 module.exports = usersRouter;
+

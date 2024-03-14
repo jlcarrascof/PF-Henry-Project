@@ -5,11 +5,12 @@ import { updateUser } from "../../Redux/Actions/actions";
 import Modal from "../modal/Modal";
 import "./UserProfile.css";
 import { validation } from "./UserValidation";
+import EditIcon from "../icons/EditIcon";
 import { State } from "../../Redux/Reducer/reducer";
 
 const UserDisplay = (initialuser: any) => (
-  <>
-    <div className="edit-message">𝗘𝗱𝗶𝘁 𝗗𝗮𝘁𝗮</div>
+  <div className="userProfile">
+    <h1 className="edit-message">Edit Data</h1>
     <p>
       <strong>First Name:</strong> {initialuser?.firstName}
     </p>
@@ -29,60 +30,70 @@ const UserDisplay = (initialuser: any) => (
 );
 
 const UserEdit = ({ user, handleChange, errors }) => (
-  <>
+  <div className="edit-user">
+    <div className="flexUser">
+      <div className="flexItem">
+        <label>First Name:</label>
+        <input
+          type="text"
+          name="firstName"
+          value={user.firstName}
+          onChange={handleChange}
+        />
+        {errors && errors.firstName && (
+          <p className="errorForm">{errors.firstName}</p>
+        )}
+      </div>
+      <div className="flexItem">
+        <label>Last Name:</label>
+        <input
+          type="text"
+          name="lastName"
+          value={user.lastName}
+          onChange={handleChange}
+        />
+        {errors && errors.lastName && (
+          <p className="errorForm">{errors.lastName}</p>
+        )}
+      </div>
+    </div>
 
-<label>First Name:</label>
-    <input
-      type="text"
-      name="firstName"
-      value={user.firstName}
-      onChange={handleChange}
-    />
-    {errors && errors.firstName && (
-      <p className="error-message">{errors.firstName}</p>
-    )}
+    <div className="flexUser">
+      <div className="flexItem">
+        <label>Password:</label>
+        <input
+          type="password"
+          name="password"
+          value={user.password}
+          onChange={handleChange}
+        />
+        {errors && errors.password && (
+          <p className="errorForm">{errors.password}</p>
+        )}
+      </div>
+      <div className="flexItem">
+        <label>Repeat Password:</label>
+        <input
+          type="password"
+          name="repeatPassword"
+          value={user.repeatPassword}
+          onChange={handleChange}
+        />
+        {errors && errors.repeatPassword && (
+          <p className="errorForm">{errors.repeatPassword}</p>
+        )}
+      </div>
+    </div>
 
-    <label>Last Name:</label>
-    <input
-      type="text"
-      name="lastName"
-      value={user.lastName}
-      onChange={handleChange}
-    />
-    {errors && errors.lastName && (
-      <p className="error-message">{errors.lastName}</p>
-    )} 
-
-   <label>Email:</label>
+    <label>Email:</label>
     <input
       type="text"
       name="email"
       value={user.email}
       onChange={handleChange}
     />
-    {errors && errors.email && (
-      <p className="error-message">{errors.email}</p>
-    )}
-    <label>Password:</label>
-    <input
-      type="password"
-      name="password"
-      value={user.password}
-      onChange={handleChange}
-    />
-    {errors && errors.password && (
-      <p className="error-message">{errors.password}</p>
-    )}
-    <label>Repeat Password:</label>
-    <input
-      type="password"
-      name="repeatPassword"
-      value={user.repeatPassword}
-      onChange={handleChange}
-    />
-    {errors && errors.repeatPassword && (
-      <p className="error-message">{errors.repeatPassword}</p>
-    )}
+    {errors && errors.email && <p className="errorForm">{errors.email}</p>}
+
     <label>Phone:</label>
     <input
       type="text"
@@ -237,11 +248,11 @@ const UserProfile = () => {
           )}
         </div>
         <span className="edit-icon" onClick={() => handleEdit("data")}>
-          <img src="url_del_icono" alt="Edit" />
+          <EditIcon />
         </span>
         {editMode && (
           <>
-            <span className="edit-icon" onClick={handleClose}>
+            <span className="close-icon" onClick={handleClose}>
               <img src="url_del_icono" alt="Close" />
             </span>
           </>

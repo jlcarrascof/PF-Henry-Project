@@ -5,14 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  User,
   signOut,
-  UserCredential,
 } from "firebase/auth";
 import firebaseApp from "../login/firebaseConfig.tsx";
 
@@ -37,7 +30,7 @@ export default function LongMenu() {
 
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  let user = window.localStorage.getItem("user");
+  let user: any = window.localStorage.getItem("user");
   if (user) {
     user = JSON.parse(user);
   }
