@@ -337,37 +337,38 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-
+  
+    console.log("Valor del estado antes del dispatch", user)
     const email = e.target.email.value;
     const password = e.target.password.value;
-    // if (email && password) {
+  
     try {
-      const localUser = {
-        message: user?.Message,
-        username: user?.userData?.username,
-        user_email: user?.userData?.user_email,
-        image: user?.userData?.image,
-        _id: user?.userData?._id,
-        role: user?.userData?.role,
-        permissions: user?.userData?.permissions,
-      };
-
-      // await signInWithEmailAndPassword(auth, email, password);
       await dispatch(authenticateUser(email, password));
-      window.localStorage.setItem("user", JSON.stringify(localUser));
-
-      window.location.href = "/";
-      // navigate("/");
+      if(localUser && localUser !== undefined) {
+        window.location.href = "/";
+      }
     } catch (error) {
       console.error("Error during login:", error);
     }
-    // }
   };
-  // useEffect(() => {
-  //   console.log("user login", user);
-  //   if (user) {
+  const localUser = {
+    message: user?.Message,
+    username: user?.userData?.username,
+    user_email: user?.userData?.user_email,
+    image: user?.userData?.image,
+    _id: user?.userData?._id,
+    role: user?.userData?.role,
+    permissions: user?.userData?.permissions,
+  };
+  window.localStorage.setItem("user", JSON.stringify(localUser));
+  
+  console.log("LocalUser es:", localUser)
 
-  //   }
+  // useEffect(() => {
+    //   console.log("user login", user);
+    //   if (user) {
+      
+      //   }
   // }, [user]);
 
   const handleGoogleLogin = async (): Promise<void> => {
@@ -393,8 +394,6 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
-
-  console.log(user);
 
   const handleSignOut = async (): Promise<void> => {
     try {

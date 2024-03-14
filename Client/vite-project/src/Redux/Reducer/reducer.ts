@@ -16,7 +16,7 @@ export interface State {
   totalResults: number;
   isAuthenticated: boolean;
   allUsers: any[];
-  user: any;
+  user: any[];
   post_hotel: any[];
   reservations: any[];
   confirmedReservations: any[];
@@ -39,7 +39,7 @@ const initialState: State = {
   totalResults: 0,
   isAuthenticated: false,
   allUsers: [],
-  user: {},
+  user: [],
   post_hotel: [],
   reservations: [],
   confirmedReservations: [],
@@ -181,7 +181,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         isAuthenticated: true,
-        user: [...state.user, action.payload],
+        user: action.payload,
       };
     case "LOGOUT_USER":
       return {
