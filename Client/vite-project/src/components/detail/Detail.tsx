@@ -212,7 +212,7 @@ const Detail: React.FC = () => {
             <ReviewForm roomId={id} />
           </div> */}
           <button onClick={handleReserveClick} className="reserva-button">
-            RESERVAR
+            BOOK
           </button>
           {showForm && (
             <form onSubmit={handleFormSubmit}>
@@ -298,11 +298,7 @@ const Detail: React.FC = () => {
               </ul>
             )}
           </div>
-          <div className="reservation">
-            <Link to="/reservation">
-              <button>Pay for your reservation!</button>
-            </Link>
-          </div>
+          
         </div>
       )}
     </div>
