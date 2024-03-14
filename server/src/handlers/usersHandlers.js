@@ -132,7 +132,7 @@ const patchUser = async (req, res) => {
 };
 
 
-const createReservation = async (req, res) => { 
+const createReservation = async (req, res) => { //////////
   try {
     let db = getDb();
     const { user_email } = req.body;
@@ -209,6 +209,7 @@ const getReservations = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Aquí obtén todas las reservas del usuario
     const reservations = user.reservation;
 
     res.status(200).json(reservations);
@@ -217,7 +218,6 @@ const getReservations = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const getConfirmedReservations = async (req, res) => {
   try {
@@ -244,6 +244,7 @@ const getConfirmedReservations = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 
 const getFavoriteRooms = async (req, res) => {

@@ -18,11 +18,8 @@ import { Modal, Switch } from "antd";
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-interface LoginProps {
-  setTheUser: React.Dispatch<React.SetStateAction<User | null>>;
-  theUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
-export const Login: React.FC<LoginProps> = () => {
+
+export const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
