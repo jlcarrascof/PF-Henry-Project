@@ -36,7 +36,7 @@ usersRouter.patch("/:identifier/favorites/:roomId", addFavoriteRoom);
 usersRouter.delete("/:identifier/favorites/:roomId", removeFavoriteRoom);
 
 // Ruta para traer usuario por ObjectID ---> GET BY ID
-/* usersRouter.get("/:id", getUserID); */ // --> '/users/?id'
+usersRouter.get("/:id", getUserID); // --> '/users/?id'
 
 // Ruta para crear usuario             -----> POST USER
 usersRouter.post("/", postUser); // --> '/users'

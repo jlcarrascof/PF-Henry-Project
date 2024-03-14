@@ -116,8 +116,6 @@ const patchUser = async (req, res) => {
     const updateData = req.body;
 
     const success = await updateUser(id, updateData);
-
-
     if (success) {
       const user = await getUserById(id);
     return res.status(200).json(user);
@@ -244,7 +242,6 @@ const getConfirmedReservations = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 
 const getFavoriteRooms = async (req, res) => {

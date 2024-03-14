@@ -90,11 +90,6 @@ const rootReducer = (state: State = initialState, action: Action): State => {
           allAdminRooms: action.payload.rooms,
           allRoomsBackUp: action.payload.rooms,
         };
-        case "GET_USER_BY_ID":
-        return {
-          ...state,
-          allUsers: action.payload
-        };
       case "GET_DISABLED_HOTELS":
         return {
           ...state,
@@ -141,22 +136,22 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         filteredRooms: [],
         allRooms: state.allRoomsBackUp,
       };
-    case "RESERVE_ROOM":
-      return {
-        ...state,
-        reservations: [...state.reservations, action.payload],
-      };
-    case "POST_RESERVATION":
-      return {
-        ...state,
-        reservations: [...state.reservations, action.payload.reservation],
-      };
-
-    case "GET_RESERVATIONS":
-      return {
-        ...state,
-        reservations: action.payload,
-      };
+      case "RESERVE_ROOM":
+        return {
+          ...state,
+          reservations: [...state.reservations, action.payload],
+        };
+        case "POST_RESERVATION":
+          return {
+            ...state,
+            reservations: [...state.reservations, action.payload.reservation],
+          };
+    
+        case "GET_RESERVATIONS":
+          return {
+            ...state,
+            reservations: action.payload,
+          };
 
     case "DELETE_RESERVATION":
       return {
@@ -174,7 +169,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "UPDATE_USER":
       return {
         ...state,
-        user: [...state.user, action.payload],
+        user: action.payload,
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":
@@ -195,11 +190,11 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         post_hotel: action.payload,
       };
 
-    case "GET_CONFIRMED_RESERVATIONS":
-      return {
-        ...state,
-        confirmedReservations: action.payload,
-      };
+      case "GET_CONFIRMED_RESERVATIONS":
+        return {
+          ...state,
+          confirmedReservations: action.payload,
+        };
 
     case "GET_FAVORITE_ROOMS":
       return {

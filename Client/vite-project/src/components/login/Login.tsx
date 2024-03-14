@@ -55,12 +55,17 @@ export const Login: React.FC = () => {
     message: user?.Message,
     username: user?.userData?.username,
     user_email: user?.userData?.user_email,
+    firstName: user?.userData?.profile.firstName,
+    lastName: user?.userData?.profile.lastName,
+    dateOfBirth: user?.userData?.profile.dateOfBirth,
+    phone: user?.userData?.phone,
     image: user?.userData?.image,
     _id: user?.userData?._id,
     role: user?.userData?.role,
     permissions: user?.userData?.permissions,
   };
   window.localStorage.setItem("user", JSON.stringify(localUser));
+  window.localStorage.setItem("user2", JSON.stringify(user));
   
   console.log("LocalUser es:", localUser)
 
@@ -85,7 +90,7 @@ export const Login: React.FC = () => {
       dispatch(createUser(userGoogle)) && console.log(user);
       // && dispatch(authenticateUser(user));
       window.localStorage.setItem("user", JSON.stringify(userGoogle));
-
+      window.localStorage.setItem("user2", JSON.stringify(user));
       setIsModalOpen(true);
 
       // window.location.href='/'  //A

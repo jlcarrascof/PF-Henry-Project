@@ -32,6 +32,7 @@ const MyReservations: React.FC = () => {
   };
 
   const handleReviewSubmitted = () => {
+    console.log("userId en MyReservations review: ", userId)
     if (userId) {
       dispatch(getConfirmedReservations(userId));
     }
@@ -91,9 +92,6 @@ const MyReservations: React.FC = () => {
 };
 
 export default MyReservations;
-
-
-
 
 
 
