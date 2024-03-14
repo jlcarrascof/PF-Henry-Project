@@ -425,7 +425,9 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     <>
       <div className="userFirebase">
         <div className="padreFirebase">
-          <h1>Welcome to Rentify!</h1>
+          <h1>
+            Welcome to <span className="purple">Rentify!</span>
+          </h1>
           <form onSubmit={firebaseAuthentication}>
             <label> Email: </label>
             <input

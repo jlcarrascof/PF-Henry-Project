@@ -132,7 +132,7 @@ const patchUser = async (req, res) => {
 };
 
 
-const createReservation = async (req, res) => { 
+const createReservation = async (req, res) => { //////////
   try {
     let db = getDb();
     const { user_email } = req.body;
@@ -219,7 +219,6 @@ const getReservations = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const getConfirmedReservations = async (req, res) => {
   try {

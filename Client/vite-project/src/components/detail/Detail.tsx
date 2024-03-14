@@ -18,7 +18,8 @@ const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch();
   const currentRoom = useSelector((state: State) => state.currentRoom);
-  const user = useSelector((state: State) => state.user);
+  // const user = useSelector((state: State) => state.user);
+  const user = JSON.parse(window.localStorage.getItem("user") || "{}"); /////////////
 
   useEffect(() => {
     if (id) {
@@ -49,12 +50,12 @@ const Detail: React.FC = () => {
         const formDataWithRoomId = {
           ...formData,
           roomId: id,
-          userEmail: user.email,
+          userEmail: user.user_email,
         };
 
         console.log("id de room en detail: ", id);
         console.log("formDataWithRoomId: ", formDataWithRoomId);
-        dispatch(reserveRoom(user.uid, formDataWithRoomId)); //formData
+        dispatch(reserveRoom(user.user_email, formDataWithRoomId)); //formData
 
         setShowForm(false);
         setFormData({
@@ -212,7 +213,7 @@ const Detail: React.FC = () => {
             <ReviewForm roomId={id} />
           </div> */}
           <button onClick={handleReserveClick} className="reserva-button">
-            RESERVAR
+            Reservar
           </button>
           {showForm && (
             <form onSubmit={handleFormSubmit}>
@@ -290,18 +291,22 @@ const Detail: React.FC = () => {
                 {/* {currentRoom.review.map((review: any, index: number) => ( */}
                 {currentRoom.reviews.map((review: any, index: number) => (
                   <li key={index}>
-                    <p>Description: {review.description}</p>
-                    <p>Score: {review.score}</p>
-                    <p>Date: {review.date}</p>
+                    <p>
+                      <span className="purple">Description: </span>
+                      {review.description}
+                    </p>
+                    <p>
+                      <span className="purple">Score: </span>
+                      {review.score}
+                    </p>
+                    <p>
+                      <span className="purple">Date: </span>
+                      {review.date}
+                    </p>
                   </li>
                 ))}
               </ul>
             )}
-          </div>
-          <div className="reservation">
-            <Link to="/reservation">
-              <button>Pay for your reservation!</button>
-            </Link>
           </div>
         </div>
       )}

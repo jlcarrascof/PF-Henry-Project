@@ -57,56 +57,54 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "GET_USER_BY_ID":
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     case "DELETE_USER":
-      const updatedUsers = state.user.filter(user => user.id !== action.payload);
+      const updatedUsers = state.user.filter(
+        (user) => user.id !== action.payload
+      );
       return {
         ...state,
         allUsers: updatedUsers,
-      }
-      case "GET_ROOMS":
-        return {
-          ...state,
-          allRooms: action.payload.rooms,
-          allRoomsBackUp: action.payload.rooms,
-          currentPage: action.payload.currentPage,
-          totalPages: action.payload.totalPages,
-          totalResults: action.payload.totalResults,
-        };
-      case "GET_ROOMS_BY_ID":
-        return {
-          ...state,
-          currentRoom: action.payload,
-        };
-      case "GET_ROOMS_BY_NAME":
-        return {
-          ...state,
-          currentRoom: action.payload,
-        };
-      case "GET_DISABLED_ROOMS":
-        return {
-          ...state,
-          allAdminRooms: action.payload.rooms,
-          allRoomsBackUp: action.payload.rooms,
-        };
-        case "GET_USER_BY_ID":
-        return {
-          ...state,
-          allUsers: action.payload
-        };
-      case "GET_DISABLED_HOTELS":
-        return {
-          ...state,
-          allAdminHotels: action.payload.hotels,
-          allHotelsBackUp: action.payload.hotels,
-          totalResults: action.payload.totalResults,
-        };
-      case "GET_MIXED_SEARCH":
-        return {
-          ...state,
-          allAdminHotels: action.payload.result,
-        };
+      };
+    case "GET_ROOMS":
+      return {
+        ...state,
+        allRooms: action.payload.rooms,
+        allRoomsBackUp: action.payload.rooms,
+        currentPage: action.payload.currentPage,
+        totalPages: action.payload.totalPages,
+        totalResults: action.payload.totalResults,
+      };
+    case "GET_ROOMS_BY_ID":
+      return {
+        ...state,
+        currentRoom: action.payload,
+      };
+    case "GET_ROOMS_BY_NAME":
+      return {
+        ...state,
+        currentRoom: action.payload,
+      };
+    case "GET_DISABLED_ROOMS":
+      return {
+        ...state,
+        allAdminRooms: action.payload.rooms,
+        allRoomsBackUp: action.payload.rooms,
+      };
+
+    case "GET_DISABLED_HOTELS":
+      return {
+        ...state,
+        allAdminHotels: action.payload.hotels,
+        allHotelsBackUp: action.payload.hotels,
+        totalResults: action.payload.totalResults,
+      };
+    case "GET_MIXED_SEARCH":
+      return {
+        ...state,
+        allAdminHotels: action.payload.result,
+      };
     case "DISABLE_HOTEL_BY_ID":
       return {
         ...state,
@@ -127,38 +125,38 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         totalResults: action.payload.totalResults,
         pageNum: action.payload.pageNum,
       };
-      case "POST_REVIEW":
-        if (action.payload.roomId === state.currentRoom?.id) {
-      return {
+    case "POST_REVIEW":
+      if (action.payload.roomId === state.currentRoom?.id) {
+        return {
           ...state,
           currentRoom: {
-              ...state.currentRoom,
-              reviews: [...state.currentRoom.reviews, action.payload],
+            ...state.currentRoom,
+            reviews: [...state.currentRoom.reviews, action.payload],
           },
-      };
-  }
+        };
+      }
     case "RESET":
       return {
         ...state,
         filteredRooms: [],
         allRooms: state.allRoomsBackUp,
       };
-      case "RESERVE_ROOM":
-        return {
-          ...state,
-          reservations: [...state.reservations, action.payload],
-        };
-      case "POST_RESERVATION":
-        return {
-          ...state,
-          reservations: [...state.reservations, action.payload.reservation],
-        };
+    case "RESERVE_ROOM":
+      return {
+        ...state,
+        reservations: [...state.reservations, action.payload],
+      };
+    case "POST_RESERVATION":
+      return {
+        ...state,
+        reservations: [...state.reservations, action.payload.reservation],
+      };
 
-      case "GET_RESERVATIONS":
-        return {
-          ...state,
-          reservations: action.payload,
-        };
+    case "GET_RESERVATIONS":
+      return {
+        ...state,
+        reservations: action.payload,
+      };
 
     case "DELETE_RESERVATION":
       return {
@@ -197,11 +195,11 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         post_hotel: action.payload,
       };
 
-      case "GET_CONFIRMED_RESERVATIONS":
-        return {
-          ...state,
-          confirmedReservations: action.payload,
-        };
+    case "GET_CONFIRMED_RESERVATIONS":
+      return {
+        ...state,
+        confirmedReservations: action.payload,
+      };
 
     case "GET_FAVORITE_ROOMS":
       return {

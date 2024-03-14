@@ -131,6 +131,7 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("formData en reviewModal: ", formData)
     dispatch(postReview(roomId, formData)).then(() => {
       onSubmitReview(); // Notificar a MyReservations que se envió una reseña
       onClose(); // Cerrar el modal después de enviar la reseña
@@ -198,7 +199,3 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
 };
 
 export default ReviewModal;
-
-
-
-

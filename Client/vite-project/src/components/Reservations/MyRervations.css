@@ -18,6 +18,16 @@
   background-color: #fff;
 }
 
+.data-grid .MuiDataGrid-main .MuiDataGrid-row button {
+  padding: 10px;
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  background-color: #3b1b7b;
+}
+
 .data-grid .MuiDataGrid-main .MuiDataGrid-row:nth-child(odd) {
   background-color: #3b1b7b !important;
   color: #fff;
@@ -30,6 +40,7 @@
   font-size: 0.7rem;
   border-radius: 5px;
   color: #3b1b7b;
+  background-color: #fff;
 }
 
 .data-grid .MuiDataGrid-main .MuiDataGrid-row:nth-child(odd) button:hover {

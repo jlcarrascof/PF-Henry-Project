@@ -574,9 +574,6 @@ export default Register;
 
 
 
-
-
-
 // import React, { useState, useRef } from "react";
 // import { useDispatch } from "react-redux";
 // import { Link, useNavigate } from "react-router-dom";
