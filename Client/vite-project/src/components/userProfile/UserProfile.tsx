@@ -101,25 +101,25 @@ let UsuarioI;
 
 
 const UserProfile = () => {
-  const UserData = localStorage.getItem('user2');
+  const UserData = localStorage.getItem('user');
   let usuario;
   if (UserData && UserData !== '') {
     usuario = JSON.parse(UserData);
   } else usuario = {};
-  UsuarioI = usuario?.userData;
+  UsuarioI = usuario;
 
 
   function GetInitUser() {
     const initialuser = {
-      username: usuario?.userData?.username || "",
-      email: usuario?.userData?.user_email || "",
-      firstName: usuario?.userData?.profile.firstName || "",
-      lastName: usuario?.userData?.profile.lastName || "",
-      phoneNumber: usuario?.userData?.phone || "",
-      password: usuario?.userData?.password || null,
-      image: usuario?.userData?.image || "",
-      permissions: usuario?.userData?.permissions || "",
-      _id: usuario?.userData?._id || "",
+      username: usuario?.username || "",
+      email: usuario?.user_email || "",
+      firstName: usuario?.profile.firstName || "",
+      lastName: usuario?.profile.lastName || "",
+      phoneNumber: usuario?.phone || "",
+      password: usuario?.password || null,
+      image: usuario?.image || "",
+      permissions: usuario?.permissions || "",
+      _id: usuario?._id || "",
       repeatPassword: "",
     }
     return initialuser;
