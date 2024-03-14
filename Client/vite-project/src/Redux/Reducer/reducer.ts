@@ -90,11 +90,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
           allAdminRooms: action.payload.rooms,
           allRoomsBackUp: action.payload.rooms,
         };
-        case "GET_USER_BY_ID":
-        return {
-          ...state,
-          allUsers: action.payload
-        };
+    
       case "GET_DISABLED_HOTELS":
         return {
           ...state,
@@ -144,16 +140,16 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         allRooms: state.allRoomsBackUp,
       };
       case "RESERVE_ROOM":
-        return {
-          ...state,
-          reservations: [...state.reservations, action.payload],
-        };
+      return {
+        ...state,
+        reservations: [...state.reservations, action.payload],
+      };
       case "POST_RESERVATION":
         return {
           ...state,
           reservations: [...state.reservations, action.payload.reservation],
         };
-
+  
       case "GET_RESERVATIONS":
         return {
           ...state,
