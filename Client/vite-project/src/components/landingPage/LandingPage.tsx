@@ -42,7 +42,7 @@ const LandingPage: React.FC = () => {
   const onClick = (filters: any) => {
     dispatch(getFilteredRooms(filters));
     navigate("/home");
-  };
+  }; 
 
   return (
     <div className="landing-page">

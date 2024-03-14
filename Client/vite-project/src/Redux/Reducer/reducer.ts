@@ -65,6 +65,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         allUsers: updatedUsers,
       }
+
       case "GET_ROOMS":
         return {
           ...state,
@@ -107,6 +108,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
           ...state,
           allAdminHotels: action.payload.result,
         };
+
     case "DISABLE_HOTEL_BY_ID":
       return {
         ...state,
@@ -175,6 +177,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         user: [...state.user, action.payload],
+
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":

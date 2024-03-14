@@ -335,7 +335,6 @@ export const removeFavoriteRoom = (identifier: string, roomId: string) => {
   };
 }; */
 
-
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
@@ -584,6 +583,7 @@ export const resetFilters = () => ({
   type: RESET,
 });
 
+
 export const reserveRoom = (user_email: any, formData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -593,6 +593,7 @@ export const reserveRoom = (user_email: any, formData: any) => {
       );
       dispatch({
         type: "POST_RESERVATION",
+
         payload: res.data,
       });
     } catch (error) {
@@ -649,11 +650,13 @@ export const deleteReservation = (userId: string, reservationId: string) => {
   };
 };
 
+
 export const getConfirmedReservations = (userId: string) => {
   return async (dispatch) => {
     try {
       const res = await axios.get(
         `http://localhost:3002/users/${userId}/reservations/confirmed`
+
       );
       dispatch({
         type: "GET_CONFIRMED_RESERVATIONS",

@@ -26,20 +26,6 @@ const getUserByName = async (name) => {
     }
 };
 
-const getAllUsers = async () => {
-    const db = getDb();
-    try {
-        const users = await db.collection('users')
-        .find()
-        .toArray();
-       
-        return users;
-
-    } catch (error) {
-        throw error;
-    }
-};
-
 
 const createUser = async (userData) => {
     const db = getDb();
@@ -68,26 +54,9 @@ const updateUser = async (id, updateData) => {
 };
 
 
-const deleteUserById = async (id) => {
-    const db = getDb();
-    try {
-
-        const result = await db.collection('users')
-        .deleteOne({ _id: new ObjectId(id) });
-        return result.deletedCount > 0 ? 'User removed' : 'User not found';
-    
-      } catch (error) {
-        throw error;
-    }
-};
-
-
-
 module.exports = {
     getUserById,
     getUserByName,
-    getAllUsers,
     createUser,
     updateUser,
-    deleteUserById,
 };

@@ -4,7 +4,6 @@ const {
   getAllUsers,
   createUser,
   updateUser,
-  deleteUserById,
 } = require("../controllers/usersController");
 const { ObjectId } = require("mongodb");
 const User = require("../models/UserModel");
@@ -71,6 +70,7 @@ const postUser = async (req, res) => {
       user_email,
       password,
       image,
+      isDisabled: false,
       role,
       permissions,
       profile: {
@@ -105,21 +105,6 @@ const getUserID = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
-  try {
-    const { name } = req.query;
-
-    let users;
-    if (name) {
-      users = await getUserByName(name);
-    } else {
-      users = await getAllUsers();
-    }
-    return res.status(200).json(users);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 const patchUser = async (req, res) => {
   try {
@@ -132,8 +117,10 @@ const patchUser = async (req, res) => {
 
     const success = await updateUser(id, updateData);
 
+
     if (success) {
-      return res.status(200).json({ message: "User updated successfully" });
+      const user = await getUserById(id);
+    return res.status(200).json(user);
     } else {
       return res
         .status(404)
@@ -144,23 +131,6 @@ const patchUser = async (req, res) => {
   }
 };
 
-const deleteUserByID = async (req, res) => {
-  try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ error: "Invalid ID" });
-    }
-    const { id } = req.params;
-
-    const result = await deleteUserById(id);
-
-    if (result.deletedCount <= 0) {
-      return res.send(400).json({ message: "Cannot delete user" });
-    }
-  } catch (error) {
-    console.error("Error deleting user:", error);
-    return res.status(500).json({ error: error.message });
-  }
-};
 
 const createReservation = async (req, res) => {
   try {
@@ -366,11 +336,9 @@ const removeFavoriteRoom = async (req, res) => {
 
 module.exports = {
   getUserID,
-  getUser,
   postUser,
   authUser,
   patchUser,
-  deleteUserByID,
   createReservation,
   getReservations,
   deleteReservation,
