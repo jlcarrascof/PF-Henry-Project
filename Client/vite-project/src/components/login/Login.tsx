@@ -45,7 +45,12 @@ export const Login: React.FC = () => {
     try {
       await dispatch(authenticateUser(email, password));
       if(localUser && localUser !== undefined) {
-        navigate("/")
+        const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+        if (lastVisitedPage){
+          navigate(lastVisitedPage)
+        } else {
+          navigate("/")
+        }
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -62,7 +67,7 @@ export const Login: React.FC = () => {
     role: user?.userData?.role,
     permissions: user?.userData?.permissions,
   };
-  window.localStorage.setItem("user", JSON.stringify(localUser));
+  localStorage.setItem("user", JSON.stringify(localUser));
   window.localStorage.setItem("user2", JSON.stringify(user));
   
   console.log("LocalUser es:", localUser)

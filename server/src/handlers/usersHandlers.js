@@ -243,6 +243,34 @@ const getConfirmedReservations = async (req, res) => {
   }
 };
 
+/* const patchToConfirmReservations = async (req, res) => {
+  try {
+    let db = getDb();
+    const { userId } = req.params;
+    const { payId } = req.query
+
+    const response = await db.collection("users").findOneAndUpdate(
+      { _id: new ObjectId(userId) }, 
+      { $set: { 
+        "reservation.$[].billing_status": "Accepted", 
+        "reservation.$[].state": "confirmed" } 
+      },
+        {
+          arrayFilters: [{ "reservation.$[].billing_id": payId }],
+          new: true 
+        }
+      ); 
+
+      if(!response) {
+        res.status(404).send({error: "Couldnt find to change"})
+        return
+      }
+
+    res.status(201).send(response);
+  } catch (error) {
+    res.status(500).send({ error: "Papa eres tu" });
+  }
+}; */
 
 const getFavoriteRooms = async (req, res) => {
   try {
@@ -334,5 +362,5 @@ module.exports = {
   getConfirmedReservations,
   getFavoriteRooms,
   addFavoriteRoom,
-  removeFavoriteRoom,
+  removeFavoriteRoom
 };

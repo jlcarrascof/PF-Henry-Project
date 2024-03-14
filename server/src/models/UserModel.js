@@ -8,16 +8,14 @@ const reservationSchema = new Schema({
   billing_id: { type: String, required: true },
   billing_status: {
     type: String,
-    enum: ["Pending", "Accepted", "Rejeceted"],
-    default: "Pending",
+    enum: ["approved", "refused"],
   },
   reservationMade: { type: Date, default: Date.now },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   state: {
     type: String,
-    enum: ["pending", "confirmed", "cancelled"],
-    default: "pending",
+    enum: ["confirmed", "cancelled"],
   },
   room: { type: Schema.Types.ObjectId, ref: "Room", required: true },
   description: { type: String, required: true },

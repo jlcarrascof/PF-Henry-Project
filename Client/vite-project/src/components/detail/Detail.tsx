@@ -1,5 +1,5 @@
 import React, { useEffect, useState, FormEvent } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { reserveRoom } from "../../Redux/Actions/actions";
@@ -17,6 +17,7 @@ import "leaflet/dist/leaflet.css";
 const Detail: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentRoom = useSelector((state: State) => state.currentRoom);
   // const user = useSelector((state: State) => state.user);
   const user = JSON.parse(window.localStorage.getItem("user") || "{}")/////////////
@@ -37,6 +38,11 @@ const Detail: React.FC = () => {
   const [formErrors, setFormErrors] = useState<any>({});
 
   const handleReserveClick = () => {
+    if (!user || Object.keys(user).length === 0){
+      localStorage.setItem('lastVisitedPage', window.location.pathname);
+      navigate("/login")
+      return
+    } 
     setShowForm(true);
   };
 
@@ -55,8 +61,8 @@ const Detail: React.FC = () => {
 
         console.log("id de room en detail: ", id);
         console.log("formDataWithRoomId: ", formDataWithRoomId);
-        dispatch(reserveRoom(user.user_email, formDataWithRoomId)); //formData
-
+/*         dispatch(reserveRoom(user.user_email, formDataWithRoomId)); //formData
+ */
         setShowForm(false);
         setFormData({
           startDate: "",
@@ -81,6 +87,7 @@ const Detail: React.FC = () => {
       image: currentRoom.images[0],
       precio: currentRoom.price,
       titulo: currentRoom.name,
+      Start, End
     };
     console.log("Room:", Room);
     localStorage.setItem("ReservInfo", JSON.stringify(Room));

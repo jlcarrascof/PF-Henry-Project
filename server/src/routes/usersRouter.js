@@ -20,11 +20,6 @@ const usersRouter = Router();
 // Nueva ruta para recibir la información de Firebase
 usersRouter.get("/", authUser);
 
-//RUTA PARA TRAER RESERVAS
-usersRouter.get("/:identifier/reservations", getReservations);
-
-usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
-//usersRouter.get("/:identifier/reservations/confirmed",  getConfirmedReservations);
 
 //Ruta para traer los rooms favoritos del usuario
 usersRouter.get("/:identifier/favorites", getFavoriteRooms);
@@ -49,10 +44,15 @@ usersRouter.patch("/:id", patchUser); // --> '/users/?id'
 // Ruta para crear una reserva para un usuario específico
 usersRouter.post("/reservations", createReservation);
 
-// Ruta para obtener todas las reservas de un usuario
-// usersRouter.get('/:userId/reservations', getReservations);
+/* usersRouter.patch("/:id/reservations", patchToConfirmReservations) */ // Confirmar reserva
 
 // Ruta para eliminar una reserva de un usuario
 usersRouter.delete("/:userId/reservations/:reservationId", deleteReservation);
+
+//RUTA PARA TRAER RESERVAS
+usersRouter.get("/:identifier/reservations", getReservations);
+
+usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
+//usersRouter.get("/:identifier/reservations/confirmed",  getConfirmedReservations);
 
 module.exports = usersRouter;

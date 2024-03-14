@@ -117,10 +117,10 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         filteredRooms: action.payload.filteredRooms,
         allRooms: action.payload.rooms,
+        allRoomsBackUp: action.payload.rooms,
         currentPage: action.payload.currentPage,
         totalPages: action.payload.totalPages,
         totalResults: action.payload.totalResults,
-        pageNum: action.payload.pageNum,
       };
     case "POST_REVIEW":
       return {

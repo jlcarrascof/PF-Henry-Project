@@ -27,7 +27,9 @@ export const Pasarela: React.FC = () => {
     
     
     useEffect(() => { (async() => {
-        
+        let UserData = localStorage.getItem('user') ?? '';
+        let User = JSON.parse(UserData);
+        let Start: string = '', End: string = '' ;
         if (Executed) return;
         Executed = true;
         initMercadoPago('TEST-90634ea0-ef39-4285-ba3b-3f6daf135572');
@@ -42,6 +44,20 @@ export const Pasarela: React.FC = () => {
         let ReservInfo: Types.Pasarela.ReservInfo;
         try {
             ReservInfo = JSON.parse(DataFromLS);
+            console.log("RInfo", ReservInfo);
+            let FStart = new Date(ReservInfo.Start);
+            let FEnd = new Date(ReservInfo.End);
+            const Sday = FStart.getDate();
+            const Smoth = FStart.getMonth() + 1;
+            const Syear = FStart.getFullYear();
+            const Fday = FEnd.getDate();
+            const Fmoth = FEnd.getMonth() + 1;
+            const Fyear = FEnd.getFullYear();
+            Start = `${Syear}-${Smoth}-${Sday}`;
+            End = `${Fyear}-${Fmoth}-${Fday}`;
+            delete ReservInfo.Start;
+            delete ReservInfo.End;
+
         } catch(Err) {
             alert('Error al obtener datos de habitación: ' + (Err as string).toString())
             return
@@ -68,7 +84,7 @@ export const Pasarela: React.FC = () => {
         console.log("Order:", orderData);
     
         try {
-            const Result = await fetch('http://localhost:3002/payment/create-preference', {
+            const Result = await fetch(`http://localhost:3002/payment/create-preference?id=${User._id}&Start=${Start}&End=${End}`, {
                 method: 'post',
                 headers: {
                 'Content-Type': 'application/json',
@@ -81,10 +97,8 @@ export const Pasarela: React.FC = () => {
                 Success: true,
             });
             console.log("MP result", Data);
-    
-    
-            
-            const Result2 = await fetch('http://localhost:3002/payment/paypal-order', {
+
+            const Result2 = await fetch(`http://localhost:3002/payment/paypal-order?id=${User._id}&Start=${Start}&End=${End}`, {
                 method: 'post',
                 headers: {
                 'Content-Type': 'application/json',
