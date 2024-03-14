@@ -109,7 +109,7 @@ export const Login: React.FC = () => {
     try {
       setIsModalOpen(false);
       const result: UserCredential = await signInWithPopup(auth, provider);
-  
+
       const user = result.user;
         const userGoogle = {
           _id: user.uid,
@@ -127,10 +127,12 @@ export const Login: React.FC = () => {
           favorites: [],
           reservation: []
         };
-      console.log(user)
+      
       localStorage.setItem("user", JSON.stringify(userGoogle));
-      /* navigate("/");
-      window.location.reload(); */
+      
+      await dispatch(createUser(userGoogle))
+      navigate("/");
+      window.location.reload();
 
     } catch (error) {
       console.log("Error handleOk")
