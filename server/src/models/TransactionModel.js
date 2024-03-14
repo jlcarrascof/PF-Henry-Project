@@ -1,3 +1,4 @@
+
 const { ObjectId } = require("bson");
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
@@ -11,7 +12,9 @@ const TransactionSchema = new Schema({
   }, */
   status: {
     type: String,
+
     enum: ["approved", "refunded" /* "charged_back" */],
+
   },
   payment_type: {
     type: String,
@@ -32,3 +35,6 @@ const TransactionSchema = new Schema({
 const Transaction = model("Transaction", TransactionSchema);
 
 module.exports = Transaction;
+
+
+

@@ -1,4 +1,3 @@
-
 import { createHotels } from "../../../Redux/Actions/actions";
 import { useDispatch, Dispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
@@ -32,25 +31,19 @@ interface Values {
   message: string;
 }
 
-
-
-
-
-
 interface FormHotelProps {
   setStepRegister: React.Dispatch<React.SetStateAction<number>>;
 }
 
-
 const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   const dispatch = useDispatch();
   const form = useRef<HTMLFormElement>();
- 
-    const [values, setValues] = useState<Values>({
+
+  const [values, setValues] = useState<Values>({
     user_email: "",
     message: `Wohoo! It looks like you have posted a new hotel! Now it's public for people who wants to go on holidays in our app :D `,
   });
-    
+
   const [formData, setFormData] = useState<FormSchema>({
     name: "",
     details: "",
@@ -61,8 +54,6 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       mail: values.user_email,
     },
   });
- 
-  
 
   const [error, setError] = useState<ErrorSchema>({
     name: "",
@@ -115,10 +106,6 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
     );
   };
 
-
-  
-
-
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const selectedImage = event.target.files[0];
@@ -133,8 +120,6 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       }
     }
   };
-
- 
 
   const handleContactChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -182,7 +167,9 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   return (
     <div className="allFormHotel">
       <div className="form-hotels-container">
-        <h1>Post your <span className="purple">hotel!</span></h1>
+        <h1>
+          Post your <span className="purple">hotel!</span>
+        </h1>
         <form ref={form} onSubmit={handleSubmit}>
           <label>
             Name:
@@ -193,7 +180,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               onChange={handleInputChange}
               required
             />
-          {error.name && <p className="errorForm">{error.name}</p>}
+            {error.name && <p className="errorForm">{error.name}</p>}
           </label>
           <label>
             Details:
@@ -203,7 +190,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               onChange={handleInputChange}
               required
             />
-          {error.details && <p className="errorForm">{error.details}</p>}
+            {error.details && <p className="errorForm">{error.details}</p>}
           </label>
           <label>
             Address:
@@ -213,7 +200,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               value={formData.address || ""}
               onChange={handleInputChange}
             />
-          {error.address && <p className="errorForm">{error.address}</p>}
+            {error.address && <p className="errorForm">{error.address}</p>}
           </label>
           <div>
             <label>
@@ -224,7 +211,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
                 value={values.user_email}
                 onChange={handleContactChange}
               />
-            {/* {error.contact?.mail && <p>{error.contact?.mail}</p>} */}
+              {/* {error.contact?.mail && <p>{error.contact?.mail}</p>} */}
             </label>
             <label>
               Phone:
@@ -234,7 +221,9 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
                 value={formData.contact.phone}
                 onChange={handleContactChange}
               />
-            {error.contact?.phone && <p className="errorForm">{error.contact?.phone}</p>}
+              {error.contact?.phone && (
+                <p className="errorForm">{error.contact?.phone}</p>
+              )}
             </label>
           </div>
 

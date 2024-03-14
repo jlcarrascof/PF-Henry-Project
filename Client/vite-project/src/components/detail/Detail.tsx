@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { reserveRoom } from "../../Redux/Actions/actions";
 import { getRoomById } from "../../Redux/Actions/actions";
+import methods from '../../../images/Payment-Methods.jpg';
 // import ReviewForm from "../reviewForm/reviewForm";
+
 import { validateReservationForm } from "./validationReserva";
 import Types from "../mercadoPago/Pasarela/Types"; //!m
+
 import "./detail.css";
 import { Image, Badge, Descriptions, Slider } from "antd";
 import type { DescriptionsProps } from "antd";
@@ -19,7 +22,7 @@ const Detail: React.FC = () => {
   const dispatch = useDispatch();
   const currentRoom = useSelector((state: State) => state.currentRoom);
   // const user = useSelector((state: State) => state.user);
-  const user = JSON.parse(window.localStorage.getItem("user") || "{}")/////////////
+  const user = JSON.parse(window.localStorage.getItem("user") || "{}"); /////////////
 
   useEffect(() => {
     if (id) {
@@ -129,7 +132,7 @@ const Detail: React.FC = () => {
       key: "8",
       label: "Online Payment methods",
       children: (
-        <img width={180} height={40} src="../../images/Payment-Methods.jpg" />
+        <img width={180} height={40} src= {methods} />
       ),
     },
     {
@@ -213,7 +216,9 @@ const Detail: React.FC = () => {
             <ReviewForm roomId={id} />
           </div> */}
           <button onClick={handleReserveClick} className="reserva-button">
+
             BOOK
+
           </button>
           {showForm && (
             <form onSubmit={handleFormSubmit}>
@@ -291,15 +296,26 @@ const Detail: React.FC = () => {
                 {/* {currentRoom.review.map((review: any, index: number) => ( */}
                 {currentRoom.reviews.map((review: any, index: number) => (
                   <li key={index}>
-                    <p>Description: {review.description}</p>
-                    <p>Score: {review.score}</p>
-                    <p>Date: {review.date}</p>
+                    <p>
+                      <span className="purple">Description: </span>
+                      {review.description}
+                    </p>
+                    <p>
+                      <span className="purple">Score: </span>
+                      {review.score}
+                    </p>
+                    <p>
+                      <span className="purple">Date: </span>
+                      {review.date}
+                    </p>
                   </li>
                 ))}
               </ul>
             )}
           </div>
+
           
+
         </div>
       )}
     </div>
