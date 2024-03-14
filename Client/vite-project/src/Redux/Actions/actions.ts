@@ -4,7 +4,7 @@ import { User } from "firebase/auth";
 import { ThunkAction } from "redux-thunk";
 import { HotelAction, RESET, RoomAction, UserAction } from "./actions-types";
 
-export interface Action {
+/*export interface Action {
   type: string;
   payload: any;
 }
@@ -330,11 +330,11 @@ export const removeFavoriteRoom = (identifier: string, roomId: string) => {
 }; */
 
 
-import axios from "axios";
+/*import axios from "axios";
 import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
-import { User } from "firebase/auth";
+import { User } from "firebase/auth";*/
 
 
 export interface Action {
