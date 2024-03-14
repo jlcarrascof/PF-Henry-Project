@@ -1,6 +1,6 @@
 import Login from "../login/Login";
 import "./MercadoPago.css";
-import Pasarela from "./Pasarela/Pasarela";
+import Pasarela from "./Pasarela/Pasarela.tsx";
 
 const MercadoPago: React.FC = () => {
   const user = localStorage.getItem("user")
