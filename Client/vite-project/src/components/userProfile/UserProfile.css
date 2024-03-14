@@ -1,81 +1,78 @@
+.userProfile {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 10px 10px #bebebe;
+}
+
 .user-profile-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 150px; /* Se reduce el padding */
-    text-align: center;
-  }
-  
-  .cloudinary-section {
-    text-align: center;
-  }
-  
-  .cloudinary-section h3 {
-    margin-bottom: 10px;
-  }
-  
-  .user-data {
-    display: flex; /* Se cambia la dirección del flex a row */
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 30px; /* Se ajusta el margen */
-  }
-  
-  .user-data-info {
-    flex: 1;
-    text-align: left;
-  }
-  
-  .edit-message {
-    font-size: 20px; 
-    margin-bottom: 15px; 
-    color: #854F6C; 
-  }
-  
-  .edita2-message {
-    font-size: 20px; 
-    margin-bottom: 15px;
-    color: #854F6C; 
-  }
-  
-  .user-data p {
-    margin: 10px 0; 
-    border-bottom: 1px solid #2B124C;
-    padding-bottom: 10px; 
-    text-align: left;
-  }
-  
-  .separator {
-    border-bottom: 1px solid #522B5B; 
-    margin: 20px 0;
-  }
-  
-  .edit-icon {
-    cursor: pointer;
-    margin-top: 20px; 
-  }
-  
-  .update-button {
-    background-color: #6D386E;
-    color: #d1cdd7; 
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block; 
-    margin: 20px auto;
-    transition: background-color 0.3s ease; 
-  }
-  
-  .update-button:hover {
-    background-color: #522B5B; 
-  }  
-  
-  
-  
-  
-  
-    
-    
-    
-    
-      
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 150px;
+  text-align: center;
+}
+
+.cloudinary-section {
+  text-align: center;
+}
+
+.cloudinary-section h3 {
+  margin-bottom: 10px;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-data-info {
+  flex: 1;
+  text-align: left;
+}
+
+.edit-message {
+  font-size: 20px; /* Se ajusta el tamaño del texto */
+  margin-bottom: 15px;
+  color: #854f6c;
+}
+
+.edita2-message {
+  font-size: 20px; /* Se ajusta el tamaño del texto */
+  margin-bottom: 15px; /* Se añade margen inferior */
+  color: #854f6c; /* Se cambia el color */
+}
+
+.user-data p {
+  margin: 10px 0; /* Se aumenta el margen */
+  border-bottom: 1px solid #2b124c; /* Se cambia el color */
+  padding-bottom: 10px; /* Se aumenta el padding */
+  text-align: left;
+}
+
+.separator {
+  border-bottom: 1px solid #522b5b; /* Se cambia el color */
+  margin: 20px 0;
+}
+
+.edit-icon {
+  cursor: pointer;
+  margin-top: 20px; /* Se añade margen arriba */
+}
+
+.update-button {
+  background-color: #6d386e; /* Se cambia el color */
+  color: #d1cdd7; /* Se cambia el color */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block; /* Se asegura que sea un bloque */
+  margin: 20px auto; /* Se centra horizontalmente */
+  transition: background-color 0.3s ease; /* Se agrega transición */
+}
+
+.update-button:hover {
+  background-color: #522b5b; /* Se cambia el color al hover */
+}

@@ -30,25 +30,45 @@ const Card: React.FC<CardProps> = ({ room, isFavorite, onAddFavorite, onRemoveFa
   };
 
   return (
-    <div className="card-container">
+     <div className="card-container">
       {images && images.length > 0 && (
         <img className="card-image" src={images[0]} alt={`Photo of ${name}`} />
       )}
       <div className="card-text-container">
-        <h3 className="card-title">{name}</h3>
+        <h3>{name}</h3>
         <p className="card-room-detail">{`${typeOfRoom} - ${description}`}</p>
+        <p className="card-price">${price}</p>
+        <Link to={`/detail/${_id}`} className="card-link">
+          <button className="card-button">
+            See Details
+          </button>
+        </Link>
       </div>
-      <p className="card-price">${price}</p>
-      <Link to={`/detail/${_id}`} className="card-link">
-        <button className="card-button">
-          𝐒𝐞𝐞 𝐃𝐞𝐭𝐚𝐢𝐥𝐬
-        </button>
-      </Link>
 
-      <button onClick={handleToggleFavorite}>
-        {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      <button onClick={handleToggleFavorite} className="fav-button">
+        {/* {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />} */}
+        {favorite ? <p>💜</p> : <p>🤍</p>}
       </button>
     </div>
+    // <div className="card-container">
+    //   {images && images.length > 0 && (
+    //     <img className="card-image" src={images[0]} alt={`Photo of ${name}`} />
+    //   )}
+    //   <div className="card-text-container">
+    //     <h3 className="card-title">{name}</h3>
+    //     <p className="card-room-detail">{`${typeOfRoom} - ${description}`}</p>
+    //   </div>
+    //   <p className="card-price">${price}</p>
+    //   <Link to={`/detail/${_id}`} className="card-link">
+    //     <button className="card-button">
+    //       𝐒𝐞𝐞 𝐃𝐞𝐭𝐚𝐢𝐥𝐬
+    //     </button>
+    //   </Link>
+
+    //   <button onClick={handleToggleFavorite}>
+    //     {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+    //   </button>
+    // </div>
   );
 };
 

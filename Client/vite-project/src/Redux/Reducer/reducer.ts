@@ -16,7 +16,7 @@ export interface State {
   totalResults: number;
   isAuthenticated: boolean;
   allUsers: any[];
-  user: any[];
+  user: any;
   post_hotel: any[];
   reservations: any[];
   confirmedReservations: any[];
@@ -39,7 +39,7 @@ const initialState: State = {
   totalResults: 0,
   isAuthenticated: false,
   allUsers: [],
-  user: [],
+  user: {},
   post_hotel: [],
   reservations: [],
   confirmedReservations: [],
@@ -65,49 +65,50 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         ...state,
         allUsers: updatedUsers,
       }
-    case "GET_ROOMS":
-      return {
-        ...state,
-        allRooms: action.payload.rooms,
-        allRoomsBackUp: action.payload.rooms,
-        currentPage: action.payload.currentPage,
-        totalPages: action.payload.totalPages,
-        totalResults: action.payload.totalResults,
-      };
-    case "GET_ROOMS_BY_ID":
-      return {
-        ...state,
-        currentRoom: action.payload,
-      };
-    case "GET_ROOMS_BY_NAME":
-      return {
-        ...state,
-        currentRoom: action.payload,
-      };
-    case "GET_DISABLED_ROOMS":
-      return {
-        ...state,
-        allAdminRooms: action.payload.rooms,
-        allRoomsBackUp: action.payload.rooms,
-      };
-      /*
-      case "GET_USER_BY_ID":
-      return {
-        ...state,
-        allUsers: action.payload
-      };*/
-    case "GET_DISABLED_HOTELS":
-      return {
-        ...state,
-        allAdminHotels: action.payload.hotels,
-        allHotelsBackUp: action.payload.hotels,
-        totalResults: action.payload.totalResults,
-      };
-    case "GET_MIXED_SEARCH":
-      return {
-        ...state,
-        allAdminHotels: action.payload.result,
-      };
+
+      case "GET_ROOMS":
+        return {
+          ...state,
+          allRooms: action.payload.rooms,
+          allRoomsBackUp: action.payload.rooms,
+          currentPage: action.payload.currentPage,
+          totalPages: action.payload.totalPages,
+          totalResults: action.payload.totalResults,
+        };
+      case "GET_ROOMS_BY_ID":
+        return {
+          ...state,
+          currentRoom: action.payload,
+        };
+      case "GET_ROOMS_BY_NAME":
+        return {
+          ...state,
+          currentRoom: action.payload,
+        };
+      case "GET_DISABLED_ROOMS":
+        return {
+          ...state,
+          allAdminRooms: action.payload.rooms,
+          allRoomsBackUp: action.payload.rooms,
+        };
+        case "GET_USER_BY_ID":
+        return {
+          ...state,
+          allUsers: action.payload
+        };
+      case "GET_DISABLED_HOTELS":
+        return {
+          ...state,
+          allAdminHotels: action.payload.hotels,
+          allHotelsBackUp: action.payload.hotels,
+          totalResults: action.payload.totalResults,
+        };
+      case "GET_MIXED_SEARCH":
+        return {
+          ...state,
+          allAdminHotels: action.payload.result,
+        };
+
     case "DISABLE_HOTEL_BY_ID":
       return {
         ...state,
@@ -170,14 +171,20 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         allUsers: [...state.allUsers, action.payload],
-        user: action.payload,
+        isAuthenticated: true,
+      };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        user: [...state.user, action.payload],
+
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        user: [...state.user, action.payload],
       };
     case "LOGOUT_USER":
       return {

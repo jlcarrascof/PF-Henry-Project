@@ -162,8 +162,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
       if (!form.current) return;
 
       emailjs
-        .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
-          publicKey: "b645crolwMFi4MBSX",
+        .sendForm("service_owcj3ui", "template_0yv2m0n", form.current, {
+          publicKey: "mMSNbNNhKTe-H44Fh",
         })
         .then(
           () => {
@@ -182,7 +182,7 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
   return (
     <div className="allFormHotel">
       <div className="form-hotels-container">
-        <h1>Post your hotel!</h1>
+        <h1>Post your <span className="purple">hotel!</span></h1>
         <form ref={form} onSubmit={handleSubmit}>
           <label>
             Name:
@@ -193,8 +193,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               onChange={handleInputChange}
               required
             />
+          {error.name && <p className="errorForm">{error.name}</p>}
           </label>
-          {error.name && <p>{error.name}</p>}
           <label>
             Details:
             <textarea
@@ -203,8 +203,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               onChange={handleInputChange}
               required
             />
+          {error.details && <p className="errorForm">{error.details}</p>}
           </label>
-          {error.details && <p>{error.details}</p>}
           <label>
             Address:
             <input
@@ -213,8 +213,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
               value={formData.address || ""}
               onChange={handleInputChange}
             />
+          {error.address && <p className="errorForm">{error.address}</p>}
           </label>
-          {error.address && <p>{error.address}</p>}
           <div>
             <label>
               Email:
@@ -224,8 +224,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
                 value={values.user_email}
                 onChange={handleContactChange}
               />
-            </label>
             {/* {error.contact?.mail && <p>{error.contact?.mail}</p>} */}
+            </label>
             <label>
               Phone:
               <input
@@ -234,8 +234,8 @@ const FormHotel: React.FC<FormHotelProps> = ({ setStepRegister }) => {
                 value={formData.contact.phone}
                 onChange={handleContactChange}
               />
+            {error.contact?.phone && <p className="errorForm">{error.contact?.phone}</p>}
             </label>
-            {error.contact?.phone && <p>{error.contact?.phone}</p>}
           </div>
 
           {/* Nuevo componente de Cloudinary */}

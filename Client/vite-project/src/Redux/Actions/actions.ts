@@ -335,7 +335,6 @@ export const removeFavoriteRoom = (identifier: string, roomId: string) => {
   };
 }; */
 
-
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
@@ -565,20 +564,36 @@ export const postReview = (roomId: string, reviewData: any) => {
     }
   };
 };
+export const updateUser = (id: string, updateData: any) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const response = await axios.patch(`http://localhost:3002/users/${id}`, updateData)
+
+      dispatch({
+        type: "UPDATE_USER",
+        payload: response.data
+      })
+    } catch(error) {
+      console.log(error)
+    }
+  }
+}
 
 export const resetFilters = () => ({
   type: RESET,
 });
 
-export const reserveRoom = (userId: any, formData: any) => {
+
+export const reserveRoom = (user_email: any, formData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const res = await axios.post(
-        `http://localhost:3002/users/${userId}/reservations`,
-        formData
+        `http://localhost:3002/users/reservations`,
+        { ...formData, user_email: user_email } 
       );
       dispatch({
-        type: "RESERVE_ROOM",
+        type: "POST_RESERVATION",
+
         payload: res.data,
       });
     } catch (error) {
@@ -586,6 +601,7 @@ export const reserveRoom = (userId: any, formData: any) => {
     }
   };
 };
+
 
 export const createHotels = (data: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
@@ -634,11 +650,13 @@ export const deleteReservation = (userId: string, reservationId: string) => {
   };
 };
 
-export const getConfirmedReservations = (userEmail: string) => {
-  return async (dispatch: Dispatch<Action>) => {
+
+export const getConfirmedReservations = (userId: string) => {
+  return async (dispatch) => {
     try {
       const res = await axios.get(
-        `http://localhost:3002/users/${userEmail}/reservations/confirmed`
+        `http://localhost:3002/users/${userId}/reservations/confirmed`
+
       );
       dispatch({
         type: "GET_CONFIRMED_RESERVATIONS",

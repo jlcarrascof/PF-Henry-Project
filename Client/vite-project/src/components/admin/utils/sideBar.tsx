@@ -7,12 +7,14 @@ import {
   UsergroupDeleteOutlined,
 } from '@ant-design/icons';
 import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
-import UserDashboardrom from "../UserDashboard/UserDashboard2"
-import UserProfile from '../../userProfile/UserProfile';
 
+import UserDashboard from '../UserDashboard/UserDashboard';
+import UserProfile from '../../userProfile/UserProfile';
 import { Layout, Menu, Button } from 'antd';
+import "../HotelsDashboard/HotelDashboard.css"
 
 const { Header, Sider, Content } = Layout;
+
 
 const SideBar: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -32,13 +34,18 @@ const SideBar: React.FC = () => {
   
 
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+
+    <Layout className='Dashboard'>
+      <Sider trigger={null} collapsible collapsed={collapsed} className='sider-bar'>
+
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
+
+          className='sider'
+
           onSelect={handleMenuSelect}
           items={[
             {
@@ -80,7 +87,9 @@ const SideBar: React.FC = () => {
           }}
         >
           {selectedKey === "1" ? <HotelsDashboard/> : 
-          selectedKey === "2" ? <UserDashboardrom /> :
+
+          selectedKey === "2" ? <UserDashboard /> :
+
           <UserProfile />}
         </Content>
       </Layout>
