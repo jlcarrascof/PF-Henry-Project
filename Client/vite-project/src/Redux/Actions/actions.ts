@@ -414,7 +414,7 @@ export const disableUser = (id: string) => {
 export const deleteUsers = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axios.delete(
+      await axios.delete(
         `http://localhost:3002/admin/users/${id}`
       );
       dispatch({
