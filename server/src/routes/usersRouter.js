@@ -44,9 +44,6 @@ usersRouter.post("/", postUser); // --> '/users'
 // Ruta para actualizar usuario           ---> UPDATE USER
 usersRouter.patch("/:id", patchUser); // --> '/users/?id'
 
-// Ruta para eliminar usuario por ObjectID (Para el admin dsp) --> DELETE USER
-usersRouter.delete("/:id", deleteUserByID); // --> '/users/?id'
-
 
 //PARA CARRITO DE RESERVAS!! -->
 // Ruta para crear una reserva para un usuario específico
