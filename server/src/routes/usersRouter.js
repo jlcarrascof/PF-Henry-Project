@@ -20,7 +20,6 @@ const usersRouter = Router();
 // Nueva ruta para recibir la información de Firebase
 usersRouter.get("/", authUser);
 
-
 //Ruta para traer los rooms favoritos del usuario
 usersRouter.get("/:identifier/favorites", getFavoriteRooms);
 

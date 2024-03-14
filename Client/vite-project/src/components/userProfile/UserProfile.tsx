@@ -1,279 +1,289 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import Cloudinary from "../cloudinary/Cloudinary";
-import { updateUser } from "../../Redux/Actions/actions";
-import Modal from "../modal/Modal";
-import "./UserProfile.css";
+import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { validation } from "./UserValidation";
-import EditIcon from "../icons/EditIcon";
-import { State } from "../../Redux/Reducer/reducer";
-
-const UserDisplay = (initialuser: any) => (
-  <div className="userProfile">
-    <h1 className="edit-message">Edit Data</h1>
-    <p>
-      <strong>First Name:</strong> {initialuser?.firstName}
-    </p>
-    <p>
-      <strong>Last Name:</strong> {initialuser?.lastName}
-    </p>
-    <p>
-      <strong>Email:</strong> {initialuser?.email}
-    </p>
-    <p>
-      <strong>Password:</strong> {initialuser?.password}
-    </p>
-    <p>
-      <strong>Phone:</strong> {initialuser?.phoneNumber}
-    </p>
-  </>
-);
-
-const UserEdit = ({ user, handleChange, errors }) => (
-  <div className="edit-user">
-    <div className="flexUser">
-      <div className="flexItem">
-        <label>First Name:</label>
-        <input
-          type="text"
-          name="firstName"
-          value={user.firstName}
-          onChange={handleChange}
-        />
-        {errors && errors.firstName && (
-          <p className="errorForm">{errors.firstName}</p>
-        )}
-      </div>
-      <div className="flexItem">
-        <label>Last Name:</label>
-        <input
-          type="text"
-          name="lastName"
-          value={user.lastName}
-          onChange={handleChange}
-        />
-        {errors && errors.lastName && (
-          <p className="errorForm">{errors.lastName}</p>
-        )}
-      </div>
-    </div>
-
-    <div className="flexUser">
-      <div className="flexItem">
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={user.password}
-          onChange={handleChange}
-        />
-        {errors && errors.password && (
-          <p className="errorForm">{errors.password}</p>
-        )}
-      </div>
-      <div className="flexItem">
-        <label>Repeat Password:</label>
-        <input
-          type="password"
-          name="repeatPassword"
-          value={user.repeatPassword}
-          onChange={handleChange}
-        />
-        {errors && errors.repeatPassword && (
-          <p className="errorForm">{errors.repeatPassword}</p>
-        )}
-      </div>
-    </div>
-
-    <label>Email:</label>
-    <input
-      type="text"
-      name="email"
-      value={user.email}
-      onChange={handleChange}
-    />
-    {errors && errors.email && <p className="errorForm">{errors.email}</p>}
-
-    <label>Phone:</label>
-    <input
-      type="text"
-      name="phone"
-      value={user.phone}
-      onChange={handleChange}
-    />
-    {errors && errors.phone && (
-      <p className="error-message">{errors.phone}</p>
-    )}
-  </>
-);
-
-let DataToSend: {[key: string]: string | number | {[key:string]:string}} = {};
-let UsuarioI;
+import Cloudinary from "../cloudinary/Cloudinary";
+import { createUser } from "../../Redux/Actions/actions";
+import emailjs from "@emailjs/browser";
+import app from "../login/firebaseConfig";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Switch } from "antd";
+import "./UserProfile.css"
 
 
-const UserProfile = () => {
-  const UserData = localStorage.getItem('user');
-  let usuario;
-  if (UserData && UserData !== '') {
-    usuario = JSON.parse(UserData);
-  } else usuario = {};
-  UsuarioI = usuario;
+interface RegisterProps {
+  onSubmit: (formData: FormData) => void;
+}
 
+interface FormData {
+  username: string;
+  user_email: string;
+  password: string;
+  repeatPassword: string;
+  role: string;
+  permissions: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  phone: string;
+  image?: string;
+}
 
-  function GetInitUser() {
-    const initialuser = {
-      username: usuario?.username || "",
-      email: usuario?.user_email || "",
-      firstName: usuario?.profile.firstName || "",
-      lastName: usuario?.profile.lastName || "",
-      phoneNumber: usuario?.phone || "",
-      password: usuario?.password || null,
-      image: usuario?.image || "",
-      permissions: usuario?.permissions || "",
-      _id: usuario?._id || "",
-      repeatPassword: "",
-    }
-    return initialuser;
-  }
-  const [user, setuser] = useState(GetInitUser());
-  const [editMode, setEditMode] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [errors, setErrors] = useState({});
+interface Values {
+  user_email: string;
+  message: string;
+}
+
+const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
+  const auth = getAuth(app);
+  const [values, setValues] = useState<Values>({
+    user_email: "",
+    message:
+      "Oh, it's someone new!! Welcome to Rentify, the best app where you don't have to worry about spending hours looking for a hotel to go! We are so glad to have you with us :D",
+  });
+  const initialFormData: FormData = {
+    username: "",
+    user_email: values.user_email,
+    password: "",
+    repeatPassword: "",
+    role: "client",
+    permissions: "read/write",
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    phone: "",
+    //message: values.message
+  };
+
   const dispatch = useDispatch();
-  
-  const handleEdit = (field) => {
-    setEditMode(true);
-  };
+  const navigate = useNavigate();
+  const form = useRef<HTMLFormElement>();
 
-  const handleClose = () => {
-     setEditMode(false);
-  };
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
-  const handleUpdate = async (id: string, prevData: any) => {
-    
-    const validationErrors = validation({
-      email: user.email,
-      password: user.password,
-      repeatPassword: user.repeatPassword,
-      phone: user.phoneNumber,
-    });
-    
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      // return;
-    }
-    
-    setErrors({});
-    
-    setEditMode(false);
-    setShowModal(true);
-    let fn = DataToSend.firstName;
-    let ln = DataToSend.lastName;
-    delete DataToSend.firstName;
-    delete DataToSend.lastName;
-    delete DataToSend.repeatPassword;
-    if (fn) DataToSend['profile.firstName'] = fn;
-    if (ln) DataToSend['profile.lastName'] = ln;
-    console.log("DTS", DataToSend);
-
-   // const updatedUser = async function 
-    try {
-       let newUser = await dispatch(updateUser(user._id, DataToSend));
-       console.log(newUser, newUser !== null, newUser !== undefined);
-       
-       if (!newUser) return console.log("X");
-        localStorage.setItem("user2", JSON.stringify({userData: newUser}))
-
-        const localUser = {
-          username: newUser?.username,
-          user_email: newUser?.user_email,
-          profile: newUser?.profile,
-          phone: newUser?.phone,
-          image: newUser?.image,
-          _id: newUser?._id,
-          role: newUser?.role,
-          permissions: newUser?.permissions,
-        };
-
-         localStorage.setItem("user", JSON.stringify(localUser))
-         usuario = {userData: newUser};
-         setuser(GetInitUser());
-         window.location.href = "/"
-      } catch (error) {
-        console.log("papi tenga cuidado", error)
-      }
-  };
-  
-    
-    const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setValues((prevData) => ({ ...prevData, [name]: value }));
 
-    const validationErrors = validation({
-      ...user,
-      [name]: value,
-    });
-    setErrors(validationErrors);
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
 
-    DataToSend[name] = value;
-    setuser((prevData) => ({ ...prevData, [name]: value }));
+    const fieldErrors = validation({ ...formData, [name]: value });
+    setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    setuser(initialuser); 
+
+  const handleRoleChange = (checked: boolean, role: string) => {
+    const newRole = checked ? role : "";
+    setFormData((prevData) => ({ ...prevData, role: newRole }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!form.current) return;
+
+    emailjs
+      .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+        publicKey: "b645crolwMFi4MBSX",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+          navigate("/login");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+    const formErrors = validation(formData);
+    setErrors(formErrors);
+
+    // if (!Object.keys(formErrors)) {
+    try {
+      const email = e.target.emailReg.value;
+      const password = e.target.passwordReg.value;
+      console.log(formData);
+      const backResponse = await dispatch(createUser(formData));
+      if (!backResponse) {
+        return;
+      }
+      await createUserWithEmailAndPassword(auth, email, password);
+      setIsRegistered(true);
+      setFormData(initialFormData);
+      setErrors({});
+
+      // Establecer isRegistered después de limpiar el formulario
+      setTimeout(() => {
+        setIsRegistered(false);
+      }, 2000); // Espera 2 segundos antes de quitar el mensaje de registro exitoso
+    } catch (error) {
+      console.log("Error en el registro:", error);
+    }
+    // if (isRegistered) {
+    //   navigate("/login");
+    // } else {
+    //   alert("An error occured on your registration");
+    // }
+
+    // Establecer isRegistered después de limpiar el formulario
   };
 
   return (
-    <div className="user-profile-container">
-      <div className="cloudinary-section">
-      <div className="edita2-message">𝗘𝗱𝗶𝘁 𝗜𝗺𝗮𝗴𝗲</div>
-        <Cloudinary
-          imageUrl={user.image}
-          onImageChange={(newImageUrl) => {
-            DataToSend['image'] = newImageUrl;
-            setuser((prevData) => ({ ...prevData, image: newImageUrl }))
-          }}
-        />
-      </div>
+    <div className="allRegister">
+      <div className="register-container">
+        <h1>Register now!</h1>
+        {isRegistered && <p>Registro exitoso. Redirigiendo...</p>}
+        <form ref={form} onSubmit={handleSubmit}>
+          <label>Upload your user image:</label>
+          <Cloudinary
+            onImageChange={(newImageUrl) =>
+              setFormData((prevData) => ({ ...prevData, image: newImageUrl }))
+            }
+          />
 
-      <div className="separator"></div>
+          <div className="label-datos">
+            <label>Username:</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+            {errors.username && <p>{errors.username}</p>}
+          </div>
 
-      <div className="user-data">
-        <div className="user-data-info">
-          <h3>{user.username}</h3>
-          {editMode ? (
-            <UserEdit user={user} handleChange={handleChange} errors={errors} />
-          ) : (
-            <UserDisplay {...user} />
-          )}
-        </div>
-        <span className="edit-icon" onClick={() => handleEdit("data")}>
-          <EditIcon />
-        </span>
-        {editMode && (
-          <>
-            <span className="close-icon" onClick={handleClose}>
-              <img src="url_del_icono" alt="Close" />
-            </span>
-          </>
-        )}
-      </div>
+          <div className="label-datos">
+            <label>First name:</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+            {errors.firstName && <p>{errors.firstName}</p>}
+          </div>
 
-      {editMode && (
-        <div className="user-data">
-          <button className="update-button" onClick={handleUpdate}>
-            𝐔𝐩𝐝𝐚𝐭𝐞
+          <div className="label-datos">
+            <label>Last name:</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
+            {errors.lastName && <p>{errors.lastName}</p>}
+          </div>
+
+          <div className="label-datos">
+            <label>Date of Birth:</label>
+            <input
+              type="date"
+              name="dateOfBirth"
+              value={formData.dateOfBirth}
+              onChange={handleChange}
+              required
+            />
+            {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
+          </div>
+
+          <div className="label-datos">
+            <label>Phone number:</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+            {errors.phone && <p>{errors.phone}</p>}
+          </div>
+
+          <div className="label-datos">
+            <label>Email:</label>
+
+            <input
+              id="emailReg"
+              type="text"
+              name="user_email"
+              value={values.user_email}
+              onChange={handleChange}
+              required
+            />
+            {/* {errors.email && <p>{errors.email}</p>} */}
+          </div>
+
+          <div className="label-datos">
+            <label>Password:</label>
+            <input
+              id="passwordReg"
+              type="password" // Cambiado a 'password' para ocultar la contraseña
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            {errors.password && <p>{errors.password}</p>}
+          </div>
+
+          <div className="label-datos">
+            <label>Repeat password:</label>
+            <input
+              type="password" // Cambiado a 'password' para ocultar la contraseña
+              name="repeatPassword"
+              value={formData.repeatPassword}
+              onChange={handleChange}
+              required
+            />
+            {errors.repeatPassword && (
+              <p>{formData.repeatPassword && "Passwords must match"}</p>
+            )}
+          </div>
+
+          <div className="label-datos">
+            <label>Role:</label>
+            <div style={{ display: "flex" }}>
+              <div>
+                <label style={{ marginRight: "10px" }}>Owner</label>
+                <Switch
+                  checked={formData.role === "owner"} // Utiliza checked en lugar de defaultChecked
+                  onChange={(checked) => handleRoleChange(checked, "owner")}
+                />
+              </div>
+              <div>
+                <label style={{ marginRight: "10px" }}>Client</label>
+                <Switch
+                  checked={formData.role === "client"} // Utiliza checked en lugar de defaultChecked
+                  onChange={(checked) => handleRoleChange(checked, "client")}
+                />
+              </div>
+            </div>
+          </div>
+
+
+          <input
+            className="messageInput"
+            name="message"
+            value={values.message}
+          ></input>
+
+          <button className="register-button" type="submit">
+            Register
           </button>
-        </div>
-      )}
 
-      {showModal && (
-        <Modal isOpen={showModal} onClose={handleModalClose} title="Success">
-          <p>Your data has been edited</p>
-        </Modal>
-      )}
+          <Link to="/rooms" className="rooms-link">
+            <span className="rooms-span">Check rooms</span>
+          </Link>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default UserProfile;
+
+export default Register;
