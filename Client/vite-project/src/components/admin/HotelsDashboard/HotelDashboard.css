@@ -1,4 +1,6 @@
 .Dashboard{
+  margin-top: -30px;
+  margin-bottom: -60px;
   height: fit-content;
 }
 
@@ -29,19 +31,20 @@
   color: #fff; 
 }
 .calendar{
-  position: relative;
+  position:sticky;
   margin-top: 80px auto;
-  margin-left: 50px;
-  justify-self: end;
+  margin-right: 10px;
+  justify-self: first baseline baseline;
 }
 .TableContainer {
-    max-width: 900px;
+    min-width: 600px;
     margin: auto;
     padding: 10px;
     background-color: rgba(244, 244, 244, 0.584);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(68, 68, 68, 0.854);
   }
+
 .table_search{
   width: fit-content;
   min-width: 700px;
@@ -67,8 +70,10 @@
   max-width: 70%;
   width: fit-content;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto;
+  column-gap: 95px;
   align-items: start;
+  justify-content: start;
 }
 
 
