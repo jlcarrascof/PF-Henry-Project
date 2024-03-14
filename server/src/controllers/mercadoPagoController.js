@@ -188,13 +188,15 @@ const Success = (req, res) => {
   // res.redirect()   --->> si se quiere redireccionar pero esta chevere que salga como un recibo con los datos xd
   const DataID = req.url.replace(/(?:\?.+)|(?:\/success\/)/gi, "");
   if (!PaymentData.has(DataID)) {
-    rs.send("<h1>Not Items Data ID valid</h1>");
+    
+    res.send("<h1>Not Items Data ID valid</h1>");
     return;
   }
+  const transactionData = PaymentData.get(DataID);
   const PayID = req.params.payment_id;
   const PayType = req.params.payment_type;
   const PayStatus = req.query.status;
-  SaveTransaction(DataID, PayID, PayType, PayStatus);
+  SaveTransaction(transactionData, PayID, PayType, PayStatus);
   res.send(SuccesFile());
 };
 
