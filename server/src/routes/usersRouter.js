@@ -23,8 +23,8 @@ usersRouter.get("/", authUser);
 //RUTA PARA TRAER RESERVAS
 usersRouter.get("/:identifier/reservations", getReservations);
 
-//usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
-usersRouter.get("/:identifier/reservations/confirmed",  getConfirmedReservations);
+usersRouter.get('/:userId/reservations/confirmed', getConfirmedReservations);
+//usersRouter.get("/:identifier/reservations/confirmed",  getConfirmedReservations);
 
 //Ruta para traer los rooms favoritos del usuario
 usersRouter.get("/:identifier/favorites", getFavoriteRooms);
@@ -47,7 +47,7 @@ usersRouter.patch("/:id", patchUser); // --> '/users/?id'
 
 //PARA CARRITO DE RESERVAS!! -->
 // Ruta para crear una reserva para un usuario específico
-usersRouter.post("/:userId/reservations", createReservation);
+usersRouter.post("/reservations", createReservation);
 
 // Ruta para obtener todas las reservas de un usuario
 // usersRouter.get('/:userId/reservations', getReservations);

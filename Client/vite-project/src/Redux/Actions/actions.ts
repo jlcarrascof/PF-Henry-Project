@@ -569,8 +569,8 @@ export const getFilteredRooms = (filters: any) => {
 export const postReview = (roomId: string, reviewData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const res = await axiosInstance.post(
-        `/rooms/${roomId}/reviews`,
+      const res = await axios.post(
+        `http://localhost:3002/rooms/${roomId}/reviews`,
         reviewData
       );
       console.log("actions: payload de postReview:", res.data);
@@ -584,6 +584,7 @@ export const postReview = (roomId: string, reviewData: any) => {
     }
   };
 };
+
 export const updateUser = (id: string, updateData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -603,12 +604,12 @@ export const resetFilters = () => ({
   type: RESET,
 });
 
-export const reserveRoom = (user_email: any, formData: any) => {
+export const reserveRoom = (user_email: any, formData: any) => {////////////////////////
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const res = await axiosInstance.post(
-        `/users/${userId}/reservations`,
-        formData
+      const res = await axios.post(
+        `http://localhost:3002/users/reservations`,
+        { ...formData, user_email: user_email } 
       );
       dispatch({
         type: "POST_RESERVATION",
@@ -662,8 +663,8 @@ export const createHotels = (data: any) => {
 export const getReservations = (userEmail: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const res = await axiosInstance.get(
-        `/users/${userEmail}/reservations`
+      const res = await axios.get(
+        `http://localhost:3002/users/${userEmail}/reservations`
       );
 
       dispatch({
@@ -709,8 +710,8 @@ export const deleteReservation = (userId: string, reservationId: string) => {
 export const getConfirmedReservations = (userId: string) => {
   return async (dispatch) => {
     try {
-      const res = await axiosInstance.get(
-        `/users/${userEmail}/reservations/confirmed`
+      const res = await axios.get(
+        `http://localhost:3002/users/${userId}/reservations/confirmed`
       );
       dispatch({
         type: "GET_CONFIRMED_RESERVATIONS",
@@ -728,8 +729,8 @@ export const getConfirmedReservations = (userId: string) => {
 export const getFavoriteRooms = (identifier: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const { data } = await axiosInstance.get(
-        `/users/${identifier}/favorites`
+      const { data } = await axios.get(
+        `http://localhost:3002/users/${identifier}/favorites`
       );
       dispatch({
         type: "GET_FAVORITE_ROOMS",
@@ -744,8 +745,8 @@ export const getFavoriteRooms = (identifier: string) => {
 export const addFavoriteRoom = (identifier: string, roomId: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      await axiosInstance.patch(
-        `/users/${identifier}/favorites/${roomId}`
+      await axios.patch(
+        `http://localhost:3002/users/${identifier}/favorites/${roomId}`
       );
       dispatch({
         type: "ADD_FAVORITE_ROOM",

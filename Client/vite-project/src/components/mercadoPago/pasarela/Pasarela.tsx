@@ -3,12 +3,6 @@ import { useState, useEffect } from 'react';
 import Types from './Types.ts';
 import './Pasarela.css';
 
-//! un ejemplo de como iria la ruta, con el id al lado de la roomm
-/*
-/room/hsajdsd-dasdasd
-/room/hsajdsd-dasddas
-:)
-*/
 
 let
 Reservas: Types.Pasarela.ReservInfo[] = [],
@@ -26,8 +20,7 @@ const Pasarela: React.FC = () => {
         link: '',
         Succsess: false,
     });
-    
-    
+
     useEffect(() => { (async() => {
         if (Executed) return;
         Executed = true;
@@ -39,7 +32,7 @@ const Pasarela: React.FC = () => {
             window.location.replace('/');
             return;
         }
-        /* Heren yegar que la paloma que?*///localStorage.setItem('ReservInfo', ''); // si se quiere cons los datosos
+        //localStorage.setItem('ReservInfo', ''); // si se quiere cons los datosos
         let ReservInfo: Types.Pasarela.ReservInfo;
         try {
             ReservInfo = JSON.parse(DataFromLS);
