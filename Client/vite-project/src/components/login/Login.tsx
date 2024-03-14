@@ -18,6 +18,7 @@ import { Modal, Switch } from "antd";
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+let Executed = false;
 
 export const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,6 @@ export const Login: React.FC = () => {
   const user = useSelector((state: State) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("client");
-
-  const handleRoleChange = (checked: boolean, role: string) => {
-    setSelectedRole(checked ? role : "client");
-  };
 
   const [registration, setRegistration] = useState(false);
 
@@ -67,42 +64,30 @@ export const Login: React.FC = () => {
     role: user?.userData?.role,
     permissions: user?.userData?.permissions,
   };
-  localStorage.setItem("user", JSON.stringify(localUser));
+  if (!Executed) {
+    localStorage.setItem("user", JSON.stringify(localUser));
+    Executed = true;
+  }
   window.localStorage.setItem("user2", JSON.stringify(user));
   
   console.log("LocalUser es:", localUser)
 
-  // useEffect(() => {
-    //   console.log("user login", user);
-    //   if (user) {
-      
-      //   }
-  // }, [user]);
 
-  const handleGoogleLogin = async (): Promise<void> => {
+  const handleGoogleLogin = async (userGoogle: any): Promise<void> => {
+    setIsModalOpen(true);
     try {
-      const result: UserCredential = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userGoogle = {
-        username: user.displayName,
-        user_email: user.email,
-        role: selectedRole,
-        image: user.photoURL,
-      };
+      const create = dispatch(createUser(userGoogle))
+      let existingUser = create?.error
 
-      dispatch(createUser(userGoogle)) && console.log(user);
-      // && dispatch(authenticateUser(user));
-      window.localStorage.setItem("user", JSON.stringify(userGoogle));
-      window.localStorage.setItem("user2", JSON.stringify(user));
-      setIsModalOpen(true);
-
-      // window.location.href='/'  //A
-      // navigate("/");
+      if (existingUser && existingUser !== undefined) {
+       await signInWithPopup(auth, provider);
+       console.log("Solucionado y logueado")
+      }
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
-
+  
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
@@ -116,16 +101,35 @@ export const Login: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    navigate("/");
-    window.location.reload();
+  const handleOk = async () => {
+    try {
+      setIsModalOpen(false);
+      const result: UserCredential = await signInWithPopup(auth, provider);
+  
+      const user = result.user;
+        const userGoogle = {
+          username: user.displayName,
+          user_email: user.email,
+          role: selectedRole,
+          image: user.photoURL,
+        };
+      
+      localStorage.setItem("user", JSON.stringify(userGoogle));
+      navigate("/");
+      window.location.reload();
+
+    } catch (error) {
+      console.log("Error handleOk")
+    }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    navigate("/");
-    window.location.reload();
+  };
+
+  const handleRoleChange = (checked: boolean, role: string) => {
+    console.log("ChangeRol", checked, role);
+    setSelectedRole(checked ? role : "client");
   };
 
   return (

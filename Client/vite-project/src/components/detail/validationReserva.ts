@@ -2,11 +2,11 @@ export const validateReservationForm = (formData: ReservationFormData): FormErro
     const errors: FormErrors = {};
   
     if (!formData.startDate.trim()) {
-      errors.startDate = 'La fecha de inicio es requerida.';
+      errors.startDate = 'Start date is required.';
     }
   
     if (!formData.endDate.trim()) {
-      errors.endDate = 'La fecha de fin es requerida.';
+      errors.endDate = 'End date is required.';
     }
   
     if (formData.startDate && formData.endDate) {
@@ -14,14 +14,18 @@ export const validateReservationForm = (formData: ReservationFormData): FormErro
       const end = new Date(formData.endDate);
   
       if (start >= end) {
-        errors.startDate = 'La fecha de inicio debe ser anterior a la fecha de fin.';
-        errors.endDate = 'La fecha de fin debe ser posterior a la fecha de inicio.';
+        errors.startDate = 'The start date must be prior to the end date..';
+        errors.endDate = 'The end date must be later than the start date..';
       }
     }
-  
-    if (!formData.description.trim()) {
-      errors.description = 'La descripción es requerida.';
+   
+    const differenceInDays = Math.abs((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
+      
+    if (differenceInDays > 50) {
+      errors.endDate = 'The difference between the start date and the end date cannot exceed 50 days.';
     }
-  
+    
+
+
     return errors;
-  };
+  }

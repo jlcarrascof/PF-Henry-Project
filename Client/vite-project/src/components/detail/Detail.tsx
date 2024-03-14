@@ -220,7 +220,7 @@ const Detail: React.FC = () => {
             <ReviewForm roomId={id} />
           </div> */}
           <button onClick={handleReserveClick} className="reserva-button">
-            RESERVAR
+            RESERVE
           </button>
           {showForm && (
             <form onSubmit={handleFormSubmit}>
@@ -247,25 +247,15 @@ const Detail: React.FC = () => {
               {formErrors.endDate && (
                 <div className="error-message">{formErrors.endDate}</div>
               )}
-
-              <input
-                type="text"
-                placeholder="Descripción"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-              />
-              {formErrors.description && (
-                <div className="error-message">{formErrors.description}</div>
-              )}
-
+              
+                
               <button
                 onClick={Reservar}
                 type="submit"
                 className="reserva-button"
+                disabled={Object.keys(formErrors).length !== 0}
               >
-                Confirmar Reserva
+                Confirm reservation
               </button>
             </form>
           )}
@@ -306,11 +296,7 @@ const Detail: React.FC = () => {
               </ul>
             )}
           </div>
-          <div className="reservation">
-            <Link to="/reservation">
-              <button>Pay for your reservation!</button>
-            </Link>
-          </div>
+          
         </div>
       )}
     </div>

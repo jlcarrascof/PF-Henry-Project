@@ -2,6 +2,7 @@ const { Router } = require("express");
 const {
   createPreference,
   Success,
+  failure,
   PayPalOrder,
   PayPalCapture,
 } = require("../controllers/mercadoPagoController");
@@ -28,10 +29,7 @@ mercadoRouter.post("/create-preference", createPreference);
 //se puede ver como recibo :)
 mercadoRouter.get("/success/*", Success);
 
-mercadoRouter.all("/frailue", (req, res) => {
-  //res.send("estas pelado, bye");   ----> tambien hubiese estado chistoso xd
-  res.redirect("http://localhost:5173/rooms");
-});
+mercadoRouter.all("/failure/*", failure);
 
 //? PayPal --------------------------------------------- >>>>>>>>>>>>>>>>>>> :p
 

@@ -5,6 +5,8 @@ const crypto = require("crypto");
 const { PayPal } = require("../paypal/PayLib.js");
 const { getDb } = require("../db.js");
 const { ObjectId } = require("mongodb");
+const Crypto = require('crypto')
+
 
 //esto ira en el .env
 const ACCESS_TOKEN =
@@ -49,7 +51,7 @@ POST << Body en JSON << [{
 :)
 */
 
-function SuccesFile() {
+function SuccesFile(Icon = '✔️', Message = "Compra Exitosa") {
   return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -92,8 +94,8 @@ function SuccesFile() {
     <body>
         <div id="Content">
             <div class="Fondo">
-                <span class="Icon">✔️</span>
-                <h1 class="Tittle">Compra exitosa</h1>
+                <span class="Icon">${Icon}</span>
+                <h1 class="Tittle">${Message}</h1>
                 <a href="http://localhost:5173/rooms" class="Back">Volver a la pagina</a>
             </div>
         </div>
@@ -217,6 +219,22 @@ const createPreference = async (req, res) => {
     });
 };
 
+const failure = (req, res) => {
+  const DataID = req.url.replace(/(?:\?.+)|(?:\/failure\/)/gi, "");
+  if(!PaymentData.has(DataID) || !PaymentUser.has(DataID)){
+    res.send(SuccesFile('🧑‍🦽💨', "Error - No valid data"))
+    return
+  }
+  const PayID = Crypto.randomUUID();
+  const PayType = 'none';
+  const PayStatus = 'failure';
+  console.log("MP Failure", DataID, PayID, PayType, PayStatus)
+  SaveTransaction(DataID, PayID, PayType, PayStatus);
+  
+  res.send(SuccesFile('❌😭', "Process not succesful"))
+
+}
+
 const Success = (req, res) => {
   // res.send("c: que alegria, tienes dinero: payID: " + req.query.payment_id);
   // res.redirect()   --->> si se quiere redireccionar pero esta chevere que salga como un recibo con los datos xd
@@ -325,6 +343,7 @@ const PayPalCapture = async (rq, rs) => {
 module.exports = {
   createPreference,
   Success,
+  failure,
   PayPalOrder,
   PayPalCapture,
 };
