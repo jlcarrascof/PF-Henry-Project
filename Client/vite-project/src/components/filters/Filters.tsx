@@ -83,7 +83,7 @@ const Filters: React.FC = () => {
 
   return (
     <div className="filtros">
-      <h1>Filtra tu <span className="purple">busqueda</span></h1>
+      <h1>Filter your <span className="purple">search</span></h1>
       <input
         type="text"
         name="minPrice"

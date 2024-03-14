@@ -103,9 +103,11 @@
 }
 .paypal-powered-by > .paypal-button-text,
 .paypal-powered-by > .paypal-logo {
-  display: inline-block;
-  vertical-align: middle;
-  height: 16px;
-  line-height: 16px;
-  font-size: 11px;
+
+    display: inline-block;
+    vertical-align: middle;
+    height: 16px;
+    line-height: 16px;
+    font-size: 11px;
 }
+
