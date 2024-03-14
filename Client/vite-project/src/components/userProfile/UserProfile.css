@@ -1,15 +1,40 @@
 .userProfile {
   background-color: #fff;
   border-radius: 5px;
-  padding: 20px;
+  padding: 30px;
   box-shadow: 0 10px 10px #bebebe;
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.edit-icon {
+  background-color: #fff;
+  border-radius: 50px;
+  width: 50;
+  height: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.userProfile h1 {
+  color: #3807b4;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.userProfile p {
+  color: #3807b4;
 }
 
 .user-profile-container {
-  max-width: 800px;
   margin: 0 auto;
-  padding: 150px;
+  max-width: 800px;
+  padding-top: 30px;
   text-align: center;
+  position: relative;
 }
 
 .cloudinary-section {
@@ -32,6 +57,32 @@
   text-align: left;
 }
 
+/* Edit */
+
+.edit-user {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.flexUser {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.flexUser .flexItem {
+  width: 100%;
+}
+
+.flexItem .errorForm {
+  border-bottom: 1px solid #ffcccf;
+}
+
+.flexUser .flexItem input {
+  min-width: 100%;
+}
+
 .edit-message {
   font-size: 20px; /* Se ajusta el tamaño del texto */
   margin-bottom: 15px;
@@ -45,15 +96,9 @@
 }
 
 .user-data p {
-  margin: 10px 0; /* Se aumenta el margen */
-  border-bottom: 1px solid #2b124c; /* Se cambia el color */
-  padding-bottom: 10px; /* Se aumenta el padding */
-  text-align: left;
-}
-
-.separator {
-  border-bottom: 1px solid #522b5b; /* Se cambia el color */
-  margin: 20px 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #38079b;
+  padding-bottom: 5px;
 }
 
 .edit-icon {
@@ -62,17 +107,17 @@
 }
 
 .update-button {
-  background-color: #6d386e; /* Se cambia el color */
-  color: #d1cdd7; /* Se cambia el color */
+  background-color: #3b1b7b; /* Se cambia el color */
+  color: #fff; /* Se cambia el color */
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  display: block; /* Se asegura que sea un bloque */
-  margin: 20px auto; /* Se centra horizontalmente */
-  transition: background-color 0.3s ease; /* Se agrega transición */
+  display: block;
+  margin: 20px auto;
+  transition: background-color 0.3s ease;/
 }
 
 .update-button:hover {
-  background-color: #522b5b; /* Se cambia el color al hover */
+  background-color: #2c0e68; /* Se cambia el color al hover */
 }

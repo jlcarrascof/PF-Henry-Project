@@ -48,31 +48,33 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
   ) => {
     e.preventDefault();
 
+    console.log("Valor del estado antes del dispatch", user);
     const email = e.target.email.value;
     const password = e.target.password.value;
-    // if (email && password) {
+
     try {
-      const localUser = {
-        message: user?.Message,
-        username: user?.userData?.username,
-        user_email: user?.userData?.user_email,
-        image: user?.userData?.image,
-        _id: user?.userData?._id,
-        role: user?.userData?.role,
-        permissions: user?.userData?.permissions,
-      };
-
-      // await signInWithEmailAndPassword(auth, email, password);
-      await dispatch(authenticateUser(email, password));
-      window.localStorage.setItem("user", JSON.stringify(localUser));
-
-      window.location.href = "/";
-      // navigate("/");
+      (await dispatch(authenticateUser(email, password))) &&
+        (await signInWithEmailAndPassword(auth, email, password));
+      if (localUser && localUser !== undefined) {
+        window.location.href = "/";
+      }
     } catch (error) {
       console.error("Error during login:", error);
     }
-    // }
   };
+  const localUser = {
+    message: user?.Message,
+    username: user?.userData?.username,
+    user_email: user?.userData?.user_email,
+    image: user?.userData?.image,
+    _id: user?.userData?._id,
+    role: user?.userData?.role,
+    permissions: user?.userData?.permissions,
+  };
+  window.localStorage.setItem("user", JSON.stringify(localUser));
+
+  console.log("LocalUser es:", localUser);
+
   // useEffect(() => {
   //   console.log("user login", user);
   //   if (user) {
@@ -104,8 +106,6 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     }
   };
 
-  console.log(user);
-
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
@@ -135,7 +135,9 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
     <>
       <div className="userFirebase">
         <div className="padreFirebase">
-          <h1>Welcome to Rentify!</h1>
+          <h1>
+            Welcome to <span className="purple">Rentify!</span>
+          </h1>
           <form onSubmit={firebaseAuthentication}>
             <label> Email: </label>
             <input

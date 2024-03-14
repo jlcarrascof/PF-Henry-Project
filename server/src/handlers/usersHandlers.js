@@ -132,15 +132,12 @@ const patchUser = async (req, res) => {
 };
 
 
-const createReservation = async (req, res) => {
+const createReservation = async (req, res) => { //////////
   try {
     let db = getDb();
-    const { userId } = req.params;
-    const { startDate, endDate, roomId, description, user_email } = req.body;
+    const { user_email } = req.body;
 
-    const user = await db
-      .collection("users")
-      .findOne({ $or: [{ user_email: user_email }, { uid: userId }] });
+    const user = await db.collection("users").findOne({ user_email: user_email });
 
     if (!user) {
       console.log("No se encontró usuario en la base de datos");
@@ -148,28 +145,29 @@ const createReservation = async (req, res) => {
     }
 
     const reservation = {
-      user_id: userId,
+      user_email: user_email, 
       billing_id: "some_billing_id",
       billing_status: "Pending",
-      startDate,
-      endDate,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
       state: "pending",
-      room: roomId,
-      description,
+      room: req.body.roomId,
+      description: req.body.description,
     };
 
-    await db
-      .collection("users")
-      .updateOne({ _id: new ObjectId(user._id) }, { $push: { reservation } });
+    await db.collection("users").findOneAndUpdate(
+      { user_email: user_email },
+      { $push: { reservation: reservation } }
+    );
 
-    res
-      .status(201)
-      .json({ message: "Reservation created successfully", reservation });
+    console.log("Reserva en handler: ", reservation)
+    res.status(201).json({ message: "Reservation created successfully", reservation });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 const deleteReservation = async (req, res) => {
   try {
@@ -225,35 +223,29 @@ const getReservations = async (req, res) => {
 const getConfirmedReservations = async (req, res) => {
   try {
     let db = getDb();
-    //const { userId } = req.params;
+    const { userId } = req.params;
 
-    // Buscar al usuario por su ID
-    //const user = await db.collection("users").findOne({ _id: new ObjectId(userId) });
-    const user_email = req.params.user_email;
-    const identifier = req.params.identifier;
-
-    //const user = await db.collection("users").findOne({ user_email: useruser_email });
-    const user = await db
-      .collection("users")
-      .findOne({ $or: [{ uid: identifier }, { user_email: identifier }] });
+    const user = await db.collection("users").findOne({ _id: new ObjectId(userId) });
 
     if (!user) {
+      console.log("NO SE ENCONTRÓ USUARIO")
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Filtrar las reservas confirmadas y pagadas del usuario
     const confirmedReservations = user.reservation.filter(
       (reservation) =>
         reservation.state === "confirmed" &&
         reservation.billing_status === "Accepted"
     );
 
+    console.log("reserva en handler: ", confirmedReservations)
     res.status(200).json(confirmedReservations);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 const getFavoriteRooms = async (req, res) => {
   try {

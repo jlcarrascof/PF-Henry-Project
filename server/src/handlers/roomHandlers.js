@@ -42,7 +42,7 @@ const postRoom = async (req, res) => {
       num_rooms,
       reviews,
       totalScore,
-      location
+      location,
     } = req.body;
     const newRoom = new Room({
       hotel_id,
@@ -56,7 +56,7 @@ const postRoom = async (req, res) => {
       availability,
       totalScore,
       reviews,
-      location
+      location,
     });
     const savedRoom = await createRoom(newRoom);
 
@@ -178,31 +178,29 @@ const getRoomFiltered = async (req, res) => {
           $elemMatch: {
             score: { $gte: parseFloat(minScore) },
           },
-
         },
-
-        });
-      }
-  
-      const query = filters.length > 0 ? { $and: filters, availability: true } : {};
-  
-      const rooms = await db
-        .collection("rooms")
-        .find(query)
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .toArray();
-  
-      const totalRooms = await db.collection("rooms").countDocuments(query);
-      const totalPages = Math.ceil(totalRooms / limit);
-  
-      res.status(200).json({
-        currentPage: page,
-        totalPages: totalPages,
-        totalResults: rooms.length,
-        rooms: rooms,
-
       });
+    }
+
+    const query =
+      filters.length > 0 ? { $and: filters, availability: true } : {};
+
+    const rooms = await db
+      .collection("rooms")
+      .find(query)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .toArray();
+
+    const totalRooms = await db.collection("rooms").countDocuments(query);
+    const totalPages = Math.ceil(totalRooms / limit);
+
+    res.status(200).json({
+      currentPage: page,
+      totalPages: totalPages,
+      totalResults: rooms.length,
+      rooms: rooms,
+    });
   } catch (error) {
     console.log("el error es: ", error);
     res.status(400).json({ error: error.message });
@@ -256,8 +254,8 @@ const getFav = async (req, res) => {
           $lookup: {
             from: "hotels",
             localField: "hotel_id",
-            foreignField: "_id", 
-            as: "hotelInfo", 
+            foreignField: "_id",
+            as: "hotelInfo",
           },
         },
         {
@@ -287,32 +285,28 @@ const postReview = async (req, res) => {
       return res.status(404).send({ error: "No es un ObjectId valido" });
     }
 
-      //const { error } = reviewSchema.validate(req.body);
+    const newReview = req.body;
 
-      // if (error) {
-      //     return res.status(400).json({ error: error.details[0].message });
-      // }
+    console.log("Reseña que se crea: ", newReview);
+    const result = await db.collection("rooms").updateOne(
+      { _id: new ObjectId(id) },
+      {
+        $push: { reviews: newReview },
+        $set: {
+          totalScore: {
+            $avg: "reviews.score",
+          },
+        },
+      }
+    );
 
-      const newReview = req.body; 
-      const result = await db
-        .collection("rooms")
-        .updateOne({ _id: new ObjectId(id) }, {
-          $push: {review: newReview},
-          $set: {
-            totalScore: {
-              $avg: "reviews.score"
-            }
-          }
-        })
-  
-        console.log("nueva reseña: ", newReview)
-        res.status(200).send(result)
-    } catch (err) {
-      console.log(err)
-      res.status(500).send(err)
-    }
+    console.log("nueva reseña: ", newReview);
+    res.status(200).send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
   }
-
+};
 
 const getAllRooms = async (req, res) => {
   const db = getDb();

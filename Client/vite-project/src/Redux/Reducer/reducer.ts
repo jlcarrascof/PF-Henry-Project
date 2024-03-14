@@ -92,11 +92,7 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         allAdminRooms: action.payload.rooms,
         allRoomsBackUp: action.payload.rooms,
       };
-    case "GET_USER_BY_ID":
-      return {
-        ...state,
-        allUsers: action.payload,
-      };
+
     case "GET_DISABLED_HOTELS":
       return {
         ...state,
@@ -130,13 +126,15 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         pageNum: action.payload.pageNum,
       };
     case "POST_REVIEW":
-      return {
-        ...state,
-        currentRoom: {
-          ...state.currentRoom,
-          reviews: [...state.currentRoom.reviews, action.payload],
-        },
-      };
+      if (action.payload.roomId === state.currentRoom?.id) {
+        return {
+          ...state,
+          currentRoom: {
+            ...state.currentRoom,
+            reviews: [...state.currentRoom.reviews, action.payload],
+          },
+        };
+      }
     case "RESET":
       return {
         ...state,
@@ -230,3 +228,4 @@ const rootReducer = (state: State = initialState, action: Action): State => {
   }
 };
 export default rootReducer;
+

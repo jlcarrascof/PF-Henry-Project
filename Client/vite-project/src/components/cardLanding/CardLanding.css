@@ -6,36 +6,32 @@
 }
 
 .cardLand-image {
-  width: 100%;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
 }
 
 .imgContainer img {
   height: 10rem;
+  max-height: 10rem;
+  width: 100%;
 }
 
 .cardLand-text-container {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  flex: 1; /* Ajustar flex a 1 para que ocupe todo el espacio disponible */
   padding: 20px;
-  overflow: hidden; /* Ocultar cualquier desbordamiento de texto */
 }
 
 .cardLand-title {
   font-weight: 600;
-  color: #3B1B7B;
-  overflow: hidden; /* Ocultar el texto que se desborda */
-  text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para indicar que hay más texto */
-  white-space: nowrap; /* Impedir que el texto se divida en varias líneas */
+  color: #3b1b7b;
 }
 
 .cardLand-button {
   border-radius: 5px;
   padding: 10px 15px;
-  background-color: #3B1B7B;
+  background-color: #3b1b7b;
   color: white;
   font-weight: 500;
   border: none;

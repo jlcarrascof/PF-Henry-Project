@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 // ? -----------------------------------------------------COMPONENTS
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
@@ -15,26 +16,30 @@ import FormRoom from "./components/FormRegisterProperty/FormRoom/FormRoom";
 import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
-
-import UserDashboard from "./components/admin/UserDashboard/UserDashboard2";
-import MercadoPago from "./components/mercadoPago/MercadoPago";
-
+import UserDashboard from "./components/admin/UserDashboard/userDashboard";
 import UserProfile from "./components/userProfile/UserProfile";
 import SideBar from "./components/admin/utils/sideBar";
 import MercadoPago from "./components/mercadoPago/MercadoPago";
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
-import SideBar from "./components/admin/utils/sideBar";
 
+interface User {
+  email: string;
+  password: string;
+}
 function App() {
+  const [theUser, setTheUser] = useState<User | null>(null);
+
   return (
     <>
       <NavBar />
 
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route>
+          <Route path="/login" element={<Login />} />
+        </Route>
+        <Route path="/register" element={<Register onSubmit={onsubmit} />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
@@ -48,17 +53,13 @@ function App() {
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
-
-        <Route path="/admin" element={<SideBar />} />
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/admin" element={<SideBar />} />
         <Route path="/pay" element={<MercadoPago />} />
-
-
       </Routes>
       <Footer />
-     </> 
+    </>
   );
 }
 
 export default App;
-

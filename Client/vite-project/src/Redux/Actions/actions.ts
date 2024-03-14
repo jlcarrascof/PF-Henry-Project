@@ -21,7 +21,7 @@ export const createUser = (userData: any) => {
       const response = await axiosInstance.post("/users", userData);
       dispatch({
         type: "POST_USER",
-        payload: response.data,
+        payload: response.data.insertedId,
       });
     } catch (error) {
       console.log(error);
@@ -29,19 +29,19 @@ export const createUser = (userData: any) => {
   };
 };
 
-// export const getUsers = () => {
-//   return async (dispatch: Dispatch<Action>) => {
-//     try {
-//       const { data } = await axiosInstance.get("/users/");
-//       dispatch({
-//         type: "GET_USERS",
-//         payload: data,
-//       });
-//     } catch (error) {
-//       console.error("Error al obtener usuarios:", error);
-//     }
-//   };
-// };
+export const getUsers = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axiosInstance.get("/users/");
+      dispatch({
+        type: "GET_USERS",
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+    }
+  };
+};
 export const disableRoom = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
@@ -173,33 +173,6 @@ export const getFilteredRooms = (filters: any) => {
     }
   };
 };
-export const disableUser = (id: string) => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      const { data } = await axiosInstance.patch(`/admin/users/${id}`);
-      dispatch({
-        type: "DISABLE_USER_BY_ID",
-        payload: data,
-      });
-    } catch (error) {
-      console.log("Error al borrar logicamente", error);
-    }
-  };
-};
-
-export const deleteUsers = (id: string) => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      const { data } = await axiosInstance.delete(`/admin/users/${id}`);
-      dispatch({
-        type: "DELETE_USER",
-        payload: id,
-      });
-    } catch (error) {
-      console.log("Error al borrar logicamente", error);
-    }
-  };
-};
 
 export const postReview = (roomId: string, reviewData: any) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -320,19 +293,6 @@ export const getFavoriteRooms = (identifier: string) => {
     }
   };
 };
-export const getUsers = () => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      const { data } = await axiosInstance.get("/admin/users/");
-      dispatch({
-        type: "GET_USERS",
-        payload: data,
-      });
-    } catch (error) {
-      console.error("Error al obtener usuarios:", error);
-    }
-  };
-};
 
 export const addFavoriteRoom = (identifier: string, roomId: string) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -362,6 +322,33 @@ export const removeFavoriteRoom = (identifier: string, roomId: string) => {
   };
 };
 
+export const disableUser = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const { data } = await axiosInstance.patch(`/admin/users/${id}`);
+      dispatch({
+        type: "DISABLE_USER_BY_ID",
+        payload: data,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error);
+    }
+  };
+};
+
+export const deleteUsers = (id: string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      await axiosInstance.delete(`/admin/users/${id}`);
+      dispatch({
+        type: "DELETE_USER",
+        payload: id,
+      });
+    } catch (error) {
+      console.log("Error al borrar logicamente", error);
+    }
+  };
+};
 export const updateUser = (id: string, updateData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {

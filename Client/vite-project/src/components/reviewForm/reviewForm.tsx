@@ -239,6 +239,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
       ...revValidation({ [name]: value }),
     });
   };
+  
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -276,9 +277,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
 
         <div className="rating">
           <label>Calificación:</label>
-          {/* Utiliza el componente StartRating para mostrar la calificación */}
           <StarRating stars={review.score} />
-          {/* Utiliza ChangeRating para permitir al usuario cambiar la calificación */}
           <ChangeRating rating={review.score} handleRating={handleRating} />
         </div>
         {/* <div className="rating">
