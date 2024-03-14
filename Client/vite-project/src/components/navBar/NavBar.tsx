@@ -4,8 +4,10 @@ import LongMenu from "../dropDown/dropDown";
 import "./navBar.css";
 import { Avatar } from "antd";
 import { useSelector } from "react-redux";
+import RoomIcon from "../icons/RoomIcon";
+import HomeIcon from "../icons/HomeIcon";
 
-export const NavBar: React.FC = () => {
+const NavBar: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [userData, setUserData] = useState({});
   // let user = window.localStorage.getItem("user");
@@ -15,33 +17,34 @@ export const NavBar: React.FC = () => {
   }, []);
   return (
     <header>
-      <div className="headerTop">
-        <Link to="/">
-          <h2 className="logo"> Rentify </h2>
-        </Link>
-        <div className="navSeparator"></div>
-        <div className="navItems">
-          <Link to="/admin">
-            <p>Admin</p>
-          </Link>
+      <div className="navBar">
+        {/* ------------------------------ Left -------------------------------- */}
+
+        <div className="navBarLeft">
           <Link to="/">
-            <p>Home</p>
+            <h2 className="logo"> Rentify </h2>
           </Link>
-          <Link to="/rooms">
-            <p>Search for rooms</p>
-          </Link>
-          <Link to="/register-hotel">
-            <p>Post a hotel</p>
-          </Link>
-          {/* <Link to="/reservations">
-            <p>Cart Reservation</p>
-          </Link> */}
-          <Link to="/favorites">
-            <p>Favorites</p>
-          </Link>
-          <Link to="/my-reservations">
-            <p>My Reservations</p>
-          </Link>
+        </div>
+
+        {/* ------------------------------ Right -------------------------------- */}
+
+        <div className="navBarRight">
+          <div className="roomIcons">
+            <Link to="/">
+              <HomeIcon />
+              <p>Home</p>
+            </Link>
+          </div>
+
+          <div className="roomIcons">
+            <Link to="/rooms">
+              <RoomIcon />
+              <p>Search for rooms</p>
+            </Link>
+          </div>
+
+          {/* ------------------------------ Login e interfaz de administrador -------------------------------- */}
+
           {userData === null || Object.keys(userData).length === 0 ? (
             <>
               <Link className="btnLogin" to="/login">
@@ -52,7 +55,7 @@ export const NavBar: React.FC = () => {
             <>
               <div className="dropbox">
                 <div className="avatar">
-                  Hi {userData.username} !
+                  <strong className="strong">Hi!</strong> {userData.username} !
                   {userData && (
                     <Avatar
                       alt=""
@@ -69,87 +72,7 @@ export const NavBar: React.FC = () => {
           )}
         </div>
       </div>
-      <div className="headerBottom">
-        <Link to="/admin">
-          <p>Admin</p>
-        </Link>
-        <Link to="/">
-          <p>Home</p>
-        </Link>
-        <Link to="/rooms">
-          <p>Search for rooms</p>
-        </Link>
-        <Link to="/register-hotel">
-          <p>Post a hotel</p>
-        </Link>
-        {/* <Link to="/reservations">
-            <p>Cart Reservation</p>
-          </Link> */}
-        <Link to="/favorites">
-          <p>Favorites</p>
-        </Link>
-        <Link to="/my-reservations">
-          <p>My Reservations</p>
-        </Link>
-      </div>
     </header>
-    // <div className="navBar">
-    //   <div className="navContainer">
-    //     <Link to="/">
-    //       <h2 className="logo"> Rentify </h2>
-    //     </Link>
-    //     <div className="navSeparator"></div>
-    //     <div className="navItems">
-    // <Link to="/admin">
-    //   <p>Admin</p>
-    // </Link>
-    // <Link to="/">
-    //   <p>Home</p>
-    // </Link>
-    // <Link to="/rooms">
-    //   <p>Search for rooms</p>
-    // </Link>
-    // <Link to="/register-hotel">
-    //   <p>Post a hotel</p>
-    // </Link>
-    // {/* <Link to="/reservations">
-    //   <p>Cart Reservation</p>
-    // </Link> */}
-    // <Link to="/favorites">
-    //   <p>Favorites</p>
-    // </Link>
-    // <Link to="/my-reservations">
-    //   <p>My Reservations</p>
-    // </Link>
-    // {user === null || Object.keys(user).length === 0 ? (
-    //   <>
-    //     <Link className="btnLogin" to="/login">
-    //       <p>Login</p>
-    //     </Link>
-    //   </>
-    // ) : (
-    //   <>
-    //     <div className="dropbox">
-    //       <div className="avatar">
-    //         {user.Message}
-    //         {user && (
-    //           <Avatar
-    //             alt=""
-    //             src={user.image}
-    //             size={48}
-    //             gap={25}
-    //             draggable="false"
-    //           />
-    //         )}
-    //       </div>
-    //       <LongMenu />
-    //     </div>
-    //   </>
-    // )}
-    //     </div>
-    //   </div>
-    //   {/* {showLogin && <Login />} */}
-    // </div>
   );
 };
 

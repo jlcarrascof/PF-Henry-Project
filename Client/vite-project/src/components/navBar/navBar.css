@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 header {
   position: sticky;
   top: 0;
@@ -45,19 +44,35 @@ header {
 .navBar {
   padding: 25px 0;
   /* background-color: #1d1a39; */
-  background-color: #38079b;
->>>>>>> ed244e9ec82c6dc92e58608526a0baf8e70f394e
+/* background-color: #38079b;
   display: flex;
   flex-direction: row;
   justify-content: center;
   position: sticky;
   top: 0;
-<<<<<<< HEAD
   left: 0;
-=======
->>>>>>> ed244e9ec82c6dc92e58608526a0baf8e70f394e
+
+  width: 100%; */
+
+/* --------------------------------------- Header */
+
+header {
   width: 100%;
+  background-color: #3b1b7b;
+  position: sticky;
+  top: 0;
   z-index: 1000;
+  min-height: 5rem;
+}
+
+.navBar {
+  margin: 0 auto;
+  padding: 25px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
   margin-bottom: 30px;
 }
 
@@ -73,50 +88,40 @@ header {
   color: rgb(181, 145, 232);
 }
 
-.dropbox {
-  gap: 4px;
-  display: grid;
-  width: fit-content;
-  grid-template-columns: 1fr 1fr;
-}
+/* --------------------------------------- navBarLeft */
 
-.avatar {
-  width: fit-content;
-  display: grid;
-  gap: 25px;
-  grid-template-columns: 1fr 1fr;
-}
-
-.navContainer {
-  margin: 0 auto;
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  display: flex;
-  flex: 0 0 auto;
-}
-.navContainer .logo {
+.logo {
   color: white;
   text-decoration: none;
 }
-.navItems > * {
-  /* padding: 0.75rem; */
-  color: #fff;
-}
-.navItems {
+
+/* --------------------------------------- navBarRight */
+
+.navBar .navBarRight {
   display: flex;
-  justify-items: center;
+  gap: 15px;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
 }
 
-.navSeparator {
-  width: 1%;
-  flex: 1 1 auto;
+/* ---- RoomIcons ---- */
+
+.roomIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
+
+.roomIcons p {
+  color: #fff;
+}
+
+.roomIcons a {
+  display: contents;
+}
+
+/* ---- Login ----- */
 
 .navContainer .logo {
   flex: 0 0 auto;
@@ -125,7 +130,7 @@ header {
   margin: 0;
 }
 
-.btnLogin {
+.navBarRight .btnLogin {
   margin-left: 10px;
   border: 1px solid #fff;
   background-color: #ffffff;
@@ -142,18 +147,43 @@ header {
   font-weight: 600;
 }
 
-.btnLogin p:hover {
- color: #fff;
+.navBarRight .btnLogin p:hover {
+  color: #fff;
 }
 
 .btnLogin:hover {
-<<<<<<< HEAD
   color: rgb(181, 145, 232);
   background-color: #1d1a39;
-} */
-=======
+}
+
+.navBarRight .btnLogin:hover {
   color: #fff;
   border: 1px solid #fff;
   background-color: transparent;
 }
->>>>>>> ed244e9ec82c6dc92e58608526a0baf8e70f394e
+
+/* ---- Dropbox ----- */
+
+.dropbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Avatar ----- */
+
+.avatar {
+  display: flex;
+  gap: 25px;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar span {
+  margin-left: -1rem;
+}
+
+.avatar .strong {
+  margin-right: -1.2rem;
+}

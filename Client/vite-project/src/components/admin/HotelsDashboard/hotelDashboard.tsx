@@ -39,38 +39,39 @@ export default function HotelDashboard() {
   )
 );
 
-  return (
-    <div className='dashboardContainer'>
-    <div className='table_search'>
-      <ReusableSearchBar />
+return (
+  <div className='dashboardContainer'>
+  <div className='table_search'>
+    <ReusableSearchBar />
 
-    <div className='TableContainer'>
-    <TableContainer component={Paper} >
-      <Typography variant="h3" gutterBottom component="div" className='table-title'>
-        Admin your Hotels
-      </Typography>
-      <Table aria-label="collapsible table">
-        <TableHead className='table-head'>
-          <TableRow>
-            <TableCell> </TableCell>
-            <TableCell align="center">Hotel Name</TableCell>
-            <TableCell align="center">Address</TableCell>
-            <TableCell align="center">Owner</TableCell>
-            <TableCell align="right">Available</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.Name} row={row} />
-            ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-      </div>
+  <div className='TableContainer'>
+  <TableContainer component={Paper} >
+    <Typography variant="h3" gutterBottom component="div" className='table-title'>
+      Admin your Hotels
+    </Typography>
+    <Table aria-label="collapsible table">
+      <TableHead className='table-head'>
+        <TableRow>
+          <TableCell> </TableCell>
+          <TableCell align="center">Hotel Name</TableCell>
+          <TableCell align="center">Address</TableCell>
+          <TableCell align="center">Owner</TableCell>
+          <TableCell align="right">Available</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows.map((row) => (
+          <Row key={row.Name} row={row} />
+          ))}
+      </TableBody>
+    </Table>
+  </TableContainer>
     </div>
-      <div className='calendar'>
-      <ReuseCalendar />
-      </div>
   </div>
-  );
+    <div className='calendar'>
+    <ReuseCalendar />
+    </div>
+</div>
+);
 }
+

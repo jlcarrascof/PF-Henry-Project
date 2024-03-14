@@ -1,11 +1,12 @@
 import React, { useEffect, useState, FormEvent } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { reserveRoom } from "../../Redux/Actions/actions";
 import { getRoomById } from "../../Redux/Actions/actions";
 // import ReviewForm from "../reviewForm/reviewForm";
 import { validateReservationForm } from "./validationReserva";
+import Types from "../mercadoPago/Pasarela/Types"; //!m
 import "./detail.css";
 import { Image, Badge, Descriptions, Slider } from "antd";
 import type { DescriptionsProps } from "antd";
@@ -66,6 +67,24 @@ const Detail: React.FC = () => {
       setFormErrors(errors);
     }
   };
+
+  function Reservar() {
+    const Start = new Date(formData.startDate);
+    const End = new Date(formData.endDate);
+    const DiffMS = End.getTime() - Start.getTime();
+    const msPd = 1000 * 60 * 60 * 24;
+    const Dias = DiffMS / msPd;
+    const Room: Types.Pasarela.ReservInfo = {
+      dias: Dias,
+      id: id as string,
+      image: currentRoom.images[0],
+      precio: currentRoom.price,
+      titulo: currentRoom.name,
+    };
+    console.log("Room:", Room);
+    localStorage.setItem("ReservInfo", JSON.stringify(Room));
+    window.location.replace("/pay");
+  }
 
   const items: DescriptionsProps["items"] = [
     {
@@ -233,7 +252,11 @@ const Detail: React.FC = () => {
                 <div className="error-message">{formErrors.description}</div>
               )}
 
-              <button type="submit" className="reserva-button">
+              <button
+                onClick={Reservar}
+                type="submit"
+                className="reserva-button"
+              >
                 Confirmar Reserva
               </button>
             </form>
@@ -274,6 +297,11 @@ const Detail: React.FC = () => {
                 ))}
               </ul>
             )}
+          </div>
+          <div className="reservation">
+            <Link to="/reservation">
+              <button>Pay for your reservation!</button>
+            </Link>
           </div>
         </div>
       )}
