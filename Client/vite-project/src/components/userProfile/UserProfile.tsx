@@ -5,6 +5,7 @@ import { getUserById, updateUser } from "../../Redux/Actions/actions";
 import Modal from "../modal/Modal";
 import "./UserProfile.css";
 import { validation } from "./UserValidation";
+import EditIcon from "../icons/EditIcon";
 
 const UserDisplay = (initialuser: any) => (
   <div className="userProfile">
@@ -240,11 +241,11 @@ const UserProfile = () => {
           )}
         </div>
         <span className="edit-icon" onClick={() => handleEdit("data")}>
-          <img src="url_del_icono" alt="Edit" />
+          <EditIcon />
         </span>
         {editMode && (
           <>
-            <span className="edit-icon" onClick={handleClose}>
+            <span className="close-icon" onClick={handleClose}>
               <img src="url_del_icono" alt="Close" />
             </span>
           </>

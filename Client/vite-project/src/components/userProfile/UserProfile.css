@@ -3,6 +3,30 @@
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 10px 10px #bebebe;
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.user-profile-container {
+  position: relative;
+}
+
+.userProfile h1 {
+  color: #3807b4;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.userProfile p {
+  color: #3807b4;
 }
 
 .user-profile-container {

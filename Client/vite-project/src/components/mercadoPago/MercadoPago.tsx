@@ -5,11 +5,11 @@ import Pasarela from "./Pasarela/Pasarela";
 
 const MercadoPago: React.FC = () => {
   //! aqui habia una demo para que funcionase el mercado pago sin embargo renderiza la pasarela (como tal si seria la demo de que funciona el mercado paggo xd)
-   return (
+  return (
     <div className="MercadoContainer">
-      <Pasarela/> 
+      <Pasarela />
     </div>
-   )
-}
+  );
+};
 //:)
 export default MercadoPago;
