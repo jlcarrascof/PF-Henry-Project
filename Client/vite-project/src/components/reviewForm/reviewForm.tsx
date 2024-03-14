@@ -245,18 +245,18 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
     dispatch(postReview(roomId, review));
     //   if (!form.current) return;
 
-    //   emailjs
-    //     .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
-    //       publicKey: "b645crolwMFi4MBSX",
-    //     })
-    //     .then(
-    //       () => {
-    //         console.log("SUCCESS!");
-    //       },
-    //       (error) => {
-    //         console.log("FAILED...", error.text);
-    //       }
-    //     );
+    emailjs
+      .sendForm("service_owcj3ui", "template_0yv2m0n", form.current, {
+        publicKey: "mMSNbNNhKTe-H44Fh",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
   };
 
   return (

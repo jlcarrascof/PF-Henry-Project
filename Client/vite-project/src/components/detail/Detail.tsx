@@ -5,8 +5,10 @@ import { State } from "../../Redux/Reducer/reducer";
 import { reserveRoom } from "../../Redux/Actions/actions";
 import { getRoomById } from "../../Redux/Actions/actions";
 // import ReviewForm from "../reviewForm/reviewForm";
+
 import { validateReservationForm } from "./validationReserva";
-import Types from "../mercadoPago/pasarela/Types"; //!m
+import Types from "../mercadoPago/Pasarela/Types"; //!m
+
 import "./detail.css";
 import { Image, Badge, Descriptions, Slider } from "antd";
 import type { DescriptionsProps } from "antd";
@@ -49,12 +51,11 @@ const Detail: React.FC = () => {
         const formDataWithRoomId = {
           ...formData,
           roomId: id,
-          userEmail: user.user_email,
+          userEmail: user.email,
         };
 
         console.log("id de room en detail: ", id);
         console.log("formDataWithRoomId: ", formDataWithRoomId);
-        console.log("user: ", user);
         dispatch(reserveRoom(user.uid, formDataWithRoomId)); //formData
 
         setShowForm(false);

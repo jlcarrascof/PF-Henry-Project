@@ -1,15 +1,79 @@
-.navBar {
-  height: 75px;
+header {
+  position: sticky;
+  top: 0;
   background-color: #1d1a39;
+}
+
+.headerTop {
+  width: 80%;
+  margin: 0 auto;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  min-height: 4rem;
+  padding: 10px 0;
+}
+
+.headerTop .headerTopLeft {
+  color: #fff;
+}
+
+.headerBottom {
+  background-color: #fff;
+  border-bottom: 1px solid #dadada;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+  min-height: 4rem;
+}
+
+.headerBottom a {
+  color: #4522ac;
+}
+
+.headerBottom a:hover {
+  color: #4522ac;
+}
+
+/* .navBar {
+  padding: 15px 0;
+  background-color: #1d1a39;
+=======
+.navBar {
+  padding: 25px 0;
+  /* background-color: #1d1a39; */
+/* background-color: #38079b;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
+
+  width: 100%; */
+
+/* --------------------------------------- Header */
+
+header {
   width: 100%;
+  background-color: #3b1b7b;
+  position: sticky;
+  top: 0;
   z-index: 1000;
-  margin-bottom: 40px;
+  min-height: 5rem;
+}
+
+.navBar {
+  margin: 0 auto;
+  padding: 25px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 30px;
 }
 
 .navBar p {
@@ -24,87 +88,102 @@
   color: rgb(181, 145, 232);
 }
 
-.dropbox{
-  gap: 4px;
-  display: grid;
-  width: fit-content;
-  grid-template-columns: 1fr 1fr;
+/* --------------------------------------- navBarLeft */
+
+.logo {
+  color: white;
+  text-decoration: none;
 }
 
-.avatar {
-  width: fit-content;
-  display: grid;
-  gap: 25px;
-  grid-template-columns: 1fr 1fr;
-}
+/* --------------------------------------- navBarRight */
 
-.navContainer {
-  width: 100%;
-  margin: 0 1em;
-  padding: 8px;
+.navBar .navBarRight {
   display: flex;
-  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- RoomIcons ---- */
+
+.roomIcons {
+  display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1024px;
-  background-color: #1d1a39;
-  color: white;
-  display: flex;
-  flex: 0 0 auto;
+  gap: 5px;
 }
-.navContainer .logo {
-  color: white;
-  text-decoration: none;
-}
-.navItems > * {
-  padding: 0.75rem;
-  margin: 0 0.5em;
+
+.roomIcons p {
   color: #fff;
-  text-decoration: none;
-}
-.navItems {
-  display: flex;
-  justify-items: center;
-  align-items: center;
 }
 
-.navSeparator {
-  width: 1%;
-  flex: 1 1 auto;
+.roomIcons a {
+  display: contents;
 }
+
+/* ---- Login ----- */
 
 .navContainer .logo {
-  /* font-weight: 500;*/
   flex: 0 0 auto;
   padding: 0 !important;
   height: auto !important;
   margin: 0;
 }
 
-.btnLogin {
+.navBarRight .btnLogin {
+  margin-left: 10px;
+  border: 1px solid #fff;
   background-color: #ffffff;
   color: #2b124c;
   flex: 0 0 auto;
   height: max-content;
-  margin: 0 1.2em;
-  padding: 0.5px;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
+  font-weight: 600;
 }
-.btnLogin > p {
-  margin: 0;
-  padding: 0.2em 0.5em;
+
+.navBarRight .btnLogin p:hover {
+  color: #fff;
 }
 
 .btnLogin:hover {
   color: rgb(181, 145, 232);
   background-color: #1d1a39;
+}
+
+.navBarRight .btnLogin:hover {
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+}
+
+/* ---- Dropbox ----- */
+
+.dropbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Avatar ----- */
+
+.avatar {
+  display: flex;
+  gap: 25px;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar span {
+  margin-left: -1rem;
+}
+
+.avatar .strong {
+  margin-right: -1.2rem;
 }

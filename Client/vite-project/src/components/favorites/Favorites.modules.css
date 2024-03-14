@@ -1,11 +1,29 @@
 .favorites-container {
-  max-width: 1200px;
   margin: 0 auto;
-  min-height: 800px;
-  max-height: fit-content;
   padding: 20px;
+  min-height: 100vh;
 }
 
+.favorites-container h1 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.favorites-cards-container {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.favorites-cards-container .card-container {
+  width: 650px;
+  margin: 0 auto;
+}
+
+/* 
 .favorites-grid {
   padding-top: 200px;
   display: grid;
@@ -30,4 +48,4 @@
   padding: 10px;
   text-align: center;
   margin: 0;
-}
+} */

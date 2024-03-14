@@ -37,7 +37,7 @@ const CardLanding: React.FC<CardProps> = ({ room }) => {
         <p className="cardLand-adress">Type: {description} </p>
         <Link to={`/detail/${_id}`} className="cardLand-link">
           <button onClick={onClick} className="cardLand-button">
-            𝐒𝐞𝐞 𝐃𝐞𝐭𝐚𝐢𝐥𝐬
+            See Details
           </button>
         </Link>
       </div>

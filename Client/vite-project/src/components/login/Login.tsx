@@ -50,33 +50,28 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    if (email && password) {
-      try {
-        if (!user.userData.isDisabled) {
-          await dispatch(authenticateUser(email, password));
-          // await signInWithEmailAndPassword(auth, email, password)
-          const localUser = {
-            message: user?.Message,
-            username: user?.userData?.username,
-            user_email: user?.userData?.user_email,
-            image: user?.userData?.image,
-            _id: user?.userData?._id,
-            role: user?.userData?.role,
-            permissions: user?.userData?.permissions,
-            isDisabled: user?.userData?.isDisabled,
-          };
+    // if (email && password) {
+    try {
+      const localUser = {
+        message: user?.Message,
+        username: user?.userData?.username,
+        user_email: user?.userData?.user_email,
+        image: user?.userData?.image,
+        _id: user?.userData?._id,
+        role: user?.userData?.role,
+        permissions: user?.userData?.permissions,
+      };
 
-          window.localStorage.setItem("user", JSON.stringify(localUser));
+      // await signInWithEmailAndPassword(auth, email, password);
+      await dispatch(authenticateUser(email, password));
+      window.localStorage.setItem("user", JSON.stringify(localUser));
 
-          window.location.href = "/";
-          navigate("/");
-        } else {
-          alert("Sorry, your user was disabled y admin");
-        }
-      } catch (error) {
-        console.error("Error during login:", error);
-      }
+      window.location.href = "/";
+      // navigate("/");
+    } catch (error) {
+      console.error("Error during login:", error);
     }
+    // }
   };
   // useEffect(() => {
   //   console.log("user login", user);
@@ -178,42 +173,42 @@ export const Login: React.FC<LoginProps> = ({ setTheUser, theUser }) => {
               You can also log in with your <strong>Google account</strong>
             </p>
 
-            {/* {user ? ( */}
-            <button
-              className="googleButton"
-              type="button"
-              onClick={handleGoogleLogin}
-            >
-              <img
-                className="estilo-profile"
-                src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
-                alt="Google logo"
-              />
-              <strong>Continue with Google</strong>
-            </button>
-            {/* ) : ( */}
-            {/* <div className="googleTime"> */}
-            {/* {user.provider === "password" && ( */}
-            {/* <button type="button" onClick={handleSignOut}>
+            {user ? (
+              <button
+                className="googleButton"
+                type="button"
+                onClick={handleGoogleLogin}
+              >
+                <img
+                  className="estilo-profile"
+                  src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
+                  alt="Google logo"
+                />
+                <strong>Continue with Google</strong>
+              </button>
+            ) : (
+              <div className="googleTime">
+                {/* {user.provider === "password" && ( */}
+                <button type="button" onClick={handleSignOut}>
                   Log out
-                </button> */}
-            {/* )} */}
-            {/* {user.provider === "google.com" && ( */}
-            {/* <button
+                </button>
+                {/* )} */}
+                {/* {user.provider === "google.com" && ( */}
+                <button
                   className="googleButton"
                   type="button"
                   onClick={handleSignOut}
-                > */}
-            {/* <img
+                >
+                  <img
                     className="estilo-profile"
                     src="https://res.cloudinary.com/dqh2illb5/image/upload/v1709152706/login/qledtqlcwqfmqlh9zhe4.png"
                     alt="Google logo"
                   />
                   Log out
-                </button> */}
-            {/* )} */}
-            {/* </div> */}
-            {/* )} */}
+                </button>
+                {/* )} */}
+              </div>
+            )}
             {/* {user && user.provider === "password" && ( */}
             {/* <p>
                 You have successfully connected with the email:{" "}

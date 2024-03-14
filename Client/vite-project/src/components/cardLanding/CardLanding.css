@@ -1,66 +1,44 @@
 .cardLandContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
-}
-
-.imgContainer {
-  display: flex;
+  border-radius: 10px;
 }
 
 .cardLand-image {
-  width: 250px;
-  height: 250px;
+  width: 100%;
   object-fit: cover;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+.imgContainer img {
+  height: 10rem;
+}
+
+.cardLand-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1; /* Ajustar flex a 1 para que ocupe todo el espacio disponible */
+  padding: 20px;
+  overflow: hidden; /* Ocultar cualquier desbordamiento de texto */
 }
 
 .cardLand-title {
-  display: flex;
-  text-align: left;
-  justify-content: left;
-  padding: 10px;
-  font-weight: 800;
-}
-
-.cardLand-adress {
-  display: flex;
-  text-align: left;
-  justify-content: left;
-  padding: 10px;
-}
-
-.cardLand-link {
-  display: flex;
-  align-items: right;
-  justify-content: right;
+  font-weight: 600;
+  color: #3B1B7B;
+  overflow: hidden; /* Ocultar el texto que se desborda */
+  text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para indicar que hay más texto */
+  white-space: nowrap; /* Impedir que el texto se divida en varias líneas */
 }
 
 .cardLand-button {
-  display: flex;
-  align-items: right;
-  justify-content: right;
-  padding: 10px;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  background-color: #2b124c;
+  border-radius: 5px;
+  padding: 10px 15px;
+  background-color: #3B1B7B;
   color: white;
   font-weight: 500;
   border: none;
   cursor: pointer;
+  margin: 0 auto;
 }

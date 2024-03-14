@@ -19,6 +19,7 @@ export type HotelAction =
 
   export type UserAction =
   | { type: 'GET_USERS'; payload: any}
+  | { type: 'GET_USER_BY_ID'; payload: any}
   | { type: 'GET_USER_NAME'; payload: any}
   | { type: 'GET_USER_BY_ID'; payload: any}
   | { type: 'DELETE_USER'; payload: any}
@@ -26,6 +27,7 @@ export type HotelAction =
   | { type: 'PATCH_USER'; payload:any}
   | { type: 'DISABLE_USER_BY_ID'; payload: any}
   | { type: 'AUTHENTICATE_USER'; payload: any}
+  | { type: 'DISABLE_USER_BY_ID'; payload: any}
   | { type: 'LOGOUT_USER'; payload: any}
 
   export const RESET = 'RESET'

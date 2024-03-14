@@ -2,9 +2,10 @@ footer {
   display: flex;
   justify-content: center;
   text-align: center;
+  margin-top: 60px;
   gap: 100px;
   padding: 70px;
-  background-color: #1d1a39;
+  background-color: #3b1b7b;;
   color: #fff;
   bottom: 0;
 }

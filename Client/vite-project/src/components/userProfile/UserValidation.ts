@@ -38,6 +38,4 @@ interface Error {
     }
   
     return errors;
-  };  
-    
-    
+  }; 

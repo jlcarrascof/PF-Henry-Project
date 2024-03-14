@@ -1,19 +1,23 @@
 /* CARD STYLE */
 
 .card-container {
-  width: 80%;
-  height: 250px;
+  width: 100%;
+  min-height: 200px;
   display: flex;
   flex-direction: row;
-  padding: 15px;
-  /* position: relative; */
-  border-radius: 50px;
+  border-radius: 10px;
   background: #e0e0e0;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  margin-block: 30px;
-  /* align-items: center; */
-  padding: 30px;
-  margin-left: 90px;
+  box-shadow: 0 10px 10px #bebebe;
+  border-radius: 10px;
+  max-height: 200px;
+}
+
+.card-image {
+  min-height: 100%;
+  max-width: 16rem;
+  object-fit: cover;
+  border-radius: 10px 0 0 10px;
+  flex: 1;
 }
 
 .card-text-container {
@@ -21,67 +25,59 @@
   margin-left: 15px;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
-  /* align-items: flex-start; */
+  flex: 3;
+  padding: 20px;
+  gap: 10px;
 }
 
-.card-title {
-  font-size: 2.2vw;
-  font-weight: bold;
-  margin-bottom: 5px;
-  margin-top: 0;
+.card-text-container h3 {
+  color: #38079b;
 }
 
 .card-price {
-  /* position: absolute; */
   bottom: 0px;
   right: 40px;
-  font-size: 1.6vw;
-  color: #2b124c;
-  font-weight: bolder;
-}
-
-.card-adress {
-  margin-bottom: 0px;
-  margin-top: -5px;
-  font-size: small;
-}
-
-.card-hotel-detail {
-  margin-bottom: 0px;
-  text-align: left;
-}
-
-.card-room-detail {
-  margin-bottom: 0px;
-}
-
-.card-image {
-  width: 40%;
-  max-height: 35vh;
-  object-fit: cover;
-  border-radius: 25px;
+  font-size: 1.2rem;
+  color: #38079b;
+  font-weight: bold;
 }
 
 .card-link .card-button {
-  margin-top: 150px;
-  padding: 16px;
-  background: linear-gradient(45deg, #190019, #2b124c);
+  padding: 10px 10px;
+  background-color: #3b1b7b;;
   color: #ffffff;
-  border: none;
-  border-radius: 20px;
+  border: 1px solid transparent;
+  border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
 }
 
 .card-link .card-button:hover {
-  background: linear-gradient(45deg, #2b124c, #190019);
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.3);
-  color: #fbe4d8;
+  background-color: transparent;
+  border: 1px solid #38079b;
+  color: #38079b;
+}
+
+.card-container {
+  position: relative;
+}
+
+.fav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 1px solid #5921c9;
+  position: absolute;
+  top: -1.3rem;
+  right: -1.3rem;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.fav-button:hover {
+  transform: scale(1.1);
 }

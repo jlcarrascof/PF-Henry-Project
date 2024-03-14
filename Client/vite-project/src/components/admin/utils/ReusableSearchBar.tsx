@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getDisabledHotels, propertySearch } from "../../../Redux/Actions/actions";
 import { useDispatch } from "react-redux";
+import "./reuseSearch.css"
 
 const ReusableSearchBar: React.FC = () => {
     const dispatch = useDispatch();
@@ -31,13 +32,15 @@ const ReusableSearchBar: React.FC = () => {
   
     return (
       <div className="searchContainer">
-        <input
-          placeholder="Where are we going?"
-          onChange={onChange}
-          value={input}
-        ></input>
-        <button onClick={onClickReset}>Reset</button>
-        <button onClick={onClick}>Search</button>
+        <div className="searchComponent">
+          <input
+            placeholder="Where are we going?"
+            onChange={onChange}
+            value={input}
+            ></input>
+          <button onClick={onClickReset}>Reset</button>
+          <button onClick={onClick}>Search</button>
+        </div>
       </div>
     );
   };

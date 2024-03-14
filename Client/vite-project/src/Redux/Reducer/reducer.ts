@@ -16,7 +16,7 @@ export interface State {
   totalResults: number;
   isAuthenticated: boolean;
   allUsers: any[];
-  user: any;
+  user: any[];
   post_hotel: any[];
   reservations: any[];
   confirmedReservations: any[];
@@ -39,7 +39,7 @@ const initialState: State = {
   totalResults: 0,
   isAuthenticated: false,
   allUsers: [],
-  user: null,
+  user: [],
   post_hotel: [],
   reservations: [],
   confirmedReservations: [],
@@ -57,14 +57,16 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "GET_USER_BY_ID":
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     case "DELETE_USER":
-      const updatedUsers = state.user.filter(user => user.id !== action.payload);
+      const updatedUsers = state.user.filter(
+        (user) => user.id !== action.payload
+      );
       return {
         ...state,
         allUsers: updatedUsers,
-      }
+      };
     case "GET_ROOMS":
       return {
         ...state,
@@ -90,10 +92,10 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         allAdminRooms: action.payload.rooms,
         allRoomsBackUp: action.payload.rooms,
       };
-      case "GET_USER_BY_ID":
+    case "GET_USER_BY_ID":
       return {
         ...state,
-        allUsers: action.payload
+        allUsers: action.payload,
       };
     case "GET_DISABLED_HOTELS":
       return {
@@ -169,7 +171,12 @@ const rootReducer = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         allUsers: [...state.allUsers, action.payload],
-        user: action.payload,
+        isAuthenticated: true,
+      };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        user: [...state.user, action.payload],
         isAuthenticated: true,
       };
     case "AUTHENTICATE_USER":
