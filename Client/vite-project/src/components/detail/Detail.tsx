@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { reserveRoom } from "../../Redux/Actions/actions";
 import { getRoomById } from "../../Redux/Actions/actions";
+import methods from '../../../images/Payment-Methods.jpg';
 // import ReviewForm from "../reviewForm/reviewForm";
+
 import { validateReservationForm } from "./validationReserva";
 import Types from "../mercadoPago/Pasarela/Types"; //!m
+
 import "./detail.css";
 import { Image, Badge, Descriptions, Slider } from "antd";
 import type { DescriptionsProps } from "antd";
@@ -129,7 +132,7 @@ const Detail: React.FC = () => {
       key: "8",
       label: "Online Payment methods",
       children: (
-        <img width={180} height={40} src="../../images/Payment-Methods.jpg" />
+        <img width={180} height={40} src= {methods} />
       ),
     },
     {

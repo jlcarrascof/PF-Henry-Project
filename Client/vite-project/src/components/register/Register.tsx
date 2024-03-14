@@ -345,21 +345,21 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!form.current) return;
+    // if (!form.current) return;
 
-    emailjs
-      .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
-        publicKey: "b645crolwMFi4MBSX",
-      })
-      .then(
-        () => {
-          console.log("SUCCESS!");
-          navigate("/login");
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
+    // emailjs
+    //   .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+    //     publicKey: "b645crolwMFi4MBSX",
+    //   })
+    //   .then(
+    //     () => {
+    //       console.log("SUCCESS!");
+    //       navigate("/login");
+    //     },
+    //     (error) => {
+    //       console.log("FAILED...", error.text);
+    //     }
+    //   );
     const formErrors = validation(formData);
     setErrors(formErrors);
 

@@ -125,14 +125,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  User,
   signOut,
-  UserCredential,
 } from "firebase/auth";
 import firebaseApp from "../login/firebaseConfig.tsx";
 
@@ -143,7 +136,8 @@ const options = [
   { name: "Your Favorites", location: "/favorites", role: "client" },
   { name: "Post hotel", location: "/register-hotel", role: "owner" },
   { name: "Post room", location: "/register-room", role: "owner" },
-  { name: "Dashboard", location: "/admin/hotels", role: "owner" },
+  { name: "Dashboard Hotels", location: "/admin/hotels", role: "owner" },
+  { name: "Dashboard users", location: "/admin/users", role: "owner" },
   { name: "My hotels", location: "/my-reservations", role: "owner" },
   { name: "My profile", location: "/userProfile", role: "client" },
   { name: "My profile", location: "/userProfile", role: "owner" },
@@ -158,7 +152,7 @@ export default function LongMenu() {
 
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  let user = window.localStorage.getItem("user");
+  let user: any = window.localStorage.getItem("user");
   if (user) {
     user = JSON.parse(user);
   }

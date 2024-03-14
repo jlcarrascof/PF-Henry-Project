@@ -16,6 +16,7 @@ import "./HotelDashboard.css"
 import { useDispatch } from 'react-redux';
 import { disableHotel, disableRoom, getDisabledHotels } from '../../../Redux/Actions/actions'
 
+
 export function createData(
     _id: string,
     Name: string,

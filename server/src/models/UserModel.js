@@ -29,6 +29,7 @@ const userSchema = new Schema({
   user_email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   image: { type: String, default: "" },
+  isDisabled: {type: Boolean, default: false},
   role: {
     type: String,
     enum: ["client", "owner"],
