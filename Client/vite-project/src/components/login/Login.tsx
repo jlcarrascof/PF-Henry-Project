@@ -65,10 +65,10 @@ export const Login: React.FC = () => {
     permissions: user?.userData?.permissions,
   };
   if (!Executed) {
-    localStorage.setItem("user", JSON.stringify(localUser));
+    window.localStorage.setItem("user2", JSON.stringify(user));
     Executed = true;
   }
-  window.localStorage.setItem("user2", JSON.stringify(user));
+  localStorage.setItem("user", JSON.stringify(localUser));
   
   console.log("LocalUser es:", localUser)
 
