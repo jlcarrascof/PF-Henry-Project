@@ -1,6 +1,6 @@
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { useState, useEffect } from 'react';
-import Types from './Types';
+import Types from './TypesPasarelaa';
 import './Pasarela.css';
 
 
@@ -10,7 +10,7 @@ PagoTotal: number = 0;
 
 let Executed = false;
 
-export const Pasarela: React.FC = () => {
+export const pasarela: React.FC = () => {
     const [MP, SetMP] = useState({
         ID: '',
         Success: false,
@@ -166,4 +166,4 @@ export const Pasarela: React.FC = () => {
     );
 }
 
-export default Pasarela;
+export default pasarela;

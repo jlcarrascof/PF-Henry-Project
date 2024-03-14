@@ -1,6 +1,6 @@
 import Login from "../login/Login";
 import "./MercadoPago.css";
-import Pasarela from "./Pasarela/Pasarela.tsx";
+import pasarela from "./Pasarela/Pasarela.tsx";
 
 const MercadoPago: React.FC = () => {
   const user = localStorage.getItem("user")
@@ -8,7 +8,7 @@ const MercadoPago: React.FC = () => {
     <>
     {user && user !== undefined ?
       <div className="MercadoContainer">
-      <Pasarela/> 
+      <pasarela/> 
       </div>
       : <div>
         <Login />
