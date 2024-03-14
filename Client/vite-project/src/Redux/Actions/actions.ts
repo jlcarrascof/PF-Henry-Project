@@ -405,12 +405,12 @@ export const updateUser = (id: string, updateData: any) => {
     }
   };
 }; */
-
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import {HotelAction, RESET, RoomAction, UserAction} from "./actions-types";
 import { User } from "firebase/auth";
+
 
 export interface Action {
   type: string;
@@ -483,7 +483,7 @@ export const disableUser = (id: string) => {
 export const deleteUsers = (id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-       await axios.delete(
+      await axios.delete(
         `http://localhost:3002/admin/users/${id}`
       );
       dispatch({
@@ -616,11 +616,27 @@ export const getFilteredRooms = (filters: any) => {
   };
 };
 
+// export const postReview = (roomId: string, reviewData: any) => {
+//   return async (dispatch: Dispatch<Action>) => {
+//       try {
+//           const res = await axios.post(`http://localhost:3002/rooms/${roomId}/reviews`, reviewData);
+//           dispatch({
+//               type: "POST_REVIEW",
+//               payload: res.data,
+//               roomId: roomId,
+//           });
+//           return res.data;
+//       } catch (error) {
+//           console.error('An error occurred while posting the review:', error);
+//       }
+//   };
+// };
+
 export const postReview = (roomId: string, reviewData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const res = await axios.post(
-        `http://localhost:3002/rooms/${roomId}/reviews`,
+        `/rooms/${roomId}/reviews`,
         reviewData
       );
       console.log("actions: payload de postReview:", res.data);
@@ -634,15 +650,19 @@ export const postReview = (roomId: string, reviewData: any) => {
     }
   };
 };
+
+
+
+
 export const updateUser = (id: string, updateData: any) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       const response = await axios.patch(`http://localhost:3002/users/${id}`, updateData)
-
       dispatch({
         type: "UPDATE_USER",
         payload: response.data
       })
+      return response.data;
     } catch(error) {
       console.log(error)
     }
@@ -653,16 +673,15 @@ export const resetFilters = () => ({
   type: RESET,
 });
 
-export const reserveRoom = (user_email: any, formData: any) => {
+export const reserveRoom = (user_email: any, formData: any) => {////////////////////////
   return async (dispatch: Dispatch<Action>) => {
     try {
       const res = await axios.post(
         `http://localhost:3002/users/reservations`,
-        { ...formData, user_email: user_email }
+        { ...formData, user_email: user_email } 
       );
       dispatch({
         type: "POST_RESERVATION",
-
         payload: res.data,
       });
     } catch (error) {
@@ -670,6 +689,7 @@ export const reserveRoom = (user_email: any, formData: any) => {
     }
   };
 };
+
 
 export const createHotels = (data: any) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
@@ -723,7 +743,6 @@ export const getConfirmedReservations = (userId: string) => {
     try {
       const res = await axios.get(
         `http://localhost:3002/users/${userId}/reservations/confirmed`
-
       );
       dispatch({
         type: "GET_CONFIRMED_RESERVATIONS",

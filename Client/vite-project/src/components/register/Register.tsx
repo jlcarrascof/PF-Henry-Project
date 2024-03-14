@@ -99,15 +99,18 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
       setIsRegistered(true);
       setFormData(initialFormData);
       setErrors({});
-      navigate("/login")
       setTimeout(() => {
         setIsRegistered(false);
       }, 2000); 
     } catch (error) {
       console.log("Error en el registro:", error);
     }
-
   };
+  
+  const handleClick = () => {
+    console.log("Se navegó desde el register")
+    navigate("/login")
+  }
 
   return (
     <div className="allRegister">
@@ -250,7 +253,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
             value={values.message}
           ></input>
 
-          <button className="register-button" type="submit">
+          <button className="register-button" type="submit" onClick={handleClick}>
             Register
           </button>
 

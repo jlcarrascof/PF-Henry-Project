@@ -35,4 +35,3 @@ const Cards: React.FC<CardsProps> = ({ allRooms, onAddFavorite, onRemoveFavorite
 };
 
 export default Cards;
-

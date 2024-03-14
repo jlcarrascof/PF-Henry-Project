@@ -205,4 +205,3 @@ const ReviewModal: React.FC<Props> = ({ roomId, onClose, onSubmitReview }) => {
 };
 
 export default ReviewModal;
-

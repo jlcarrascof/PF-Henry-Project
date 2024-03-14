@@ -4,12 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../Redux/Reducer/reducer";
 import { reserveRoom } from "../../Redux/Actions/actions";
 import { getRoomById } from "../../Redux/Actions/actions";
-import methods from '../../../images/Payment-Methods.jpg';
 // import ReviewForm from "../reviewForm/reviewForm";
-
 import { validateReservationForm } from "./validationReserva";
-import Types from "../mercadoPago/Pasarela/Types"; //!m
-
+import Types from "../mercadoPago/Pasarela/TypesPasarelaa"
 import "./detail.css";
 import { Image, Badge, Descriptions, Slider } from "antd";
 import type { DescriptionsProps } from "antd";
@@ -59,7 +56,6 @@ const Detail: React.FC = () => {
         const formDataWithRoomId = {
           ...formData,
           roomId: id,
-          userEmail: user.user_email,
           userEmail: user.user_email,
         };
 
@@ -127,9 +123,9 @@ const Detail: React.FC = () => {
     },
     {
       key: "6",
-      label: "Status",
+      label: "Address",
       span: 2,
-      children: <Badge status="processing" text="Available" />,
+      children: <Badge text={currentRoom?.address} />,
     },
     {
       key: "7",
@@ -140,13 +136,13 @@ const Detail: React.FC = () => {
       key: "8",
       label: "Online Payment methods",
       children: (
-        <img width={180} height={40} src= {methods} />
+        <img width={180} height={40} src="../../images/Payment-Methods.jpg"  />
       ),
     },
     {
       key: "9",
-      label: "Discount",
-      children: "No discounts available",
+      label: "Status",
+      children: <Badge status="processing" text="Available" />,
     },
     {
       key: "10",
@@ -224,9 +220,7 @@ const Detail: React.FC = () => {
             <ReviewForm roomId={id} />
           </div> */}
           <button onClick={handleReserveClick} className="reserva-button">
-
-            BOOK
-
+            RESERVE
           </button>
           {showForm && (
             <form onSubmit={handleFormSubmit}>
@@ -253,19 +247,8 @@ const Detail: React.FC = () => {
               {formErrors.endDate && (
                 <div className="error-message">{formErrors.endDate}</div>
               )}
-
-              <input
-                type="text"
-                placeholder="Descripción"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-              />
-              {formErrors.description && (
-                <div className="error-message">{formErrors.description}</div>
-              )}
-
+              
+                
               <button
                 onClick={Reservar}
                 type="submit"
@@ -305,18 +288,9 @@ const Detail: React.FC = () => {
                 {/* {currentRoom.review.map((review: any, index: number) => ( */}
                 {currentRoom.reviews.map((review: any, index: number) => (
                   <li key={index}>
-                    <p>
-                      <span className="purple">Description: </span>
-                      {review.description}
-                    </p>
-                    <p>
-                      <span className="purple">Score: </span>
-                      {review.score}
-                    </p>
-                    <p>
-                      <span className="purple">Date: </span>
-                      {review.date}
-                    </p>
+                    <p>Description: {review.description}</p>
+                    <p>Score: {review.score}</p>
+                    <p>Date: {review.date}</p>
                   </li>
                 ))}
               </ul>

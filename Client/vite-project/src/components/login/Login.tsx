@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
   signInWithPopup,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   User,
   signOut,
@@ -34,19 +35,21 @@ export const Login: React.FC = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-
-    console.log("Valor del estado antes del dispatch", user);
+  
+    console.log("Valor del estado antes del dispatch", user)
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+  
     try {
       await dispatch(authenticateUser(email, password));
       if(localUser && localUser !== undefined) {
         const lastVisitedPage = localStorage.getItem('lastVisitedPage');
         if (lastVisitedPage){
           navigate(lastVisitedPage)
+          window.location.reload();
         } else {
           navigate("/")
+          window.location.reload();
         }
       }
     } catch (error) {
@@ -65,9 +68,9 @@ export const Login: React.FC = () => {
     permissions: user?.userData?.permissions,
   };
   if (!Executed) {
-    window.localStorage.setItem("user2", JSON.stringify(user));
     Executed = true;
   }
+  localStorage.setItem("user2", JSON.stringify(user));
   localStorage.setItem("user", JSON.stringify(localUser));
   
   console.log("LocalUser es:", localUser)
@@ -77,12 +80,13 @@ export const Login: React.FC = () => {
     setIsModalOpen(true);
     try {
       const create = dispatch(createUser(userGoogle))
+      
       let existingUser = create?.error
-
       if (existingUser && existingUser !== undefined) {
-       await signInWithPopup(auth, provider);
-       console.log("Solucionado y logueado")
-      }
+        console.log("Solucionado y logueado")
+        await signInWithPopup(auth, provider);
+       }
+
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
@@ -108,15 +112,25 @@ export const Login: React.FC = () => {
   
       const user = result.user;
         const userGoogle = {
+          _id: user.uid,
           username: user.displayName,
           user_email: user.email,
           role: selectedRole,
           image: user.photoURL,
+          phone: user.phoneNumber || null,
+          profile: {
+            firstName: `${user.providerId} firstName`,
+            lastName: `${user.providerId} lastName`,
+            dateOfBirth: Date.now(),
+          },
+          isDisabled: false,
+          favorites: [],
+          reservation: []
         };
-      
+      console.log(user)
       localStorage.setItem("user", JSON.stringify(userGoogle));
-      navigate("/");
-      window.location.reload();
+      /* navigate("/");
+      window.location.reload(); */
 
     } catch (error) {
       console.log("Error handleOk")
@@ -136,9 +150,7 @@ export const Login: React.FC = () => {
     <>
       <div className="userFirebase">
         <div className="padreFirebase">
-          <h1>
-            Welcome to <span className="purple">Rentify!</span>
-          </h1>
+          <h1>Welcome to Rentify!</h1>
           <form onSubmit={firebaseAuthentication}>
             <label> Email: </label>
             <input
@@ -212,17 +224,6 @@ export const Login: React.FC = () => {
                 {/* )} */}
               </div>
             )}
-            {/* {user && user.provider === "password" && ( */}
-            {/* <p>
-                You have successfully connected with the email:{" "}
-                <b>{user.email}</b>
-              </p> */}
-            {/* )} */}
-            {/* {user && user.provider === "google.com" && ( */}
-            {/* <p>
-                User connected: <b>{user.displayName}</b>
-              </p> */}
-            {/* )} */}
             <Link to="/register">
               <p>Don't have an account? Sign up!</p>
             </Link>

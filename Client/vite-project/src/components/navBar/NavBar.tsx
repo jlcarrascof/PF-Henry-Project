@@ -55,7 +55,7 @@ const NavBar: React.FC = () => {
             <>
               <div className="dropbox">
                 <div className="avatar">
-                  <strong className="strong">Hi!</strong> {userData.username} !
+                  <strong className="strong">Hi </strong> {userData.username}!
                   {userData && (
                     <Avatar
                       alt=""

@@ -57,54 +57,51 @@ const rootReducer = (state: State = initialState, action: Action): State => {
     case "GET_USER_BY_ID":
       return {
         ...state,
-        user: action.payload,
-      };
+        user: action.payload
+      }
     case "DELETE_USER":
-      const updatedUsers = state.user.filter(
-        (user) => user.id !== action.payload
-      );
+      const updatedUsers = state.user.filter(user => user.id !== action.payload);
       return {
         ...state,
         allUsers: updatedUsers,
-      };
-    case "GET_ROOMS":
-      return {
-        ...state,
-        allRooms: action.payload.rooms,
-        allRoomsBackUp: action.payload.rooms,
-        currentPage: action.payload.currentPage,
-        totalPages: action.payload.totalPages,
-        totalResults: action.payload.totalResults,
-      };
-    case "GET_ROOMS_BY_ID":
-      return {
-        ...state,
-        currentRoom: action.payload,
-      };
-    case "GET_ROOMS_BY_NAME":
-      return {
-        ...state,
-        currentRoom: action.payload,
-      };
-    case "GET_DISABLED_ROOMS":
-      return {
-        ...state,
-        allAdminRooms: action.payload.rooms,
-        allRoomsBackUp: action.payload.rooms,
-      };
-
-    case "GET_DISABLED_HOTELS":
-      return {
-        ...state,
-        allAdminHotels: action.payload.hotels,
-        allHotelsBackUp: action.payload.hotels,
-        totalResults: action.payload.totalResults,
-      };
-    case "GET_MIXED_SEARCH":
-      return {
-        ...state,
-        allAdminHotels: action.payload.result,
-      };
+      }
+      case "GET_ROOMS":
+        return {
+          ...state,
+          allRooms: action.payload.rooms,
+          allRoomsBackUp: action.payload.rooms,
+          currentPage: action.payload.currentPage,
+          totalPages: action.payload.totalPages,
+          totalResults: action.payload.totalResults,
+        };
+      case "GET_ROOMS_BY_ID":
+        return {
+          ...state,
+          currentRoom: action.payload,
+        };
+      case "GET_ROOMS_BY_NAME":
+        return {
+          ...state,
+          currentRoom: action.payload,
+        };
+      case "GET_DISABLED_ROOMS":
+        return {
+          ...state,
+          allAdminRooms: action.payload.rooms,
+          allRoomsBackUp: action.payload.rooms,
+        };
+      case "GET_DISABLED_HOTELS":
+        return {
+          ...state,
+          allAdminHotels: action.payload.hotels,
+          allHotelsBackUp: action.payload.hotels,
+          totalResults: action.payload.totalResults,
+        };
+      case "GET_MIXED_SEARCH":
+        return {
+          ...state,
+          allAdminHotels: action.payload.result,
+        };
     case "DISABLE_HOTEL_BY_ID":
       return {
         ...state,
@@ -125,16 +122,16 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         totalPages: action.payload.totalPages,
         totalResults: action.payload.totalResults,
       };
-    case "POST_REVIEW":
-      if (action.payload.roomId === state.currentRoom?.id) {
-        return {
+      case "POST_REVIEW":
+        if (action.payload.roomId === state.currentRoom?.id) {
+      return {
           ...state,
           currentRoom: {
-            ...state.currentRoom,
-            reviews: [...state.currentRoom.reviews, action.payload],
+              ...state.currentRoom,
+              reviews: [...state.currentRoom.reviews, action.payload],
           },
-        };
-      }
+      };
+  }
     case "RESET":
       return {
         ...state,
@@ -150,13 +147,13 @@ const rootReducer = (state: State = initialState, action: Action): State => {
           return {
             ...state,
             reservations: [...state.reservations, action.payload.reservation],
-          };
+          };  
     
-        case "GET_RESERVATIONS":
-          return {
-            ...state,
-            reservations: action.payload,
-          };
+          case "GET_RESERVATIONS":
+            return {
+              ...state,
+              reservations: action.payload,
+            };
 
     case "DELETE_RESERVATION":
       return {
@@ -202,31 +199,30 @@ const rootReducer = (state: State = initialState, action: Action): State => {
           confirmedReservations: action.payload,
         };
 
-    case "GET_FAVORITE_ROOMS":
-      return {
-        ...state,
-        favoriteRooms: action.payload,
-      };
+        case "GET_FAVORITE_ROOMS":
+          return {
+            ...state,
+            favoriteRooms: action.payload,
+          };
 
-    case "ADD_FAVORITE_ROOM":
-      return {
-        ...state,
-        favoriteRooms: [...state.favoriteRooms, action.payload],
-        fav: true,
-      };
+          case "ADD_FAVORITE_ROOM":
+            return {
+              ...state,
+              favoriteRooms: [...state.favoriteRooms, action.payload],
+              fav: true,
+            };
 
-    case "REMOVE_FAVORITE_ROOM":
-      return {
-        ...state,
-        favoriteRooms: state.favoriteRooms.filter(
-          (roomId) => roomId !== action.payload
-        ),
-        fav: false,
-      };
+            case "REMOVE_FAVORITE_ROOM":
+              return {
+                ...state,
+                favoriteRooms: state.favoriteRooms.filter(
+                  (roomId) => roomId !== action.payload
+                ),
+                fav: false,
+              };
 
     default:
       return state;
   }
 };
 export default rootReducer;
-

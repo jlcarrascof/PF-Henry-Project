@@ -53,8 +53,6 @@ const FavoritesRoom: React.FC = () => {
 export default FavoritesRoom;
 
 
-
-
 // import React, { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { State } from "../../Redux/Reducer/reducer";

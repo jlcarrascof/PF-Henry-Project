@@ -129,7 +129,7 @@ const patchUser = async (req, res) => {
 };
 
 
-const createReservation = async (req, res) => { //////////
+const createReservation = async (req, res) => { 
   try {
     let db = getDb();
     const { user_email } = req.body;
@@ -164,7 +164,6 @@ const createReservation = async (req, res) => { //////////
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const deleteReservation = async (req, res) => {
   try {
@@ -231,8 +230,7 @@ const getConfirmedReservations = async (req, res) => {
 
     const confirmedReservations = user.reservation.filter(
       (reservation) =>
-        reservation.state === "confirmed" &&
-        reservation.billing_status === "Accepted"
+        reservation.billing_status === "approved"
     );
 
     console.log("reserva en handler: ", confirmedReservations)
@@ -242,7 +240,6 @@ const getConfirmedReservations = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 const getFavoriteRooms = async (req, res) => {
   try {

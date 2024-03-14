@@ -244,7 +244,7 @@ const ReviewForm: React.FC<Props> = ({ roomId }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(postReview(roomId, review));
-    //   if (!form.current) return;
+    if (!form.current) return;
 
     emailjs
       .sendForm("service_owcj3ui", "template_0yv2m0n", form.current, {

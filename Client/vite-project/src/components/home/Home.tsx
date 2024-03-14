@@ -22,6 +22,7 @@ const Home: React.FC = () => {
   //const user = useSelector((state: State) => state.user);
 
   const { user_email: identifier } = JSON.parse(window.localStorage.getItem("user") || "{}")
+  const user = JSON.parse(window.localStorage.getItem("user") || "{}")
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -105,7 +106,6 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
 
 
 
