@@ -584,7 +584,7 @@ export const resetFilters = () => ({
   type: RESET,
 });
 
-export const reserveRoom = (user_email: any, formData: any) => {
+export const reserveRoom = (user_email: any, formData: any) => {////////////////////////
   return async (dispatch: Dispatch<Action>) => {
     try {
       const res = await axios.post(
@@ -600,6 +600,7 @@ export const reserveRoom = (user_email: any, formData: any) => {
     }
   };
 };
+
 
 
 export const createHotels = (data: any) => {

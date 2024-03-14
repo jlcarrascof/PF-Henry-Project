@@ -287,17 +287,13 @@ const postReview = async (req, res) => {
       return res.status(404).send({ error: "No es un ObjectId valido" });
     }
 
-      //const { error } = reviewSchema.validate(req.body);
-
-      // if (error) {
-      //     return res.status(400).json({ error: error.details[0].message });
-      // }
-
       const newReview = req.body; 
+
+      console.log("Reseña que se crea: ", newReview)
       const result = await db
         .collection("rooms")
         .updateOne({ _id: new ObjectId(id) }, {
-          $push: {review: newReview},
+          $push: {reviews: newReview},
           $set: {
             totalScore: {
               $avg: "reviews.score"

@@ -16,7 +16,7 @@ import FormRoom from "./components/FormRegisterProperty/FormRoom/FormRoom";
 import MyReservations from "./components/Reservations/MyReservations";
 import HotelDashboard from "./components/admin/HotelsDashboard/hotelDashboard";
 import FavoritesRoom from "./components/favorites/FavoritesRooms";
-import UserDashboard from "./components/admin/UserDashboard/UserDashboard";
+import UserDashboard from "./components/admin/UserDashboard/userDashboard";
 import UserProfile from "./components/userProfile/UserProfile";
 import SideBar from "./components/admin/utils/sideBar";
 import MercadoPago from "./components/mercadoPago/MercadoPago";
