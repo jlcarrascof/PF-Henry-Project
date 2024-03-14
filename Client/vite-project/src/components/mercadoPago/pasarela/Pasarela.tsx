@@ -16,7 +16,7 @@ PagoTotal: number = 0;
 
 let Executed = false;
 
-const Pasarela: React.FC = () => {
+export const Pasarela: React.FC = () => {
     const [MP, SetMP] = useState({
         ID: '',
         Succsess: false,

@@ -89,7 +89,6 @@ const Detail: React.FC = () => {
   }
 
   const items: DescriptionsProps["items"] = [
-
     {
       key: "1",
       label: "Type of Room",
@@ -255,14 +254,12 @@ const Detail: React.FC = () => {
                 <div className="error-message">{formErrors.description}</div>
               )}
 
-
               <button
                 onClick={Reservar}
                 type="submit"
                 className="reserva-button"
               >
                 Confirmar Reserva
-
               </button>
             </form>
           )}
