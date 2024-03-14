@@ -20,7 +20,7 @@ const Pay = new PayPal({
 });
 
 /**
- * @type {Map<string, Array<{
+ * @type {Map<string, <Array{
  *      id: string,
  *      description: string,
  *      title: string,
@@ -254,7 +254,7 @@ const PayPalOrder = async (req, rs) => {
     });
   }
 };
-
+// Gracias Dieguito // dnd
 const PayPalCapture = async (rq, rs) => {
   const Token = rq.query.token;
   const DataID = rq.url.replace(/(?:\?.+)|(?:\/paypal-capture\/)/gi, "");
@@ -271,7 +271,18 @@ const PayPalCapture = async (rq, rs) => {
   const PayType = "PayPal";
   const PayStatus = OrderData.status == "COMPLETED" ? "approved" : "refused";
   SaveTransaction(DataID, PayID, PayType, PayStatus);
-  console.log(OrderData);
+  /*
+  {
+    id: '65edf6c0431b1bfd670c9202',
+    description: undefined,
+    title: 'Eiffel Tower View Hotel',
+    unit_price: 300,
+    currency_id: 'COP',
+    quantity: 255305
+  }
+  */
+  
+  console.log("Data",PaymentData.get(DataID));
   rs.send(SuccesFile());
 };
 

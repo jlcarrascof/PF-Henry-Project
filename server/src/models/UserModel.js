@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const reservationSchema = new Schema({
-  user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  user_email: { type: String, required: true },
+  //user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
   billing_id: { type: String, required: true },
   billing_status: {
     type: String,
