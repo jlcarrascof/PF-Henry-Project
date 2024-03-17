@@ -125,7 +125,7 @@ const Detail: React.FC = () => {
     {
       key: "5",
       label: "Phone Contact",
-      children: currentRoom?.contact.phone,
+      children: currentRoom?.contact?.phone || "no number",
     },
     {
       key: "6",
@@ -136,7 +136,7 @@ const Detail: React.FC = () => {
     {
       key: "7",
       label: "Contact Mail",
-      children: currentRoom?.contact.mail,
+      children: currentRoom?.contact?.mail,
     },
     {
       key: "8",
@@ -318,3 +318,7 @@ const Detail: React.FC = () => {
 };
 
 export default Detail;
+
+
+
+
