@@ -6,9 +6,9 @@ import { reserveRoom } from "../../Redux/Actions/actions";
 import { getRoomById } from "../../Redux/Actions/actions";
 // import ReviewForm from "../reviewForm/reviewForm";
 import { validateReservationForm } from "./validationReserva";
-import Types from "../mercadoPago/Pasarela/Types"; //!m
+import Types from "../mercadoPago/Pasarela/TypesPasarelaa"
 import "./detail.css";
-import { Image, Badge, Descriptions, Slider } from "antd";
+import { Image, Badge, Descriptions, Slider, DatePicker } from "antd";
 import type { DescriptionsProps } from "antd";
 //Para el mapita -->
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -28,12 +28,18 @@ const Detail: React.FC = () => {
     }
   }, [dispatch, id]);
 
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
+  interface FormDataa {
+    startDate: any
+    endDate: any;
+  }
+
+  const formDataa : React.Fc<DataProps> = {
     startDate: "",
     endDate: "",
-    description: "",
-  });
+  }
+
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState(formDataa);
 
   const [formErrors, setFormErrors] = useState<any>({});
 
@@ -76,8 +82,8 @@ const Detail: React.FC = () => {
   };
 
   function Reservar() {
-    const Start = new Date(formData.startDate);
-    const End = new Date(formData.endDate);
+    const Start : any = new Date(formData.startDate);
+    const End : any = new Date(formData.endDate);
     const DiffMS = End.getTime() - Start.getTime();
     const msPd = 1000 * 60 * 60 * 24;
     const Dias = DiffMS / msPd;
@@ -123,9 +129,9 @@ const Detail: React.FC = () => {
     },
     {
       key: "6",
-      label: "Status",
+      label: "Address",
       span: 2,
-      children: <Badge status="processing" text="Available" />,
+      children: currentRoom?.address,
     },
     {
       key: "7",
@@ -136,13 +142,13 @@ const Detail: React.FC = () => {
       key: "8",
       label: "Online Payment methods",
       children: (
-        <img width={180} height={40} src="../../images/Payment-Methods.jpg" />
+        <img width={180} height={40} src="../../images/Payment-Methods.jpg"  />
       ),
     },
     {
       key: "9",
-      label: "Discount",
-      children: "No discounts available",
+      label: "Status",
+      children: <Badge status="processing" text="Available" />,
     },
     {
       key: "10",
@@ -220,11 +226,19 @@ const Detail: React.FC = () => {
             <ReviewForm roomId={id} />
           </div> */}
           <button onClick={handleReserveClick} className="reserva-button">
-            RESERVE
+            BOOK
           </button>
           {showForm && (
             <form onSubmit={handleFormSubmit}>
-              <input
+              <DatePicker.RangePicker
+                placeholder={['', 'Till Now']}
+                allowEmpty={[false, false]}
+                onChange={(date, dateString) => {
+                  console.log(dateString[0], "separado", dateString[1]);
+                  setFormData({ ...formData, startDate: dateString[0], endDate: dateString[1] })
+                }}
+              />
+              {/* <input
                 type="date"
                 placeholder="Fecha de inicio"
                 value={formData.startDate}
@@ -243,7 +257,7 @@ const Detail: React.FC = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, endDate: e.target.value })
                 }
-              />
+              /> */}
               {formErrors.endDate && (
                 <div className="error-message">{formErrors.endDate}</div>
               )}
@@ -255,7 +269,7 @@ const Detail: React.FC = () => {
                 className="reserva-button"
                 disabled={Object.keys(formErrors).length !== 0}
               >
-                Confirm reservation
+                Confirm Booking
               </button>
             </form>
           )}

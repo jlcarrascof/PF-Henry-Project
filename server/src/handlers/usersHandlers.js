@@ -230,8 +230,7 @@ const getConfirmedReservations = async (req, res) => {
 
     const confirmedReservations = user.reservation.filter(
       (reservation) =>
-        reservation.state === "confirmed" &&
-        reservation.billing_status === "Accepted"
+        reservation.billing_status === "approved"
     );
 
     console.log("reserva en handler: ", confirmedReservations)

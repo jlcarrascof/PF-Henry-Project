@@ -20,9 +20,6 @@ const UserDisplay = (initialuser: any) => (
       <strong>Email:</strong> {initialuser?.email}
     </p>
     <p>
-      <strong>Password:</strong> {initialuser?.password}
-    </p>
-    <p>
       <strong>Phone:</strong> {initialuser?.phoneNumber}
     </p>
   </>
@@ -97,7 +94,7 @@ const UserEdit = ({ user, handleChange, errors }) => (
 );
 
 let DataToSend: {[key: string]: string | number | {[key:string]:string}} = {};
-let UsuarioI;
+let UsuarioI : any;
 
 
 const UserProfile = () => {
@@ -182,6 +179,7 @@ const UserProfile = () => {
           _id: newUser?._id,
           role: newUser?.role,
           permissions: newUser?.permissions,
+          password: newUser?.password
         };
 
          localStorage.setItem("user", JSON.stringify(localUser))

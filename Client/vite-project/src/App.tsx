@@ -1,5 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 // ? -----------------------------------------------------COMPONENTS
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
@@ -23,6 +22,7 @@ import UserDashboard from "./components/admin/UserDashboard/userDashboard";
 
 // ? -----------------------------------------------------STYLES
 import "./App.css";
+import RoomDashboard from "./components/admin/RoomDashboard/roomDashboard";
 
 
 function App() {
@@ -48,6 +48,7 @@ function App() {
         <Route path="/register-room" element={<FormRoom />} />
         <Route path="/cloudinary" element={<Cloudinary />} />
         <Route path="/admin/hotels" element={<HotelDashboard />} />
+        <Route path="/admin/rooms" element={<RoomDashboard />} />
         <Route path="/admin/users" element={<UserDashboard />} />
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/admin" element={<SideBar />} />

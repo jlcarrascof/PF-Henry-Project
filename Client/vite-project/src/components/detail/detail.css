@@ -85,7 +85,7 @@
 .reserva-button {
   align-self: center;
   width:fit-content;
-  margin-top: 45px;
+  margin: 45px;
   padding: 20px;
   border-radius: 30px;
   -webkit-border-radius: 20px;
@@ -105,4 +105,27 @@
   transform: scale(1.1);
   background: linear-gradient(45deg, #461d46, #694b8d);
   color: #ffffff;
+}
+
+.reviews {
+  background-color: #fff;
+  padding: 15px;
+  margin: 70px 0;
+  border-radius: 5px;
+  box-shadow: 7px 7px 13px #bebebe;
+}
+
+.reviews h3 {
+  color: #38079b;
+  margin-bottom: 15px;
+}
+
+.reviews ul {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.reviews span {
+  font-weight: 600;
 }

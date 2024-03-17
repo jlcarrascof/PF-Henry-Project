@@ -44,9 +44,9 @@ export const Login: React.FC = () => {
       if(localUser && localUser !== undefined) {
         const lastVisitedPage = localStorage.getItem('lastVisitedPage');
         if (lastVisitedPage){
-          navigate(lastVisitedPage)
+          window.location.href = lastVisitedPage
         } else {
-          navigate("/")
+          window.location.href = "/"
         }
       }
     } catch (error) {
@@ -54,7 +54,6 @@ export const Login: React.FC = () => {
     }
   };
   const localUser = {
-    message: user?.Message,
     username: user?.userData?.username,
     user_email: user?.userData?.user_email,
     profile: user?.userData?.profile,
@@ -63,6 +62,7 @@ export const Login: React.FC = () => {
     _id: user?.userData?._id,
     role: user?.userData?.role,
     permissions: user?.userData?.permissions,
+    password: user?.userData?.password
   };
   if (!Executed) {
     window.localStorage.setItem("user2", JSON.stringify(user));
@@ -161,13 +161,7 @@ export const Login: React.FC = () => {
             </button>
           </form>
           <div className="estilos-google">
-            {/* <p>
-              {" "}
-              {registration ? "Already have an account?" : ""}
-              <button onClick={() => setRegistration(!registration)}>
-                {registration ? "Log in" : ""}
-              </button>
-            </p> */}
+
           </div>
           <div className="card-body">
             <p>
@@ -210,25 +204,12 @@ export const Login: React.FC = () => {
                 {/* )} */}
               </div>
             )}
-            {/* {user && user.provider === "password" && ( */}
-            {/* <p>
-                You have successfully connected with the email:{" "}
-                <b>{user.email}</b>
-              </p> */}
-            {/* )} */}
-            {/* {user && user.provider === "google.com" && ( */}
-            {/* <p>
-                User connected: <b>{user.displayName}</b>
-              </p> */}
-            {/* )} */}
             <Link to="/register">
               <p>Don't have an account? Sign up!</p>
             </Link>
           </div>
         </div>
       </div>
-
-      {/* {user && <Register />} */}
 
       <Modal
         title="Select Role"

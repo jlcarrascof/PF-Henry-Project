@@ -623,7 +623,7 @@ export const getReservations = (userEmail: string) => {
 
       dispatch({
         type: "GET_RESERVATIONS",
-        payload: res.data,
+        payload: res,
       });
     } catch (error) {
       console.error("An error occurred while getting reservations:", error);

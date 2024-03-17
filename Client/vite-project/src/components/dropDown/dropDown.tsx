@@ -52,7 +52,7 @@ export default function LongMenu() {
   const handleItemClose = async (option_name) => {
     if (option_name === "Log Out") {
       await handleSignOut();
-      navigate("/");
+      window.location.href = "/";
     }
     setAnchorEl(null);
   };
