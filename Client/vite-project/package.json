@@ -33,7 +33,6 @@
     "firebase": "^10.8.1",
     "leaflet": "^1.9.4",
     "mercadopago": "^2.0.8",
-    "mercadopago": "^2.0.8",
     "react": "^18.2.0",
     "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "^18.2.0",

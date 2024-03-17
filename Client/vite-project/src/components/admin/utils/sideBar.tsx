@@ -6,8 +6,9 @@ import {
   SettingOutlined,
   HddOutlined,
   UsergroupDeleteOutlined,
-  FileAddOutlined,
-  FolderAddOutlined,
+  // FileAddOutlined,
+  // FolderAddOutlined,
+  PlusSquareOutlined,
 } from '@ant-design/icons';
 import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
 import UserProfile from '../../userProfile/UserProfile';
@@ -65,12 +66,14 @@ const SideBar: React.FC = () => {
             },
             {
               key: '4',
-              icon: <FolderAddOutlined />,
+              // icon: <FolderAddOutlined />,
+              icon: <PlusSquareOutlined />,
               label: 'Post Hotels',
             },
             {
               key: '5',
-              icon: <FileAddOutlined />,
+              // icon: <FileAddOutlined />,
+              icon: <PlusSquareOutlined />,
               label: 'Post Rooms',
             },
             {
