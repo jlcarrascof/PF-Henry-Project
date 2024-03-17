@@ -219,6 +219,12 @@ const rootReducer = (state: State = initialState, action: Action): State => {
         fav: false,
       };
 
+      case "POST_ROOM":
+        return {
+          ...state,
+          allRooms: [...state.allRooms, action.payload],
+        };
+
     default:
       return state;
   }

@@ -713,3 +713,24 @@ export const removeFavoriteRoom = (identifier: string, roomId: string) => {
     }
   };
 };
+
+
+export const postRoom = (roomData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post("http://localhost:3002/rooms/", roomData);
+      dispatch({
+        type: "POST_ROOM",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error al crear la habitación:", error);
+    }
+  };
+};
+
+
+
+
+
+

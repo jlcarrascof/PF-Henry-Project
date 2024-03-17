@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Cloudinary from "../../cloudinary/Cloudinary.tsx";
 import { roomValidation } from "./RoomValidation.ts";
 import "./FormRoom.css";
+import { postRoom } from "../../../Redux/Actions/actions.ts";
 
 interface FormRoomData {
   description: string;
@@ -12,7 +13,7 @@ interface FormRoomData {
   price: number;
   num_rooms: number;
   images: File[];
-  latitude: number; 
+  latitude: number;
   longitude: number;
 }
 
@@ -23,8 +24,8 @@ interface RoomError {
   price?: string;
   num_rooms?: string;
   images?: string;
-  latitude: 0, 
-  longitude: 0,
+  latitude: 0;
+  longitude: 0;
 }
 
 const FormRoom = (/*{ onSubmit }*/) => {
@@ -131,7 +132,9 @@ const FormRoom = (/*{ onSubmit }*/) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Añade el mensaje al cuerpo del documento
+    try{ 
+    dispatch(postRoom(formData));
+
     setFormData({
       description: "",
       typeOfRoom: "",
@@ -144,11 +147,19 @@ const FormRoom = (/*{ onSubmit }*/) => {
     });
     window.localStorage.removeItem("form-roomdata");
     navigate("/home");
+    
+  }catch(error){
+    console.log("Error crear room")
+  }
   };
 
   return (
     <div className="allFormRoom">
       <div className="form-rooms-container">
+        <h1>
+          Post your <span className="purple">room!</span>
+        </h1>
+
         <form onSubmit={handleSubmit}>
           <label>
             Description:
@@ -218,25 +229,24 @@ const FormRoom = (/*{ onSubmit }*/) => {
           </label>
 
           <label>
-          Latitude:
-          <input
-            type="number"
-            name="latitude"
-            value={formData.latitude || ""}
-            onChange={handleInputChange}
-          />
-        </label>
+            Latitude:
+            <input
+              type="number"
+              name="latitude"
+              value={formData.latitude || ""}
+              onChange={handleInputChange}
+            />
+          </label>
 
-        <label>
-          Longitude:
-          <input
-            type="text"
-            name="longitude"
-            value={formData.longitude || ""}
-            onChange={handleInputChange}
-          />
-        </label>
-
+          <label>
+            Longitude:
+            <input
+              type="text"
+              name="longitude"
+              value={formData.longitude || ""}
+              onChange={handleInputChange}
+            />
+          </label>
 
           {/* Nuevo componente de Cloudinary */}
           <Cloudinary onImageChange={handleImageChange} />
@@ -251,3 +261,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
 };
 
 export default FormRoom;
+
+
+
+
