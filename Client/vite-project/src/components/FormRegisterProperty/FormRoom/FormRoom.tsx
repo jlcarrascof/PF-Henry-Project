@@ -13,8 +13,10 @@ interface FormRoomData {
   price: number;
   num_rooms: number;
   images: File[];
-  latitude: number;
-  longitude: number;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
 interface RoomError {
@@ -24,11 +26,10 @@ interface RoomError {
   price?: string;
   num_rooms?: string;
   images?: string;
-  latitude: 0;
-  longitude: 0;
+  location?: string;
 }
 
-const FormRoom = (/*{ onSubmit }*/) => {
+const FormRoom = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormRoomData>({
@@ -38,6 +39,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
     price: 0,
     num_rooms: 0,
     images: [],
+    location: { latitude: 0, longitude: 0 },
   });
 
   const [error, setError] = useState<RoomError>({
@@ -47,6 +49,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
     price: "",
     num_rooms: "",
     images: "",
+    location: "",
   });
 
   useEffect(() => {
@@ -54,7 +57,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
     if (storageData !== null) {
       const parsedData = JSON.parse(storageData);
       setFormData(parsedData);
-      const formErrors = roomValidation(formData);
+      const formErrors = roomValidation(parsedData);
       setError(formErrors);
     }
   }, []);
@@ -70,8 +73,6 @@ const FormRoom = (/*{ onSubmit }*/) => {
       ...formData,
       [event.target.name]: event.target.value,
     });
-
-    window.localStorage.setItem("form-roomdata", JSON.stringify(formData));
   };
 
   const handleServicesChange = (
@@ -85,7 +86,6 @@ const FormRoom = (/*{ onSubmit }*/) => {
       ...formData,
       services,
     });
-    window.localStorage.setItem("form-roomdata", JSON.stringify(formData));
   };
 
   const handleServiceRemove = (service: string) => {
@@ -94,6 +94,7 @@ const FormRoom = (/*{ onSubmit }*/) => {
       services: formData.services.filter((s) => s !== service),
     });
   };
+
   const services = [
     "Wifi",
     "Spa",
@@ -105,52 +106,48 @@ const FormRoom = (/*{ onSubmit }*/) => {
     "Gym",
     "Game room",
   ];
-  // const handleRoomsChange = (index: number) => (
-  //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   const rooms = [...formData.rooms];
-  //   rooms[index] = {
-  //     ...rooms[index],
-  //     [event.target.name]: event.target.value,
-  //   };
-  //   setFormData({
-  //     ...formData,
-  //     rooms,
-  //   });
-  //   window.localStorage.setItem("form-roomdata",JSON.stringify(formData))
-  // };
 
   const handleImageChange = (imageUrl: string) => {
     setFormData({
       ...formData,
       images: [...formData.images, imageUrl],
     });
-
-    window.localStorage.setItem("form-roomdata", JSON.stringify(formData));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLocationChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFormData({
+      ...formData,
+      location: {
+        ...formData.location,
+        [event.target.name]:
+          event.target.name === "latitude"
+            ? parseFloat(event.target.value)
+            : parseFloat(event.target.value),
+      },
+    });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try{ 
-    dispatch(postRoom(formData));
-
-    setFormData({
-      description: "",
-      typeOfRoom: "",
-      services: [],
-      price: 0,
-      images: [],
-      num_rooms: 0,
-      latitude: 0,
-      longitude: 0,
-    });
-    window.localStorage.removeItem("form-roomdata");
-    navigate("/home");
-    
-  }catch(error){
-    console.log("Error crear room")
-  }
+    try {
+      await dispatch(postRoom(formData));
+      setFormData({
+        description: "",
+        typeOfRoom: "",
+        services: [],
+        price: 0,
+        images: [],
+        num_rooms: 0,
+        location: { latitude: 0, longitude: 0 },
+      });
+      window.localStorage.removeItem("form-roomdata");
+      navigate("/home");
+    } catch (error) {
+      console.error("Error al crear la habitación:", error);
+    }
   };
 
   return (
@@ -233,8 +230,8 @@ const FormRoom = (/*{ onSubmit }*/) => {
             <input
               type="number"
               name="latitude"
-              value={formData.latitude || ""}
-              onChange={handleInputChange}
+              value={formData.location.latitude || ""}
+              onChange={handleLocationChange}
             />
           </label>
 
@@ -243,8 +240,8 @@ const FormRoom = (/*{ onSubmit }*/) => {
             <input
               type="text"
               name="longitude"
-              value={formData.longitude || ""}
-              onChange={handleInputChange}
+              value={formData.location.longitude || ""}
+              onChange={handleLocationChange}
             />
           </label>
 
