@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react'; //
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingOutlined,
   HddOutlined,
   UsergroupDeleteOutlined,
+  FileAddOutlined,
+  FolderAddOutlined,
 } from '@ant-design/icons';
 import HotelsDashboard from "../HotelsDashboard/hotelDashboard"
 import UserProfile from '../../userProfile/UserProfile';
@@ -62,12 +65,12 @@ const SideBar: React.FC = () => {
             },
             {
               key: '4',
-              icon: <SettingOutlined />,
+              icon: <FolderAddOutlined />,
               label: 'Post Hotels',
             },
             {
               key: '5',
-              icon: <SettingOutlined />,
+              icon: <FileAddOutlined />,
               label: 'Post Rooms',
             },
             {
