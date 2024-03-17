@@ -11,6 +11,9 @@ import UserProfile from '../../userProfile/UserProfile';
 import { Layout, Menu, Button } from 'antd';
 import "../HotelsDashboard/HotelDashboard.css"
 import UserDashboard from '../UserDashboard/userDashboard';
+import RoomDashboard from '../RoomDashboard/roomDashboard';
+import FormHotel from '../../FormRegisterProperty/formHotel/FormHotel';
+import FormRoom from '../../FormRegisterProperty/FormRoom/FormRoom';
 
 const { Header, Sider, Content } = Layout;
 
@@ -54,6 +57,21 @@ const SideBar: React.FC = () => {
             },
             {
               key: '3',
+              icon: <HddOutlined />,
+              label: 'Admin Rooms',
+            },
+            {
+              key: '4',
+              icon: <SettingOutlined />,
+              label: 'Post Hotels',
+            },
+            {
+              key: '5',
+              icon: <SettingOutlined />,
+              label: 'Post Rooms',
+            },
+            {
+              key: '6',
               icon: <SettingOutlined />,
               label: 'Profile Settings',
             },
@@ -82,6 +100,9 @@ const SideBar: React.FC = () => {
         >
           {selectedKey === "1" ? <HotelsDashboard/> : 
           selectedKey === "2" ? <UserDashboard /> :
+          selectedKey === "3" ? <RoomDashboard /> :
+          selectedKey === "4" ? <FormHotel /> :
+          selectedKey === "5" ? <FormRoom /> :
           <UserProfile />}
         </Content>
       </Layout>
