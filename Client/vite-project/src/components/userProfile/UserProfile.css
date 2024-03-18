@@ -1,8 +1,40 @@
-.user-profile-container {
-  max-width: 800px;
+.userProfile {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 30px;
+  box-shadow: 0 10px 10px #bebebe;
+  width: 500px;
   margin: 0 auto;
-  padding: 150px; 
+  position: relative;
+}
+
+.edit-icon {
+  background-color: #fff;
+  border-radius: 50px;
+  width: 50;
+  height: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.userProfile h1 {
+  color: #3807b4;
   text-align: center;
+  font-size: 1.5rem;
+}
+
+.userProfile p {
+  color: #3807b4;
+}
+
+.user-profile-container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding-top: 30px;
+  text-align: center;
+  position: relative;
 }
 
 .cloudinary-section {
@@ -14,10 +46,10 @@
 }
 
 .user-data {
-  display: flex; 
+  display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 30px; 
+  margin-bottom: 30px;
 }
 
 .user-data-info {
@@ -25,41 +57,73 @@
   text-align: left;
 }
 
+/* Edit */
+
+.edit-user {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.flexUser {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.flexUser .flexItem {
+  width: 100%;
+}
+
+.flexItem .errorForm {
+  border-bottom: 1px solid #ffcccf;
+}
+
+.flexUser .flexItem input {
+  min-width: 100%;
+}
+
 .edit-message {
-  font-size: 20px; 
-  margin-bottom: 15px; 
-  color: #151515; 
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #854f6c;
+}
+
+.edita2-message {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #854f6c;
 }
 
 .user-data p {
-  margin: 10px 0; 
-  border-bottom: 1px solid #F2E7E5; 
-  padding-bottom: 10px; 
-  text-align: left;
-}
-
-.separator {
-  border-bottom: 1px solid #F2E7E5; 
-  margin: 20px 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #38079b;
+  padding-bottom: 5px;
 }
 
 .edit-icon {
   cursor: pointer;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .update-button {
-  background-color: #6D386E; 
-  color: #FFF8E7; 
+  background-color: #3b1b7b;
+  /*Secambiaelcolor*/
+  color: #fff;
+  /*Secambiaelcolor*/
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  display: block; 
-  margin: 20px auto; 
-  transition: background-color 0.3s ease; 
+  display: block;
+  margin: 20px auto;
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
 }
 
 .update-button:hover {
-  background-color: #522B5B; 
-}  
+  background-color: #2c0e68;
+}
