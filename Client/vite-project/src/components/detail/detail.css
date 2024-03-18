@@ -3,9 +3,12 @@
   justify-content: center;
   text-align: center;
   flex-direction: row;
-  margin-top: 50px;
   padding: 20px;
   background-color: lavender;
+}
+
+.rightColumn img {
+  object-fit: cover;
 }
 
 .detail {
@@ -17,6 +20,8 @@
 
 .detail h1 {
   padding: 20px;
+  font-size: 1.7rem;
+  color: #38079b;
 }
 
 .leftColumn {
@@ -44,16 +49,6 @@
 
 .aColumn {
   line-height: 1.5;
-}
-.reviews {
-  background-color: #b8b7c0;
-  padding: 15px;
-  margin: 70px 15px;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
 }
 
 .rightColumn {
@@ -84,28 +79,24 @@
 
 .reserva-button {
   align-self: center;
-  width:fit-content;
-  margin: 45px;
-  padding: 20px;
-  border-radius: 30px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
-  font-size: 1rem;
+  width: fit-content;
+  margin: 45px 0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(45deg, #2f0a2f, #4b2f6e);
-  background-color: #131126;
+  background-color: #38079b;
   border: 2px solid #1d1a39;
   transition: 0.3s transform ease-in-out;
 }
 
 .reserva-button:hover {
   transform: scale(1.1);
-  background: linear-gradient(45deg, #461d46, #694b8d);
   color: #ffffff;
 }
+
+/* Reviews */
 
 .reviews {
   background-color: #fff;

@@ -75,7 +75,6 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     setErrors((prevErrors) => ({ ...prevErrors, ...fieldErrors }));
   };
 
-
   const handleRoleChange = (checked: boolean, role: string) => {
     const newRole = checked ? role : "";
     setFormData((prevData) => ({ ...prevData, role: newRole }));
@@ -101,7 +100,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
       setErrors({});
       setTimeout(() => {
         setIsRegistered(false);
-      }, 2000); 
+      }, 2000);
       if (!form.current) return;
 
       emailjs
@@ -120,11 +119,11 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
       console.log("Error en el registro:", error);
     }
   };
-  
+
   const handleClick = () => {
-    console.log("Se navegó desde el register")
-    navigate("/login")
-  }
+    console.log("Se navegó desde el register");
+    navigate("/login");
+  };
 
   return (
     <div className="allRegister">
@@ -148,7 +147,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.username && <p>{errors.username}</p>}
+            {errors.username && <p className="errorForm">{errors.username}</p>}
           </div>
 
           <div className="label-datos">
@@ -160,7 +159,9 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.firstName && <p>{errors.firstName}</p>}
+            {errors.firstName && (
+              <p className="errorForm">{errors.firstName}</p>
+            )}
           </div>
 
           <div className="label-datos">
@@ -172,7 +173,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.lastName && <p>{errors.lastName}</p>}
+            {errors.lastName && <p className="errorForm">{errors.lastName}</p>}
           </div>
 
           <div className="label-datos">
@@ -184,7 +185,9 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
+            {errors.dateOfBirth && (
+              <p className="errorForm">{errors.dateOfBirth}</p>
+            )}
           </div>
 
           <div className="label-datos">
@@ -196,7 +199,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.phone && <p>{errors.phone}</p>}
+            {errors.phone && <p className="errorForm">{errors.phone}</p>}
           </div>
 
           <div className="label-datos">
@@ -223,7 +226,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.password && <p>{errors.password}</p>}
+            {errors.password && <p className="errorForm">{errors.password}</p>}
           </div>
 
           <div className="label-datos">
@@ -236,7 +239,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               required
             />
             {errors.repeatPassword && (
-              <p>{formData.repeatPassword && "Passwords must match"}</p>
+              <p className="errorForm"> "Passwords must match" </p>
             )}
           </div>
 
@@ -260,14 +263,17 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
             </div>
           </div>
 
-
           <input
             className="messageInput"
             name="message"
             value={values.message}
           ></input>
 
-          <button className="register-button" type="submit" onClick={handleClick}>
+          <button
+            className="register-button"
+            type="submit"
+            onClick={handleClick}
+          >
             Register
           </button>
 
@@ -279,6 +285,5 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
     </div>
   );
 };
-
 
 export default Register;
