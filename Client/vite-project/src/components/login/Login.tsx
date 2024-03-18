@@ -34,19 +34,19 @@ export const Login: React.FC = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-  
-    console.log("Valor del estado antes del dispatch", user)
+
+    console.log("Valor del estado antes del dispatch", user);
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     try {
       await dispatch(authenticateUser(email, password));
-      if(localUser && localUser !== undefined) {
-        const lastVisitedPage = localStorage.getItem('lastVisitedPage');
-        if (lastVisitedPage){
-          window.location.href = lastVisitedPage
+      if (localUser && localUser !== undefined) {
+        const lastVisitedPage = localStorage.getItem("lastVisitedPage");
+        if (lastVisitedPage) {
+          window.location.href = lastVisitedPage;
         } else {
-          window.location.href = "/"
+          window.location.href = "/";
         }
       }
     } catch (error) {
@@ -62,32 +62,31 @@ export const Login: React.FC = () => {
     _id: user?.userData?._id,
     role: user?.userData?.role,
     permissions: user?.userData?.permissions,
-    password: user?.userData?.password
+    password: user?.userData?.password,
   };
   if (!Executed) {
     window.localStorage.setItem("user2", JSON.stringify(user));
     Executed = true;
   }
   localStorage.setItem("user", JSON.stringify(localUser));
-  
-  console.log("LocalUser es:", localUser)
 
+  console.log("LocalUser es:", localUser);
 
   const handleGoogleLogin = async (userGoogle: any): Promise<void> => {
     setIsModalOpen(true);
     try {
-      const create = dispatch(createUser(userGoogle))
-      let existingUser = create?.error
+      const create = dispatch(createUser(userGoogle));
+      let existingUser = create?.error;
 
       if (existingUser && existingUser !== undefined) {
-       await signInWithPopup(auth, provider);
-       console.log("Solucionado y logueado")
+        await signInWithPopup(auth, provider);
+        console.log("Solucionado y logueado");
       }
     } catch (error) {
       console.error("Error durante el inicio de sesión con Google:", error);
     }
   };
-  
+
   const handleSignOut = async (): Promise<void> => {
     try {
       await signOut(auth);
@@ -105,21 +104,20 @@ export const Login: React.FC = () => {
     try {
       setIsModalOpen(false);
       const result: UserCredential = await signInWithPopup(auth, provider);
-  
+
       const user = result.user;
-        const userGoogle = {
-          username: user.displayName,
-          user_email: user.email,
-          role: selectedRole,
-          image: user.photoURL,
-        };
-      
+      const userGoogle = {
+        username: user.displayName,
+        user_email: user.email,
+        role: selectedRole,
+        image: user.photoURL,
+      };
+
       localStorage.setItem("user", JSON.stringify(userGoogle));
       navigate("/");
       window.location.reload();
-
     } catch (error) {
-      console.log("Error handleOk")
+      console.log("Error handleOk");
     }
   };
 
@@ -160,9 +158,7 @@ export const Login: React.FC = () => {
               {registration ? "Log out" : "Log in"}
             </button>
           </form>
-          <div className="estilos-google">
-
-          </div>
+          <div className="estilos-google"></div>
           <div className="card-body">
             <p>
               You can also log in with your <strong>Google account</strong>

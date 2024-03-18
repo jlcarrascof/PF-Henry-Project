@@ -83,9 +83,25 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // if (!form.current) return;
+
+    // emailjs
+    //   .sendForm("service_7ocfmjp", "template_l1f8bz9", form.current, {
+    //     publicKey: "b645crolwMFi4MBSX",
+    //   })
+    //   .then(
+    //     () => {
+    //       console.log("SUCCESS!");
+    //       navigate("/login");
+    //     },
+    //     (error) => {
+    //       console.log("FAILED...", error.text);
+    //     }
+    //   );
     const formErrors = validation(formData);
     setErrors(formErrors);
 
+    // if (!Object.keys(formErrors)) {
     try {
       const email = e.target.emailReg.value;
       const password = e.target.passwordReg.value;
@@ -95,34 +111,26 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
         return;
       }
       await createUserWithEmailAndPassword(auth, email, password);
+      navigate("/login");
+
       setIsRegistered(true);
       setFormData(initialFormData);
       setErrors({});
+
+      // Establecer isRegistered después de limpiar el formulario
       setTimeout(() => {
         setIsRegistered(false);
-      }, 2000);
-      if (!form.current) return;
-
-      emailjs
-        .sendForm("service_owcj3ui", "template_0yv2m0n", form.current, {
-          publicKey: "mMSNbNNhKTe-H44Fh",
-        })
-        .then(
-          () => {
-            console.log("SUCCESS!");
-          },
-          (error) => {
-            console.log("FAILED...", error.text);
-          }
-        );
+      }, 2000); // Espera 2 segundos antes de quitar el mensaje de registro exitoso
     } catch (error) {
       console.log("Error en el registro:", error);
     }
-  };
+    // if (isRegistered) {
+    //   navigate("/login");
+    // } else {
+    //   alert("An error occured on your registration");
+    // }
 
-  const handleClick = () => {
-    console.log("Se navegó desde el register");
-    navigate("/login");
+    // Establecer isRegistered después de limpiar el formulario
   };
 
   return (
@@ -147,7 +155,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.username && <p className="errorForm">{errors.username}</p>}
+            {errors.username && <p>{errors.username}</p>}
           </div>
 
           <div className="label-datos">
@@ -159,9 +167,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.firstName && (
-              <p className="errorForm">{errors.firstName}</p>
-            )}
+            {errors.firstName && <p>{errors.firstName}</p>}
           </div>
 
           <div className="label-datos">
@@ -173,7 +179,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.lastName && <p className="errorForm">{errors.lastName}</p>}
+            {errors.lastName && <p>{errors.lastName}</p>}
           </div>
 
           <div className="label-datos">
@@ -185,9 +191,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.dateOfBirth && (
-              <p className="errorForm">{errors.dateOfBirth}</p>
-            )}
+            {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
           </div>
 
           <div className="label-datos">
@@ -199,7 +203,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.phone && <p className="errorForm">{errors.phone}</p>}
+            {errors.phone && <p>{errors.phone}</p>}
           </div>
 
           <div className="label-datos">
@@ -226,7 +230,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               onChange={handleChange}
               required
             />
-            {errors.password && <p className="errorForm">{errors.password}</p>}
+            {errors.password && <p>{errors.password}</p>}
           </div>
 
           <div className="label-datos">
@@ -239,9 +243,21 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
               required
             />
             {errors.repeatPassword && (
-              <p className="errorForm"> "Passwords must match" </p>
+              <p>{formData.repeatPassword && "Passwords must match"}</p>
             )}
           </div>
+
+          {/* <div className="label-datos">
+            <label>Role:</label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleRoleChange}
+            >
+              <option value="client">Client</option>
+              <option value="owner">Owner</option>
+            </select>
+          </div> */}
 
           <div className="label-datos">
             <label>Role:</label>
@@ -269,11 +285,7 @@ const Register: React.FC<RegisterProps> = ({ onSubmit }) => {
             value={values.message}
           ></input>
 
-          <button
-            className="register-button"
-            type="submit"
-            onClick={handleClick}
-          >
+          <button className="register-button" type="submit">
             Register
           </button>
 
